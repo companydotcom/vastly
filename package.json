@@ -10,16 +10,35 @@
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md,mdx}\"",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "dev:docs": "pnpm -- turbo run dev --filter=docs --no-cache",
+    "prepare": "husky install",
+    "switch:dev": "tsx scripts/switch-env.ts dev"
   },
   "devDependencies": {
+    "@types/node": "18.11.10",
     "eslint-config-custom": "workspace:*",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.0",
     "prettier": "latest",
     "turbo": "latest"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --ext js,jsx,ts,tsx --quiet --fix --",
+      "prettier --write"
+    ],
+    "*.{md,mdx,mjs,yml,yaml,css}": [
+      "prettier --write"
+    ]
   },
   "engines": {
     "node": ">=14.0.0"
   },
-  "dependencies": {},
-  "packageManager": "pnpm@7.25.0"
+  "packageManager": "pnpm@7.25.0",
+  "dependencies": {
+    "tsup": "^6.5.0",
+    "tsx": "^3.12.2"
+  }
 }
