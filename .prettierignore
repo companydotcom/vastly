@@ -3,3 +3,7 @@ node_modules
 coverage
 .next
 build
+**/pnpm-lock.yaml
+tsconfig.json
+tsconfig.*.json
+*.d.ts

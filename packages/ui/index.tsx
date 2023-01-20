@@ -1,4 +1,2 @@
-export * from "@chakra-ui/react"
-
-export * from "./components"
-export * from "./hooks"
+import * as React from "react";
+export * from "./Button";

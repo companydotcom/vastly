@@ -1,4 +1,4 @@
-# Company.com Custom Offering Monorepo
+# Company.com Custom Offering
 
 This is a monorepo to manage the Company.com custom offering.
 
@@ -37,7 +37,7 @@ This monorepo has some tools setup for managing our packages:
 To build all apps and packages, run the following command:
 
 ```
-cd my-turborepo
+cd dxp
 pnpm run build
 ```
 
@@ -46,9 +46,16 @@ pnpm run build
 To develop all apps and packages, run the following command:
 
 ```
-cd my-turborepo
+cd dxp
 pnpm run dev
 ```
+
+## Development Guidelines
+
+- Keep dependecy list as small as possible
+- Document features as they are built and modified
+- Colocate dependencies with their packages - don't install packages in monorepo
+  root unless necessary
 
 ## Useful Links
 
