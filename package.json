@@ -7,9 +7,9 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "turbo run build",
+    "build:all": "turbo run build",
     "dev": "turbo run dev --parallel",
-    "lint": "turbo run lint",
+    "lint:all": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md,mdx}\"",
     "clean": "turbo run clean && rm -rf node_modules",
     "dev:docs": "pnpm -- turbo run dev --filter=docs --no-cache",

@@ -11,8 +11,7 @@ const config: DocsThemeConfig = {
   chat: {
     link: "https://discord.com",
   },
-  docsRepositoryBase:
-    "https://github.com/companydotcom/dxp/tree/main/apps/docs",
+  docsRepositoryBase: "https://github.com/companydotcom/dxp/tree/main/apps/docs",
   footer: {
     text: "Company.com Docs",
   },

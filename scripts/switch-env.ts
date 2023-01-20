@@ -14,34 +14,15 @@ try {
     throw new Error("Too many arguments!")
   }
 
-  if (
-    args[0] !== "dev" &&
-    args[0] !== "plat" &&
-    args[0] !== "stage" &&
-    args[0] !== "prod"
-  ) {
-    throw new Error(
-      "Must provide an argument thats either one of dev, plat, prod, or stage",
-    )
+  if (args[0] !== "dev" && args[0] !== "plat" && args[0] !== "stage" && args[0] !== "prod") {
+    throw new Error("Must provide an argument thats either one of dev, plat, prod, or stage")
   }
 
   const pathToCopy = path.join(__dirname, "../", `.env.${args[0]}`)
   const pathToRoot = path.join(__dirname, "../", ".env.local")
-  const pathToDashboard = path.join(
-    __dirname,
-    "../",
-    "apps",
-    "dashboard",
-    ".env.local",
-  )
+  const pathToDashboard = path.join(__dirname, "../", "apps", "dashboard", ".env.local")
   const pathToAuth = path.join(__dirname, "../", "apps", "auth", ".env.local")
-  const pathToTypes = path.join(
-    __dirname,
-    "../",
-    "packages",
-    "types",
-    ".env.local",
-  )
+  const pathToTypes = path.join(__dirname, "../", "packages", "types", ".env.local")
   // const pathToHelpers = path.join(__dirname, '../', 'packages', 'helpers', '.env');
 
   const paths = [
