@@ -50,7 +50,9 @@
       "parserOpts": {
         "issuePrefixes": [
           "ATX-",
-          "DVOPS-"
+          "DVOPS-",
+          "BLR-",
+          "DEF-"
         ]
       }
     }
