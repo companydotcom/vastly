@@ -32,6 +32,7 @@ This monorepo has some tools setup for managing our packages:
 - [tsup](https://github.com/egoist/tsup) for bundling our libraries
 - [husky](https://github.com/typicode/husky) and
   [lint-staged](https://github.com/okonet/lint-staged) for ensuring code quality is kept
+- [commit-lint](https://commitlint.js.org/#/) to ensure every commit is tied to a ticket in Jira
 
 ### Build
 
