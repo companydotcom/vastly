@@ -15,11 +15,13 @@
     "dev:docs": "pnpm -- turbo run dev --filter=docs --no-cache",
     "prepare": "husky install",
     "switch:dev": "tsx scripts/switch-env.ts dev",
-    "publish-packages": "turbo run build lint test && changeset version && changeset publish"
+    "publish-packages": "turbo run build lint test && changeset version && changeset publish",
+    "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "@types/node": "18.11.10",
     "@changesets/cli": "^2.26.0",
+    "@commitlint/cli": "^17.4.2",
+    "@types/node": "18.11.10",
     "eslint-config-custom": "workspace:*",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
@@ -36,6 +38,22 @@
     "*.{md,mdx,mjs,yml,yaml,css}": [
       "prettier --write"
     ]
+  },
+  "commitlint": {
+    "rules": {
+      "references-empty": [
+        2,
+        "never"
+      ]
+    },
+    "parserPreset": {
+      "parserOpts": {
+        "issuePrefixes": [
+          "ATX-",
+          "DVOPS-"
+        ]
+      }
+    }
   },
   "engines": {
     "node": ">=14.0.0"

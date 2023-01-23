@@ -30,6 +30,8 @@ This monorepo has some tools setup for managing our packages:
 - [Changesets](https://github.com/changesets/changesets) for publishing and versioning packages
 - [tsx](https://github.com/esbuild-kit/tsx) for running ts scripts
 - [tsup](https://github.com/egoist/tsup) for bundling our libraries
+- [husky](https://github.com/typicode/husky) and
+  [lint-staged](https://github.com/okonet/lint-staged) for ensuring code quality is kept
 
 ### Build
 
