@@ -1,5 +1,7 @@
 # Company.com Custom Offering
 
+![logo](https://user-images.githubusercontent.com/7347426/214703303-20da9ba8-be98-4daf-b3ec-146ae146131f.jpg)
+
 This is a monorepo to manage the Company.com custom offering.
 
 ## What's inside?
