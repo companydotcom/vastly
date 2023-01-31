@@ -52,7 +52,7 @@ importers:
   apps/web:
     specifiers:
       '@babel/core': ^7.0.0
-      '@companydotcom/ui': workspace:*
+      '@dxp/ui': workspace:*
       '@types/node': ^17.0.12
       '@types/react': ^18.0.22
       '@types/react-dom': ^18.0.7
@@ -64,7 +64,7 @@ importers:
       tsconfig: workspace:*
       typescript: ^4.5.3
     dependencies:
-      '@companydotcom/ui': link:../../packages/ui
+      '@dxp/ui': link:../../packages/ui
       next: 13.1.2_pjwopsidmaokadturxaafygjp4
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0

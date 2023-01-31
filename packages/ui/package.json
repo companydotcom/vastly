@@ -1,5 +1,5 @@
 {
-  "name": "@companydotcom/ui",
+  "name": "@dxp/ui",
   "version": "0.0.0",
   "main": "./index.tsx",
   "types": "./index.tsx",
