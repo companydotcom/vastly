@@ -24,6 +24,7 @@
     "@storybook/react-webpack5": "^7.0.0-beta.39",
     "@storybook/testing-library": "^0.0.14-next.1",
     "@types/react": "^18.0.17",
+    "@types/react-datepicker": "^4.8.0",
     "@types/react-dom": "^18.0.6",
     "eslint": "^7.32.0",
     "eslint-config-custom": "workspace:*",
@@ -39,6 +40,7 @@
     "@chakra-ui/react": "^2.4.9",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "framer-motion": "^8.5.0"
+    "framer-motion": "^8.5.0",
+    "react-datepicker": "^4.10.0"
   }
 }
