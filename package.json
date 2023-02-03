@@ -48,6 +48,7 @@
     },
     "parserPreset": {
       "parserOpts": {
+        "referenceActions": null,
         "issuePrefixes": [
           "ATX-",
           "DVOPS-",
