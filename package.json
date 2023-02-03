@@ -4,7 +4,8 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "generators/*"
   ],
   "scripts": {
     "build:all": "turbo run build",
@@ -35,7 +36,7 @@
       "eslint --ext js,jsx,ts,tsx --quiet --fix --",
       "prettier --write"
     ],
-    "*.{md,mdx,mjs,yml,yaml,css}": [
+    "*.{md,mdx,mjs,yaml,css}": [
       "prettier --write"
     ]
   },
