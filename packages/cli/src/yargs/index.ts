@@ -14,7 +14,7 @@ const options = yargs(hideBin(process.argv)).options({
 }).argv
 
 // PROMPTS
-// navigate to cli, run "npx ts-node --esm src/yargs/index.ts"
+// navigate to cli, run "npx ts-node --esm src/yargs/index.ts --help"
 if (options.env === "prompts") {
   if (options.login) {
     ;(async () => {

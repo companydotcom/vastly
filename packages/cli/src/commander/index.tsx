@@ -22,7 +22,7 @@ const Example = () => (
 
 render(<Example />)
 
-//npx ts-node --esm src/commander/index.ts
+//npx ts-node --esm src/commander/index.tsx --help
 const program = new Command()
 
 program
