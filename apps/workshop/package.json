@@ -12,6 +12,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@dxp/forms": "workspace:*",
     "@dxp/ui": "workspace:*",
     "next": "^13.1.1",
     "react": "18.2.0",

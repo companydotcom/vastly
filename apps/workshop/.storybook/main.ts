@@ -14,15 +14,5 @@ const config: StorybookConfig = {
   docs: {
     autodocs: "tag",
   },
-  refs: {
-    ui: {
-      title: "Ui",
-      url: "http://localhost:6007",
-    },
-    forms: {
-      title: "Forms",
-      url: "http://localhost:6008",
-    },
-  },
 }
 export default config

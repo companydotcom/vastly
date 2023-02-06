@@ -1,5 +1,5 @@
 {
   "extends": "tsconfig/nextjs.json",
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "../../packages/forms/src/stories/date-picker.stories.tsx", "../../packages/ui/src/components/pagination/pagination.stories.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
