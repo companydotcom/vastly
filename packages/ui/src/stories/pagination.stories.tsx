@@ -1,10 +1,13 @@
-import * as React from "react"
 import { chakra } from "@chakra-ui/react"
-import { Pagination, PaginationContainer, PaginationItem } from "../pagination"
-import { usePagination } from "../use-pagination"
+import {
+  Pagination,
+  PaginationContainer,
+  PaginationItem,
+} from "../components/pagination/pagination"
+import { usePagination } from "../components/pagination/use-pagination"
 
 export default {
-  title: "Potion/Disclosure/Pagination",
+  title: "Components/Disclosure/Pagination",
   decorators: [(story: Function) => <chakra.div>{story()}</chakra.div>],
 }
 

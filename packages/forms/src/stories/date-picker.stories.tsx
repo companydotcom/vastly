@@ -15,10 +15,10 @@ import {
   IconProps,
   VStack,
 } from "@chakra-ui/react"
-import { DatePicker } from "../date-picker"
+import { DatePicker } from "../components/date-picker"
 
 export default {
-  title: "Potion/Forms/Date Picker",
+  title: "Forms/Date Picker",
   component: DatePicker,
   decorators: [
     (Story) => (
