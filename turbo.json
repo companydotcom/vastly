@@ -1,9 +1,10 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": ["NODE_ENV"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**"]
+      "outputs": ["dist/**", ".next/**", "storybook-static/**"]
     },
     "lint": {
       "outputs": []
@@ -13,6 +14,9 @@
     },
     "clean": {
       "cache": false
+    },
+    "workshop#storybook": {
+      "dependsOn": ["@dxp/ui#dev", "@dxp/form#dev"]
     }
   }
 }

@@ -7,17 +7,19 @@
     "packages/*"
   ],
   "scripts": {
-    "build:all": "turbo run build",
-    "dev": "turbo run dev --parallel",
-    "lint:all": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md,mdx}\"",
+    "build": "turbo run build",
+    "build:packages": "turbo run build --filter=@dxp/*",
     "clean": "turbo run clean && rm -rf node_modules",
-    "dev:docs": "pnpm -- turbo run dev --filter=docs --no-cache",
+    "dev": "turbo run dev --no-cache --continue",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md,mdx}\"",
+    "dev:docs": "turbo run dev --filter=docs --no-cache",
     "prepare": "husky install",
     "switch:dev": "tsx scripts/switch-env.ts dev",
     "publish-packages": "turbo run build lint test && changeset version && changeset publish",
     "preinstall": "npx only-allow pnpm",
-    "test:vitest": "cd packages/tests && pnpm vitest"
+    "test:vitest": "cd packages/tests && pnpm vitest",
+    "dev:components": "turbo run dev --filter=@dxp/ui --filter=@dxp/forms --no-cache --continue"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
@@ -49,6 +51,7 @@
     },
     "parserPreset": {
       "parserOpts": {
+        "referenceActions": null,
         "issuePrefixes": [
           "ATX-",
           "DVOPS-",
