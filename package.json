@@ -16,8 +16,7 @@
     "prepare": "husky install",
     "switch:dev": "tsx scripts/switch-env.ts dev",
     "publish-packages": "turbo run build lint test && changeset version && changeset publish",
-    "preinstall": "npx only-allow pnpm",
-    "test:vitest": "cd packages/tests && pnpm vitest"
+    "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
