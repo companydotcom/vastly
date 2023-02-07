@@ -7,6 +7,7 @@
   "scripts": {
     "jest": "jest",
     "vitest": "vitest run",
+    "vitest:watch": "vitest",
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
