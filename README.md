@@ -15,9 +15,11 @@ This monorepo uses [pnpm](https://pnpm.io) as a package manager and
 ### Apps and Packages
 
 - `docs`: a [Nextra](https://nextra.site/) app
-- `web`: a [Next.js](https://nextjs.org/) app, used for testing purposes
+- `workshop`: a [Next.js](https://nextjs.org/) app, used for testing purposes
 - `client`: a collection of React features to be consumed by creators
-- `ui`: a React component library, (formerly Potion) shared by both `web` and `docs` applications
+- `ui`: a React component library, (formerly Potion) shared by both `workshop` and `docs`
+  applications
+- `forms`: a React component library with custom form components
 - `cli`: our custom CLI
 - `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and
   `eslint-config-prettier`)
