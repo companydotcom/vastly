@@ -6,9 +6,8 @@
   "license": "MIT",
   "scripts": {
     "jest": "jest",
-    "vitest": "vitest run",
-    "vitest:watch": "vitest",
-    "coverage": "vitest run --coverage"
+    "vitest": "vitest run --coverage",
+    "vitest:watch": "vitest --coverage"
   },
   "devDependencies": {
     "@types/jest": "^29.4.0",
