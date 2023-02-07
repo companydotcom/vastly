@@ -1,12 +1,13 @@
 # CompanyDotCom Generators
 
 ## File Structure
-
-- generator-{generatorName} 
--   |- app 
--     |- templates 
--       |-{Files to copy} 
--   |- index.js (This is where yo commands are)
+```
+generator-{generatorName} 
+   |- app 
+     |- templates 
+       |-{Files to copy} 
+   |- index.js (This is where yo commands are)
+```
 
 ## How to run a generator
 
