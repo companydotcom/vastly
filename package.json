@@ -16,7 +16,9 @@
     "prepare": "husky install",
     "switch:dev": "tsx scripts/switch-env.ts dev",
     "publish-packages": "turbo run build lint test && changeset version && changeset publish",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "test:vitest": "cd packages/tests && pnpm vitest",
+    "test:jest": "cd packages/tests && pnpm jest"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
@@ -33,8 +35,7 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "eslint --ext js,jsx,ts,tsx --quiet --fix --",
-      "prettier --write",
-      "cd packages/tests && pnpm vitest"
+      "prettier --write"
     ],
     "*.{md,mdx,mjs,yml,yaml,css}": [
       "prettier --write"
