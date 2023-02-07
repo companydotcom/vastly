@@ -11,6 +11,7 @@ import {
   ThemingProps,
   useMultiStyleConfig,
   HTMLChakraProps,
+  ComponentWithAs,
 } from "@chakra-ui/react"
 
 import { usePagination, PageType } from "./use-pagination"
@@ -47,7 +48,7 @@ export const Pagination = forwardRef<PaginationProps, "nav">((props, ref) => {
       </PaginationStylesProvider>
     </PaginationProvider>
   )
-})
+}) as ComponentWithAs<"nav", PaginationProps>
 
 if (__DEV__) {
   Pagination.displayName = "Pagination"

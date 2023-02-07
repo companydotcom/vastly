@@ -1,26 +1,34 @@
-import { extendTheme, ChakraProvider, ChakraProviderProps } from "@chakra-ui/react"
-// import { Maybe, ThemeExtension } from "@companydotcom/types";
-// import { baseTheme, potionTheme } from "../../theme";
-// import { mapThemeExtensions } from "../../utils";
+import * as React from "react"
+import { ChakraProvider, ChakraProviderProps } from "@chakra-ui/react"
+import { baseTheme } from "../../theme"
 
-export interface UiProviderProps extends ChakraProviderProps {
-  overrides?: Record<string, any>
-  // extensions?: Maybe<Maybe<ThemeExtension>[]>;
+export interface UiContextValue {
+  linkComponent?: React.ElementType<any>
+  onError?: (error: Error, errorInfo: React.ErrorInfo) => void
 }
 
-export function UiProvider({
-  children,
-  overrides,
-  // extensions,
-  ...rest
-}: UiProviderProps) {
-  // const themeOverrides = mergeThemeOverride(baseTheme, potionTheme, overrides) as ChakraTheme;
+export const UiContext = React.createContext<UiContextValue>({})
 
-  // const themeExtensions = mapThemeExtensions(extensions);
+interface UiProviderProps extends ChakraProviderProps {
+  theme?: any
+  linkComponent?: React.ElementType<any>
+  children: React.ReactNode
+  onError?: (error: Error, errorInfo: React.ErrorInfo) => void
+}
+
+export function UiProvider({ theme, linkComponent, onError, children, ...rest }: UiProviderProps) {
+  const context = {
+    linkComponent,
+    onError,
+  }
 
   return (
-    <ChakraProvider theme={overrides ? extendTheme(overrides) : undefined} {...rest}>
-      {children}
-    </ChakraProvider>
+    <UiContext.Provider value={context}>
+      <ChakraProvider {...rest} theme={theme || baseTheme}>
+        {children}
+      </ChakraProvider>
+    </UiContext.Provider>
   )
 }
+
+export const useUi = (): UiContextValue => React.useContext(UiContext)
