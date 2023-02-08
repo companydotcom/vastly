@@ -10,8 +10,8 @@
     "dist/**"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
-    "dev": "tsup src/index.ts --format esm,cjs --watch --dts --external react",
+    "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
+    "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\""
   },
@@ -30,7 +30,6 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.4.9",
-    "@chakra-ui/utils": "^2.0.14",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "framer-motion": "^8.5.0",

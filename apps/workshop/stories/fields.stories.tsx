@@ -16,4 +16,6 @@ const meta: Meta<typeof Field> = {
 export default meta
 type Story = StoryObj<typeof Field>
 
-export const Basic: Story = {}
+export const Basic: Story = {
+  args: { type: "text", name: "test", label: "Text input" },
+}

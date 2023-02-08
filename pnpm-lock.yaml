@@ -7,6 +7,8 @@ importers:
       '@changesets/cli': ^2.26.0
       '@commitlint/cli': ^17.4.2
       '@types/node': 18.11.10
+      eslint: ^7.32.0
+      eslint-config-custom: workspace:*
       husky: ^8.0.3
       lint-staged: ^13.1.0
       prettier: latest
@@ -17,6 +19,8 @@ importers:
       '@changesets/cli': 2.26.0
       '@commitlint/cli': 17.4.2
       '@types/node': 18.11.10
+      eslint: 7.32.0
+      eslint-config-custom: link:packages/eslint-config-custom
       husky: 8.0.3
       lint-staged: 13.1.0
       prettier: 2.8.4
@@ -133,7 +137,6 @@ importers:
   packages/forms:
     specifiers:
       '@chakra-ui/react': ^2.4.9
-      '@chakra-ui/utils': ^2.0.14
       '@emotion/react': ^11.10.5
       '@emotion/styled': ^11.10.5
       '@types/react': ^18.0.17
@@ -151,7 +154,6 @@ importers:
       typescript: ^4.5.2
     dependencies:
       '@chakra-ui/react': 2.4.9_u5ze33slj76olb4tspmq33x5ia
-      '@chakra-ui/utils': 2.0.14
       '@emotion/react': 11.10.5_jp5qgyg6plq757v5hojp7ls2oe
       '@emotion/styled': 11.10.5_jp5djshq6aqfasno3mth3hguci
       framer-motion: 8.5.0_biqbaboplfbrettd7655fr4n2y
@@ -2588,15 +2590,6 @@ packages:
       '@chakra-ui/shared-utils': 2.0.5
       framer-motion: 8.5.0_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
-    dev: false
-
-  /@chakra-ui/utils/2.0.14:
-    resolution: {integrity: sha512-vYxtAUPY09Ex2Ae2ZvQKA1d2+lMKq/wUaRiqpwmeLfutEQuPQZc3qzQcAIMRQx3wLgXr9BUFDtHgBoOz0XKtZw==}
-    dependencies:
-      '@types/lodash.mergewith': 4.6.6
-      css-box-model: 1.2.1
-      framesync: 6.1.2
-      lodash.mergewith: 4.6.2
     dev: false
 
   /@chakra-ui/utils/2.0.15:
@@ -5381,12 +5374,6 @@ packages:
 
   /@types/katex/0.11.1:
     resolution: {integrity: sha512-DUlIj2nk0YnJdlWgsFuVKcX27MLW0KbKmGVoUHmFr+74FYYNUDAaj9ZqTADvsbE8rfxuVmSFc7KczYn5Y09ozg==}
-    dev: false
-
-  /@types/lodash.mergewith/4.6.6:
-    resolution: {integrity: sha512-RY/8IaVENjG19rxTZu9Nukqh0W2UrYgmBj5sdns4hWRZaV8PqR7wIKHFKzvOTjo4zVRV7sVI+yFhAJql12Kfqg==}
-    dependencies:
-      '@types/lodash': 4.14.191
     dev: false
 
   /@types/lodash.mergewith/4.6.7:

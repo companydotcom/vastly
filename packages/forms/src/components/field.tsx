@@ -33,10 +33,26 @@ import {
   UsePinInputProps,
   SystemProps,
 } from "@chakra-ui/react"
-import { __DEV__, FocusableElement, callAllHandlers } from "@chakra-ui/utils"
+// import { callAllHandlers } from "@chakra-ui/utils"
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
 import type { ComponentWithAs } from "@chakra-ui/react"
+import { __DEV__ } from "../utils"
+
+export type FunctionArguments<T extends Function> = T extends (...args: infer R) => any ? R : never
+
+export function callAllHandlers<T extends (event: any) => void>(...fns: (T | undefined)[]) {
+  return function func(event: FunctionArguments<T>[0]) {
+    fns.some((fn) => {
+      fn?.(event)
+      return event?.defaultPrevented
+    })
+  }
+}
+
+export interface FocusableElement {
+  focus(options?: FocusOptions): void
+}
 
 export interface Option {
   value: string
