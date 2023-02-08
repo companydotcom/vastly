@@ -10,7 +10,7 @@ export type PageType =
   | "start-ellipsis"
   | string
 
-export type Items =
+export type PaginationItems =
   | {
       onClick: (event: any) => void
       pageType: PageType
@@ -38,7 +38,7 @@ export interface UsePaginationProps {
   onChange?: (event: any, value: number) => void
   page?: number
   siblingCount?: number
-  items?: Items[]
+  items?: PaginationItems[]
 }
 
 export function usePagination(props: UsePaginationProps) {
