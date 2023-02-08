@@ -1,7 +1,8 @@
 import { createStylesContext } from "@chakra-ui/react"
 import { createContext } from "../../utils"
 import type { PaginationItems } from "./use-pagination"
-// Have to import to prevent TS error
+// TODO: Remove the workaround whenever MS fixes the issue
+// https://github.com/microsoft/TypeScript/issues/48212
 import type { SystemStyleObject } from "@chakra-ui/react"
 
 /**
