@@ -1,4 +1,5 @@
 import { createStylesContext } from "@chakra-ui/react"
+import type { SystemStyleObject } from "@chakra-ui/react"
 import { createContext } from "../../utils"
 import { Items } from "./use-pagination"
 
