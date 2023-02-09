@@ -33,11 +33,16 @@ import {
   UsePinInputProps,
   SystemProps,
 } from "@chakra-ui/react"
+import { __DEV__ } from "../utils"
+import { RadioInput, type RadioInputProps } from "./radio-input"
+import { NumberInput, type NumberInputProps } from "./number-input"
+import { PasswordInput, type PasswordInputProps } from "./password-input"
+import { NativeSelect, type NativeSelectProps } from "./native-select"
+import { Select, type SelectProps } from "./select-input"
 // import { callAllHandlers } from "@chakra-ui/utils"
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
 import type { ComponentWithAs } from "@chakra-ui/react"
-import { __DEV__ } from "../utils"
 
 export type FunctionArguments<T extends Function> = T extends (...args: infer R) => any ? R : never
 
@@ -84,7 +89,7 @@ export interface FieldProps<
   /**
    * Field help text
    */
-  help?: string
+  helperText?: string
   /**
    * React hook form rules
    */
@@ -93,7 +98,7 @@ export interface FieldProps<
     "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
   >
   /**
-   * Build-in types:
+   * Built-in types:
    * - text
    * - number
    * - password
@@ -107,7 +112,7 @@ export interface FieldProps<
    *
    * Will default to a text field if there is no matching type.
    */
-  type?: string
+  type?: keyof FieldTypes
   /**
    * The input placeholder
    */
@@ -131,7 +136,7 @@ const isTouched = (name: string, formState: FormState<{ [x: string]: any }>) => 
 }
 
 export const BaseField: React.FC<FieldProps> = (props) => {
-  const { name, label, help, hideLabel, children, ...controlProps } = props
+  const { name, label, helperText, hideLabel, children, ...controlProps } = props
 
   const { formState } = useFormContext()
 
@@ -142,7 +147,7 @@ export const BaseField: React.FC<FieldProps> = (props) => {
       {label && !hideLabel ? <FormLabel>{label}</FormLabel> : null}
       <Box>
         {children}
-        {help && !error?.message ? <FormHelperText>{help}</FormHelperText> : null}
+        {helperText && !error?.message ? <FormHelperText>{helperText}</FormHelperText> : null}
         {error?.message && <FormErrorMessage>{error?.message}</FormErrorMessage>}
       </Box>
     </FormControl>
@@ -212,7 +217,7 @@ const createField = (
       id,
       name,
       label,
-      help,
+      helperText,
       isDisabled,
       isInvalid,
       isReadOnly,
@@ -231,7 +236,7 @@ const createField = (
         id={id}
         name={name}
         label={label}
-        help={help}
+        helperText={helperText}
         hideLabel={hideLabel}
         isDisabled={isDisabled}
         isInvalid={isInvalid}
@@ -385,6 +390,10 @@ export const CheckboxField = registerFieldType<CheckboxProps>(
   },
 )
 
+export const RadioField = registerFieldType<RadioInputProps>("radio", RadioInput, {
+  isControlled: true,
+})
+
 export interface PinFieldProps extends Omit<UsePinInputProps, "type"> {
   pinLength?: number
   pinType?: "alphanumeric" | "number"
@@ -414,20 +423,43 @@ export const PinField = registerFieldType<PinFieldProps>(
   },
 )
 
+export interface NumberInputFieldProps extends NumberInputProps {
+  type: "number"
+}
+
+export const NumberInputField = registerFieldType<NumberInputFieldProps>("number", NumberInput, {
+  isControlled: true,
+})
+
+export const PasswordInputField = registerFieldType<PasswordInputProps>(
+  "password",
+  forwardRef((props, ref) => <PasswordInput ref={ref} {...props} />),
+)
+
+export const NativeSelectField = registerFieldType<NativeSelectProps>(
+  "native-select",
+  NativeSelect,
+  { isControlled: true },
+)
+
+export const SelectField = registerFieldType<SelectProps>("select", Select, {
+  isControlled: true,
+})
+
 const fieldTypes = {
   text: InputField,
   email: InputField,
   url: InputField,
   phone: InputField,
-  //   number: NumberInputField,
-  //   password: PasswordInputField,
+  number: NumberInputField,
+  password: PasswordInputField,
   textarea: TextareaField,
   switch: SwitchField,
   checkbox: CheckboxField,
-  //   radio: RadioField,
+  radio: RadioField,
   pin: PinField,
-  //   select: SelectField,
-  //   "native-select": NativeSelectField,
+  select: SelectField,
+  "native-select": NativeSelectField,
 }
 
 type FieldTypes = typeof fieldTypes
