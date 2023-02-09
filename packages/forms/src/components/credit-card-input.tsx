@@ -41,7 +41,7 @@ export const CreditCardInput = forwardRef<CreditCardInputProps, "div">((props, r
 
   return (
     <Input
-      ref={ref}
+      getInputRef={ref}
       as={PatternFormat}
       value={value}
       format={format || getFormatForCard(value, patternChar)}

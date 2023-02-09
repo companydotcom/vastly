@@ -152,6 +152,7 @@ importers:
       react-dom: '>=18.0.0'
       react-hook-form: ^7.43.0
       react-number-format: ^5.1.3
+      react-phone-number-input: ^3.2.18
       react-select: ^5.7.0
       tsconfig: workspace:*
       typescript: ^4.5.2
@@ -167,6 +168,7 @@ importers:
       react-dom: 18.2.0_react@18.2.0
       react-hook-form: 7.43.0_react@18.2.0
       react-number-format: 5.1.3_biqbaboplfbrettd7655fr4n2y
+      react-phone-number-input: 3.2.18_biqbaboplfbrettd7655fr4n2y
       react-select: 5.7.0_vwskmg7mzf6u2jufkkmcrhvxcm
     devDependencies:
       '@types/react': 18.0.26
@@ -6987,6 +6989,10 @@ packages:
       path-type: 4.0.0
     dev: true
 
+  /country-flag-icons/1.5.5:
+    resolution: {integrity: sha512-k4WXZ/WvWOSiYXRG1n8EYHNr1m/IX0GffKqAidaet5DrJsDOmJ8Q/8JvvONhZNnKYg24s4lvsm+9og1HcuIU/g==}
+    dev: false
+
   /create-require/1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
     dev: true
@@ -9268,6 +9274,12 @@ packages:
     resolution: {integrity: sha512-7NXolsK4CAS5+xvdj5OMMbI962hU/wvwoxk+LWR9Ek9bVtyuuYScDN6eS0rUm6TxApFpw7CX1o4uJzcd4AyD3Q==}
     dev: false
 
+  /input-format/0.3.8:
+    resolution: {integrity: sha512-tLR0XRig1xIcG1PtIpMd/uoltvkAI62CN9OIbtj4/tEJAkqTCQLNHUZ9N4M46w0dopny7Rlt/lRH5Xzp7e6F+g==}
+    dependencies:
+      prop-types: 15.8.1
+    dev: false
+
   /internal-slot/1.0.4:
     resolution: {integrity: sha512-tA8URYccNzMo94s5MQZgH8NB/XTa6HsOo0MLfXTKKEnHVVdegzaQoFZ7Jp44bdvLvY2waT5dc+j5ICEswhi7UQ==}
     engines: {node: '>= 0.4'}
@@ -9923,6 +9935,10 @@ packages:
     dependencies:
       prelude-ls: 1.2.1
       type-check: 0.4.0
+
+  /libphonenumber-js/1.10.19:
+    resolution: {integrity: sha512-MDZ1zLIkfSDZV5xBta3nuvbEOlsnKCPe4z5r3hyup/AXveevkl9A1eSWmLhd2FX4k7pJDe4MrLeQsux0HI/VWg==}
+    dev: false
 
   /lilconfig/2.0.6:
     resolution: {integrity: sha512-9JROoBW7pobfsx+Sq2JsASvCo6Pfo6WWoUW79HuB1BCoBXD4PLWJPqDF6fNj67pqBYTbAHkE57M1kS/+L1neOg==}
@@ -12085,6 +12101,21 @@ packages:
       react: ^15.5.x || ^16.x || ^17.x || ^18.x
       react-dom: ^15.5.x || ^16.x || ^17.x || ^18.x
     dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /react-phone-number-input/3.2.18_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-8vf2aFuZLTcix87fSswPmzj8t9ha2E8DEkkfydZjDOzAu5R6rAhNuWKwhpnFdDqp1Ak1JMnu1UsBQGQN0aRlzw==}
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+    dependencies:
+      classnames: 2.3.2
+      country-flag-icons: 1.5.5
+      input-format: 0.3.8
+      libphonenumber-js: 1.10.19
+      prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: false

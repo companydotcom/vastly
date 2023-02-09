@@ -38,10 +38,6 @@ export const UrlField: Story = {
   args: { ...TextField.args, type: "url", name: "url", label: "Url" },
 }
 
-export const PhoneField: Story = {
-  args: { ...TextField.args, type: "phone", name: "Phone", label: "Phone" },
-}
-
 export const TextareaField: Story = {
   args: { ...TextField.args, type: "textarea", name: "textArea", label: "Textarea" },
 }
@@ -118,6 +114,9 @@ export const CreditCardInputField: Story = {
     type: "credit-card",
     name: "creditcard",
     label: "Credit Card",
-    // format: "#### #### #### ####",
   },
+}
+
+export const ReactPhoneInputField: Story = {
+  args: { ...TextField.args, type: "phone", name: "phone", label: "Phone" },
 }

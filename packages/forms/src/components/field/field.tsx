@@ -41,7 +41,8 @@ import { NumberInput, type NumberInputProps } from "../number-input"
 import { PasswordInput, type PasswordInputProps } from "../password-input"
 import { NativeSelect, type NativeSelectProps } from "../native-select"
 import { Select, type SelectProps } from "../select-input"
-import { CreditCardInput, type CreditCardInputProps } from "../credit-card-field"
+import { CreditCardInput, type CreditCardInputProps } from "../credit-card-input"
+import { ReactPhoneInput, type ReactPhoneInputProps } from "../react-phone-input"
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
 import type { ComponentWithAs } from "@chakra-ui/react"
@@ -215,6 +216,7 @@ const createField = (
       isReadOnly,
       isRequired,
       rules,
+      hideLabel: hideLabelProp,
       ...inputProps
     } = props
 
@@ -446,11 +448,18 @@ export const CreditCardField = registerFieldType<CreditCardInputProps>(
   },
 )
 
+export const ReactPhoneInputField = registerFieldType<ReactPhoneInputProps>(
+  "phone",
+  ReactPhoneInput,
+  {
+    isControlled: true,
+  },
+)
+
 const fieldTypes = {
   text: InputField,
   email: InputField,
   url: InputField,
-  phone: InputField,
   number: NumberInputField,
   password: PasswordInputField,
   textarea: TextareaField,
