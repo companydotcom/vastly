@@ -1,1 +1,1 @@
-export * from "./base"
+export { baseTheme } from "./base"

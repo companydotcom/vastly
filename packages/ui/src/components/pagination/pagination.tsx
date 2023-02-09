@@ -12,6 +12,7 @@ import {
   useMultiStyleConfig,
   HTMLChakraProps,
   ComponentWithAs,
+  BoxProps,
 } from "@chakra-ui/react"
 
 import { usePagination, PageType } from "./use-pagination"
@@ -22,11 +23,11 @@ import {
   usePaginationStyles,
 } from "./pagination-context"
 
-export interface PaginationProps extends ThemingProps<"Pagination"> {}
+export interface PaginationProps extends ThemingProps<"Pagination">, BoxProps {}
 
 export const Pagination = forwardRef<PaginationProps, "nav">((props, ref) => {
-  const { className, children, variant, size, ...rootProps } = props
-  const styles = useMultiStyleConfig("Pagination", { variant, size })
+  const { className, children, variant, size, colorScheme, ...rootProps } = props
+  const styles = useMultiStyleConfig("Pagination", { variant, size, colorScheme })
   const { items } = usePagination(props)
 
   const context = useMemo(() => {

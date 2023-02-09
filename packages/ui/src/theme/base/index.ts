@@ -11,4 +11,4 @@ const overrides = {
   semanticTokens,
 }
 
-export const baseTheme = extendTheme({ overrides }) as ChakraTheme
+export const baseTheme = extendTheme(overrides) as ChakraTheme
