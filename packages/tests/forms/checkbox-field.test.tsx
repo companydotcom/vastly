@@ -15,6 +15,7 @@ describe("<CheckboxField />", () => {
     }
     render(<TestInput />)
     const checkboxField = screen.getByRole("checkbox")
+    //@ts-ignore
     expect(checkboxField).toBeInTheDocument()
   })
 
@@ -29,6 +30,7 @@ describe("<CheckboxField />", () => {
     }
     render(<TestInput />)
     const checkboxField = screen.getByText("helper text")
+    //@ts-ignore
     expect(checkboxField).toBeInTheDocument()
   })
 
@@ -44,6 +46,7 @@ describe("<CheckboxField />", () => {
     }
     render(<TestInput />)
     const checkboxField = screen.getByRole("checkbox")
+    //@ts-ignore
     expect(checkboxField).toBeInTheDocument()
   })
 })

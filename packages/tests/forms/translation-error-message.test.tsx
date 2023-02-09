@@ -27,6 +27,7 @@ describe("<TranslationErrorMessage />", () => {
       </TranslationErrorMessage>,
     )
     const checkboxField = screen.getByText("error")
+    //@ts-ignore
     expect(checkboxField).toBeInTheDocument()
   })
 })
