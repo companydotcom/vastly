@@ -5,7 +5,8 @@
     "lib": ["ES2016"],
 		"outDir": "dist",
 		"jsx": "react",
+		"types": ["vitest/globals"]
 	},
 	"exclude": ["node_modules"],
-  "include": ["**/*.ts"],
+  "include": ["**/*.{ts, tsx}"],
 }
