@@ -35,7 +35,7 @@ export const EmailField: Story = {
 }
 
 export const UrlField: Story = {
-  args: { ...TextField.args, type: "url", name: "url", label: "url" },
+  args: { ...TextField.args, type: "url", name: "url", label: "Url" },
 }
 
 export const PhoneField: Story = {
@@ -109,5 +109,15 @@ export const SelectInputField: Story = {
     name: "select",
     label: "Select",
     options: selectOptions,
+  },
+}
+
+export const CreditCardInputField: Story = {
+  args: {
+    ...TextField.args,
+    type: "credit-card",
+    name: "creditcard",
+    label: "Credit Card",
+    // format: "#### #### #### ####",
   },
 }

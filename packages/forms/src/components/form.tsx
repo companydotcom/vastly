@@ -16,7 +16,7 @@ import {
   ResolverResult,
   WatchObserver,
 } from "react-hook-form"
-import { objectFieldResolver, FieldResolver } from "./field-resolver"
+import { objectFieldResolver, FieldResolver } from "./field/field-resolver"
 
 export function isFunction<T extends Function = Function>(value: any): value is T {
   return typeof value === "function"

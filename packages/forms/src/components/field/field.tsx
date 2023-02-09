@@ -33,27 +33,18 @@ import {
   UsePinInputProps,
   SystemProps,
 } from "@chakra-ui/react"
-import { __DEV__ } from "../utils"
-import { RadioInput, type RadioInputProps } from "./radio-input"
-import { NumberInput, type NumberInputProps } from "./number-input"
-import { PasswordInput, type PasswordInputProps } from "./password-input"
-import { NativeSelect, type NativeSelectProps } from "./native-select"
-import { Select, type SelectProps } from "./select-input"
-// import { callAllHandlers } from "@chakra-ui/utils"
+import { callAllHandlers, isDev } from "@dxp/utils"
+import NumberFormat from "react-number-format"
+import type { NumberFormatBaseProps } from "react-number-format"
+import { RadioInput, type RadioInputProps } from "../radio-input"
+import { NumberInput, type NumberInputProps } from "../number-input"
+import { PasswordInput, type PasswordInputProps } from "../password-input"
+import { NativeSelect, type NativeSelectProps } from "../native-select"
+import { Select, type SelectProps } from "../select-input"
+import { CreditCardInput, type CreditCardInputProps } from "../credit-card-field"
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
 import type { ComponentWithAs } from "@chakra-ui/react"
-
-export type FunctionArguments<T extends Function> = T extends (...args: infer R) => any ? R : never
-
-export function callAllHandlers<T extends (event: any) => void>(...fns: (T | undefined)[]) {
-  return function func(event: FunctionArguments<T>[0]) {
-    fns.some((fn) => {
-      fn?.(event)
-      return event?.defaultPrevented
-    })
-  }
-}
 
 export interface FocusableElement {
   focus(options?: FocusOptions): void
@@ -109,6 +100,7 @@ export interface FieldProps<
    * - radio
    * - switch
    * - pin
+   * - credit-card
    *
    * Will default to a text field if there is no matching type.
    */
@@ -131,11 +123,11 @@ const getError = (name: string, formState: FormState<{ [x: string]: any }>) => {
   return get(formState.errors, name)
 }
 
-const isTouched = (name: string, formState: FormState<{ [x: string]: any }>) => {
-  return get(formState.touchedFields, name)
-}
+// const isTouched = (name: string, formState: FormState<{ [x: string]: any }>) => {
+//   return get(formState.touchedFields, name)
+// }
 
-export const BaseField: React.FC<FieldProps> = (props) => {
+export const BaseField = (props: FieldProps) => {
   const { name, label, helperText, hideLabel, children, ...controlProps } = props
 
   const { formState } = useFormContext()
@@ -154,7 +146,7 @@ export const BaseField: React.FC<FieldProps> = (props) => {
   )
 }
 
-if (__DEV__) {
+if (isDev()) {
   BaseField.displayName = "BaseField"
 }
 
@@ -198,7 +190,7 @@ export const Field = React.forwardRef(
   displayName?: string
 }
 
-if (__DEV__) {
+if (isDev()) {
   Field.displayName = "Field"
 }
 
@@ -446,6 +438,14 @@ export const SelectField = registerFieldType<SelectProps>("select", Select, {
   isControlled: true,
 })
 
+export const CreditCardField = registerFieldType<CreditCardInputProps>(
+  "credit-card",
+  CreditCardInput,
+  {
+    isControlled: true,
+  },
+)
+
 const fieldTypes = {
   text: InputField,
   email: InputField,
@@ -460,6 +460,7 @@ const fieldTypes = {
   pin: PinField,
   select: SelectField,
   "native-select": NativeSelectField,
+  "credit-card": CreditCardField,
 }
 
 type FieldTypes = typeof fieldTypes
