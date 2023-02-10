@@ -137,6 +137,7 @@ importers:
   packages/forms:
     specifiers:
       '@chakra-ui/react': ^2.4.9
+      '@dxp/ui': workspace:*
       '@dxp/utils': workspace:*
       '@emotion/react': ^11.10.5
       '@emotion/styled': ^11.10.5
@@ -148,6 +149,7 @@ importers:
       eslint-config-custom: workspace:*
       framer-motion: ^8.5.0
       react: '>=18.0.0'
+      react-country-region-selector: ^3.6.1
       react-datepicker: ^4.10.0
       react-dom: '>=18.0.0'
       react-hook-form: ^7.43.0
@@ -158,12 +160,14 @@ importers:
       typescript: ^4.5.2
     dependencies:
       '@chakra-ui/react': 2.4.9_u5ze33slj76olb4tspmq33x5ia
+      '@dxp/ui': link:../ui
       '@dxp/utils': link:../utilities
       '@emotion/react': 11.10.5_jp5qgyg6plq757v5hojp7ls2oe
       '@emotion/styled': 11.10.5_jp5djshq6aqfasno3mth3hguci
       card-validator: 8.1.1
       framer-motion: 8.5.0_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
+      react-country-region-selector: 3.6.1_v2m5e27vhdewzwhryxwfaorcca
       react-datepicker: 4.10.0_biqbaboplfbrettd7655fr4n2y
       react-dom: 18.2.0_react@18.2.0
       react-hook-form: 7.43.0_react@18.2.0
@@ -187,6 +191,7 @@ importers:
       '@chakra-ui/react': ^2.4.9
       '@chakra-ui/styled-system': ^2.5.1
       '@chakra-ui/theme-tools': ^2.0.16
+      '@dxp/utils': workspace:*
       '@emotion/react': ^11.10.5
       '@emotion/styled': ^11.10.5
       '@types/react': ^18.0.17
@@ -204,6 +209,7 @@ importers:
       '@chakra-ui/react': 2.4.9_u5ze33slj76olb4tspmq33x5ia
       '@chakra-ui/styled-system': 2.5.1
       '@chakra-ui/theme-tools': 2.0.16_ak67p4fuwhwgy7hpxa6ejvcgoy
+      '@dxp/utils': link:../utilities
       '@emotion/react': 11.10.5_jp5qgyg6plq757v5hojp7ls2oe
       '@emotion/styled': 11.10.5_jp5djshq6aqfasno3mth3hguci
       framer-motion: 8.5.0_biqbaboplfbrettd7655fr4n2y
@@ -221,11 +227,20 @@ importers:
 
   packages/utilities:
     specifiers:
+      '@types/react': ^18.0.17
+      '@types/react-dom': ^18.0.6
       eslint: ^7.32.0
       eslint-config-custom: workspace:*
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
       tsconfig: workspace:*
       typescript: ^4.8.3
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     devDependencies:
+      '@types/react': 18.0.26
+      '@types/react-dom': 18.0.10
       eslint: 7.32.0
       eslint-config-custom: link:../eslint-config-custom
       tsconfig: link:../tsconfig
@@ -4543,12 +4558,12 @@ packages:
       telejson: 7.0.4
     dev: true
 
-  /@storybook/channel-postmessage/7.0.0-beta.45:
-    resolution: {integrity: sha512-K2QLwE7eqpUqoRpbvSHJHDA1I0/aAnv8ZQSZ6j7JGGRmRMUeZkWbQGwnhZp6rxboXNxQuich/ZtZ0erVQPbMqw==}
+  /@storybook/channel-postmessage/7.0.0-beta.46:
+    resolution: {integrity: sha512-bJ7/9J1vHrm4czBzB1gNV6N6eYVP2JQJjteMjyul1ujS6PhC243GB2PTlQDwrE9MuPGIP1Qv6dSgs9bMQeXNVg==}
     dependencies:
-      '@storybook/channels': 7.0.0-beta.45
-      '@storybook/client-logger': 7.0.0-beta.45
-      '@storybook/core-events': 7.0.0-beta.45
+      '@storybook/channels': 7.0.0-beta.46
+      '@storybook/client-logger': 7.0.0-beta.46
+      '@storybook/core-events': 7.0.0-beta.46
       '@storybook/global': 5.0.0
       qs: 6.11.0
       telejson: 7.0.4
@@ -4567,8 +4582,8 @@ packages:
     resolution: {integrity: sha512-znidW6GcVe4EGVxO/Zx69NdFQh6P4v1k/xnQeGMQw41U0hbdkK8rGj9VvujYRif6A/+IaY49BMuiMHfm4DGVdw==}
     dev: true
 
-  /@storybook/channels/7.0.0-beta.45:
-    resolution: {integrity: sha512-wu497OYFmeD+0WQKxAMieaD1SfohvKa+IOocnNRQKGxbYWcKjjnKhoxN7JRoc6xG+GFS+x3Y48CiedtW0x0aqw==}
+  /@storybook/channels/7.0.0-beta.46:
+    resolution: {integrity: sha512-fNsUiWe+K+jnHyeG1WrUrJDGHmO/QLOek0Ly+5j2LhV7PG4S/33IUVShux4yfZIMJwtrVtaawM306q1uJofFaw==}
     dev: true
 
   /@storybook/cli/7.0.0-beta.44:
@@ -4632,8 +4647,8 @@ packages:
       '@storybook/global': 5.0.0
     dev: true
 
-  /@storybook/client-logger/7.0.0-beta.45:
-    resolution: {integrity: sha512-9qNiKOcCam8b3csgRbA8REiyuE9+lNQAeWZLogAbAjaXJMM9Vanc4ir2rQuxOVgWxd0Ansi1LtgteqFlNCMXaQ==}
+  /@storybook/client-logger/7.0.0-beta.46:
+    resolution: {integrity: sha512-dehsFk2DDrxY1l+HtsILCw4MQTw4/7XBpAWK01dR4xOagCZvmGJqVRouDVqZJBB3NAEw1uSKR5Jy+2teu9sCOA==}
     dependencies:
       '@storybook/global': 5.0.0
     dev: true
@@ -4723,8 +4738,8 @@ packages:
     resolution: {integrity: sha512-A+fukiYDXWXe9K+Dgd9R71tDJQZMVUifqJs3ypIi1d5nQ2atLWkrKKlRrfDiqNljjPAQAtp69s5xX6H2Nb/ziQ==}
     dev: true
 
-  /@storybook/core-events/7.0.0-beta.45:
-    resolution: {integrity: sha512-nS1MX1fGHkMdAkbmRZrsU5RV1G3y/43YqJ51L6D2KmUkCam8oC2br0EgGoKsHtzcdgdsbElCATqa9XqtxVFbDg==}
+  /@storybook/core-events/7.0.0-beta.46:
+    resolution: {integrity: sha512-ogC+bHeMsmpZuEiKWCUdgncATgDsnPTDqumgV99fXDWrYpt2KUePsZSBSTaI97lTZqko3WN1GTBbqqZ0OrerHw==}
     dev: true
 
   /@storybook/core-server/7.0.0-beta.44:
@@ -4862,14 +4877,14 @@ packages:
       - supports-color
     dev: true
 
-  /@storybook/instrumenter/7.0.0-beta.45:
-    resolution: {integrity: sha512-eO7AZeeaJ78qYdnKzl9C+Pl0V6CUhZRhjN2PObr/SvLLv66dmLo3Qwq24cTrIpIIQgaG4E0JdtUztGipRpKnBQ==}
+  /@storybook/instrumenter/7.0.0-beta.46:
+    resolution: {integrity: sha512-WloEmCy/fX6aTs8hAavLO2UM3MJ3lB2gzM62mBdo/cjP6DvSjT2l5xPZuhI2IyqkIx+zgOk5lU3oGW4rPEu//w==}
     dependencies:
-      '@storybook/channels': 7.0.0-beta.45
-      '@storybook/client-logger': 7.0.0-beta.45
-      '@storybook/core-events': 7.0.0-beta.45
+      '@storybook/channels': 7.0.0-beta.46
+      '@storybook/client-logger': 7.0.0-beta.46
+      '@storybook/core-events': 7.0.0-beta.46
       '@storybook/global': 5.0.0
-      '@storybook/preview-api': 7.0.0-beta.45
+      '@storybook/preview-api': 7.0.0-beta.46
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -5055,16 +5070,16 @@ packages:
       - supports-color
     dev: true
 
-  /@storybook/preview-api/7.0.0-beta.45:
-    resolution: {integrity: sha512-GBVqxeRFK4oQc17J+QV92+w3NuFbENRCo8xkybf7uUhzz9+72Znj89jjg/hbf86B5UBs2uen2GGciaNckyQmJg==}
+  /@storybook/preview-api/7.0.0-beta.46:
+    resolution: {integrity: sha512-sEfdUk9rMcIrCKYA9q6/735VUGRaQvGaUpATjy468WOhXwUgASFjBvRk6w0xu/lpfcnIcPwoDVpbYR17kKvzTg==}
     dependencies:
-      '@storybook/channel-postmessage': 7.0.0-beta.45
-      '@storybook/channels': 7.0.0-beta.45
-      '@storybook/client-logger': 7.0.0-beta.45
-      '@storybook/core-events': 7.0.0-beta.45
+      '@storybook/channel-postmessage': 7.0.0-beta.46
+      '@storybook/channels': 7.0.0-beta.46
+      '@storybook/client-logger': 7.0.0-beta.46
+      '@storybook/core-events': 7.0.0-beta.46
       '@storybook/csf': 0.0.2-next.8
       '@storybook/global': 5.0.0
-      '@storybook/types': 7.0.0-beta.45
+      '@storybook/types': 7.0.0-beta.46
       '@types/qs': 6.9.7
       dequal: 2.0.3
       lodash: 4.17.21
@@ -5181,8 +5196,8 @@ packages:
   /@storybook/testing-library/0.0.14-next.1:
     resolution: {integrity: sha512-1CAl40IKIhcPaCC4pYCG0b9IiYNymktfV/jTrX7ctquRY3akaN7f4A1SippVHosksft0M+rQTFE0ccfWW581fw==}
     dependencies:
-      '@storybook/client-logger': 7.0.0-beta.45
-      '@storybook/instrumenter': 7.0.0-beta.45
+      '@storybook/client-logger': 7.0.0-beta.46
+      '@storybook/instrumenter': 7.0.0-beta.46
       '@testing-library/dom': 8.20.0
       '@testing-library/user-event': 13.5.0_yxlyej73nftwmh2fiao7paxmlm
       ts-dedent: 2.2.0
@@ -5217,11 +5232,11 @@ packages:
       - supports-color
     dev: true
 
-  /@storybook/types/7.0.0-beta.45:
-    resolution: {integrity: sha512-DGiw1lhOQ/Zy7TM7qsboR3Htu0FaMYEk3bSxLFMQgHZmf+n5z6ZPiNYTLQVrZ41BahfSCZMIRJDLQjJAQtPsdg==}
+  /@storybook/types/7.0.0-beta.46:
+    resolution: {integrity: sha512-I5nf8aDYmkM3FqlBAqr2SxnIp16iydvjSegShHEeraXDs9wSqbyAlYuw8m2WcN+bGA2qqhGUGEWbJv5bY3WaTQ==}
     dependencies:
       '@babel/core': 7.20.12
-      '@storybook/channels': 7.0.0-beta.45
+      '@storybook/channels': 7.0.0-beta.46
       '@types/babel__core': 7.20.0
       '@types/express': 4.17.17
       express: 4.18.2
@@ -11968,6 +11983,19 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
     dev: true
+
+  /react-country-region-selector/3.6.1_v2m5e27vhdewzwhryxwfaorcca:
+    resolution: {integrity: sha512-/hKRVFVxhsQKV6/csajd9uX4Lz6XHMVNtpKhMn/xGQtZDZrnsr+VeeeeXDooSn5cV0DFAk2eKk9c+otj7Hop9w==}
+    engines: {node: '>=8', npm: '>=5'}
+    peerDependencies:
+      prop-types: ^15.5.4
+      react: '>=15'
+      react-dom: '>=15'
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
 
   /react-datepicker/4.10.0_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-6IfBCZyWj54ZZGLmEZJ9c4Yph0s9MVfEGDC2evOvf9AmVz+RRcfP2Czqad88Ff9wREbcbqa4dk7IFYeXF1d3Ag==}
