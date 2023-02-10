@@ -1,7 +1,7 @@
 import React from "react"
 import { vi } from "vitest"
 import { render, screen } from "@testing-library/react"
-import { TranslationErrorMessage } from "./translation-error-message"
+import { TranslationErrorMessage } from "../forms/translation-error-message"
 
 vi.mock("@hookform/error-message", () => {
   const ErrorMessage = ({ children }) => <div>{children}</div>
@@ -27,7 +27,6 @@ describe("<TranslationErrorMessage />", () => {
       </TranslationErrorMessage>,
     )
     const checkboxField = screen.getByText("error")
-    //@ts-ignore
     expect(checkboxField).toBeInTheDocument()
   })
 })

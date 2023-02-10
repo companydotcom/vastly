@@ -9,7 +9,6 @@ export default defineConfig({
     css: true,
     coverage: {
       reporter: ["text", "json", "html"],
-      reportsDirectory: "./vitest-coverage",
     },
   },
 })
