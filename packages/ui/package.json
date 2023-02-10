@@ -29,6 +29,7 @@
     "react-dom": ">=18.0.0"
   },
   "dependencies": {
+    "@dxp/utils": "workspace:*",
     "@chakra-ui/react": "^2.4.9",
     "@chakra-ui/styled-system": "^2.5.1",
     "@chakra-ui/theme-tools": "^2.0.16",
