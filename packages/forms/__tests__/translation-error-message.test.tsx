@@ -1,10 +1,10 @@
 import React from "react"
 import { vi } from "vitest"
 import { render, screen } from "@testing-library/react"
-import { TranslationErrorMessage } from "../forms/translation-error-message"
+import { TranslationErrorMessage } from "../test-components/translation-error-message"
 
 vi.mock("@hookform/error-message", () => {
-  const ErrorMessage = ({ children }) => <div>{children}</div>
+  const ErrorMessage = ({ children }: any) => <div>{children}</div>
   return { ErrorMessage }
 })
 

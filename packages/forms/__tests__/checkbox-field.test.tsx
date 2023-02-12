@@ -1,7 +1,7 @@
 import React from "react"
 import { fireEvent, render, screen } from "@testing-library/react"
 import { FormProvider, useForm } from "react-hook-form"
-import { CheckboxField } from "../forms/checkbox-field"
+import { CheckboxField } from "../test-components/checkbox-field"
 
 describe("<CheckboxField />", () => {
   it("renders the checkbox field label", () => {

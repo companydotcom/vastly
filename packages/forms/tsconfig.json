@@ -1,5 +1,13 @@
 {
   "extends": "tsconfig/react-library.json",
-  "include": ["src"],
-  "exclude": ["dist", "build", "node_modules"],
+  "compilerOptions": {
+		"module": "esnext",
+		"moduleResolution": "node",
+    "lib": ["ES2016"],
+		"outDir": "dist",
+		"jsx": "react",
+		"types": ["vitest/globals", "@testing-library/jest-dom"]
+	},
+  "include": ["src", "__tests__"],
+  "exclude": ["dist", "build", "node_modules", "coverage"],
 }

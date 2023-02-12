@@ -10,7 +10,7 @@ import {
   SystemProps,
   StackDirection,
 } from "@chakra-ui/react"
-import { __DEV__ } from "../utils"
+import { __DEV__ } from "../src/utils"
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
 import type { ComponentWithAs } from "@chakra-ui/react"

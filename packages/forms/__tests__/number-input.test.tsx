@@ -1,6 +1,6 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
-import { NumberInput } from "../forms/number-input"
+import { NumberInput } from "../test-components/number-input"
 
 describe("<NumberInput />", () => {
   it("renders the number input field", () => {
