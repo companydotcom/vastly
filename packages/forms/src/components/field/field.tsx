@@ -43,6 +43,9 @@ import { NativeSelect, type NativeSelectProps } from "../native-select"
 import { Select, type SelectProps } from "../select-input"
 import { CreditCardInput, type CreditCardInputProps } from "../credit-card-input"
 import { ReactPhoneInput, type ReactPhoneInputProps } from "../react-phone-input"
+import { CardExpiryInput, type CardExpiryInputProps } from "../card-expiry-input"
+import { SelectCountryInput, type SelectCountryInputProps } from "../select-country-input"
+import { SelectRegionInput, type SelectRegionInputProps } from "../select-region-input"
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
 import type { ComponentWithAs } from "@chakra-ui/react"
@@ -448,9 +451,33 @@ export const CreditCardField = registerFieldType<CreditCardInputProps>(
   },
 )
 
+export const CreditCardExpiryField = registerFieldType<CardExpiryInputProps>(
+  "credit-expiry",
+  CardExpiryInput,
+  {
+    isControlled: true,
+  },
+)
+
 export const ReactPhoneInputField = registerFieldType<ReactPhoneInputProps>(
   "phone",
   ReactPhoneInput,
+  {
+    isControlled: true,
+  },
+)
+
+export const SelectCountryInputField = registerFieldType<SelectCountryInputProps>(
+  "select-country",
+  SelectCountryInput,
+  {
+    isControlled: true,
+  },
+)
+
+export const SelectRegionInputField = registerFieldType<SelectRegionInputProps>(
+  "select-region",
+  SelectRegionInput,
   {
     isControlled: true,
   },
@@ -468,8 +495,12 @@ const fieldTypes = {
   radio: RadioField,
   pin: PinField,
   select: SelectField,
+  phone: ReactPhoneInputField,
   "native-select": NativeSelectField,
   "credit-card": CreditCardField,
+  "credit-expiry": CreditCardExpiryField,
+  "select-country": SelectCountryInputField,
+  "select-region": SelectRegionInputField,
 }
 
 type FieldTypes = typeof fieldTypes

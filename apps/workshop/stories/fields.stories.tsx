@@ -117,6 +117,34 @@ export const CreditCardInputField: Story = {
   },
 }
 
+export const CreditCardExpiryField: Story = {
+  args: {
+    ...TextField.args,
+    type: "credit-expiry",
+    name: "credit-expiry",
+    label: "Credit Card Expiry",
+  },
+}
+
 export const ReactPhoneInputField: Story = {
   args: { ...TextField.args, type: "phone", name: "phone", label: "Phone" },
+}
+
+export const SelectCountryInputField: Story = {
+  args: {
+    ...TextField.args,
+    type: "select-country",
+    name: "select-country",
+    label: "Select Country",
+  },
+}
+
+export const SelectRegionInputField: Story = {
+  args: {
+    ...TextField.args,
+    type: "select-region",
+    name: "select-region",
+    label: "Select Region",
+    country: "US",
+  },
 }

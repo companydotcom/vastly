@@ -20,7 +20,7 @@
     "preinstall": "npx only-allow pnpm",
     "test:vitest": "cd packages/forms && pnpm vitest",
     "postinstall": "pnpm run build:packages",
-    "dev:components": "turbo run dev --filter=@dxp/ui --filter=@dxp/forms --no-cache --continue"
+    "dev:components": "turbo run dev --filter=@dxp/ui --filter=@dxp/forms --filter=@dxp/utils --no-cache --continue"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.0",

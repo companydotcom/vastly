@@ -1,3 +1,4 @@
+import * as React from "react"
 import { createContext as createReactContext, useContext as useReactContext } from "react"
 
 export interface CreateContextOptions {

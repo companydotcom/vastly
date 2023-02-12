@@ -43,10 +43,12 @@
   "dependencies": {
     "@chakra-ui/react": "^2.4.9",
     "@dxp/utils": "workspace:*",
+    "@dxp/ui": "workspace:*",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "card-validator": "^8.1.1",
     "framer-motion": "^8.5.0",
+    "react-country-region-selector": "^3.6.1",
     "react-datepicker": "^4.10.0",
     "react-hook-form": "^7.43.0",
     "react-number-format": "^5.1.3",
