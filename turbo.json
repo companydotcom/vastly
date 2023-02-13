@@ -20,6 +20,9 @@
     },
     "test": {
       "outputs": ["coverage/**"]
+    },
+    "@dxp/micro-service-core#test": {
+      "env": ["region", "service", "accountId"]
     }
   }
 }
