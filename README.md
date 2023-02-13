@@ -1,5 +1,10 @@
 # Company.com Custom Offering
 
+<picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/7347426/214703303-20da9ba8-be98-4daf-b3ec-146ae146131f.jpg">
+  <img src="https://user-images.githubusercontent.com/7347426/214703303-20da9ba8-be98-4daf-b3ec-146ae146131f.jpg" height="420">
+</picture>
+
 This is a monorepo to manage the Company.com custom offering.
 
 ## What's inside?
@@ -10,9 +15,11 @@ This monorepo uses [pnpm](https://pnpm.io) as a package manager and
 ### Apps and Packages
 
 - `docs`: a [Nextra](https://nextra.site/) app
-- `web`: a [Next.js](https://nextjs.org/) app, used for testing purposes
+- `workshop`: a [Next.js](https://nextjs.org/) app, used for testing purposes
 - `client`: a collection of React features to be consumed by creators
-- `ui`: a React component library, (formerly Potion) shared by both `web` and `docs` applications
+- `ui`: a React component library, (formerly Potion) shared by both `workshop` and `docs`
+  applications
+- `forms`: a React component library with custom form components
 - `cli`: our custom CLI
 - `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and
   `eslint-config-prettier`)

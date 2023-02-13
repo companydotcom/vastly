@@ -1,5 +1,5 @@
 {
-  "name": "@companydotcom/utils",
+  "name": "@dxp/utils",
   "version": "0.0.1",
   "main": "./dist/index.js",
   "source": "./src/index.ts",
@@ -10,15 +10,21 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "tsup src --dts",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "tsc -w",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\""
   },
   "devDependencies": {
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
     "eslint": "^7.32.0",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^4.8.3"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   }
 }
