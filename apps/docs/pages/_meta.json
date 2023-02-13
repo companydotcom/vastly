@@ -1,4 +1,8 @@
 {
   "index": "Introduction",
-  "another": "Another Page"
+  "another": "Another Page",
+  "---": {
+    "type": "separator"
+  },
+  "ui": "@dxp/ui"
 }
