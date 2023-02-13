@@ -1,12 +1,9 @@
 {
   "extends": "tsconfig/react-library.json",
   "compilerOptions": {
-		"module": "esnext",
 		"moduleResolution": "node",
-    "lib": ["ES2016"],
 		"outDir": "dist",
-		"jsx": "react",
-		"types": ["vitest/globals", "@testing-library/jest-dom"]
+		"types": ["vitest/globals", "@testing-library/jest-dom"],
 	},
   "include": ["src", "__tests__"],
   "exclude": ["dist", "build", "node_modules", "coverage"],

@@ -1,6 +1,5 @@
-import React from "react"
 import { fireEvent, render, screen } from "@testing-library/react"
-import { RadioInput } from "../test-components/radio-input"
+import { RadioInput } from "../src/components/radio-input"
 
 describe("<RadioInput />", () => {
   it("renders the correct amount of radio options", () => {
