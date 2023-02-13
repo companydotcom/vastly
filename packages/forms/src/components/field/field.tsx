@@ -33,22 +33,22 @@ import {
   UsePinInputProps,
   SystemProps,
 } from "@chakra-ui/react"
-// import { callAllHandlers } from "@chakra-ui/utils"
+import { callAllHandlers, isDev } from "@dxp/utils"
+import NumberFormat from "react-number-format"
+import type { NumberFormatBaseProps } from "react-number-format"
+import { RadioInput, type RadioInputProps } from "../radio-input"
+import { NumberInput, type NumberInputProps } from "../number-input"
+import { PasswordInput, type PasswordInputProps } from "../password-input"
+import { NativeSelect, type NativeSelectProps } from "../native-select"
+import { Select, type SelectProps } from "../select-input"
+import { CreditCardInput, type CreditCardInputProps } from "../credit-card-input"
+import { ReactPhoneInput, type ReactPhoneInputProps } from "../react-phone-input"
+import { CardExpiryInput, type CardExpiryInputProps } from "../card-expiry-input"
+import { SelectCountryInput, type SelectCountryInputProps } from "../select-country-input"
+import { SelectRegionInput, type SelectRegionInputProps } from "../select-region-input"
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
 import type { ComponentWithAs } from "@chakra-ui/react"
-import { __DEV__ } from "../utils"
-
-export type FunctionArguments<T extends Function> = T extends (...args: infer R) => any ? R : never
-
-export function callAllHandlers<T extends (event: any) => void>(...fns: (T | undefined)[]) {
-  return function func(event: FunctionArguments<T>[0]) {
-    fns.some((fn) => {
-      fn?.(event)
-      return event?.defaultPrevented
-    })
-  }
-}
 
 export interface FocusableElement {
   focus(options?: FocusOptions): void
@@ -84,7 +84,7 @@ export interface FieldProps<
   /**
    * Field help text
    */
-  help?: string
+  helperText?: string
   /**
    * React hook form rules
    */
@@ -93,7 +93,7 @@ export interface FieldProps<
     "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
   >
   /**
-   * Build-in types:
+   * Built-in types:
    * - text
    * - number
    * - password
@@ -104,10 +104,11 @@ export interface FieldProps<
    * - radio
    * - switch
    * - pin
+   * - credit-card
    *
    * Will default to a text field if there is no matching type.
    */
-  type?: string
+  type?: keyof FieldTypes
   /**
    * The input placeholder
    */
@@ -126,12 +127,12 @@ const getError = (name: string, formState: FormState<{ [x: string]: any }>) => {
   return get(formState.errors, name)
 }
 
-const isTouched = (name: string, formState: FormState<{ [x: string]: any }>) => {
-  return get(formState.touchedFields, name)
-}
+// const isTouched = (name: string, formState: FormState<{ [x: string]: any }>) => {
+//   return get(formState.touchedFields, name)
+// }
 
-export const BaseField: React.FC<FieldProps> = (props) => {
-  const { name, label, help, hideLabel, children, ...controlProps } = props
+export const BaseField = (props: FieldProps) => {
+  const { name, label, helperText, hideLabel, children, ...controlProps } = props
 
   const { formState } = useFormContext()
 
@@ -142,14 +143,14 @@ export const BaseField: React.FC<FieldProps> = (props) => {
       {label && !hideLabel ? <FormLabel>{label}</FormLabel> : null}
       <Box>
         {children}
-        {help && !error?.message ? <FormHelperText>{help}</FormHelperText> : null}
+        {helperText && !error?.message ? <FormHelperText>{helperText}</FormHelperText> : null}
         {error?.message && <FormErrorMessage>{error?.message}</FormErrorMessage>}
       </Box>
     </FormControl>
   )
 }
 
-if (__DEV__) {
+if (isDev()) {
   BaseField.displayName = "BaseField"
 }
 
@@ -193,7 +194,7 @@ export const Field = React.forwardRef(
   displayName?: string
 }
 
-if (__DEV__) {
+if (isDev()) {
   Field.displayName = "Field"
 }
 
@@ -212,12 +213,13 @@ const createField = (
       id,
       name,
       label,
-      help,
+      helperText,
       isDisabled,
       isInvalid,
       isReadOnly,
       isRequired,
       rules,
+      hideLabel: hideLabelProp,
       ...inputProps
     } = props
 
@@ -231,7 +233,7 @@ const createField = (
         id={id}
         name={name}
         label={label}
-        help={help}
+        helperText={helperText}
         hideLabel={hideLabel}
         isDisabled={isDisabled}
         isInvalid={isInvalid}
@@ -385,6 +387,10 @@ export const CheckboxField = registerFieldType<CheckboxProps>(
   },
 )
 
+export const RadioField = registerFieldType<RadioInputProps>("radio", RadioInput, {
+  isControlled: true,
+})
+
 export interface PinFieldProps extends Omit<UsePinInputProps, "type"> {
   pinLength?: number
   pinType?: "alphanumeric" | "number"
@@ -414,20 +420,87 @@ export const PinField = registerFieldType<PinFieldProps>(
   },
 )
 
+export interface NumberInputFieldProps extends NumberInputProps {
+  type: "number"
+}
+
+export const NumberInputField = registerFieldType<NumberInputFieldProps>("number", NumberInput, {
+  isControlled: true,
+})
+
+export const PasswordInputField = registerFieldType<PasswordInputProps>(
+  "password",
+  forwardRef((props, ref) => <PasswordInput ref={ref} {...props} />),
+)
+
+export const NativeSelectField = registerFieldType<NativeSelectProps>(
+  "native-select",
+  NativeSelect,
+  { isControlled: true },
+)
+
+export const SelectField = registerFieldType<SelectProps>("select", Select, {
+  isControlled: true,
+})
+
+export const CreditCardField = registerFieldType<CreditCardInputProps>(
+  "credit-card",
+  CreditCardInput,
+  {
+    isControlled: true,
+  },
+)
+
+export const CreditCardExpiryField = registerFieldType<CardExpiryInputProps>(
+  "credit-expiry",
+  CardExpiryInput,
+  {
+    isControlled: true,
+  },
+)
+
+export const ReactPhoneInputField = registerFieldType<ReactPhoneInputProps>(
+  "phone",
+  ReactPhoneInput,
+  {
+    isControlled: true,
+  },
+)
+
+export const SelectCountryInputField = registerFieldType<SelectCountryInputProps>(
+  "select-country",
+  SelectCountryInput,
+  {
+    isControlled: true,
+  },
+)
+
+export const SelectRegionInputField = registerFieldType<SelectRegionInputProps>(
+  "select-region",
+  SelectRegionInput,
+  {
+    isControlled: true,
+  },
+)
+
 const fieldTypes = {
   text: InputField,
   email: InputField,
   url: InputField,
-  phone: InputField,
-  //   number: NumberInputField,
-  //   password: PasswordInputField,
+  number: NumberInputField,
+  password: PasswordInputField,
   textarea: TextareaField,
   switch: SwitchField,
   checkbox: CheckboxField,
-  //   radio: RadioField,
+  radio: RadioField,
   pin: PinField,
-  //   select: SelectField,
-  //   "native-select": NativeSelectField,
+  select: SelectField,
+  phone: ReactPhoneInputField,
+  "native-select": NativeSelectField,
+  "credit-card": CreditCardField,
+  "credit-expiry": CreditCardExpiryField,
+  "select-country": SelectCountryInputField,
+  "select-region": SelectRegionInputField,
 }
 
 type FieldTypes = typeof fieldTypes

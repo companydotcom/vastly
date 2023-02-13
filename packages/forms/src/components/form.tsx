@@ -1,8 +1,6 @@
 import * as React from "react"
-
 import { chakra, HTMLChakraProps, forwardRef } from "@chakra-ui/react"
-// import { cx, runIfFn } from "@chakra-ui/utils"
-import { __DEV__ } from "../utils"
+import { cx, runIfFn } from "@dxp/utils"
 
 import {
   useForm,
@@ -16,14 +14,10 @@ import {
   ResolverResult,
   WatchObserver,
 } from "react-hook-form"
-import { objectFieldResolver, FieldResolver } from "./field-resolver"
+import { objectFieldResolver, FieldResolver } from "./field/field-resolver"
 
 export function isFunction<T extends Function = Function>(value: any): value is T {
   return typeof value === "function"
-}
-
-export function runIfFn<T, U>(valueOrFn: T | ((...fnArgs: U[]) => T), ...args: U[]): T {
-  return isFunction(valueOrFn) ? valueOrFn(...args) : valueOrFn
 }
 
 export type { UseFormReturn, FieldValues, SubmitHandler }
@@ -150,7 +144,7 @@ export const Form = forwardRef(
           ref={ref}
           onSubmit={handleSubmit(onSubmit, onError)}
           {...rest}
-          className={props.className}
+          className={cx("dxpui-form", props.className)}
         >
           {runIfFn(children, {
             Field,
