@@ -1,6 +1,6 @@
 {
-  "name": "generators",
-  "version": "1.0.0",
+  "name": "@dxp/service-generator",
+  "version": "0.0.1",
   "description": "Companydotcom generators",
   "files": [
     "app"
