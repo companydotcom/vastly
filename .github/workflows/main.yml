@@ -1,10 +1,9 @@
-name: Publish
+# This action runs on every push to make sure all changes to our code are non-breaking
+name: CI
 on:
   push:
     branches:
-      - "packages"
-#
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+      - "**"
 
 jobs:
   build:
@@ -20,10 +19,4 @@ jobs:
           cache: "pnpm"
 
       - run: pnpm install --frozen-lockfile
-      - name: Create Release Pull Request or Publish
-        id: changesets
-        uses: changesets/action@v1
-        with:
-          publish: pnpm run build
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: pnpm run lint && pnpm run build
