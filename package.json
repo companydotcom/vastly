@@ -4,22 +4,30 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "generators/*"
   ],
   "scripts": {
-    "build:all": "turbo run build",
-    "dev": "turbo run dev --parallel",
-    "lint:all": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md,mdx}\"",
+    "build": "turbo run build",
+    "build:packages": "turbo run build --filter=@dxp/*",
     "clean": "turbo run clean && rm -rf node_modules",
-    "dev:docs": "pnpm -- turbo run dev --filter=docs --no-cache",
+    "dev": "turbo run dev --no-cache --continue",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md,mdx}\"",
+    "dev:docs": "turbo run dev --filter=docs --no-cache",
     "prepare": "husky install",
     "switch:dev": "tsx scripts/switch-env.ts dev",
-    "publish-packages": "turbo run build lint test && changeset version && changeset publish"
+    "publish-packages": "turbo run build lint test && changeset version && changeset publish",
+    "preinstall": "npx only-allow pnpm",
+    "test": "turbo run test",
+    "postinstall": "pnpm run build:packages",
+    "dev:components": "turbo run dev --filter=@dxp/ui --filter=@dxp/forms --filter=@dxp/utils --no-cache --continue"
   },
   "devDependencies": {
-    "@types/node": "18.11.10",
     "@changesets/cli": "^2.26.0",
+    "@commitlint/cli": "^17.4.2",
+    "@types/node": "18.11.10",
+    "eslint": "^7.32.0",
     "eslint-config-custom": "workspace:*",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
@@ -36,6 +44,25 @@
     "*.{md,mdx,mjs,yml,yaml,css}": [
       "prettier --write"
     ]
+  },
+  "commitlint": {
+    "rules": {
+      "references-empty": [
+        2,
+        "never"
+      ]
+    },
+    "parserPreset": {
+      "parserOpts": {
+        "referenceActions": null,
+        "issuePrefixes": [
+          "ATX-",
+          "DVOPS-",
+          "BLR-",
+          "DEF-"
+        ]
+      }
+    }
   },
   "engines": {
     "node": ">=14.0.0"

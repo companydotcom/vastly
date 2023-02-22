@@ -1,0 +1,221 @@
+service: <%- serviceName %>
+
+plugins:
+  - serverless-webpack
+  - serverless-plugin-tracing
+
+package:
+  individually: true
+
+########## CUSTOM PARAMETERS ##########
+custom:
+  config: ${file(env.yml)}
+  stage: ${opt:stage, self:provider.stage}
+  region: ${opt:region, self:provider.region}
+  accountId: ${opt:accountId, self:provider.accountId}
+  webpack:
+    includeModules:
+      forceExclude:
+        - aws-sdk
+
+########## PROVIDER CONFIGURATION ##########
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: plat
+  region: us-east-1
+  accountId: 254150672415
+  environment: ${self:custom.config}
+  timeout: 900
+  versionFunctions: false
+  tracing:
+    apiGateway: true
+    lambda: true
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - xray:PutTraceSegments
+        - xray:PutTelemetryRecords
+      Resource: '*'
+    - Effect: 'Allow'
+      Action:
+        - 'dynamodb:*'
+      Resource:
+        - 'arn:aws:dynamodb:${self:custom.region}:${self:custom.config.accountId}:table/apiCallCount'
+        - 'arn:aws:dynamodb:${self:custom.region}:${self:custom.config.accountId}:table/Account'
+        - 'arn:aws:dynamodb:${self:custom.region}:${self:custom.config.accountId}:table/User'
+        - 'arn:aws:dynamodb:${self:custom.region}:${self:custom.config.accountId}:table/vendorConfig'
+        - 'arn:aws:dynamodb:${self:custom.region}:${self:custom.config.accountId}:table/VendorIdUserIdMap'
+        - 'arn:aws:dynamodb:${self:custom.region}:${self:custom.config.accountId}:table/user-mads'
+        - 'arn:aws:dynamodb:${self:custom.region}:${self:custom.config.accountId}:table/account-mads'
+    - Effect: 'Allow'
+      Action:
+        - 'sqs:GetQueueAttributes'
+        - 'sqs:ReceiveMessage'
+        - 'sqs:DeleteMessage'
+      Resource:
+        - 'arn:aws:sqs:${self:custom.region}:${self:custom.config.accountId}:${self:custom.config.service}-fetchq'
+        - 'arn:aws:sqs:${self:custom.region}:${self:custom.config.accountId}:${self:custom.config.service}-directtq'
+        - '<%- optionalIamSqsResources %>'
+    - Effect: 'Allow'
+      Action:
+        - 'sqs:SendMessage'
+      Resource:
+        - 'arn:aws:sqs:${self:custom.region}:${self:custom.config.accountId}:${self:custom.config.service}-ldlq'
+    - Effect: Allow
+      Action:
+        - 'sns:Publish'
+        - 'sns:Subscribe'
+      Resource:
+        - 'arn:aws:sns:${self:custom.region}:${self:custom.config.accountId}:event-bus'
+
+########## FUNCTIONS CONFIGURATION ##########
+functions:
+  setupDatabase:
+    environment:
+      stage: ${self:custom.stage}
+    handler: handler.setupDatabase
+  directFetch:
+    environment:
+      stage: ${self:custom.stage}
+    handler: handler.fetchHandler
+    dependsOn:
+      - directFQCreate
+    events:
+      - sqs:
+          arn: 'arn:aws:sqs:${self:custom.region}:${self:custom.config.accountId}:${self:custom.config.service}-fetchq'
+          enabled: true
+          batchSize: 1
+  directTransition:
+    environment:
+      stage: ${self:custom.stage}
+    handler: handler.directTransitionHandler
+    dependsOn:
+      - directTQCreate
+    events:
+      - sqs:
+          arn: 'arn:aws:sqs:${self:custom.region}:${self:custom.config.accountId}:${self:custom.config.service}-directtq'
+          enabled: true
+          batchSize: 1<%- optionalFunctionConfigs %>
+  getHttp:
+    handler: handler.getHttpHandler
+    events:
+      - http:
+          path: '/http/operation/{operation}/eventType/{eventType}'
+          contentType: 'application/json'
+          method: GET
+          cors: true
+  postHttp:
+    handler: handler.postHttpHandler
+    events:
+      - http:
+          path: '/http/operation/{operation}/eventType/{eventType}'
+          contentType: 'application/json'
+          method: POST
+          cors: true
+
+########## RESOURCES CONFIGURATION ##########
+resources:
+  Resources:
+    dlqCreate:
+      Type: 'AWS::SQS::Queue'
+      Properties:
+        DelaySeconds: 0
+        MaximumMessageSize: 262144
+        MessageRetentionPeriod: 345600
+        QueueName: '${self:custom.config.service}-dlq'
+        ReceiveMessageWaitTimeSeconds: 0
+        VisibilityTimeout: 0
+    ldlqCreate:
+      Type: 'AWS::SQS::Queue'
+      Properties:
+        DelaySeconds: 0
+        MaximumMessageSize: 262144
+        MessageRetentionPeriod: 345600
+        QueueName: '${self:custom.config.service}-ldlq'
+        ReceiveMessageWaitTimeSeconds: 0
+        VisibilityTimeout: 0
+    directFQCreate:
+      Type: 'AWS::SQS::Queue'
+      Properties:
+        DelaySeconds: 0
+        MaximumMessageSize: 262144
+        MessageRetentionPeriod: 345600
+        QueueName: '${self:custom.config.service}-fetchq'
+        ReceiveMessageWaitTimeSeconds: 0
+        VisibilityTimeout: 900
+        RedrivePolicy:
+          deadLetterTargetArn:
+            Fn::GetAtt:
+              - 'dlqCreate'
+              - 'Arn'
+          maxReceiveCount: 2
+    directTQCreate:
+      Type: 'AWS::SQS::Queue'
+      Properties:
+        DelaySeconds: 0
+        MaximumMessageSize: 262144
+        MessageRetentionPeriod: 345600
+        QueueName: '${self:custom.config.service}-directtq'
+        ReceiveMessageWaitTimeSeconds: 0
+        VisibilityTimeout: 900
+        RedrivePolicy:
+          deadLetterTargetArn:
+            Fn::GetAtt:
+              - 'dlqCreate'
+              - 'Arn'
+          maxReceiveCount: 3<%- optionalQueueCreation %>
+    subscribeFSQSToTriggerSns:
+      Type: 'AWS::SNS::Subscription'
+      Properties:
+        TopicArn: 'arn:aws:sns:${self:custom.region}:${self:custom.config.accountId}:event-bus'
+        Endpoint: 'arn:aws:sqs:${self:custom.region}:${self:custom.config.accountId}:${self:custom.config.service}-fetchq'
+        Protocol: sqs
+        FilterPolicy:
+          status:
+            - 'trigger'
+          entityId:
+            - ${self:custom.config.productId}
+          eventType:
+            - 'fetch'
+          requestQuantity:
+            - 'single'
+            - 'exists': false
+    subscribeDTSQSToTriggerSns:
+      Type: 'AWS::SNS::Subscription'
+      Properties:
+        TopicArn: 'arn:aws:sns:${self:custom.region}:${self:custom.config.accountId}:event-bus'
+        Endpoint: 'arn:aws:sqs:${self:custom.region}:${self:custom.config.accountId}:${self:custom.config.service}-directtq'
+        Protocol: sqs
+        FilterPolicy:
+          status:
+            - 'trigger'
+          entityId:
+            - ${self:custom.config.productId}
+          eventType:
+            - 'transition'
+          requestQuantity:
+            - 'single'
+            - 'exists': false<%- optionalQueueSubscriptions %>
+    SqsQueuePolicy:
+      Type: AWS::SQS::QueuePolicy
+      Properties:
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal: '*'
+              Action: sqs:SendMessage
+              Resource: '*'
+              Condition:
+                ArnEquals:
+                  'aws:SourceArn':
+                    - Fn::Join:
+                        - ':'
+                        - - 'arn:aws:sns'
+                          - ${self:custom.region}
+                          - ${self:custom.config.accountId}
+                          - 'event-bus'
+        Queues:
+          - Ref: directFQCreate
+          - Ref: directTQCreate<%- optionalQueuePolicies %>

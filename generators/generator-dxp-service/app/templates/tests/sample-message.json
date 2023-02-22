@@ -1,0 +1,65 @@
+{
+  "Records": [
+    {
+      "EventSource": "aws:sns",
+      "EventVersion": "1.0",
+      "EventSubscriptionArn": "arn:aws:sns:us-east-1:811255529278:event-bus:a7f1d3a5-8109-4972-a4d3-5e69f7caee1a",
+      "body": {
+        "Type": "Notification",
+        "MessageId": "07a72944-bda4-5820-9752-7c9a92ad84af",
+        "TopicArn": "arn:aws:sns:us-east-1:811255529278:event-bus",
+        "Subject": null,
+        "MessageAttributes": {
+          "emitter": {
+            "Type": "String",
+            "Value": "platform-events"
+          },
+          "eventId": {
+            "Type": "String",
+            "Value": "aeab0921-0bdc-4e47-8968-c2b8c2b1a8f2"
+          },
+          "triggerEventId": {
+            "Type": "String",
+            "Value": "747099bd-48be-42ce-81e1-de80a7212713"
+          },
+          "entity": {
+            "Type": "String",
+            "Value": "tile"
+          },
+          "entityId": {
+            "Type": "String",
+            "Value": "<%- productId %>"
+          },
+          "operation": {
+            "Type": "String",
+            "Value": "C"
+          },
+          "status": {
+            "Type": "String",
+            "Value": "trigger"
+          }
+        },
+        "Message": {
+          "payload": {},
+          "context": {
+            "user": {
+              "userId": "dummy",
+              "accountId": "dummy"
+            },
+            "account": {
+              "accountId": "dummy"
+            },
+            "product": {},
+            "tile": {}
+          },
+          "metadata": {
+            "eventType": "health",
+            "tileId": "<%- tileId %>",
+            "stateCurrent": "",
+            "statePrevious": ""
+          }
+        }
+      }
+    }
+  ]
+}

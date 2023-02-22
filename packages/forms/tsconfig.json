@@ -1,0 +1,10 @@
+{
+  "extends": "tsconfig/react-library.json",
+  "compilerOptions": {
+		"moduleResolution": "node",
+		"outDir": "dist",
+		"types": ["vitest/globals", "@testing-library/jest-dom"],
+	},
+  "include": ["src", "__tests__"],
+  "exclude": ["dist", "build", "node_modules", "coverage"],
+}
