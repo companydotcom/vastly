@@ -33,11 +33,11 @@ jobs:
       - name: setup pnpm config
         run: pnpm config set store-dir $PNPM_CACHE_FOLDER
       - name: install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
       - name: create and publish versions
         uses: changesets/action@v1
         with:
-          version: pnpm ci:version
+          version: pnpm changeset version
           commit: "chore: update versions"
           title: "chore: update versions"
           publish: pnpm publish-packages
