@@ -4,5 +4,5 @@
   "---": {
     "type": "separator"
   },
-  "ui": "@dxp/ui"
+  "ui": "@companydotcom/ui"
 }

@@ -20,7 +20,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "4.9.5",
-    "@dxp/core": "latest",
-    "@dxp/ui": "workspace:*"
+    "@companydotcom/core": "latest",
+    "@companydotcom/ui": "workspace:*"
   }
 }

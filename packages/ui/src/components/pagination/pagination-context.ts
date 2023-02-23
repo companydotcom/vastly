@@ -1,5 +1,5 @@
 import { createStylesContext } from "@chakra-ui/react"
-import { createContext } from "@dxp/utils"
+import { createContext } from "@companydotcom/utils"
 import type { PaginationItems } from "./use-pagination"
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212

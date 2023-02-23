@@ -1,4 +1,4 @@
 module.exports = {
   reactStrictMode: true,
-  transpilePackages: ["@dxp/ui", "@dxp/forms"],
+  transpilePackages: ["@companydotcom/ui", "@companydotcom/forms"],
 }

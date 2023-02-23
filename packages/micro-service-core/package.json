@@ -1,5 +1,5 @@
 {
-  "name": "@dxp/micro-service-core",
+  "name": "@companydotcom/micro-service-core",
   "version": "0.0.1",
   "description": "Company.com MicroApp core library",
   "main": "./dist/index.js",

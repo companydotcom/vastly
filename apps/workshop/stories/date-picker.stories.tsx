@@ -1,6 +1,6 @@
 import { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react"
-import { DatePicker, ReactDatePickerCustomHeaderProps } from "@dxp/forms"
+import { DatePicker, ReactDatePickerCustomHeaderProps } from "@companydotcom/forms"
 import {
   IconProps,
   VStack,
@@ -13,7 +13,7 @@ import {
   MenuItem,
   ButtonGroup,
   IconButton,
-} from "@dxp/ui"
+} from "@companydotcom/ui"
 
 const meta: Meta<typeof DatePicker> = {
   component: DatePicker,

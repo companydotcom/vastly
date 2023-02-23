@@ -1,5 +1,5 @@
 import * as React from "react"
-import { createContext } from "@dxp/utils"
+import { createContext } from "@companydotcom/utils"
 
 export const [StepperProvider, useStepperContext] = createContext<UseStepperReturn>({
   name: "StepperContext",

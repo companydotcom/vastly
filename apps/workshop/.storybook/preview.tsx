@@ -1,5 +1,5 @@
 import React from "react"
-import { UiProvider } from "@dxp/ui"
+import { UiProvider } from "@companydotcom/ui"
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

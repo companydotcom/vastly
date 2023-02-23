@@ -12,7 +12,7 @@ import {
   Collapse,
 } from "@chakra-ui/react"
 // import { CheckIcon, Icon } from "@chakra-ui/icons"
-import { cx, dataAttr, isDev } from "@dxp/utils"
+import { cx, dataAttr, isDev } from "@companydotcom/utils"
 import { getChildOfType, getChildrenOfType } from "../../utils"
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212

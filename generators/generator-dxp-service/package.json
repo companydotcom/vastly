@@ -1,5 +1,5 @@
 {
-  "name": "@dxp/service-generator",
+  "name": "@companydotcom/service-generator",
   "version": "0.0.1",
   "description": "Companydotcom generators",
   "files": [

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { Field, Form } from "@dxp/forms"
-import { Container } from "@dxp/ui"
+import { Field, Form } from "@companydotcom/forms"
+import { Container } from "@companydotcom/ui"
 
 const meta: Meta<typeof Field> = {
   component: Field,

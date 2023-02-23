@@ -2,7 +2,7 @@ import * as React from "react"
 
 import { FieldValues } from "react-hook-form"
 import { chakra, Button, ButtonProps, HTMLChakraProps, ThemingProps } from "@chakra-ui/react"
-import { callAllHandlers, runIfFn, cx, isDev } from "@dxp/utils"
+import { callAllHandlers, runIfFn, cx, isDev } from "@companydotcom/utils"
 import {
   StepperProvider,
   StepperSteps,
@@ -10,7 +10,7 @@ import {
   StepperStep,
   useStepperContext,
   StepperContainer,
-} from "@dxp/ui"
+} from "@companydotcom/ui"
 import { Form } from "../form"
 import { SubmitButton } from "../submit-button"
 
