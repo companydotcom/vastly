@@ -3,13 +3,14 @@ name: Release New Package Version
 on:
   push:
     branches:
-      - "${{ github.ref }}"
+      - "**"
 #
-concurrency: "${{ github.workflow }}-${{ github.ref_name }}-packages"
+concurrency: "${{ github.workflow }}-${{ github.ref_name }}"
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: endsWith(github.ref_name, "-packages")
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
