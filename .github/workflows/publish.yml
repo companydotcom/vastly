@@ -20,6 +20,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
+          registry-url: https://registry.npmjs.org/
           cache: "pnpm"
 
       - run: pnpm install --frozen-lockfile
@@ -30,7 +31,11 @@ jobs:
           version: pnpm changeset version
           title: "${{ github.ref_name }} | Update Versions"
           commit: "chore: ${{ github.ref_name }} | Update Versions"
-          publish: pnpm run build:packages && pnpm publish -r
+          publish: pnpm run publish-packages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+          # test npm registry
+          # figure out how to switch target branches before PR
+          # what is the slack-bot notification

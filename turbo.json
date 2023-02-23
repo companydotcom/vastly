@@ -16,12 +16,12 @@
       "cache": false
     },
     "workshop#storybook": {
-      "dependsOn": ["@dxp/ui#dev", "@dxp/form#dev"]
+      "dependsOn": ["@companydotcom/ui#dev", "@companydotcom/form#dev"]
     },
     "test": {
       "outputs": ["coverage/**"]
     },
-    "@dxp/micro-service-core#test": {
+    "@companydotcom/micro-service-core#test": {
       "env": ["region", "service", "accountId"]
     }
   }
