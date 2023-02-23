@@ -20,12 +20,13 @@ jobs:
           cache: "pnpm"
 
       - run: pnpm install --frozen-lockfile
+      - run: echo ${{ github.ref }}-${{ github.ref_name }}
       - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
         with:
           version: pnpm changeset version
-          commit: "chore: Update Versions"
+          commit: "chore: ${{ github.ref }}-Update Versions"
           publish: pnpm run build:packages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
