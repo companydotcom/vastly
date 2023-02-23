@@ -3,7 +3,7 @@ name: Release New Package Version
 on:
   push:
     branches:
-      - "${{ github.ref }}-packages"
+      - "${{ github.ref }}"
 #
 concurrency: "${{ github.workflow }}-${{ github.ref_name }}-packages"
 
@@ -23,7 +23,9 @@ jobs:
           node-version: 16.x
           registry-url: https://registry.npmjs.org/
           cache: "pnpm"
-
+      - run: echo ${{ github.ref }}
+      - run: echo ${{ github.ref_name }}-packages
+      - run: echo "${{ github.ref_name }}-packages"
       - run: pnpm install --frozen-lockfile
       - name: Create Release Pull Request or Publish
         id: changesets
