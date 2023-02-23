@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react"
-import { Form, Field, StepForm, FormLayout, FormStep, NextButton } from "@dxp/forms"
+import { Form, Field, StepForm, FormLayout, FormStep, NextButton } from "@companydotcom/forms"
 
 const meta: Meta<typeof Form> = {
   component: Form,

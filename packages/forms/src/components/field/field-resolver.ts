@@ -1,4 +1,4 @@
-import { get } from "@dxp/utils"
+import { get } from "@companydotcom/utils"
 import { FieldProps } from "./field"
 
 export type FieldResolver = {

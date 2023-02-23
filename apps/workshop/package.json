@@ -1,6 +1,6 @@
 {
   "name": "workshop",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -12,8 +12,8 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@dxp/forms": "workspace:*",
-    "@dxp/ui": "workspace:*",
+    "@companydotcom/forms": "workspace:*",
+    "@companydotcom/ui": "workspace:*",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0"
