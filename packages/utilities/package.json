@@ -1,5 +1,8 @@
 {
   "name": "@companydotcom/utils",
+  "repository": {
+    "url": "https://github.com/companydotcom/dxp.git"
+  },
   "version": "0.0.2",
   "main": "./dist/index.js",
   "source": "./src/index.ts",
@@ -26,5 +29,8 @@
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }

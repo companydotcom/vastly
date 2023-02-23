@@ -1,5 +1,8 @@
 {
   "name": "@companydotcom/ui",
+  "repository": {
+    "url": "https://github.com/companydotcom/dxp.git"
+  },
   "version": "0.0.2",
   "license": "MIT",
   "sideEffects": false,
@@ -37,5 +40,8 @@
     "@emotion/styled": "^11.10.5",
     "framer-motion": "^8.5.0",
     "react-datepicker": "^4.10.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }
