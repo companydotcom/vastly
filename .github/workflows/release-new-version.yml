@@ -3,7 +3,7 @@ name: Release New Package Version
 on:
   push:
     branches:
-      - "${{ github.ref_name }}-packages"
+      - "${{ github.ref }}-packages"
 #
 concurrency: "${{ github.workflow }}-${{ github.ref_name }}-packages"
 
