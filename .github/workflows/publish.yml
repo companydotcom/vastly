@@ -2,7 +2,7 @@ name: Publish
 on:
   push:
     branches:
-      - "packages"
+      - "ATX-2363"
 #
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
