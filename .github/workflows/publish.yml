@@ -24,6 +24,8 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
+          version: pnpm changeset version
+          commit: "ATX-update versions"
           publish: pnpm run build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
