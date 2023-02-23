@@ -10,23 +10,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
         with:
           version: 7
-      - uses: actions/setup-node@v3
+      - name: Setup Node v16.x
+        uses: actions/setup-node@v3
         with:
           node-version: 16.x
           cache: "pnpm"
 
       - run: pnpm install --frozen-lockfile
-      - run: echo ${{ github.ref }}-${{ github.ref_name }}
       - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
         with:
           version: pnpm changeset version
-          commit: "chore: ${{ github.ref }}-Update Versions"
+          commit: "chore: ${{ github.ref_name }}-Update Versions"
           publish: pnpm run build:packages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
