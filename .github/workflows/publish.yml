@@ -28,7 +28,9 @@ jobs:
         uses: changesets/action@v1
         with:
           version: pnpm changeset version
-          commit: "chore: ${{ github.ref_name }}-Update Versions"
-          publish: pnpm run build:packages
+          title: "${{ github.ref_name }} | Update Versions"
+          commit: "chore: ${{ github.ref_name }} | Update Versions"
+          publish: pnpm run build:packages && pnpm publish -r
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
