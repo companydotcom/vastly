@@ -1,22 +1,23 @@
-# This action runs on every push to make sure all changes to our code are non-breaking
-# name: CI
-# on:
-#   push:
-#     branches:
-#       - "**"
+# This action runs on every pull request to make sure all changes to our code are non-breaking
+name: CI
+on:
+  pull_request:
+    branches:
+      - "**"
+    types: [created]
 
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#       - uses: pnpm/action-setup@v2
-#         with:
-#           version: 7
-#       - uses: actions/setup-node@v3
-#         with:
-#           node-version: 16.x
-#           cache: "pnpm"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: "pnpm"
 
-#       - run: pnpm install --frozen-lockfile
-#       - run: pnpm run lint && pnpm run build
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint && pnpm run build

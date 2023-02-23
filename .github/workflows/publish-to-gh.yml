@@ -1,13 +1,14 @@
 name: Publish Package To GitHub Packages
 
 on:
-  # pull_request:
-  #   branches:
-  #     - packages
-  #   types: [closed]
-  push:
+  pull_request:
     branches:
-      - "ATX-2363"
+      - packages
+    types: [closed]
+  # push:
+  #   branches:
+  #     - "ATX-2363"
+concurrency: ${{ github.workflow }}-${{ github.ref_name }}-packages
 
 jobs:
   build:
@@ -26,6 +27,11 @@ jobs:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
           cache: "pnpm"
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - run: pnpm i
       - run: pnpm -r publish --no-git-checks
         env:
