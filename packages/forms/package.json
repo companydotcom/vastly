@@ -1,5 +1,5 @@
 {
-  "name": "@dxp/forms",
+  "name": "@companydotcom/forms",
   "version": "0.0.1",
   "license": "MIT",
   "sideEffects": false,
@@ -42,8 +42,8 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.4.9",
-    "@dxp/ui": "workspace:*",
-    "@dxp/utils": "workspace:*",
+    "@companydotcom/ui": "workspace:*",
+    "@companydotcom/utils": "workspace:*",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "card-validator": "^8.1.1",

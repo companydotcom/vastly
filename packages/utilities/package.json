@@ -1,5 +1,5 @@
 {
-  "name": "@dxp/utils",
+  "name": "@companydotcom/utils",
   "version": "0.0.1",
   "main": "./dist/index.js",
   "source": "./src/index.ts",

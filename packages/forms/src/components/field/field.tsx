@@ -33,7 +33,7 @@ import {
   UsePinInputProps,
   SystemProps,
 } from "@chakra-ui/react"
-import { callAllHandlers, isDev } from "@dxp/utils"
+import { callAllHandlers, isDev } from "@companydotcom/utils"
 import NumberFormat from "react-number-format"
 import type { NumberFormatBaseProps } from "react-number-format"
 import { RadioInput, type RadioInputProps } from "../radio-input"

@@ -1,6 +1,6 @@
 import * as React from "react"
 import { chakra, HTMLChakraProps, forwardRef } from "@chakra-ui/react"
-import { cx, runIfFn } from "@dxp/utils"
+import { cx, runIfFn } from "@companydotcom/utils"
 
 import {
   useForm,

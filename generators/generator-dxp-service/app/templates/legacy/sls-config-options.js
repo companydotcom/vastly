@@ -6,7 +6,7 @@ const iamSqsResources = {
         - "arn:aws:sqs:\${self:custom.region}:\${self:custom.config.accountId}:\${self:custom.config.service}-bulktq"`,
   webhook: `
         - "arn:aws:sqs:\${self:custom.region}:\${self:custom.config.accountId}:\${self:custom.config.service}-webhook"`,
-}
+};
 
 const functionConfigs = {
   bulkFetch: `
@@ -33,7 +33,7 @@ const functionConfigs = {
           arn: "arn:aws:sqs:\${self:custom.region}:\${self:custom.region}:\${self:custom.config.service}-webhook"
           enabled: true
           batchSize: 1`,
-}
+};
 
 const resourceQueueConfigs = {
   bulkFetch: `
@@ -84,7 +84,7 @@ const resourceQueueConfigs = {
               - "dlqCreate"
               - "Arn"
           maxReceiveCount: 3`,
-}
+};
 
 const resourceSubscriptionConfigs = {
   bulkFetch: `
@@ -136,7 +136,7 @@ const resourceSubscriptionConfigs = {
           requestQuantity:
             - "single"
             - "exists": false`,
-}
+};
 
 const queueRefPolicyConfigs = {
   bulkFetch: `
@@ -145,7 +145,7 @@ const queueRefPolicyConfigs = {
           - Ref: bulkTQCreate`,
   webhook: `
           - Ref: webhookQCreate`,
-}
+};
 
 module.exports = {
   iamSqsResources,
@@ -153,4 +153,4 @@ module.exports = {
   resourceQueueConfigs,
   resourceSubscriptionConfigs,
   queueRefPolicyConfigs,
-}
+};

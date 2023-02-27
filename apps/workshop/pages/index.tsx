@@ -1,5 +1,5 @@
-import { Button } from "@dxp/ui"
-import { Form, Field } from "@dxp/forms"
+import { Button } from "@companydotcom/ui"
+import { Form, Field } from "@companydotcom/forms"
 
 export default function Web() {
   return (
