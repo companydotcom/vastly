@@ -13,11 +13,19 @@ import {
   MenuItem,
   ButtonGroup,
   IconButton,
+  Container,
 } from "@companydotcom/ui"
 
 const meta: Meta<typeof DatePicker> = {
   component: DatePicker,
   title: "Forms/Date Picker",
+  decorators: [
+    (Story) => (
+      <Container>
+        <Story />
+      </Container>
+    ),
+  ],
 }
 
 export default meta
