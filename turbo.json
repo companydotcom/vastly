@@ -7,7 +7,8 @@
       "outputs": ["dist/**", ".next/**", "storybook-static/**"]
     },
     "workshop#build-storybook": {
-      "outputs": ["storybook-static/**"]
+      "outputs": ["storybook-static/**"],
+      "dependsOn": ["@companydotcom/ui#build", "@companydotcom/form#build"]
     },
     "lint": {
       "outputs": []
