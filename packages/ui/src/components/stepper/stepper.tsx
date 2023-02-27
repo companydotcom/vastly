@@ -77,7 +77,7 @@ export const StepperContainer = forwardRef<StepperProps, "div">((props, ref) => 
           ref={ref}
           __css={containerStyles}
           {...containerProps}
-          className={cx("sui-stepper", props.className)}
+          className={cx("dxp-ui-stepper", props.className)}
         >
           {children}
         </chakra.div>
@@ -157,7 +157,7 @@ export const StepperSteps: React.FC<StepperStepsProps> = (props) => {
       <chakra.div
         __css={stepperStyles}
         {...rest}
-        className={cx("sui-stepper__steps", props.className)}
+        className={cx("dxp-ui-stepper__steps", props.className)}
       >
         {elements}
       </chakra.div>
@@ -188,7 +188,7 @@ export const StepperContent: React.FC<StepperContentProps> = (props) => {
     <chakra.div
       __css={styles.content}
       {...rest}
-      className={cx("sui-stepper__content", props.className)}
+      className={cx("dxp-ui-stepper__content", props.className)}
     >
       <Collapse in={isOpen}>{children}</Collapse>
     </chakra.div>
@@ -230,7 +230,7 @@ export const StepperIcon: React.FC<StepperIconProps> = (props) => {
   }
 
   return (
-    <chakra.div __css={iconStyles} {...rest} className={cx("sui-stepper__icon", className)}>
+    <chakra.div __css={iconStyles} {...rest} className={cx("dxp-ui-stepper__icon", className)}>
       {content}
     </chakra.div>
   )
@@ -284,7 +284,7 @@ export const StepperStep: React.FC<StepperStepProps> = (props) => {
       __css={stepStyles}
       data-active={dataAttr(step.isActive)}
       data-completed={dataAttr(step.isCompleted)}
-      className={cx("sui-stepper__step", props.className)}
+      className={cx("dxp-ui-stepper__step", props.className)}
     >
       <StepperIcon icon={icon} isActive={isActive} isCompleted={isCompleted} />
       {title && <StepperStepTitle>{title}</StepperStepTitle>}
@@ -317,7 +317,7 @@ export const StepperSeparator: React.FC<StepperSeparatorProps> = (props) => {
     <chakra.div
       {...rest}
       data-active={dataAttr(isActive)}
-      className={cx("sui-stepper__separator", props.className)}
+      className={cx("dxp-ui-stepper__separator", props.className)}
       __css={separatorStyles}
     />
   )
@@ -336,7 +336,7 @@ export const StepperStepTitle: React.FC<HTMLChakraProps<"p">> = (props) => {
     <chakra.p
       {...props}
       __css={styles.title}
-      className={cx("sui-stepper__title", props.className)}
+      className={cx("dxp-ui-stepper__title", props.className)}
     />
   )
 }
@@ -354,7 +354,7 @@ export const StepperCompleted: React.FC<HTMLChakraProps<"div">> = (props) => {
     <chakra.div
       __css={styles.completed}
       {...props}
-      className={cx("sui-stepper__completed", props.className)}
+      className={cx("dxp-ui-stepper__completed", props.className)}
     />
   )
 }
