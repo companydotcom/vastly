@@ -52,7 +52,7 @@ const stepBaseStyle = defineStyle((props) => {
       flexDirection: "row",
     },
     horizontal: {
-      flexDirection: { base: "column", sm: "row" },
+      flexDirection: { base: "column" },
       flex: { base: "1 1", sm: "inherit" },
       position: "relative",
       _before: {
@@ -119,7 +119,7 @@ const iconBaseStyle = defineStyle((props) => {
       me: 2,
     },
     horizontal: {
-      me: { base: 0, sm: 2 },
+      me: { base: 0 },
     },
   })
 })
@@ -205,7 +205,7 @@ const sizes = {
       fontSize: "sm",
     },
     title: {
-      fontSize: "md",
+      fontSize: "xs",
     },
     step: {
       _before: {
@@ -215,10 +215,11 @@ const sizes = {
   }),
   lg: definePartsStyle({
     icon: {
-      boxSize: 8,
+      boxSize: 10,
     },
     title: {
-      fontSize: "lg",
+      mt: 2,
+      fontSize: "sm",
     },
   }),
 }

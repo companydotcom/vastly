@@ -223,11 +223,11 @@ export const StepperIcon: React.FC<StepperIconProps> = (props) => {
   }
 
   let content
-  if (isCompleted) {
-    // content = <Icon as={CheckIcon} />
-  } else {
-    content = icon
-  }
+  // if (isCompleted) {
+  //   content = <Icon as={CheckIcon} />
+  // } else {
+  content = icon
+  // }
 
   return (
     <chakra.div __css={iconStyles} {...rest} className={cx("dxp-ui-stepper__icon", className)}>
