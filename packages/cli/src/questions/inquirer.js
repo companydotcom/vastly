@@ -42,8 +42,8 @@ export const generateQuestions = [
     name: "generate",
     message: "Generate?",
     choices: [
-      { title: "Yes", value: "yes" },
-      { title: "No", value: "no" },
+      { title: "Yes", value: true },
+      { title: "No", value: false },
     ],
   },
 ]
