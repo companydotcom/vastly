@@ -1,7 +1,6 @@
 import {
   chakra,
   forwardRef,
-  keyframes,
   omitThemingProps,
   ThemingProps,
   useStyleConfig,
@@ -12,42 +11,14 @@ import { cx } from "@companydotcom/utils"
 // https://github.com/microsoft/TypeScript/issues/48212
 import type { ComponentWithAs } from "@chakra-ui/react"
 
-const circleFadeDelay = keyframes({
-  "0%": {
-    transform: "scale(1)",
-  },
-  "20%": {
-    transform: "scale(1)",
-  },
-  "50%": { transform: "scale(1.5)" },
-  "80%": { transform: "scale(1)" },
-  "100%": {
-    transform: "scale(1)",
-  },
-})
-
 interface DottedSpinnerOptions {
-  /**
-   * The color of the empty area in the spinner
-   * @default "transparent"
-   */
-  emptyColor?: string
   /**
    * The color of the spinner
    */
   color?: string
   /**
-   * The thickness of the spinner
-   * @default "2px"
-   * @example
-   * ```jsx
-   * <Spinner thickness="4px"/>
-   * ```
-   */
-  thickness?: string
-  /**
    * The speed of the spinner.
-   * @default "0.45s"
+   * @default "1.2s"
    * @example
    * ```jsx
    * <Spinner speed="0.2s"/>
@@ -68,20 +39,18 @@ export interface DottedSpinnerProps
     ThemingProps<"Spinner"> {}
 
 /**
- * Spinner is used to indicate the loading state of a page or a component,
+ * DottedSpinner is used to indicate the loading state of a page or a component,
  * It renders a `div` by default.
  *
  * @see Docs https://chakra-ui.com/spinner
  */
 export const DottedSpinner = forwardRef<DottedSpinnerProps, "div">((props, ref) => {
-  const styles = useStyleConfig("Spinner", props)
-
+  const styles = useStyleConfig("DottedSpinner", props)
   const {
     label = "Loading...",
-    thickness = "2px",
-    speed = "0.45s",
-    emptyColor = "transparent",
+    speed = "1.2s",
     className,
+    color = "blue.500",
     ...rest
   } = omitThemingProps(props)
 
@@ -90,112 +59,43 @@ export const DottedSpinner = forwardRef<DottedSpinnerProps, "div">((props, ref) 
   const spinnerStyles = {
     display: "inline-block",
     position: "relative",
-    width: "80px",
-    height: "80px",
+    fill: color,
     ...styles,
   }
 
-  const childStyles = {
-    position: "absolute",
-    width: "6px",
-    height: "6px",
-    background: "#fff",
-    borderRadius: "50%",
-    animation: `${circleFadeDelay} 1.2s linear infinite`,
-  }
+  // Spinner animation and style courtesy of https://github.com/n3r4zzurr0/svg-spinners
 
   return (
-    <chakra.div ref={ref} __css={spinnerStyles} className={_className} {...rest}>
-      <chakra.div />
-      <chakra.div />
-      <chakra.div />
-      <chakra.div />
-      <chakra.div />
-      <chakra.div />
-      <chakra.div />
-      <chakra.div />
-      <chakra.div />
-      <chakra.div />
-      <chakra.div />
-      <chakra.div />
-      {label && <chakra.span srOnly>{label}</chakra.span>}
+    <chakra.div ref={ref} className={_className} __css={spinnerStyles} {...rest}>
+      <chakra.svg viewBox="0 0 24 24">
+        <style>
+          {`.spinner_EUy1{animation:spinner_grm3 ${speed} infinite}.spinner_f6oS{animation-delay:.1s}
+        .spinner_g3nX{animation-delay:.2s}.spinner_nvEs{animation-delay:.3s}.spinner_MaNM
+        {animation-delay:.4s}.spinner_4nle{animation-delay:.5s}.spinner_ZETM
+        {animation-delay:.6s}.spinner_HXuO{animation-delay:.7s}.spinner_YaQo
+        {animation-delay:.8s}.spinner_GOx1{animation-delay:.9s}.spinner_4vv9
+        {animation-delay:1s}.spinner_NTs9{animation-delay:1.1s}.spinner_auJJ
+        {transform-origin:center;animation:spinner_T3O6 6s linear infinite}@keyframes spinner_grm3
+        {0%,50%{animation-timing-function:cubic-bezier(.27,.42,.37,.99);r:1px}25%{animation-timing-function:cubic-bezier(.53,0,.61,.73);r:2px}}@keyframes spinner_T3O6{0%{transform:rotate(360deg)}100%{transform:rotate(0deg)}}
+      `}
+        </style>
+        <g className="spinner_auJJ">
+          <circle className="spinner_EUy1" cx="12" cy="3" r="1" />
+          <circle className="spinner_EUy1 spinner_f6oS" cx="16.50" cy="4.21" r="1" />
+          <circle className="spinner_EUy1 spinner_NTs9" cx="7.50" cy="4.21" r="1" />
+          <circle className="spinner_EUy1 spinner_g3nX" cx="19.79" cy="7.50" r="1" />
+          <circle className="spinner_EUy1 spinner_4vv9" cx="4.21" cy="7.50" r="1" />
+          <circle className="spinner_EUy1 spinner_nvEs" cx="21.00" cy="12.00" r="1" />
+          <circle className="spinner_EUy1 spinner_GOx1" cx="3.00" cy="12.00" r="1" />
+          <circle className="spinner_EUy1 spinner_MaNM" cx="19.79" cy="16.50" r="1" />
+          <circle className="spinner_EUy1 spinner_YaQo" cx="4.21" cy="16.50" r="1" />
+          <circle className="spinner_EUy1 spinner_4nle" cx="16.50" cy="19.79" r="1" />
+          <circle className="spinner_EUy1 spinner_HXuO" cx="7.50" cy="19.79" r="1" />
+          <circle className="spinner_EUy1 spinner_ZETM" cx="12" cy="21" r="1" />
+        </g>
+      </chakra.svg>
     </chakra.div>
   )
 })
 
-DottedSpinner.displayName = "Spinner"
-
-// .dot-spinner {
-//     display: inline-block;
-//     position: relative;
-//     width: 80px;
-//     height: 80px;
-//   }
-//   .dot-spinner div {
-//     position: absolute;
-//     width: 6px;
-//     height: 6px;
-//     background: #fff;
-//     border-radius: 50%;
-//     animation: dot-spinner 1.2s linear infinite;
-//   }
-//   .dot-spinner div:nth-child(1) {
-//     animation-delay: 0s;
-//     top: 37px;
-//     left: 66px;
-//   }
-//   .dot-spinner div:nth-child(2) {
-//     animation-delay: -0.1s;
-//     top: 22px;
-//     left: 62px;
-//   }
-//   .dot-spinner div:nth-child(3) {
-//     animation-delay: -0.2s;
-//     top: 11px;
-//     left: 52px;
-//   }
-//   .dot-spinner div:nth-child(4) {
-//     animation-delay: -0.3s;
-//     top: 7px;
-//     left: 37px;
-//   }
-//   .dot-spinner div:nth-child(5) {
-//     animation-delay: -0.4s;
-//     top: 11px;
-//     left: 22px;
-//   }
-//   .dot-spinner div:nth-child(6) {
-//     animation-delay: -0.5s;
-//     top: 22px;
-//     left: 11px;
-//   }
-//   .dot-spinner div:nth-child(7) {
-//     animation-delay: -0.6s;
-//     top: 37px;
-//     left: 7px;
-//   }
-//   .dot-spinner div:nth-child(8) {
-//     animation-delay: -0.7s;
-//     top: 52px;
-//     left: 11px;
-//   }
-//   .dot-spinner div:nth-child(9) {
-//     animation-delay: -0.8s;
-//     top: 62px;
-//     left: 22px;
-//   }
-//   .dot-spinner div:nth-child(10) {
-//     animation-delay: -0.9s;
-//     top: 66px;
-//     left: 37px;
-//   }
-//   .dot-spinner div:nth-child(11) {
-//     animation-delay: -1s;
-//     top: 62px;
-//     left: 52px;
-//   }
-//   .dot-spinner div:nth-child(12) {
-//     animation-delay: -1.1s;
-//     top: 52px;
-//     left: 62px;
-//   }
+DottedSpinner.displayName = "DottedSpinner"

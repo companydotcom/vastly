@@ -10,3 +10,12 @@ export default meta
 type Story = StoryObj<typeof DottedSpinner>
 
 export const Basic: Story = {}
+
+export const WithSizes: Story = {
+  args: {
+    sizes: ["xs", "sm", "md", "lg", "xl"],
+  },
+  render: function CustomRenderer({ sizes }) {
+    return sizes.map((size: string) => <DottedSpinner size={size} key={size} />)
+  },
+}
