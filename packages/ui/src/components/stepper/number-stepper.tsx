@@ -40,7 +40,7 @@ export interface StepperProps
  *
  * Can be controlled or uncontrolled.
  */
-export const Stepper = forwardRef<StepperProps, "div">((props, ref) => {
+export const NumberStepper = forwardRef<StepperProps, "div">((props, ref) => {
   const { orientation, children, ...containerProps } = props
   return (
     <StepperContainer ref={ref} orientation={orientation} {...containerProps}>
@@ -50,13 +50,13 @@ export const Stepper = forwardRef<StepperProps, "div">((props, ref) => {
 })
 
 if (isDev()) {
-  Stepper.displayName = "Stepper"
+  NumberStepper.displayName = "NumberStepper"
 }
 
 export const StepperContainer = forwardRef<StepperProps, "div">((props, ref) => {
   const { children, orientation = "horizontal", step, onChange, ...rest } = props
 
-  const styles = useMultiStyleConfig("Stepper", {
+  const styles = useMultiStyleConfig("NumberStepper", {
     ...rest,
     orientation,
   })

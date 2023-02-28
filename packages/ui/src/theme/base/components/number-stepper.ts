@@ -104,6 +104,7 @@ const separatorBaseStyle = defineStyle((props) => {
       borderTopWidth: borderWidth,
       mx: { base: 0, sm: 3 },
       mt: { base: 5, sm: 0 },
+      mb: { base: 6 },
       alignSelf: { base: "flex-start", sm: "center" },
       flex: { base: "inherit", sm: 1 },
     },
@@ -171,13 +172,15 @@ const variantSolid = defineStyle((props) => {
 
   return {
     icon: {
-      bg: `gray.500`,
-      color: mode("white", "gray.800")(props),
+      bg: `gray.200`,
+      color: "gray.800",
       "[data-active] &": {
         bg: mode(`${c}.500`, `${c}.200`)(props),
+        color: "white",
       },
       "[data-completed] &": {
         bg: mode(`${c}.500`, `${c}.200`)(props),
+        color: "white",
       },
     },
     separator: {
@@ -224,7 +227,7 @@ const sizes = {
   }),
 }
 
-export const Stepper = defineMultiStyleConfig({
+export const NumberStepper = defineMultiStyleConfig({
   baseStyle,
   variants,
   sizes,

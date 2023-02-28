@@ -1,3 +1,3 @@
-export * from "./stepper"
+export * from "./number-stepper"
 export * from "./use-stepper"
-export * from "./stepper"
+export * from "./number-stepper"
