@@ -13,19 +13,19 @@ export const loginQuestions = [
 
 export const generateQuestions = [
   {
-    type: "list",
-    name: "framework",
-    message: "Pick a framework",
-    choices: [
-      { title: "React", value: "React" },
-      { title: "Svelte", value: "Svelte" },
-      { title: "Vue", value: "Vue" },
-    ],
+    type: "text",
+    name: "repoName",
+    message: "What would you like to name your project?",
   },
   {
-    type: "number",
-    name: "microservices",
-    message: "How many microservices do you need?",
+    type: "text",
+    name: "repoDescription",
+    message: "Please enter a description for your project: ",
+  },
+  {
+    type: "text",
+    name: "email",
+    message: "What is your Github email?",
   },
   {
     type: "text",
@@ -34,8 +34,8 @@ export const generateQuestions = [
   },
   {
     type: "password",
-    name: "password",
-    message: "What is your Github password?",
+    name: "token",
+    message: "What is your Github token?",
   },
   {
     type: "list",

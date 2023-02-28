@@ -4,6 +4,9 @@
   "description": "Company.com CLI",
   "author": "Company.com",
   "license": "MIT",
+  "scripts": {
+    "create-dxp-app": "npx ts-node --esm src/index.tsx -g"
+  },
   "dependencies": {
     "chalk": "^4.0.0",
     "commander": "^10.0.0",
@@ -12,6 +15,7 @@
   },
   "type": "module",
   "devDependencies": {
+    "@octokit/rest": "^19.0.7",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
   }
