@@ -5,10 +5,8 @@ on:
     branches:
       - packages
     types: [closed]
-  # push:
-  #   branches:
-  #     - "ATX-2363"
-concurrency: ${{ github.workflow }}-${{ github.ref_name }}-packages
+
+concurrency: ${{ github.workflow }}-${{ github.ref_name }}
 
 jobs:
   build:
