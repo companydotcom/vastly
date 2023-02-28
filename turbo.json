@@ -6,11 +6,15 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**", "storybook-static/**"]
     },
+    "workshop#build-storybook": {
+      "outputs": ["storybook-static/**"]
+    },
     "lint": {
       "outputs": []
     },
     "dev": {
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
     "clean": {
       "cache": false
