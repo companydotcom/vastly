@@ -14,5 +14,11 @@ const config: StorybookConfig = {
   docs: {
     autodocs: "tag",
   },
+  refs: {
+    "chakra-ui": {
+      title: "Chakra-UI",
+      url: "https://chakra-ui.netlify.app/?path=/story/accordion--default",
+    },
+  },
 }
 export default config

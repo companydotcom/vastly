@@ -26,9 +26,9 @@ import {
   UseStepperProps,
 } from "./use-stepper"
 
-const [StylesProvider, useStyles] = createStylesContext("Stepper")
+const [StylesProvider, useStyles] = createStylesContext("NumberStepper")
 
-export interface StepperProps
+export interface NumberStepperProps
   extends UseStepperProps,
     Omit<HTMLChakraProps<"div">, "onChange">,
     ThemingProps<"Stepper"> {
@@ -36,27 +36,27 @@ export interface StepperProps
 }
 
 /**
- * Display progress in multi-step workflows.
+ * Display progress with numbers in multi-step workflows.
  *
  * Can be controlled or uncontrolled.
  */
-export const Stepper = forwardRef<StepperProps, "div">((props, ref) => {
+export const NumberStepper = forwardRef<NumberStepperProps, "div">((props, ref) => {
   const { orientation, children, ...containerProps } = props
   return (
-    <StepperContainer ref={ref} orientation={orientation} {...containerProps}>
-      <StepperSteps orientation={orientation}>{children}</StepperSteps>
-    </StepperContainer>
+    <NumberStepperContainer ref={ref} orientation={orientation} {...containerProps}>
+      <NumberStepperSteps orientation={orientation}>{children}</NumberStepperSteps>
+    </NumberStepperContainer>
   )
 })
 
 if (isDev()) {
-  Stepper.displayName = "Stepper"
+  NumberStepper.displayName = "NumberStepper"
 }
 
-export const StepperContainer = forwardRef<StepperProps, "div">((props, ref) => {
+export const NumberStepperContainer = forwardRef<NumberStepperProps, "div">((props, ref) => {
   const { children, orientation = "horizontal", step, onChange, ...rest } = props
 
-  const styles = useMultiStyleConfig("Stepper", {
+  const styles = useMultiStyleConfig("NumberStepper", {
     ...rest,
     orientation,
   })
@@ -77,7 +77,7 @@ export const StepperContainer = forwardRef<StepperProps, "div">((props, ref) => 
           ref={ref}
           __css={containerStyles}
           {...containerProps}
-          className={cx("sui-stepper", props.className)}
+          className={cx("dxp-ui-numberstepper", props.className)}
         >
           {children}
         </chakra.div>
@@ -87,10 +87,10 @@ export const StepperContainer = forwardRef<StepperProps, "div">((props, ref) => 
 })
 
 if (isDev()) {
-  StepperContainer.displayName = "StepperContainer"
+  NumberStepperContainer.displayName = "NumberStepperContainer"
 }
 
-export interface StepperStepsProps extends HTMLChakraProps<"div"> {
+export interface NumberStepperStepsProps extends HTMLChakraProps<"div"> {
   orientation?: "horizontal" | "vertical"
   stepComponent?: React.JSXElementConstructor<any>
 }
@@ -98,7 +98,7 @@ export interface StepperStepsProps extends HTMLChakraProps<"div"> {
 /**
  * Wrapper element containing the steps.
  */
-export const StepperSteps: React.FC<StepperStepsProps> = (props) => {
+export const NumberStepperSteps = (props: NumberStepperStepsProps) => {
   const { children, orientation = "horizontal", stepComponent, ...rest } = props
   const styles = useStyles()
 
@@ -113,7 +113,7 @@ export const StepperSteps: React.FC<StepperStepsProps> = (props) => {
 
   const isVertical = orientation === "vertical"
 
-  const Step = stepComponent || StepperStep
+  const Step = stepComponent || NumberStepperStep
 
   const steps = getChildrenOfType(children, Step)
 
@@ -130,26 +130,26 @@ export const StepperSteps: React.FC<StepperStepsProps> = (props) => {
 
     if (isVertical) {
       memo.push(
-        <StepperContent key={`content-${i}`} isOpen={activeIndex === i}>
+        <NumberStepperContent key={`content-${i}`} isOpen={activeIndex === i}>
           {step.props.children}
-        </StepperContent>,
+        </NumberStepperContent>,
       )
     }
 
     if (i < arr.length - 1) {
-      memo.push(<StepperSeparator key={`separator-${i}`} isActive={i < activeIndex} />)
+      memo.push(<NumberStepperSeparator key={`separator-${i}`} isActive={i < activeIndex} />)
     }
 
     return memo
   }, [])
 
-  const completed = getChildOfType(children, StepperCompleted)
+  const completed = getChildOfType(children, NumberStepperCompleted)
 
   const content =
     activeIndex >= steps.length ? (
       completed
     ) : !isVertical ? (
-      <StepperContent>{steps[activeIndex]?.props?.children}</StepperContent>
+      <NumberStepperContent>{steps[activeIndex]?.props?.children}</NumberStepperContent>
     ) : null
 
   return (
@@ -157,7 +157,7 @@ export const StepperSteps: React.FC<StepperStepsProps> = (props) => {
       <chakra.div
         __css={stepperStyles}
         {...rest}
-        className={cx("sui-stepper__steps", props.className)}
+        className={cx("dxp-ui-stepper__steps", props.className)}
       >
         {elements}
       </chakra.div>
@@ -167,10 +167,10 @@ export const StepperSteps: React.FC<StepperStepsProps> = (props) => {
 }
 
 if (isDev()) {
-  StepperSteps.displayName = "StepperSteps"
+  NumberStepperSteps.displayName = "NumberStepperSteps"
 }
 
-export interface StepperContentProps extends HTMLChakraProps<"div"> {
+export interface NumberStepperContentProps extends HTMLChakraProps<"div"> {
   /**
    * Show or hide the content
    */
@@ -180,7 +180,7 @@ export interface StepperContentProps extends HTMLChakraProps<"div"> {
 /**
  * Renders the step content, is collapsible.
  */
-export const StepperContent: React.FC<StepperContentProps> = (props) => {
+export const NumberStepperContent = (props: NumberStepperContentProps) => {
   const { children, isOpen = true, ...rest } = props
   const styles = useStyles()
 
@@ -188,7 +188,7 @@ export const StepperContent: React.FC<StepperContentProps> = (props) => {
     <chakra.div
       __css={styles.content}
       {...rest}
-      className={cx("sui-stepper__content", props.className)}
+      className={cx("dxp-ui-stepper__content", props.className)}
     >
       <Collapse in={isOpen}>{children}</Collapse>
     </chakra.div>
@@ -196,7 +196,7 @@ export const StepperContent: React.FC<StepperContentProps> = (props) => {
 }
 
 if (isDev()) {
-  StepperContent.displayName = "StepperContent"
+  NumberStepperContent.displayName = "NumberStepperContent"
 }
 
 export interface StepperIconProps extends HTMLChakraProps<"div"> {
@@ -208,7 +208,7 @@ export interface StepperIconProps extends HTMLChakraProps<"div"> {
 /**
  * Displays the current step or a completed icon.
  */
-export const StepperIcon: React.FC<StepperIconProps> = (props) => {
+export const NumberStepperIcon = (props: StepperIconProps) => {
   const { icon, isActive, isCompleted, className, ...rest } = props
 
   const styles = useStyles()
@@ -223,24 +223,24 @@ export const StepperIcon: React.FC<StepperIconProps> = (props) => {
   }
 
   let content
-  if (isCompleted) {
-    // content = <Icon as={CheckIcon} />
-  } else {
-    content = icon
-  }
+  // if (isCompleted) {
+  //   content = <Icon as={CheckIcon} />
+  // } else {
+  content = icon
+  // }
 
   return (
-    <chakra.div __css={iconStyles} {...rest} className={cx("sui-stepper__icon", className)}>
+    <chakra.div __css={iconStyles} {...rest} className={cx("dxp-ui-stepper__icon", className)}>
       {content}
     </chakra.div>
   )
 }
 
 if (isDev()) {
-  StepperIcon.displayName = "StepperIcon"
+  NumberStepperIcon.displayName = "NumberStepperIcon"
 }
 
-export interface StepperStepProps extends Omit<HTMLChakraProps<"div">, "title"> {
+export interface NumberStepperStepProps extends Omit<HTMLChakraProps<"div">, "title"> {
   /**
    * The step title
    */
@@ -266,7 +266,7 @@ export interface StepperStepProps extends Omit<HTMLChakraProps<"div">, "title"> 
 /**
  * Displays the icon and step title.
  */
-export const StepperStep: React.FC<StepperStepProps> = (props) => {
+export const NumberStepperStep = (props: NumberStepperStepProps) => {
   const { name, title, icon, isActive, isCompleted, ...rest } = props
   const step = useStep(props)
   const styles = useStyles()
@@ -284,26 +284,26 @@ export const StepperStep: React.FC<StepperStepProps> = (props) => {
       __css={stepStyles}
       data-active={dataAttr(step.isActive)}
       data-completed={dataAttr(step.isCompleted)}
-      className={cx("sui-stepper__step", props.className)}
+      className={cx("dxp-ui-stepper__step", props.className)}
     >
-      <StepperIcon icon={icon} isActive={isActive} isCompleted={isCompleted} />
-      {title && <StepperStepTitle>{title}</StepperStepTitle>}
+      <NumberStepperIcon icon={icon} isActive={isActive} isCompleted={isCompleted} />
+      {title && <NumberStepperStepTitle>{title}</NumberStepperStepTitle>}
     </chakra.div>
   )
 }
 
 if (isDev()) {
-  StepperStep.displayName = "StepperStep"
+  NumberStepperStep.displayName = "NumberStepperStep"
 }
 
-export interface StepperSeparatorProps extends HTMLChakraProps<"div"> {
+export interface NumberStepperSeparatorProps extends HTMLChakraProps<"div"> {
   isActive?: boolean
 }
 
 /**
  * The separator between steps.
  */
-export const StepperSeparator: React.FC<StepperSeparatorProps> = (props) => {
+export const NumberStepperSeparator = (props: NumberStepperSeparatorProps) => {
   const { isActive, ...rest } = props
   const styles = useStyles()
 
@@ -317,48 +317,48 @@ export const StepperSeparator: React.FC<StepperSeparatorProps> = (props) => {
     <chakra.div
       {...rest}
       data-active={dataAttr(isActive)}
-      className={cx("sui-stepper__separator", props.className)}
+      className={cx("dxp-ui-stepper__separator", props.className)}
       __css={separatorStyles}
     />
   )
 }
 
 if (isDev()) {
-  StepperSeparator.displayName = "StepperSeparator"
+  NumberStepperSeparator.displayName = "NumberStepperSeparator"
 }
 
 /**
  * The step title.
  */
-export const StepperStepTitle: React.FC<HTMLChakraProps<"p">> = (props) => {
+export const NumberStepperStepTitle: React.FC<HTMLChakraProps<"p">> = (props) => {
   const styles = useStyles()
   return (
     <chakra.p
       {...props}
       __css={styles.title}
-      className={cx("sui-stepper__title", props.className)}
+      className={cx("dxp-ui-stepper__title", props.className)}
     />
   )
 }
 
 if (isDev()) {
-  StepperStepTitle.displayName = "StepperStepTitle"
+  NumberStepperStepTitle.displayName = "NumberStepperStepTitle"
 }
 
 /**
  * Shown when all steps have completed.
  */
-export const StepperCompleted: React.FC<HTMLChakraProps<"div">> = (props) => {
+export const NumberStepperCompleted: React.FC<HTMLChakraProps<"div">> = (props) => {
   const styles = useStyles()
   return (
     <chakra.div
       __css={styles.completed}
       {...props}
-      className={cx("sui-stepper__completed", props.className)}
+      className={cx("dxp-ui-stepper__completed", props.className)}
     />
   )
 }
 
 if (isDev()) {
-  StepperCompleted.displayName = "StepperCompleted"
+  NumberStepperCompleted.displayName = "NumberStepperCompleted"
 }
