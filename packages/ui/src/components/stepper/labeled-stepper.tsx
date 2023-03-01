@@ -26,39 +26,36 @@ import {
   UseStepperProps,
 } from "./use-stepper"
 
-const [StylesProvider, useStyles] = createStylesContext("NumberStepper")
+const [StylesProvider, useStyles] = createStylesContext("LabeledStepper")
 
-export interface NumberStepperProps
+export interface LabeledStepperProps
   extends UseStepperProps,
     Omit<HTMLChakraProps<"div">, "onChange">,
-    ThemingProps<"Stepper"> {
-  orientation?: "horizontal" | "vertical"
-}
+    ThemingProps<"Stepper"> {}
 
 /**
- * Display progress with numbers in multi-step workflows.
+ * Display progress with labels in multi-step workflows.
  *
  * Can be controlled or uncontrolled.
  */
-export const NumberStepper = forwardRef<NumberStepperProps, "div">((props, ref) => {
-  const { orientation, children, ...containerProps } = props
+export const LabeledStepper = forwardRef<LabeledStepperProps, "div">((props, ref) => {
+  const { children, ...containerProps } = props
   return (
-    <StepperContainer ref={ref} orientation={orientation} {...containerProps}>
-      <StepperSteps orientation={orientation}>{children}</StepperSteps>
-    </StepperContainer>
+    <LabeledStepperContainer ref={ref} {...containerProps}>
+      <LabeledStepperSteps>{children}</LabeledStepperSteps>
+    </LabeledStepperContainer>
   )
 })
 
 if (isDev()) {
-  NumberStepper.displayName = "NumberStepper"
+  LabeledStepper.displayName = "LabeledStepper"
 }
 
-export const StepperContainer = forwardRef<NumberStepperProps, "div">((props, ref) => {
-  const { children, orientation = "horizontal", step, onChange, ...rest } = props
+export const LabeledStepperContainer = forwardRef<LabeledStepperProps, "div">((props, ref) => {
+  const { children, step, onChange, ...rest } = props
 
-  const styles = useMultiStyleConfig("NumberStepper", {
+  const styles = useMultiStyleConfig("LabeledStepper", {
     ...rest,
-    orientation,
   })
   const containerProps = omitThemingProps(rest)
 
@@ -87,19 +84,18 @@ export const StepperContainer = forwardRef<NumberStepperProps, "div">((props, re
 })
 
 if (isDev()) {
-  StepperContainer.displayName = "StepperContainer"
+  LabeledStepperContainer.displayName = "LabeledStepperContainer"
 }
 
-export interface StepperStepsProps extends HTMLChakraProps<"div"> {
-  orientation?: "horizontal" | "vertical"
+export interface LabeledStepperStepsProps extends HTMLChakraProps<"div"> {
   stepComponent?: React.JSXElementConstructor<any>
 }
 
 /**
  * Wrapper element containing the steps.
  */
-export const StepperSteps = (props: StepperStepsProps) => {
-  const { children, orientation = "horizontal", stepComponent, ...rest } = props
+export const LabeledStepperSteps = (props: LabeledStepperStepsProps) => {
+  const { children, stepComponent, ...rest } = props
   const styles = useStyles()
 
   const { activeIndex } = useStepperContext()
@@ -111,9 +107,7 @@ export const StepperSteps = (props: StepperStepsProps) => {
     ...styles.steps,
   }
 
-  const isVertical = orientation === "vertical"
-
-  const Step = stepComponent || StepperStep
+  const Step = stepComponent || LabeledStepperStep
 
   const steps = getChildrenOfType(children, Step)
 
@@ -128,29 +122,29 @@ export const StepperSteps = (props: StepperStepsProps) => {
       />,
     )
 
-    if (isVertical) {
-      memo.push(
-        <StepperContent key={`content-${i}`} isOpen={activeIndex === i}>
-          {step.props.children}
-        </StepperContent>,
-      )
-    }
+    // if (isVertical) {
+    //   memo.push(
+    //     <StepperContent key={`content-${i}`} isOpen={activeIndex === i}>
+    //       {step.props.children}
+    //     </StepperContent>,
+    //   )
+    // }
 
-    if (i < arr.length - 1) {
-      memo.push(<StepperSeparator key={`separator-${i}`} isActive={i < activeIndex} />)
-    }
+    // if (i < arr.length - 1) {
+    //   memo.push(<StepperSeparator key={`separator-${i}`} isActive={i < activeIndex} />)
+    // }
 
     return memo
   }, [])
 
-  const completed = getChildOfType(children, StepperCompleted)
+  const completed = getChildOfType(children, LabeledStepperCompleted)
 
   const content =
     activeIndex >= steps.length ? (
       completed
-    ) : !isVertical ? (
-      <StepperContent>{steps[activeIndex]?.props?.children}</StepperContent>
-    ) : null
+    ) : (
+      <LabeledStepperContent>{steps[activeIndex]?.props?.children}</LabeledStepperContent>
+    )
 
   return (
     <>
@@ -167,10 +161,28 @@ export const StepperSteps = (props: StepperStepsProps) => {
 }
 
 if (isDev()) {
-  StepperSteps.displayName = "StepperSteps"
+  LabeledStepperSteps.displayName = "LabeledStepperSteps"
 }
 
-export interface StepperContentProps extends HTMLChakraProps<"div"> {
+/**
+ * Shown when all steps have completed.
+ */
+export const LabeledStepperCompleted: React.FC<HTMLChakraProps<"div">> = (props) => {
+  const styles = useStyles()
+  return (
+    <chakra.div
+      __css={styles.completed}
+      {...props}
+      className={cx("dxp-ui-stepper__completed", props.className)}
+    />
+  )
+}
+
+if (isDev()) {
+  LabeledStepperCompleted.displayName = "LabeledStepperCompleted"
+}
+
+export interface LabeledStepperContentProps extends HTMLChakraProps<"div"> {
   /**
    * Show or hide the content
    */
@@ -180,7 +192,7 @@ export interface StepperContentProps extends HTMLChakraProps<"div"> {
 /**
  * Renders the step content, is collapsible.
  */
-export const StepperContent = (props: StepperContentProps) => {
+export const LabeledStepperContent = (props: LabeledStepperContentProps) => {
   const { children, isOpen = true, ...rest } = props
   const styles = useStyles()
 
@@ -196,51 +208,10 @@ export const StepperContent = (props: StepperContentProps) => {
 }
 
 if (isDev()) {
-  StepperContent.displayName = "StepperContent"
+  LabeledStepperContent.displayName = "LabeledStepperContent"
 }
 
-export interface StepperIconProps extends HTMLChakraProps<"div"> {
-  icon: React.ReactNode
-  isActive?: boolean
-  isCompleted?: boolean
-}
-
-/**
- * Displays the current step or a completed icon.
- */
-export const StepperIcon = (props: StepperIconProps) => {
-  const { icon, isActive, isCompleted, className, ...rest } = props
-
-  const styles = useStyles()
-
-  const iconStyles: SystemStyleObject = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: "full",
-    fontSize: "1em",
-    ...styles.icon,
-  }
-
-  let content
-  // if (isCompleted) {
-  //   content = <Icon as={CheckIcon} />
-  // } else {
-  content = icon
-  // }
-
-  return (
-    <chakra.div __css={iconStyles} {...rest} className={cx("dxp-ui-stepper__icon", className)}>
-      {content}
-    </chakra.div>
-  )
-}
-
-if (isDev()) {
-  StepperIcon.displayName = "StepperIcon"
-}
-
-export interface StepperStepProps extends Omit<HTMLChakraProps<"div">, "title"> {
+export interface LabeledStepperStepProps extends Omit<HTMLChakraProps<"div">, "title"> {
   /**
    * The step title
    */
@@ -266,7 +237,7 @@ export interface StepperStepProps extends Omit<HTMLChakraProps<"div">, "title"> 
 /**
  * Displays the icon and step title.
  */
-export const StepperStep = (props: StepperStepProps) => {
+export const LabeledStepperStep = (props: LabeledStepperStepProps) => {
   const { name, title, icon, isActive, isCompleted, ...rest } = props
   const step = useStep(props)
   const styles = useStyles()
@@ -274,7 +245,7 @@ export const StepperStep = (props: StepperStepProps) => {
   const stepStyles: SystemStyleObject = {
     display: "flex",
     alignItems: "center",
-    flexDirection: "row",
+    flexDirection: "column",
     ...styles.step,
   }
 
@@ -286,30 +257,28 @@ export const StepperStep = (props: StepperStepProps) => {
       data-completed={dataAttr(step.isCompleted)}
       className={cx("dxp-ui-stepper__step", props.className)}
     >
-      <StepperIcon icon={icon} isActive={isActive} isCompleted={isCompleted} />
-      {title && <StepperStepTitle>{title}</StepperStepTitle>}
+      {title && <LabeledStepperStepTitle>{title}</LabeledStepperStepTitle>}
+      <LabeledStepperSeparator isActive={step?.isActive} />
     </chakra.div>
   )
 }
 
 if (isDev()) {
-  StepperStep.displayName = "StepperStep"
+  LabeledStepperStep.displayName = "LabeledStepperStep"
 }
 
-export interface StepperSeparatorProps extends HTMLChakraProps<"div"> {
+export interface LabeledStepperSeparatorProps extends HTMLChakraProps<"div"> {
   isActive?: boolean
 }
 
 /**
- * The separator between steps.
+ * The bar above a labeled step.
  */
-export const StepperSeparator = (props: StepperSeparatorProps) => {
+export const LabeledStepperSeparator = (props: LabeledStepperSeparatorProps) => {
   const { isActive, ...rest } = props
   const styles = useStyles()
 
   const separatorStyles: SystemStyleObject = {
-    flex: 1,
-    mx: 2,
     ...styles.separator,
   }
 
@@ -324,13 +293,13 @@ export const StepperSeparator = (props: StepperSeparatorProps) => {
 }
 
 if (isDev()) {
-  StepperSeparator.displayName = "StepperSeparator"
+  LabeledStepperSeparator.displayName = "LabeledStepperSeparator"
 }
 
 /**
  * The step title.
  */
-export const StepperStepTitle: React.FC<HTMLChakraProps<"p">> = (props) => {
+export const LabeledStepperStepTitle: React.FC<HTMLChakraProps<"p">> = (props) => {
   const styles = useStyles()
   return (
     <chakra.p
@@ -342,23 +311,5 @@ export const StepperStepTitle: React.FC<HTMLChakraProps<"p">> = (props) => {
 }
 
 if (isDev()) {
-  StepperStepTitle.displayName = "StepperStepTitle"
-}
-
-/**
- * Shown when all steps have completed.
- */
-export const StepperCompleted: React.FC<HTMLChakraProps<"div">> = (props) => {
-  const styles = useStyles()
-  return (
-    <chakra.div
-      __css={styles.completed}
-      {...props}
-      className={cx("dxp-ui-stepper__completed", props.className)}
-    />
-  )
-}
-
-if (isDev()) {
-  StepperCompleted.displayName = "StepperCompleted"
+  LabeledStepperStepTitle.displayName = "LabeledStepperStepTitle"
 }

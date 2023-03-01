@@ -63,6 +63,7 @@ export function useStepper(props: UseStepperProps) {
     } else if (activeIndex === -1) {
       setIndex(0) // initiate the stepper by activating the first step
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step])
 
   React.useEffect(() => {
@@ -108,6 +109,7 @@ export function useStep(props: UseStepProps) {
     return () => {
       unregisterStep(name)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return {

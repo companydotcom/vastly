@@ -17,7 +17,7 @@ import {
 
 const meta: Meta<typeof NumberStepper> = {
   component: NumberStepper,
-  title: "Components/Number Stepper",
+  title: "Components/Stepper/Number",
   decorators: [
     (Story) => (
       <Container>

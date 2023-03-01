@@ -99,6 +99,7 @@ export const FormStepper: React.FC<FormStepperProps> = (props) => {
 
   const onChange = React.useCallback((i: number) => {
     setIndex(i)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -128,7 +129,7 @@ export const FormStep: React.FC<FormStepProps> = (props) => {
   const { isActive } = step
 
   return isActive ? (
-    <chakra.div {...rest} className={cx("sui-form__step", className)}>
+    <chakra.div {...rest} className={cx("dxp-ui-form__step", className)}>
       {children}
     </chakra.div>
   ) : null
