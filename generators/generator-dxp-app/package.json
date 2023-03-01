@@ -1,5 +1,5 @@
 {
-  "name": "@companydotcom/app-generator",
+  "name": "@companydotcom/generator-dxp-app",
   "version": "0.0.1",
   "description": "Companydotcom generators",
   "files": [
@@ -15,7 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "fs-extra": "^11.1.0",
-    "generator-dxp-app": "link:/Users/sierra/Desktop/dxp/generators/generator-dxp-app",
+    "generator-dxp-app": "link:/Users/nhumai/company/dxp/generators/generator-dxp-app",
     "yeoman-generator": "^5.7.0"
   },
   "devDependencies": {

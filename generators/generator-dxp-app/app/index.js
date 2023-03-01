@@ -22,28 +22,9 @@ module.exports = class extends Generator {
         name: "name",
         message: "What is your application's name?",
       },
-      {
-        type: "input",
-        name: "description",
-        message: "Please enter a description for your project: ",
-      },
-      {
-        type: "list",
-        name: "framework",
-        choices: ["nextJS"],
-        message: "Which framework would you like to use?",
-      },
-      {
-        type: "input",
-        name: "repo",
-        message: "Please enter the URL for the GitHub repository: ",
-      },
     ])
     if (this.props) {
       this.props.name = slugify(props.name)
-      this.props.framework = props.framework
-      this.props.description = props.description
-      this.props.repo = props.repo
     }
   }
 
