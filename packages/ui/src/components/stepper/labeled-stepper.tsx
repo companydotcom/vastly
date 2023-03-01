@@ -74,7 +74,7 @@ export const LabeledStepperContainer = forwardRef<LabeledStepperProps, "div">((p
           ref={ref}
           __css={containerStyles}
           {...containerProps}
-          className={cx("dxp-ui-numberstepper", props.className)}
+          className={cx("dxp-ui-labeledStepper", props.className)}
         >
           {children}
         </chakra.div>
@@ -122,18 +122,6 @@ export const LabeledStepperSteps = (props: LabeledStepperStepsProps) => {
       />,
     )
 
-    // if (isVertical) {
-    //   memo.push(
-    //     <StepperContent key={`content-${i}`} isOpen={activeIndex === i}>
-    //       {step.props.children}
-    //     </StepperContent>,
-    //   )
-    // }
-
-    // if (i < arr.length - 1) {
-    //   memo.push(<StepperSeparator key={`separator-${i}`} isActive={i < activeIndex} />)
-    // }
-
     return memo
   }, [])
 
@@ -151,7 +139,7 @@ export const LabeledStepperSteps = (props: LabeledStepperStepsProps) => {
       <chakra.div
         __css={stepperStyles}
         {...rest}
-        className={cx("dxp-ui-stepper__steps", props.className)}
+        className={cx("dxp-ui-labeledStepper__steps", props.className)}
       >
         {elements}
       </chakra.div>
@@ -173,7 +161,7 @@ export const LabeledStepperCompleted: React.FC<HTMLChakraProps<"div">> = (props)
     <chakra.div
       __css={styles.completed}
       {...props}
-      className={cx("dxp-ui-stepper__completed", props.className)}
+      className={cx("dxp-ui-labeledStepper__completed", props.className)}
     />
   )
 }
@@ -200,7 +188,7 @@ export const LabeledStepperContent = (props: LabeledStepperContentProps) => {
     <chakra.div
       __css={styles.content}
       {...rest}
-      className={cx("dxp-ui-stepper__content", props.className)}
+      className={cx("dxp-ui-labeledStepper__content", props.className)}
     >
       <Collapse in={isOpen}>{children}</Collapse>
     </chakra.div>
@@ -255,7 +243,7 @@ export const LabeledStepperStep = (props: LabeledStepperStepProps) => {
       __css={stepStyles}
       data-active={dataAttr(step.isActive)}
       data-completed={dataAttr(step.isCompleted)}
-      className={cx("dxp-ui-stepper__step", props.className)}
+      className={cx("dxp-ui-labeledStepper__step", props.className)}
     >
       {title && <LabeledStepperStepTitle>{title}</LabeledStepperStepTitle>}
       <LabeledStepperSeparator isActive={step?.isActive} />
@@ -286,7 +274,7 @@ export const LabeledStepperSeparator = (props: LabeledStepperSeparatorProps) => 
     <chakra.div
       {...rest}
       data-active={dataAttr(isActive)}
-      className={cx("dxp-ui-stepper__separator", props.className)}
+      className={cx("dxp-ui-labeledStepper__separator", props.className)}
       __css={separatorStyles}
     />
   )
@@ -305,7 +293,7 @@ export const LabeledStepperStepTitle: React.FC<HTMLChakraProps<"p">> = (props) =
     <chakra.p
       {...props}
       __css={styles.title}
-      className={cx("dxp-ui-stepper__title", props.className)}
+      className={cx("dxp-ui-labeledStepper__title", props.className)}
     />
   )
 }

@@ -2,8 +2,8 @@ import * as React from "react"
 import type { Meta, StoryObj } from "@storybook/react"
 import {
   NumberStepper,
-  StepperStep,
-  StepperCompleted,
+  NumberStepperStep,
+  NumberStepperCompleted,
   usePrev,
   useNext,
   Container,
@@ -35,10 +35,10 @@ const Template = function CustomerRenderer({ step, steps, orientation = "horizon
     <>
       <NumberStepper step={step} orientation={orientation}>
         {steps.map((args: any, i: any) => (
-          <StepperStep key={i} {...args} />
+          <NumberStepperStep key={i} {...args} />
         ))}
 
-        <StepperCompleted>Completed</StepperCompleted>
+        <NumberStepperCompleted>Completed</NumberStepperCompleted>
       </NumberStepper>
     </>
   )
@@ -166,9 +166,9 @@ export const Controlled = () => {
     <>
       <NumberStepper orientation="vertical">
         {steps.map((args, i) => (
-          <StepperStep key={i} {...args} />
+          <NumberStepperStep key={i} {...args} />
         ))}
-        <StepperCompleted>Completed</StepperCompleted>
+        <NumberStepperCompleted>Completed</NumberStepperCompleted>
       </NumberStepper>
     </>
   )
@@ -207,9 +207,9 @@ export const UnControlled = () => {
     <>
       <NumberStepper step={step} mb="2">
         {steps.map((args, i) => (
-          <StepperStep key={i} {...args} />
+          <NumberStepperStep key={i} {...args} />
         ))}
-        <StepperCompleted py="4">Completed</StepperCompleted>
+        <NumberStepperCompleted py="4">Completed</NumberStepperCompleted>
       </NumberStepper>
       <ButtonGroup width="100%">
         <Button onClick={back} isDisabled={step === 0} variant="ghost">

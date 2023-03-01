@@ -33,21 +33,42 @@ const separatorBaseStyle = defineStyle((props) => {
 
 const stepBaseStyle = defineStyle({
   minWidth: "144px",
+  "&:first-of-type .dxp-ui-labeledStepper__separator": {
+    borderTopLeftRadius: "full",
+    borderBottomLeftRadius: "full",
+  },
+  "&:last-of-type .dxp-ui-labeledStepper__separator": {
+    borderTopRightRadius: "full",
+    borderBottomRightRadius: "full",
+  },
 })
 
-const titleBaseStyle = defineStyle({})
+const titleBaseStyle = defineStyle((props) => {
+  const { colorScheme: c } = props
+
+  return {
+    fontWeight: "medium",
+    fontSize: "sm",
+    mb: "1",
+    color: "gray.300",
+    "[data-active] &": {
+      color: `${c}.500`,
+    },
+    "[data-completed] &": {
+      color: `${c}.600`,
+    },
+  }
+})
 
 const baseStyle = definePartsStyle((props) => ({
   steps: stepsBaseStyle,
   separator: separatorBaseStyle(props),
-  step: stepBaseStyle,
-  title: titleBaseStyle,
+  step: { ...stepBaseStyle, py: 2 },
+  title: titleBaseStyle(props),
 }))
 
 export const LabeledStepper = defineMultiStyleConfig({
   baseStyle,
-  // variants,
-  // sizes,
   defaultProps: {
     colorScheme: "blue",
   },

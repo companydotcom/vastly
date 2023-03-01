@@ -5,11 +5,11 @@ import { chakra, Button, ButtonProps, HTMLChakraProps, ThemingProps } from "@cha
 import { callAllHandlers, runIfFn, cx, isDev } from "@companydotcom/utils"
 import {
   StepperProvider,
-  StepperSteps,
-  StepperStepsProps,
-  StepperStep,
+  NumberStepperSteps,
+  NumberStepperStepsProps,
+  NumberStepperStep,
   useStepperContext,
-  StepperContainer,
+  NumberStepperContainer,
 } from "@companydotcom/ui"
 import { Form } from "../form"
 import { SubmitButton } from "../submit-button"
@@ -72,7 +72,7 @@ export interface FormStepOptions {
   resolver?: any
 }
 
-export interface FormStepperProps extends StepperStepsProps, ThemingProps<"Stepper"> {}
+export interface FormStepperProps extends NumberStepperStepsProps, ThemingProps<"Stepper"> {}
 
 export const FormStepper: React.FC<FormStepperProps> = (props) => {
   const { activeIndex, setIndex } = useStepperContext()
@@ -84,14 +84,14 @@ export const FormStepper: React.FC<FormStepperProps> = (props) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { isCompleted } = useFormStep(child.props) // Register this step
       return (
-        <StepperStep
+        <NumberStepperStep
           name={child.props.name}
           title={child.props.title}
           isCompleted={isCompleted}
           {...rest}
         >
           {child.props.children}
-        </StepperStep>
+        </NumberStepperStep>
       )
     }
     return child
@@ -103,7 +103,7 @@ export const FormStepper: React.FC<FormStepperProps> = (props) => {
   }, [])
 
   return (
-    <StepperContainer
+    <NumberStepperContainer
       orientation={orientation}
       step={activeIndex}
       variant={variant}
@@ -111,10 +111,10 @@ export const FormStepper: React.FC<FormStepperProps> = (props) => {
       size={size}
       onChange={onChange}
     >
-      <StepperSteps mb="4" {...props}>
+      <NumberStepperSteps mb="4" {...props}>
         {elements}
-      </StepperSteps>
-    </StepperContainer>
+      </NumberStepperSteps>
+    </NumberStepperContainer>
   )
 }
 
