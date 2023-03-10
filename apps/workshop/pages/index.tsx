@@ -1,14 +1,20 @@
 import { Button } from "@companydotcom/ui"
-import { Form, Field } from "@companydotcom/forms"
 
-export default function Web() {
+import { useSession, signIn, signOut } from "next-auth/react"
+export default function Component() {
+  const { data: session } = useSession()
+  if (session && session.user) {
+    return (
+      <>
+        Signed in as {session.user.email} <br />
+        <Button onClick={() => signOut()}>Sign out</Button>
+      </>
+    )
+  }
   return (
-    <div>
-      <h1>Web</h1>
-      <Button colorScheme="blue">Test</Button>
-      <Form onSubmit={() => {}}>
-        <Field name="t" label="Input" />
-      </Form>
-    </div>
+    <>
+      Not signed in <br />
+      <Button onClick={() => signIn()}>Sign in</Button>
+    </>
   )
 }

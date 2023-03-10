@@ -4,6 +4,13 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
+      "env": [
+        "AUTH0_CLIENT_ID",
+        "AUTH0_CLIENT_SECRET",
+        "AUTH0_DOMAIN",
+        "NEXTAUTH_URL",
+        "NEXTAUTH_SECRET"
+      ],
       "outputs": ["dist/**", ".next/**", "storybook-static/**"]
     },
     "workshop#build-storybook": {
@@ -29,5 +36,6 @@
     "@companydotcom/micro-service-core#test": {
       "env": ["region", "service", "accountId"]
     }
-  }
+  },
+  "globalDependencies": [".env.local"]
 }
