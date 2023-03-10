@@ -20,7 +20,7 @@
   "devDependencies": {
     "@types/node": "18.11.10",
     "@types/react": "^18.0.17",
-    "tsconfig": "workspace:*",
+    "tsconfig": "^7.0.0",
     "typescript": "^4.9.3"
   }
 }
