@@ -27,7 +27,7 @@ export const generateQuestions = [
   {
     type: "list",
     name: "packageManager",
-    message: "Generate?",
+    message: "Which package manager do you want to use?",
     choices: [
       { title: "npm", value: "npm" },
       { title: "yarn", value: "yarn" },

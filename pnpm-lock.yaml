@@ -200,6 +200,7 @@ importers:
       '@octokit/rest': ^19.0.7
       chalk: ^4.0.0
       commander: ^10.0.0
+      fs-extra: ^11.1.0
       inquirer: ^8.0.0
       ora: ^3.2.0
       ts-node: ^10.9.1
@@ -207,11 +208,12 @@ importers:
     dependencies:
       chalk: 4.1.2
       commander: 10.0.0
+      fs-extra: 11.1.0
       inquirer: 8.2.5
       ora: 3.4.0
     devDependencies:
       '@octokit/rest': 19.0.7
-      ts-node: 10.9.1_uayvamxqnl5yeiojjysxwopmsy
+      ts-node: 10.9.1_osscqd4e24dzbeujryu7def2au
       typescript: 4.9.5
 
   packages/eslint-config-custom:
