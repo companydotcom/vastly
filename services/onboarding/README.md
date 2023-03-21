@@ -22,7 +22,7 @@ supports:
 
 ---
 
-### Demo
+## Demo
 
 A demo version of this service is hosted on AWS -
 [`https://ylsml6v6r6.execute-api.us-east-1.amazonaws.com/dev/hello`](https://ylsml6v6r6.execute-api.us-east-1.amazonaws.com/dev/hello)
@@ -55,19 +55,19 @@ export async function hello(
 To create a new Serverless project.
 
 ```bash
-$ serverless install --url https://github.com/AnomalyInnovations/serverless-typescript-starter --name my-project
+serverless install --url https://github.com/AnomalyInnovations/serverless-typescript-starter --name my-project
 ```
 
 Enter the new directory
 
 ```bash
-$ cd my-project
+cd my-project
 ```
 
 Install the npm packages
 
 ```bash
-$ npm install
+npm install
 ```
 
 ### Usage
@@ -75,26 +75,26 @@ $ npm install
 To run a function on your local
 
 ```bash
-$ serverless invoke local --function hello
+serverless invoke local --function hello
 ```
 
 To simulate API Gateway locally using
 [serverless-offline](https://github.com/dherault/serverless-offline)
 
 ```bash
-$ serverless offline start
+serverless offline start
 ```
 
 Deploy your project
 
 ```bash
-$ serverless deploy
+serverless deploy
 ```
 
 Deploy a single function
 
 ```bash
-$ serverless deploy function --function hello
+serverless deploy function --function hello
 ```
 
 #### Running Tests
@@ -102,7 +102,7 @@ $ serverless deploy function --function hello
 Run your tests using
 
 ```bash
-$ npm test
+npm test
 ```
 
 We use Jest to run our tests. You can read more about setting up your tests
