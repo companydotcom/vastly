@@ -4,20 +4,24 @@
     "description": "A TypeScript starter for Serverless Framework",
     "main": "handler.js",
     "scripts": {
-        "test": "serverless-bundle test"
+        "dev": "serverless offline start",
+        "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .serverless && rm -rf .esbuild"
     },
     "author": "",
     "license": "MIT",
     "devDependencies": {
+        "@serverless/typescript": "^3.27.0",
         "@types/aws-lambda": "^8.10.114",
-        "@types/jest": "^29.5.0",
-        "eslint": "^7.0.0",
+        "esbuild": "^0.17.11",
+        "eslint": "^8.36.0",
         "eslint-config-custom-server": "workspace:*",
         "serverless": "^3.28.1",
-        "serverless-bundle": "^5.3.0",
-        "serverless-dotenv-plugin": "^6.0.0",
+        "serverless-esbuild": "^1.42.0",
         "serverless-offline": "^12.0.4",
         "tsconfig": "workspace:*"
     },
-    "dependencies": {}
+    "dependencies": {
+        "aws-lambda": "^1.0.7",
+        "@companydotcom/utils": "workspace:*"
+    }
 }

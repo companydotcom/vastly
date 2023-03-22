@@ -1,8 +1,10 @@
 {
+    "extends": "tsconfig/base.json",
     "compilerOptions": {
-      "baseUrl": ".",
       "target": "es6",
       "sourceMap": true,
-      "moduleResolution": "node"
+      "moduleResolution": "node",
+      "baseUrl": ".",
     },
+    "include": ["src/**/*.ts", "serverless.ts"],
   }
