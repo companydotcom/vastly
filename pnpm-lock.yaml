@@ -445,6 +445,46 @@ importers:
         specifier: ^4.8.3
         version: 4.9.5
 
+  packages/server-utilities:
+    dependencies:
+      '@middy/core':
+        specifier: ^4.2.6
+        version: 4.2.7
+      '@middy/http-json-body-parser':
+        specifier: ^4.2.6
+        version: 4.2.7
+      react:
+        specifier: '>=18.0.0'
+        version: 18.2.0
+      react-dom:
+        specifier: '>=18.0.0'
+        version: 18.2.0(react@18.2.0)
+    devDependencies:
+      '@types/aws-lambda':
+        specifier: ^8.10.111
+        version: 8.10.114
+      '@types/react':
+        specifier: ^18.0.17
+        version: 18.0.28
+      '@types/react-dom':
+        specifier: ^18.0.6
+        version: 18.0.11
+      eslint:
+        specifier: ^7.32.0
+        version: 7.32.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      json-schema-to-ts:
+        specifier: ^2.7.2
+        version: 2.7.2
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^4.8.3
+        version: 4.9.5
+
   packages/tsconfig: {}
 
   packages/ui:
@@ -544,9 +584,9 @@ importers:
 
   services/onboarding:
     dependencies:
-      '@companydotcom/utils':
+      '@companydotcom/server-utils':
         specifier: workspace:*
-        version: link:../../packages/utilities
+        version: link:../../packages/server-utilities
       aws-lambda:
         specifier: ^1.0.7
         version: 1.0.7
