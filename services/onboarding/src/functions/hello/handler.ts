@@ -1,10 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import type { APIGatewayProxyResult } from "aws-lambda"
-import type { ValidatedAPIGatewayProxyEvent } from "@companydotcom/utils"
-import { middyfy, formatJSONResponse } from "@companydotcom/utils"
-// TODO: Remove the workaround whenever MS fixes the issue
-// https://github.com/microsoft/TypeScript/issues/48212
-import type { MiddyfiedHandler } from "@companydotcom/utils/node_modules/@middy/core"
+import type { ValidatedAPIGatewayProxyEvent } from "@companydotcom/server-utils"
+import { middyfy, formatJSONResponse } from "@companydotcom/server-utils"
 
 import schema from "./schema"
 
