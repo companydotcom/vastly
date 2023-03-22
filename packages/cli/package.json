@@ -6,9 +6,11 @@
   "license": "MIT",
   "scripts": {
     "create-dxp-app": "npx ts-node --esm src/index.tsx -g",
-    "secrets-pull": "npx ts-node --esm src/secrets-manager/index.ts"
+    "secrets-pull": "npx ts-node --esm src/secrets-manager/index.ts",
+    "env": "npx ts-node --esm src/env-manager/index.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.296.0",
     "@aws-sdk/client-ssm": "^3.294.0",
     "chalk": "^4.0.0",
     "commander": "^10.0.0",
