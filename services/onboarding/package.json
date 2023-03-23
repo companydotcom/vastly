@@ -21,7 +21,8 @@
         "tsconfig": "workspace:*"
     },
     "dependencies": {
-        "aws-lambda": "^1.0.7",
-        "@companydotcom/server-utils": "workspace:*"
+        "@aws-sdk/client-kms": "^3.297.0",
+        "@companydotcom/server-utils": "workspace:*",
+        "aws-lambda": "^1.0.7"
     }
 }
