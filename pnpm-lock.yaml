@@ -210,11 +210,11 @@ importers:
       '@octokit/rest': 19.0.7
       chalk: 4.1.2
       commander: 10.0.0
+      fs-extra: 11.1.0
       inquirer: 8.2.5
       ora: 3.4.0
-    devDependencies:
-      fs-extra: 11.1.0
       semver: 7.3.8
+    devDependencies:
       ts-node: 10.9.1_uayvamxqnl5yeiojjysxwopmsy
       typescript: 4.9.5
 
