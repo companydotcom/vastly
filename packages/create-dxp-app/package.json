@@ -1,14 +1,13 @@
 {
   "name": "@companydotcom/create-dxp-app",
-  "version": "0.0.1",
+  "version": "0.0.9",
   "description": "Company.com create-dxp-app",
   "author": "Company.com",
   "license": "MIT",
-  "bin": {
-    "create-dxp-app": "dist/index.js"
-  },
+  "bin": "./dist/index.js",
   "scripts": {
-    "create-dxp-app": "npx ts-node --esm src/index.ts -g"
+    "create-dxp-app": "npx ts-node --esm src/index.ts -g",
+    "build": "tsc"
   },
   "dependencies": {
     "chalk": "^4.0.0",
