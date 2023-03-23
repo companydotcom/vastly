@@ -1,37 +1,77 @@
+import { shouldUseYarn } from "../utils/shouldUseYarn.js"
+import { shouldUsePnpm } from "../utils/shouldUsePnpm.js"
+
+//check if yarn and pnpm are installed; if not, disable option in prompt
+const isYarnInstalled = shouldUseYarn()
+const isPnpmInstalled = shouldUsePnpm()
+
 export const generateQuestions = [
   {
-    type: "text",
     name: "repoName",
+    type: "text",
     message: "What would you like to name your project?",
+    validate: (answer) => {
+      if (answer.length === 0) {
+        return "Please enter a name for your project"
+      }
+      return true
+    },
   },
   {
-    type: "text",
     name: "repoDescription",
+    type: "text",
     message: "Please enter a description for your project: ",
   },
   {
-    type: "text",
     name: "email",
-    message: "What is your Github email?",
-  },
-  {
     type: "text",
+    message: "What is your GitHub email?",
+    validate: (email) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(email)) {
+        return "Please enter a valid email address"
+      }
+      return true
+    },
+  },
+  {
     name: "username",
-    message: "What is your Github username?",
+    type: "text",
+    message: "What is your GitHub username?",
+    validate: (answer) => {
+      if (answer.length === 0) {
+        return "Please enter your GitHub username"
+      }
+      return true
+    },
   },
   {
-    type: "password",
     name: "token",
-    message: "What is your Github token?",
+    type: "password",
+    message: "What is your GitHub token?",
+    validate: (answer) => {
+      if (answer.length === 0) {
+        return "Please enter your GitHub token"
+      }
+      return true
+    },
   },
   {
-    type: "list",
     name: "packageManager",
+    type: "list",
     message: "Which package manager do you want to use?",
     choices: [
-      { title: "npm", value: "npm" },
-      { title: "yarn", value: "yarn" },
-      { title: "pnpm", value: "pnpm" },
+      { name: "npm", value: "npm" },
+      {
+        name: "pnpm",
+        value: "pnpm",
+        disabled: !isPnpmInstalled && "not installed",
+      },
+      {
+        name: "yarn",
+        value: "yarn",
+        disabled: !isYarnInstalled && "not installed",
+      },
     ],
   },
   {
@@ -39,8 +79,8 @@ export const generateQuestions = [
     name: "generate",
     message: "Generate?",
     choices: [
-      { title: "Yes", value: true },
-      { title: "No", value: false },
+      { name: "Yes", value: true },
+      { name: "No", value: false },
     ],
   },
 ]

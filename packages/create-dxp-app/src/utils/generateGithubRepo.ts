@@ -2,10 +2,10 @@ import { spawnSync } from "child_process"
 import ora from "ora"
 import chalk from "chalk"
 import { Octokit } from "@octokit/rest"
-import { runGenerator } from "./runGenerator.js"
-import { generateAnswers } from "../types"
+import { copyTemplate } from "./copyTemplate.js"
+import { GenerateAnswers } from "../types"
 
-export const generateGithubRepo = async (answers: generateAnswers) => {
+export const generateGithubRepo = async (answers: GenerateAnswers) => {
   const octokit = new Octokit({
     auth: answers.token,
   })
@@ -48,7 +48,7 @@ export const generateGithubRepo = async (answers: generateAnswers) => {
       directorySpinner.succeed(chalk.green(`Changed directory to ${chalk.bold(repoData.name)}`))
 
       // generate repo from template
-      await runGenerator(packageManager)
+      await copyTemplate(packageManager)
 
       // git add, commit and push to github
       const gitSpinner = ora({
@@ -66,7 +66,7 @@ export const generateGithubRepo = async (answers: generateAnswers) => {
           GIT_AUTHOR_NAME: userName,
           GITHUB_TOKEN: userAccessToken,
         },
-        stdio: "inherit",
+        stdio: "ignore",
       })
       gitSpinner.succeed(
         chalk.green(
