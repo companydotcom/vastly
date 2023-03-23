@@ -1,10 +1,10 @@
 {
   "name": "@companydotcom/create-dxp-app",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "Company.com create-dxp-app",
   "author": "Company.com",
   "license": "MIT",
-  "bin": "./dist/index.js",
+  "bin": "dist/index.js",
   "scripts": {
     "create-dxp-app": "npx ts-node --esm src/index.ts -g",
     "build": "tsc"
