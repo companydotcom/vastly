@@ -1,7 +1,6 @@
 import { Command } from "commander"
 import inquirer from "inquirer"
 import chalk from "chalk"
-
 import { generateQuestions } from "./questions/index.js"
 import { generateGithubRepo } from "./utils/generateGithubRepo.js"
 import { GenerateAnswers } from "../src/types"
