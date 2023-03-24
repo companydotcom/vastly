@@ -91,23 +91,24 @@ if (options.pull) {
         SecretId: "MyTestDatabaseSecret2",
       })
 
-      const { SecretString } = await client.send(initialCommand)
+      const { SecretString, $metadata } = await client.send(initialCommand)
       console.log("🚀 ~ file: index.ts:93 ~ getVariables ~ SecretString:", SecretString)
 
-      // if ($metadata.httpStatusCode === 200) {
-      //   spinner.succeed(chalk.green(`Variables for ${env} successfully fetched`))
+      if ($metadata.httpStatusCode === 200) {
+        spinner.succeed(chalk.green(`Variables for ${env} successfully fetched`))
 
-      //   const createFileSpinner = ora({
-      //     text: "Creating .env file...",
-      //     color: "magenta",
-      //   }).start()
-      //   writeFile(`./.env`, responseToString, (err) => {
-      //     if (err) throw new Error()
-      //   })
-      //   createFileSpinner.succeed(chalk.bgGreenBright(`File successfully created!`))
-      // } else {
-      //   throw new Error()
-      // }
+        const createFileSpinner = ora({
+          text: "Creating .env file...",
+          color: "magenta",
+        }).start()
+        writeFile(`./.env`, SecretString, (err) => {
+          if (err) throw new Error()
+        })
+        createFileSpinner.succeed(chalk.bgGreenBright(`File successfully created!`))
+      } else {
+        throw new Error()
+      }
+      spinner.stop()
     } catch (error) {
       console.log("🚀 ~ file: index-s3.ts:127 ~ getVariables ~ error:", error)
       spinner.stop()

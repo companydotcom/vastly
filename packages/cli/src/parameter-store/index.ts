@@ -11,14 +11,14 @@ const client = new SSMClient({
 const program = new Command()
 
 program
-  .description("Custom Offering Secrets Manager")
-  .option("-env, --environment <env>", "Environment", "dev")
-  .option("-l, --list", "List all environment variables")
-  .option("--with-decryption", "Decrypt encrypted values")
+  .description("Environment variables manager")
+  .option("-p, --pull <env>", "Must specify an environment. For example: prod or dev")
+  .option("-l, --list <env>", "List all environment variables")
+  .option("-a, --add <env>", "Add a value to a specific environment")
+  .option("-d, --delete <env> <key>", "Remove a value to a specific environment")
   .parse(process.argv)
 
 const options = program.opts()
-const env = options.environment ? options.environment : "dev"
 
 if (options.list) {
   console.log("oh fuh")
@@ -26,18 +26,18 @@ if (options.list) {
   const getParams = async () => {
     try {
       const spinner = ora({
-        text: `Pulling all ${env} variables...`,
+        text: `Pulling all dev variables...`,
         color: "magenta",
       }).start()
       const initialCommand = new GetParametersByPathCommand({
-        Path: `/dxp/env/${options.environment}`,
+        Path: `/dxp/env/dev`,
         WithDecryption: true,
       })
 
       const { Parameters } = await client.send(initialCommand)
       console.log("🚀 ~ file: index.ts:38 ~ getParams ~ Parameters:", Parameters)
       if (Parameters.length) {
-        spinner.succeed(chalk.green(`Variables for ${env} successfully fetched`))
+        spinner.succeed(chalk.green(`Variables for dev successfully fetched`))
 
         const createFileSpinner = ora({
           text: "Creating .env file...",
