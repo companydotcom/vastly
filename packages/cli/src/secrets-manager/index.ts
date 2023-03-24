@@ -1,6 +1,7 @@
 import { Command } from "commander"
 import {
   CreateSecretCommand,
+  DeleteSecretCommand,
   GetSecretValueCommand,
   ListSecretsCommand,
   PutSecretValueCommand,
@@ -138,24 +139,18 @@ if (options.pull) {
   getVariables()
 }
 
-// if (options.delete) {
-//   // cannot append or edit an existing file in s3
-//   // pull down data and store locally/copy it
-//   // using user input to get a key, delete the necessary line
-//   // use PutObject command to overwrite existing file in s3
-//   const deleteVariable = async () => {
-//     const env = options.delete
-//     const initialCommand = new GetObjectCommand({
-//       Bucket: "dxp-uniquevalue-envs",
-//       Key: `${env}.txt`,
-//     })
+if (options.delete) {
+  const deleteVariable = async () => {
+    const env = options.delete
+    const initialCommand = new DeleteSecretCommand({
+      SecretId: "MyTestDatabaseSecret2",
+    })
 
-//     const { Body, $metadata } = await client.send(initialCommand)
-//     const responseToString = await (await Body.transformToString()).split("=")
-//     console.log("🚀 ~ file: index-s3.ts:161 ~ deleteVariable ~ responseToString:", responseToString)
-//   }
-//   deleteVariable()
-// }
+    const { DeletionDate, Name } = await client.send(initialCommand)
+    console.log("🚀 ~ file: index.ts:154 ~ deleteVariable ~ response:", Name, DeletionDate)
+  }
+  deleteVariable()
+}
 /**
  * TODO:
  * Proper error handling, authentication, .env file placement, add/delete will need prompts like key/value to add & key to delete
