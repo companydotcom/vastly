@@ -5,6 +5,7 @@ import {
   GetObjectCommand,
   // ListBucketsCommand,
   CreateBucketCommand,
+  ListObjectsV2Command,
 } from "@aws-sdk/client-s3"
 import ora from "ora"
 import chalk from "chalk"
@@ -28,7 +29,22 @@ program
 const options = program.opts()
 
 if (options.list) {
-  console.log(chalk.bgCyanBright(`Nothing to list! Come back soon :)`))
+  const listObjects = async () => {
+    try {
+      const listBuckets = new ListObjectsV2Command({
+        Bucket: "dxp-uniquevalue-envs",
+      })
+      const response = await client.send(listBuckets)
+      if (response.Contents.length) {
+        console.log("🚀 ~ file: index-s3.ts:38 ~ listObjects ~ Contents:", response)
+      } else {
+        console.log(chalk.bgCyanBright(`Nothing to list! Come back soon :)`))
+      }
+    } catch (error) {
+      errorHandling(error.Code)
+    }
+  }
+  listObjects()
 }
 if (options.add) {
   const addVariableToS3 = async () => {
@@ -45,13 +61,6 @@ if (options.add) {
       // copy current object
       // create new object: Ask for key/value from CLI
       // combine both old and new and submit
-
-      // const listBuckets = new ListBucketsCommand({})
-      // const { Buckets } = await client.send(listBuckets)
-      // const envBucket = Buckets.find((bucket) => bucket.Name === "dxp-uniquevalue-envs")
-      // if (Buckets.length && envBucket) {
-
-      // } else {
       const spinner = ora({
         text: `Creating env store...`,
         color: "magenta",
@@ -61,31 +70,29 @@ if (options.add) {
         Bucket: "dxp-uniquevalue-envs",
         ObjectOwnership: "BucketOwnerEnforced",
       })
-      const response = await client.send(createBucket)
-      console.log("🚀 ~ file: index-s3.ts:65 ~ addVariableToS3 ~ response:", response)
-      // if (Location) {
-      //   spinner.succeed(chalk.green(`Store successfully created!`))
+      const { Location } = await client.send(createBucket)
+      if (Location) {
+        spinner.succeed(chalk.green(`Store successfully created!`))
 
-      //   const createObjSpinner = ora({
-      //     text: "Storing your variables...",
-      //     color: "magenta",
-      //   }).start()
+        const createObjSpinner = ora({
+          text: "Storing your variables...",
+          color: "magenta",
+        }).start()
 
-      //   const createEnvObj = new PutObjectCommand({
-      //     Body: `${options.add}=ThisIsATest`,
-      //     Bucket: "dxp-uniquevalue-envs",
-      //     Key: `${options.add}.txt`,
-      //     ServerSideEncryption: "AES256",
-      //     Tagging: `environment=${options.add}`,
-      //   })
-      //   const { ETag } = await client.send(createEnvObj)
-      //   if (ETag)
-      //     createObjSpinner.succeed(chalk.bgGreenBright(`Success! Your data has been stored.`))
-      // }
+        const createEnvObj = new PutObjectCommand({
+          Body: `${options.add}=ThisIsATest`,
+          Bucket: "dxp-uniquevalue-envs",
+          Key: `${options.add}.txt`,
+          ServerSideEncryption: "AES256",
+          Tagging: `environment=${options.add}`,
+        })
+        const { ETag } = await client.send(createEnvObj)
+        if (ETag)
+          createObjSpinner.succeed(chalk.bgGreenBright(`Success! Your data has been stored.`))
+      }
       spinner.stop()
-      // }
     } catch (error) {
-      console.log("🚀 ~ file: index-s3.ts:97 ~ addVariableToS3 ~ error:", error)
+      errorHandling(error.Code)
     }
   }
   addVariableToS3()
@@ -125,27 +132,7 @@ if (options.pull) {
     } catch (error) {
       console.log("🚀 ~ file: index-s3.ts:127 ~ getVariables ~ error:", error)
       spinner.stop()
-      if (error.Code === "NoSuchKey") {
-        console.log(
-          chalk.bgRedBright(
-            `${error.Code}: There are no variables stored for this environment. Use "--help" to see available options`,
-          ),
-        )
-      }
-      if (error.Code === "ExpiredToken") {
-        console.log(
-          chalk.bgYellowBright(
-            `${error.Code}: Your token has expired. Please refresh your credentials.`,
-          ),
-        )
-      }
-      if (error.Code === "NoSuchBucket") {
-        console.log(
-          chalk.bgYellowBright(
-            `${error.Code}: You haven't created a environment store! Run 'pnpm run env --add <env>' to set up your store`,
-          ),
-        )
-      }
+      errorHandling(error.Code)
     }
   }
   getVariables()
@@ -158,14 +145,21 @@ if (options.delete) {
   // use PutObject command to overwrite existing file in s3
   const deleteVariable = async () => {
     const env = options.delete
-    const initialCommand = new GetObjectCommand({
-      Bucket: "dxp-uniquevalue-envs",
-      Key: `${env}.txt`,
-    })
+    try {
+      const initialCommand = new GetObjectCommand({
+        Bucket: "dxp-uniquevalue-envs",
+        Key: `${env}.txt`,
+      })
 
-    const { Body, $metadata } = await client.send(initialCommand)
-    const responseToString = await (await Body.transformToString()).split("=")
-    console.log("🚀 ~ file: index-s3.ts:161 ~ deleteVariable ~ responseToString:", responseToString)
+      const { Body, $metadata } = await client.send(initialCommand)
+      const responseToString = await (await Body.transformToString()).split("=")
+      console.log(
+        "🚀 ~ file: index-s3.ts:161 ~ deleteVariable ~ responseToString:",
+        responseToString,
+      )
+    } catch (error) {
+      errorHandling(error.Code)
+    }
   }
   deleteVariable()
 }
@@ -177,13 +171,33 @@ if (options.delete) {
 const convertToEnv = (allParams: any) => {
   let envFile = ""
   const result = {}
-  allParams.map((parameter: any) => {
-    if (parameter.Name.includes("region")) {
-      result["AWS_REGION"] = parameter.Value
-    }
-  })
   for (const key of Object.keys(result)) {
     envFile += `${key}=${result[key]}\n`
   }
   return envFile
+}
+
+const errorHandling = (errorCode: string) => {
+  console.log("🚀 ~ file: index-s3.ts:178 ~ errorHandling ~ errorCode:", errorCode)
+  if (errorCode === "NoSuchKey") {
+    console.log(
+      chalk.bgYellowBright(
+        `${errorCode}: There are no variables stored for this environment. Use "--help" to see available options`,
+      ),
+    )
+  }
+  if (errorCode === "ExpiredToken") {
+    console.log(
+      chalk.bgYellowBright(
+        `${errorCode}: Your token has expired. Please refresh your credentials.`,
+      ),
+    )
+  }
+  if (errorCode === "NoSuchBucket") {
+    console.log(
+      chalk.bgYellowBright(
+        `${errorCode}: You haven't created a environment store! Run 'pnpm run env --add <env>' to set up your store`,
+      ),
+    )
+  }
 }
