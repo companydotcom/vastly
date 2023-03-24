@@ -7,7 +7,7 @@
   "scripts": {
     "create-dxp-app": "npx ts-node --esm src/index.tsx -g",
     "secrets-pull": "npx ts-node --esm src/secrets-manager/index.ts",
-    "env": "npx ts-node --esm src/env-manager/index.ts"
+    "env": "npx ts-node --esm src/env-manager/index-s3.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.296.0",
