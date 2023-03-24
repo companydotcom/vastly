@@ -1,5 +1,5 @@
 import type { AWS } from "@serverless/typescript"
-import { functions as hello } from "./src/functions"
+import { functions as hello } from "./functions"
 
 const serverlessConfiguration: AWS = {
   service: "onboarding",

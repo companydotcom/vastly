@@ -1,7 +1,11 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalEnv": [
-    "NODE_ENV"
+    "NODE_ENV",
+    "KMS_KEY_ID",
+    "SES_FROM_ADDRESS",
+    "USER_POOL_ID",
+    "BASE_URL"
   ],
   "pipeline": {
     "build": {

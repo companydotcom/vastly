@@ -1,6 +1,7 @@
-const { decrypt } = require("../lib/encryption")
+import type { VerifyAuthChallengeResponseTriggerHandler } from "aws-lambda"
+import { decrypt } from "../../lib/encryption"
 
-module.exports.handler = async (event) => {
+export const handler: VerifyAuthChallengeResponseTriggerHandler = async (event) => {
   const email = event.request.userAttributes.email
 
   const expected = event.request.privateChallengeParameters.challenge
@@ -11,7 +12,7 @@ module.exports.handler = async (event) => {
   }
 
   const json = await decrypt(event.request.challengeAnswer)
-  const payload = JSON.parse(json)
+  const payload = JSON.parse(JSON.stringify(json))
   console.log(payload)
 
   const isExpired = new Date().toJSON() > payload.expiration

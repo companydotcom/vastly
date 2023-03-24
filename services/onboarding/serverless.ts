@@ -1,10 +1,10 @@
 import type { AWS } from "@serverless/typescript"
-import { functions as hello } from "./functions"
+import { functions } from "./functions"
 
 const serverlessConfiguration: AWS = {
   service: "onboarding",
   frameworkVersion: "3.28.1",
-  plugins: ["serverless-esbuild", "serverless-offline"],
+  plugins: ["serverless-esbuild", "serverless-offline", "serverless-iam-roles-per-function"],
   provider: {
     name: "aws",
     runtime: "nodejs16.x",
@@ -16,7 +16,7 @@ const serverlessConfiguration: AWS = {
     },
     deploymentMethod: "direct",
   },
-  functions: { ...hello },
+  functions: { ...functions },
   package: { individually: true },
   custom: {
     "serverless-offline": {

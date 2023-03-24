@@ -1,16 +1,15 @@
-import {
-  KMSClient,
-  EncryptCommand,
-  EncryptCommandInput,
-  DecryptCommand,
-  DecryptCommandInput,
-} from "@aws-sdk/client-kms"
+import { KMSClient, EncryptCommand, DecryptCommand } from "@aws-sdk/client-kms"
 
 const client = new KMSClient({ region: "REGION" })
 
-export const encrypt = async (input: EncryptCommandInput) => {
+const { KMS_KEY_ID } = process.env
+
+export const encrypt = async (input: string) => {
   try {
-    const command = new EncryptCommand(input)
+    const command = new EncryptCommand({
+      KeyId: KMS_KEY_ID,
+      Plaintext: Buffer.from(input, "base64"),
+    })
     const resp = await client.send(command)
 
     return resp.CiphertextBlob
@@ -19,9 +18,11 @@ export const encrypt = async (input: EncryptCommandInput) => {
   }
 }
 
-export const decrypt = async (ciphertext: DecryptCommandInput) => {
+export const decrypt = async (ciphertext: string) => {
   try {
-    const command = new DecryptCommand(ciphertext)
+    const command = new DecryptCommand({
+      CiphertextBlob: Buffer.from(ciphertext, "base64"),
+    })
     const resp = await client.send(command)
 
     return resp.Plaintext

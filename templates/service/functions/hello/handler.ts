@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { APIGatewayProxyResult } from "aws-lambda"
-import type { ValidatedAPIGatewayProxyEvent } from "@companydotcom/server-utils"
-import { middyfy, formatJSONResponse } from "@companydotcom/server-utils"
+import { middyfy } from './../../helpers/middify';
+import { formatJSONResponse, ValidatedAPIGatewayProxyEvent } from "../../helpers/response"
 
 import schema from "./schema"
 

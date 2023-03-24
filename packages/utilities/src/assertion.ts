@@ -1,5 +1,3 @@
-import { Dict } from "./types"
-
 // Number assertions
 export function isNumber(value: any): value is number {
   return typeof value === "number"
@@ -37,7 +35,7 @@ export function isUndefined(value: any): value is undefined {
 }
 
 // Object assertions
-export function isObject(value: any): value is Dict {
+export function isObject(value: any): value is Record<string, any> {
   const type = typeof value
   return value != null && (type === "object" || type === "function") && !isArray(value)
 }
