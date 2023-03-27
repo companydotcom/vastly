@@ -20,7 +20,6 @@ export const copyTemplate = async (packageManager: PackageManagerName): Promise<
 
     //copy template
     let sharedTemplate = path.resolve(__dirname, "../../src/templates", `_shared_ts`)
-    console.log("sharedTemplate", sharedTemplate)
     fse.copySync(sharedTemplate, "./", { recursive: true })
 
     //check package manager version is supported
@@ -35,7 +34,7 @@ export const copyTemplate = async (packageManager: PackageManagerName): Promise<
     // copy the per-package-manager template
     let packageManagerTemplate = path.resolve(
       __dirname,
-      "../templates",
+      "../../src/templates",
       packageManagerConfig.template,
     )
     if (fse.existsSync(packageManagerTemplate)) {
