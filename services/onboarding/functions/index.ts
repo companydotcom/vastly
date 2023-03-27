@@ -15,7 +15,7 @@ export const functions: AWS["functions"] = {
     environment: {
       SES_FROM_ADDRESS: "noreply@${self:custom.domain}",
       KMS_KEY_ID: { Ref: "EncryptionKey" },
-      BASE_URL: "passwordless-cognito.theburningmonk.com",
+      BASE_URL: "passwordless-cognito.company.com",
       USER_POOL_ID: { Ref: "PasswordlessMagicLinksUserPool" },
     },
     // @ts-expect-error no types for serverless-iam-roles-per-function
@@ -31,14 +31,20 @@ export const functions: AWS["functions"] = {
       {
         Effect: "Allow",
         Action: "kms:Encrypt",
-        Resource: {
-          GetAtt: "EncryptionKey.Arn",
-        },
+        Resource: [
+          {
+            "Fn::GetAtt": ["EncryptionKey", "Arn"],
+          },
+        ],
       },
       {
         Effect: "Allow",
         Action: "cognito-idp:AdminUpdateUserAttributes",
-        Resource: { GetAtt: "PasswordlessMagicLinksUserPool.Arn" },
+        Resource: [
+          {
+            "Fn::GetAtt": ["PasswordlessMagicLinksUserPool", "Arn"],
+          },
+        ],
       },
     ],
   },
@@ -61,7 +67,11 @@ export const functions: AWS["functions"] = {
       {
         Effect: "Allow",
         Action: "kms:Decrypt",
-        Resource: { GetAtt: "EncryptionKey.Arn" },
+        Resource: [
+          {
+            "Fn::GetAtt": ["EncryptionKey", "Arn"],
+          },
+        ],
       },
     ],
     iamRoleStatementsName: "${self:service}-${sls:stage}-verifyAuthChallengeResponse",

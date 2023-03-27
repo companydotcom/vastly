@@ -4,11 +4,11 @@ import {
 } from "@aws-sdk/client-cognito-identity-provider"
 import type { APIGatewayProxyEvent } from "aws-lambda"
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses"
-import { TIMEOUT_MINS } from "../../lib/constants"
-import { encrypt } from "../../lib/encryption"
 import middy from "@middy/core"
 import httpErrorHandler from "@middy/http-error-handler"
 import cors from "@middy/http-cors"
+import { TIMEOUT_MINS } from "../../lib/constants"
+import { encrypt } from "../../lib/encryption"
 
 const cognitoClient = new CognitoIdentityProviderClient({ region: "REGION" })
 const sesClient = new SESClient({ region: "REGION" })
