@@ -14,9 +14,8 @@ import {
   ComponentWithAs,
   BoxProps,
 } from "@chakra-ui/react"
-
+import { __DEV__ } from "@companydotcom/utils"
 import { usePagination, PageType } from "./use-pagination"
-import { __DEV__ } from "../../utils"
 import {
   PaginationProvider,
   PaginationStylesProvider,

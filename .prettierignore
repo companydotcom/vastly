@@ -7,3 +7,4 @@ build
 tsconfig.json
 tsconfig.*.json
 *.d.ts
+templates/*
