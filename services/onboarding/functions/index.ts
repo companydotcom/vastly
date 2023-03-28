@@ -24,27 +24,26 @@ export const functions: AWS["functions"] = {
         Effect: "Allow",
         Action: "ses:SendEmail",
         Resource: [
-          { Sub: "arn:aws:ses:${AWS::Region}:${AWS::AccountId}:identity/${self:custom.domain}" },
-          { Sub: "arn:aws:ses:${AWS::Region}:${AWS::AccountId}:configuration-set/*" },
+          {
+            "Fn::Sub":
+              "arn:aws:ses:${AWS::Region}:${AWS::AccountId}:identity/${self:custom.domain}",
+          },
+          { "Fn::Sub": "arn:aws:ses:${AWS::Region}:${AWS::AccountId}:configuration-set/*" },
         ],
       },
       {
         Effect: "Allow",
         Action: "kms:Encrypt",
-        Resource: [
-          {
-            "Fn::GetAtt": ["EncryptionKey", "Arn"],
-          },
-        ],
+        Resource: {
+          "Fn::GetAtt": ["EncryptionKey", "Arn"],
+        },
       },
       {
         Effect: "Allow",
         Action: "cognito-idp:AdminUpdateUserAttributes",
-        Resource: [
-          {
-            "Fn::GetAtt": ["PasswordlessMagicLinksUserPool", "Arn"],
-          },
-        ],
+        Resource: {
+          "Fn::GetAtt": ["PasswordlessMagicLinksUserPool", "Arn"],
+        },
       },
     ],
   },
