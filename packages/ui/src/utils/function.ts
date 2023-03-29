@@ -1,4 +1,4 @@
-import { __DEV__, __TEST__ } from "./assertion"
+import { __DEV__, __TEST__ } from "@companydotcom/utils"
 import { AnyFunction } from "./types"
 
 export function once<T extends AnyFunction>(fn?: T | null) {

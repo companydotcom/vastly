@@ -7,5 +7,5 @@ module.exports = {
       rootDir: ["apps/*/"],
     },
   },
-  ignorePatterns: ["generators/*/app/templates/**/*"],
+  ignorePatterns: ["generators/*/app/templates/**/*", "templates/**/*"],
 }

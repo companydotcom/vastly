@@ -4,11 +4,6 @@ export function isDev() {
   return process.env.NODE_ENV !== "production"
 }
 
-export function isObject(value: any): value is Record<string, any> {
-  const type = typeof value
-  return value != null && (type === "object" || type === "function") && !Array.isArray(value)
-}
-
 type MessageOptions = {
   condition: boolean
   message: string

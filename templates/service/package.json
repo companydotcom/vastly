@@ -1,0 +1,29 @@
+{
+    "name": "service-template",
+    "version": "0.1.0",
+    "description": "A TypeScript starter for Serverless Framework",
+    "main": "handler.js",
+    "scripts": {
+        "dev": "serverless offline start",
+        "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .serverless && rm -rf .esbuild"
+    },
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "@serverless/typescript": "^3.27.0",
+        "@types/aws-lambda": "^8.10.114",
+        "esbuild": "^0.17.11",
+        "eslint": "^8.36.0",
+        "eslint-config-custom-server": "workspace:*",
+        "json-schema-to-ts": "^2.7.2",
+        "serverless": "^3.28.1",
+        "serverless-esbuild": "^1.42.0",
+        "serverless-offline": "^12.0.4",
+        "tsconfig": "workspace:*"
+    },
+    "dependencies": {
+        "@middy/core": "^4.2.6",
+        "@middy/http-json-body-parser": "^4.2.6",
+        "aws-lambda": "^1.0.7"
+    }
+}
