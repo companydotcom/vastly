@@ -19,7 +19,7 @@ const serverlessConfiguration: AWS = {
   functions: { ...functions },
   package: { individually: true },
   custom: {
-    domain: "company-corp.com",
+    domain: "ses.companydev.com",
     "serverless-offline": {
       httpPort: 4000,
     },

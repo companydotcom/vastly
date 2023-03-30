@@ -1,8 +1,8 @@
 import { KMSClient, EncryptCommand, DecryptCommand } from "@aws-sdk/client-kms"
 
-const client = new KMSClient({ region: "REGION" })
+const { KMS_KEY_ID, AWS_REGION } = process.env
 
-const { KMS_KEY_ID } = process.env
+const client = new KMSClient({ region: AWS_REGION })
 
 export const encrypt = async (input: string) => {
   try {
@@ -14,7 +14,7 @@ export const encrypt = async (input: string) => {
 
     return resp.CiphertextBlob
   } catch (error) {
-    console.log("🚀  encrypt ~ error:", error)
+    console.log("Error encrypting:", error)
   }
 }
 
@@ -27,6 +27,6 @@ export const decrypt = async (ciphertext: string) => {
 
     return resp.Plaintext
   } catch (error) {
-    console.log("🚀 ~  decrypt ~ error:", error)
+    console.log("Error decrypting:", error)
   }
 }

@@ -2,7 +2,7 @@ import type { AWS } from "@serverless/typescript"
 
 export const functions: AWS["functions"] = {
   logIn: {
-    handler: "functions/log-in/handler",
+    handler: "functions/log-in/handler.handler",
     events: [
       {
         http: {
@@ -48,16 +48,16 @@ export const functions: AWS["functions"] = {
     ],
   },
   preSignUp: {
-    handler: "functions/pre-sign-up/handler",
+    handler: "functions/pre-sign-up/handler.handler",
   },
   defineAuthChallenge: {
-    handler: "functions/define-auth-challenge/handler",
+    handler: "functions/define-auth-challenge/handler.handler",
   },
   createAuthChallenge: {
-    handler: "functions/create-auth-challenge/handler",
+    handler: "functions/create-auth-challenge/handler.handler",
   },
   verifyAuthChallengeResponse: {
-    handler: "functions/verify-auth-challenge-response/handler",
+    handler: "functions/verify-auth-challenge-response/handler.handler",
     environment: {
       KMS_KEY_ID: { Ref: "EncryptionKey" },
     },

@@ -10,11 +10,11 @@ import cors from "@middy/http-cors"
 import { TIMEOUT_MINS } from "../../lib/constants"
 import { encrypt } from "../../lib/encryption"
 
-const cognitoClient = new CognitoIdentityProviderClient({ region: "REGION" })
-const sesClient = new SESClient({ region: "REGION" })
-
-const { SES_FROM_ADDRESS, USER_POOL_ID, BASE_URL } = process.env
+const { SES_FROM_ADDRESS, USER_POOL_ID, BASE_URL, AWS_REGION } = process.env
 const ONE_MIN = 60 * 1000
+
+const cognitoClient = new CognitoIdentityProviderClient({ region: AWS_REGION })
+const sesClient = new SESClient({ region: AWS_REGION })
 
 module.exports.handler = middy(async (event: APIGatewayProxyEvent) => {
   const { email } = event.body ? JSON.parse(event.body) : null
@@ -41,6 +41,11 @@ module.exports.handler = middy(async (event: APIGatewayProxyEvent) => {
   const magicLink = `https://${BASE_URL}/magic-link?email=${email}&token=${token}`
 
   try {
+    // the decision to use Cognito’s user attributes has an impact on the number of users
+    // that can sign in at the same time. Because Cognito has a hard limit of 25 reqs/sec
+    // on AdminSetUserAttribute. If you’re likely to experience thundering herd problems
+    // then you should consider using DynamoDB to record the secret token instead.
+    console.log({ USER_POOL_ID })
     const command = new AdminUpdateUserAttributesCommand({
       UserPoolId: USER_POOL_ID,
       Username: email,
