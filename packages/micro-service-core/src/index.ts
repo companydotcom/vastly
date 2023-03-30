@@ -200,8 +200,8 @@ export const httpReqHandler = async (AWS: any, r: string, s: string, a: string, 
 
 export const utils = {
   addToEventContext,
-}
+} as any
 
 export const middleware = {
   withCrmData,
-}
+} as any

@@ -45,7 +45,6 @@ module.exports.handler = middy(async (event: APIGatewayProxyEvent) => {
     // that can sign in at the same time. Because Cognito has a hard limit of 25 reqs/sec
     // on AdminSetUserAttribute. If you’re likely to experience thundering herd problems
     // then you should consider using DynamoDB to record the secret token instead.
-    console.log({ USER_POOL_ID })
     const command = new AdminUpdateUserAttributesCommand({
       UserPoolId: USER_POOL_ID,
       Username: email,
