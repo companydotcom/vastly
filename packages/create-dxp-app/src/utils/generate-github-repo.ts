@@ -2,7 +2,7 @@ import { spawnSync } from "child_process"
 import ora from "ora"
 import chalk from "chalk"
 import { Octokit } from "@octokit/rest"
-import { copyTemplate } from "./copyTemplate.js"
+import { copyTemplate } from "./copy-template.js"
 import { GenerateAnswers } from "../types"
 
 export const generateGithubRepo = async (answers: GenerateAnswers) => {
