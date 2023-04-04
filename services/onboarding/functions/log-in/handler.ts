@@ -58,7 +58,7 @@ module.exports.handler = middy(async (event: APIGatewayProxyEvent) => {
 
     await cognitoClient.send(command)
   } catch (error) {
-    console.log(error)
+    console.log("err", error)
     return {
       statusCode: 404,
       body: JSON.stringify({
@@ -103,6 +103,7 @@ async function sendEmail(emailAddress: string, magicLink: string) {
 
     await sesClient.send(command)
   } catch (error) {
-    console.log("👾 ~ sendEmail ~ error:", error)
+    console.log("sendEmail ~ error:", error)
+    return error
   }
 }

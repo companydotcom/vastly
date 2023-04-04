@@ -24,10 +24,15 @@ export const functions: AWS["functions"] = {
         Effect: "Allow",
         Action: "ses:SendEmail",
         Resource: [
+          // TODO: we need to adjust this permission to assume a role instead of explicitly use an identity
           {
             "Fn::Sub":
-              "arn:aws:ses:${AWS::Region}:${AWS::AccountId}:identity/${self:custom.domain}",
+              "arn:aws:ses:${AWS::Region}:${AWS::AccountId}:identity/jacob.granberry@company-corp.com",
           },
+          // {
+          //   "Fn::Sub":
+          //     "arn:aws:ses:${AWS::Region}:${AWS::AccountId}:identity/${self:custom.domain}",
+          // },
           { "Fn::Sub": "arn:aws:ses:${AWS::Region}:${AWS::AccountId}:configuration-set/*" },
         ],
       },

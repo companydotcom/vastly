@@ -3,6 +3,7 @@ import executeLogin from "./execute-login"
 export default async function doEmailLogin() {
   // let result = 1
   // return result
+  // TODO: get email from user
   let email = "jacob.granberry@company-corp.com"
   try {
     const data = await executeLogin(email)
