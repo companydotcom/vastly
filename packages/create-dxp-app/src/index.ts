@@ -1,11 +1,10 @@
-import { mkdirSync } from "node:fs"
 import { Command } from "commander"
 import inquirer from "inquirer"
 import chalk from "chalk"
 import { generateQuestions } from "./questions/index.js"
 import { generateGithubRepo } from "./utils/generate-github-repo.js"
+import { generateLocalRepo } from "./utils/generate-local-repo.js"
 import { GenerateAnswers } from "../src/types"
-import { copyTemplate } from "./utils/copy-template.js"
 
 const program = new Command()
 program.description("Company.com create-dxp-app").parse(process.argv)
@@ -18,8 +17,6 @@ inquirer.prompt(generateQuestions).then((answers: GenerateAnswers) => {
   if (answers.generate && answers.linkToGithub) {
     generateGithubRepo(answers)
   } else if (answers.generate) {
-    mkdirSync(answers.repoName, { recursive: true })
-    process.chdir(answers.repoName)
-    copyTemplate(answers.packageManager)
+    generateLocalRepo(answers)
   }
 })
