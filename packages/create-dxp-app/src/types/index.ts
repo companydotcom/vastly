@@ -7,6 +7,7 @@ export interface GenerateAnswers {
   token: string
   generate: boolean
   packageManager: PackageManagerName
+  linkToGithub: boolean
 }
 
 export type PackageManager = {

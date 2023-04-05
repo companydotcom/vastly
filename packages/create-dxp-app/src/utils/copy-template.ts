@@ -6,7 +6,7 @@ import chalk from "chalk"
 import fse from "fs-extra"
 import { satisfies } from "semver"
 import { PackageManagerName, PACKAGE_MANAGERS } from "../types/index.js"
-import { getPackageManagerVersion } from "../utils/getPackageManagerVersion.js"
+import { getPackageManagerVersion } from "./get-package-manager-version.js"
 
 export const copyTemplate = async (packageManager: PackageManagerName): Promise<void> => {
   const __filename = fileURLToPath(import.meta.url)

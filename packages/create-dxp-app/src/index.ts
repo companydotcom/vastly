@@ -2,7 +2,8 @@ import { Command } from "commander"
 import inquirer from "inquirer"
 import chalk from "chalk"
 import { generateQuestions } from "./questions/index.js"
-import { generateGithubRepo } from "./utils/generateGithubRepo.js"
+import { generateGithubRepo } from "./utils/generate-github-repo.js"
+import { generateLocalRepo } from "./utils/generate-local-repo.js"
 import { GenerateAnswers } from "../src/types"
 
 const program = new Command()
@@ -13,7 +14,9 @@ console.log(chalk.cyan(">>> Welcome to Company.com! Let's get you set up with a 
 console.log()
 
 inquirer.prompt(generateQuestions).then((answers: GenerateAnswers) => {
-  if (answers.generate) {
+  if (answers.generate && answers.linkToGithub) {
     generateGithubRepo(answers)
+  } else if (answers.generate) {
+    generateLocalRepo(answers)
   }
 })

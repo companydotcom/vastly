@@ -145,43 +145,6 @@ importers:
         specifier: ^4.5.3
         version: 4.9.5
 
-  generators/generator-dxp-app:
-    dependencies:
-      fs-extra:
-        specifier: ^11.1.0
-        version: 11.1.0
-      generator-dxp-app:
-        specifier: link:/Users/nhumai/company/dxp/generators/generator-dxp-app
-        version: link:../../../../../../Users/nhumai/company/dxp/generators/generator-dxp-app
-      yeoman-generator:
-        specifier: ^5.7.0
-        version: 5.8.0
-    devDependencies:
-      '@types/fs-extra':
-        specifier: ^11.0.1
-        version: 11.0.1
-      '@types/node':
-        specifier: ^18.11.19
-        version: 18.14.1
-      '@types/yeoman-generator':
-        specifier: ^5.2.11
-        version: 5.2.11
-      eslint:
-        specifier: ^8.33.0
-        version: 8.34.0
-      eslint-config-custom:
-        specifier: workspace:*
-        version: link:../../packages/eslint-config-custom
-      slugify:
-        specifier: ^1.6.5
-        version: 1.6.5
-      tsconfig:
-        specifier: ^7.0.0
-        version: 7.0.0
-      typescript:
-        specifier: ^4.9.5
-        version: 4.9.5
-
   generators/generator-dxp-service:
     dependencies:
       fs-extra:

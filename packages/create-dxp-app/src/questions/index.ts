@@ -1,5 +1,5 @@
-import { shouldUseYarn } from "../utils/shouldUseYarn.js"
-import { shouldUsePnpm } from "../utils/shouldUsePnpm.js"
+import { shouldUseYarn } from "../utils/should-use-yarn.js"
+import { shouldUsePnpm } from "../utils/should-use-pnpm.js"
 
 //check if yarn and pnpm are installed; if not, disable option in prompt
 const isYarnInstalled = shouldUseYarn()
@@ -23,6 +23,15 @@ export const generateQuestions = [
     message: "Please enter a description for your project: ",
   },
   {
+    name: "linkToGithub",
+    type: "list",
+    message: "Would you like to link your project to GitHub?",
+    choices: [
+      { name: "Yes", value: true },
+      { name: "No", value: false },
+    ],
+  },
+  {
     name: "email",
     type: "text",
     message: "What is your GitHub email?",
@@ -33,6 +42,7 @@ export const generateQuestions = [
       }
       return true
     },
+    when: (answers) => answers.linkToGithub,
   },
   {
     name: "username",
@@ -44,6 +54,7 @@ export const generateQuestions = [
       }
       return true
     },
+    when: (answers) => answers.linkToGithub,
   },
   {
     name: "token",
@@ -55,6 +66,7 @@ export const generateQuestions = [
       }
       return true
     },
+    when: (answers) => answers.linkToGithub,
   },
   {
     name: "packageManager",
