@@ -29,10 +29,10 @@ export const functions: AWS["functions"] = {
             "Fn::Sub":
               "arn:aws:ses:${AWS::Region}:${AWS::AccountId}:identity/jacob.granberry@company-corp.com",
           },
-          // {
-          //   "Fn::Sub":
-          //     "arn:aws:ses:${AWS::Region}:${AWS::AccountId}:identity/${self:custom.domain}",
-          // },
+          {
+            "Fn::Sub":
+              "arn:aws:ses:${AWS::Region}:${AWS::AccountId}:identity/${self:custom.domain}",
+          },
           { "Fn::Sub": "arn:aws:ses:${AWS::Region}:${AWS::AccountId}:configuration-set/*" },
         ],
       },

@@ -1,4 +1,11 @@
-export default async function login() {
+export default async function login(client: any) {
+  client
+    .command("login")
+    .description("Log into company.com")
+    .action(async () => {
+      console.log("Logging in!")
+    })
+
   //
   // result = await doEmailLogin()
   //
