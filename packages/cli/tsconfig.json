@@ -1,11 +1,18 @@
 {
 	"compilerOptions": {
-		"module": "ESNext",
+		"strict": true,
+		"noEmitOnError": true,
+		"noFallthroughCasesInSwitch": true,
 		"moduleResolution": "node",
+		"module": "commonjs",
+		"target": "ES2020",
 		"esModuleInterop": true,
-		"outDir": "dist",
-		"jsx": "react"
+		"allowJs": true,
+		"lib": ["ES2020"],
+		"resolveJsonModule": true,
+		"sourceMap": true,
+		"outDir": "./dist",
 	},
 	"exclude": ["node_modules"],
-  "include": ["**/*.ts"]
+	"include": ["src/**/*"],
 }

@@ -5,7 +5,8 @@
     "KMS_KEY_ID",
     "SES_FROM_ADDRESS",
     "USER_POOL_ID",
-    "BASE_URL"
+    "BASE_URL",
+    "AWS_REGION"
   ],
   "pipeline": {
     "build": {

@@ -4,7 +4,12 @@ import { functions } from "./functions"
 const serverlessConfiguration: AWS = {
   service: "onboarding",
   frameworkVersion: "3.28.1",
-  plugins: ["serverless-esbuild", "serverless-offline", "serverless-iam-roles-per-function"],
+  plugins: [
+    "serverless-esbuild",
+    "serverless-offline",
+    "serverless-offline-kms",
+    "serverless-iam-roles-per-function",
+  ],
   provider: {
     name: "aws",
     runtime: "nodejs16.x",
@@ -19,7 +24,7 @@ const serverlessConfiguration: AWS = {
   functions: { ...functions },
   package: { individually: true },
   custom: {
-    domain: "company-corp.com",
+    domain: "ses.companydev.com",
     "serverless-offline": {
       httpPort: 4000,
     },
