@@ -23,14 +23,19 @@ const main = async () => {
 
   try {
     let func: any
+    let description: string
+
     switch (subcommand) {
       case "login":
+        description = "Log into company.com"
         func = require("./commands/login").default
         break
       case "logout":
+        description = "Log out of company.com"
         func = require("./commands/logout").default
         break
       default:
+        description = ""
         func = null
         break
     }
@@ -40,7 +45,12 @@ const main = async () => {
       return 1
     }
 
-    await func(client)
+    client
+      .command(subcommand)
+      .description(description)
+      .action(async () => {
+        await func(client)
+      })
   } catch (err: unknown) {
     console.log(`${chalk.red("Unknown error")}`)
   }
