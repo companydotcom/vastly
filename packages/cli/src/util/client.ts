@@ -1,11 +1,13 @@
 import { Command } from "commander"
-
-export interface ClientOptions {
-  output: Command
+import { Output } from "./output"
+export interface Client {
+  program: Command
+  output: Output
 }
 
-export default function client(opts: ClientOptions) {
+export default function makeClient(opts: Client) {
   return {
+    program: opts.program,
     output: opts.output,
   }
 }
