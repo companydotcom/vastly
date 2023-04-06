@@ -2,16 +2,27 @@
 
 import { Command } from "commander"
 import chalk from "chalk"
+import makeClient from "./util/client"
+import makeOutput from "./util/output"
 
 const main = async () => {
   const program = new Command()
 
-  program.name("dxp").description("CLI for company.com").version("0.0.1")
-
-  // Top level command for the CLI
-  const client = program.command("dxp")
+  program
+    .name("dxp")
+    .description("CLI for company.com")
+    .version("0.0.1")
+    .option("-d, --debug", "outputs extra debugging", false)
 
   program.parse(process.argv)
+  // Top level command for the CLI
+  const commander = program.command("dxp")
+  const options = program.opts()
+  const output = makeOutput({ debugEnabled: options.debug })
+  const client = makeClient({
+    program: commander,
+    output,
+  })
 
   const subcommand = program.args[1]
 
@@ -45,7 +56,7 @@ const main = async () => {
       return 1
     }
 
-    client
+    commander
       .command(subcommand)
       .description(description)
       .action(async () => {
