@@ -1,21 +1,21 @@
 import { Client } from "../client"
 
-interface LoginResponse {
+interface LoginResult {
   message: string
 }
 
-export default async function executeLogin(client: Client, email: string) {
-  const { fetch } = client
+export default async function executeLogin(client: Client, email: string): Promise<LoginResult> {
   try {
-    const login = await fetch(`https://gxmblcgqcb.execute-api.us-east-1.amazonaws.com/dev/login`, {
-      method: "POST",
-      body: {
-        email,
+    return await client.fetch<LoginResult>(
+      `https://gxmblcgqcb.execute-api.us-east-1.amazonaws.com/dev/login`,
+      {
+        method: "POST",
+        body: {
+          email,
+        },
       },
-    })
-    return login.json()
+    )
   } catch (err: unknown) {
-    console.log("👾 ~ executeLogin ~ err:", err)
-    throw new Error(`Error executing login: ${err}`)
+    throw new Error(`Unexpected error: ${err}`)
   }
 }
