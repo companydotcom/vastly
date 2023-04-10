@@ -1,14 +1,21 @@
-import fetch from "node-fetch"
+import { Client } from "../client"
 
-export default async function executeLogin(email: string) {
+interface LoginResponse {
+  message: string
+}
+
+export default async function executeLogin(client: Client, email: string) {
+  const { fetch } = client
   try {
-    return await fetch(`https://gxmblcgqcb.execute-api.us-east-1.amazonaws.com/dev/login`, {
+    const login = await fetch(`https://gxmblcgqcb.execute-api.us-east-1.amazonaws.com/dev/login`, {
       method: "POST",
-      body: JSON.stringify({
-        email: email,
-      }),
+      body: {
+        email,
+      },
     })
+    return login.json()
   } catch (err: unknown) {
+    console.log("👾 ~ executeLogin ~ err:", err)
     throw new Error(`Error executing login: ${err}`)
   }
 }
