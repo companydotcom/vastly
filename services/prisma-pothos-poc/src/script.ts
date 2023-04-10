@@ -2,8 +2,6 @@ import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
-// pnpx ts-node src/script.ts
-
 async function main() {
   // const user = await prisma.user.create({
   //   data: {
@@ -33,3 +31,5 @@ main()
     await prisma.$disconnect()
     process.exit(1)
   })
+
+// pnpx ts-node src/script.ts
