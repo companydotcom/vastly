@@ -1,20 +1,16 @@
+import { Client } from "../client"
 import executeLogin from "./execute-login"
 
-export default async function doEmailLogin() {
-  // let result = 1
-  // return result
-  // TODO: get email from user
-  let email = "jacob.granberry@company-corp.com"
+export default async function doEmailLogin(client: Client, email: string) {
+  const { output } = client
+  console.log("👾 ~ doEmailLogin ~ email:", email)
   try {
-    const data = await executeLogin(email)
-    console.log("👾DATA:", data)
+    const data = await executeLogin(client, email)
+    console.log(data)
     // verificationToken = data.token
     // securityCode = data.securityCode
+    return data
   } catch (err: unknown) {
-    console.log("👾ERR:", err)
-    // output.error(errorToString(err))
-    return 1
+    output.error(err as string)
   }
 }
-
-doEmailLogin()

@@ -1,14 +1,21 @@
-import fetch from "node-fetch"
+import { Client } from "../client"
 
-export default async function executeLogin(email: string) {
+interface LoginResult {
+  message: string
+}
+
+export default async function executeLogin(client: Client, email: string): Promise<LoginResult> {
   try {
-    return await fetch(`https://gxmblcgqcb.execute-api.us-east-1.amazonaws.com/dev/login`, {
-      method: "POST",
-      body: JSON.stringify({
-        email: email,
-      }),
-    })
+    return await client.fetch<LoginResult>(
+      `https://gxmblcgqcb.execute-api.us-east-1.amazonaws.com/dev/login`,
+      {
+        method: "POST",
+        body: {
+          email,
+        },
+      },
+    )
   } catch (err: unknown) {
-    throw new Error(`Error executing login: ${err}`)
+    throw new Error(`Unexpected error: ${err}`)
   }
 }
