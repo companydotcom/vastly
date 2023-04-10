@@ -2,7 +2,20 @@ import { PrismaClient } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
+// pnpx ts-node src/script.ts
+
 async function main() {
+  // const user = await prisma.user.create({
+  //   data: {
+  //     name: "Nhu",
+  //     email: "nhu@prisma.io",
+  //     posts: {
+  //       create: {
+  //         title: "Hello World",
+  //       },
+  //     },
+  //   },
+  // })
   const usersWithPosts = await prisma.user.findMany({
     include: {
       posts: true,
