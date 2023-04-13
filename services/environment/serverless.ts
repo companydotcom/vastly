@@ -13,11 +13,14 @@ const serverlessConfiguration: AWS = {
   provider: {
     name: "aws",
     runtime: "nodejs16.x",
-    stage: JSON.stringify(process.env),
+    stage: "dev",
     region: "us-east-1",
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
+      TABLE_NAME: {
+        Ref: "secrets",
+      },
     },
     deploymentMethod: "direct",
     httpApi: {
@@ -27,7 +30,6 @@ const serverlessConfiguration: AWS = {
   functions: { ...functions },
   package: { individually: true },
   custom: {
-    domain: "ses.companydev.com",
     "serverless-offline": {
       httpPort: 4000,
     },
@@ -79,7 +81,7 @@ const serverlessConfiguration: AWS = {
     Outputs: {
       SecretsTableArn: {
         Description: "The ARN for the Secrets Table",
-        Value: "!GetAtt secretsTable.arn",
+        Value: { "Fn::GetAtt": ["SecretsTable", "Arn"] },
         Export: {
           Name: "${self:service}:${sls:stage}:SecretsTableArn",
         },

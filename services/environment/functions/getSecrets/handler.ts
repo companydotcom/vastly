@@ -6,6 +6,7 @@ import type { APIGatewayProxyHandlerV2 } from "aws-lambda"
 import { dynamoDocClient, get, dynamoClient } from "../../lib/dynamodb"
 
 const db = dynamoDocClient
+const { TABLE_NAME } = process.env
 
 const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   const env = event?.pathParameters?.env
@@ -18,21 +19,26 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
 
   try {
     const response = await getSecrets(env)
+    console.log(
+      "🚀 ~ file: handler.ts:21 ~ constbaseHandler:APIGatewayProxyHandlerV2= ~ response:",
+      response,
+    )
     return {
       statusCode: 200,
-      body: response,
+      body: JSON.stringify(response),
     }
   } catch (error) {
     return {
       statusCode: error.statusCode || 501,
-      body: error,
+      body: JSON.stringify(error),
     }
   }
 }
 
 async function getSecrets(env: string) {
+  console.log("Fetching secrets...")
   const params = {
-    TableName: "secrets",
+    TableName: TABLE_NAME,
     Item: {
       environment: env,
     },
@@ -40,9 +46,9 @@ async function getSecrets(env: string) {
   const query = new get(params)
 
   try {
-    const { Items } = await db.send(query)
+    const response = await db.send(query)
     dynamoClient.destroy()
-    return Items
+    return response
   } catch (error) {
     dynamoClient.destroy()
   }
