@@ -2,8 +2,13 @@
 
 import { Command } from "commander"
 import chalk from "chalk"
+import fs from "fs"
+const fsPromises = fs.promises
 import makeClient from "./util/client"
 import makeOutput from "./util/output"
+import getGlobalPathConfig from "./util/config/files"
+
+const VASTLY_DIR = getGlobalPathConfig()
 
 const main = async () => {
   const program = new Command()
@@ -19,6 +24,15 @@ const main = async () => {
   const commander = program.command("dxp")
   const options = program.opts()
   const output = makeOutput({ debugEnabled: options.debug })
+
+  // Make sure global config dir exists
+  try {
+    await fsPromises.mkdir(VASTLY_DIR, { recursive: true })
+  } catch (err: unknown) {
+    output.error(`Couldn't create the global directory at ${VASTLY_DIR}`)
+    return 1
+  }
+
   const client = makeClient({
     program: commander,
     output,
@@ -31,6 +45,8 @@ const main = async () => {
     // Display the application help.
     program.outputHelp()
   }
+
+  console.log("🚀 ~ file: index.ts:12 ~ VASTLY_DIR:", VASTLY_DIR)
 
   try {
     let func: any
