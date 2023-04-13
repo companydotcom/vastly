@@ -1,20 +1,19 @@
 import { join } from "path"
-import XDGAppPaths from "xdg-app-paths"
+import xdgAppPaths from "xdg-app-paths"
 import { loadJsonFileSync } from "load-json-file"
 import { writeJsonFileSync } from "write-json-file"
 
 // Returns in which directory the config should be present
 const getGlobalPathConfig = (): string => {
-  const dxpDirectories = XDGAppPaths("com.dxp.cli").dataDirs()
+  const vastlyDirectories = xdgAppPaths("com.vastly.cli").configDirs()
 
-  return dxpDirectories[0]
+  return vastlyDirectories[0]
 }
 
 export default getGlobalPathConfig
 
-// TODO: Rename to new brand
-const DXP_DIR = getGlobalPathConfig()
-const AUTH_CONFIG_FILE_PATH = join(DXP_DIR, "auth.json")
+const VASTLY_DIR = getGlobalPathConfig()
+const AUTH_CONFIG_FILE_PATH = join(VASTLY_DIR, "auth.json")
 
 // reads "auth config" file atomically
 export const readAuthConfigFile = () => {
@@ -36,3 +35,5 @@ export const writeToAuthConfigFile = (authConfig: AuthConfig) => {
     throw err
   }
 }
+
+console.log(VASTLY_DIR)
