@@ -2,7 +2,7 @@ import type { AWS } from "@serverless/typescript"
 
 export const functions: AWS["functions"] = {
   getSecrets: {
-    handler: "functions/getSecrets/handler.handler",
+    handler: "functions/get-secrets/handler.handler",
     description: "Get all secrets",
     events: [
       {
@@ -17,12 +17,16 @@ export const functions: AWS["functions"] = {
       {
         Effect: "Allow",
         Action: "dynamodb:Query",
-        Resource: "*",
+        Resource: [
+          {
+            "Fn::GetAtt": ["SecretsTable", "Arn"],
+          },
+        ],
       },
     ],
   },
   addSecret: {
-    handler: "functions/addSecret/handler.handler",
+    handler: "functions/add-secret/handler.handler",
     description: "Add a secret",
     events: [
       {
@@ -37,12 +41,16 @@ export const functions: AWS["functions"] = {
       {
         Effect: "Allow",
         Action: "dynamodb:PutItem",
-        Resource: "*",
+        Resource: [
+          {
+            "Fn::GetAtt": ["SecretsTable", "Arn"],
+          },
+        ],
       },
     ],
   },
   deleteSecret: {
-    handler: "functions/deleteSecret/handler.handler",
+    handler: "functions/delete-secret/handler.handler",
     events: [
       {
         httpApi: {
