@@ -18,9 +18,6 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
-      TABLE_NAME: {
-        Ref: "secrets",
-      },
     },
     deploymentMethod: "direct",
     httpApi: {
@@ -67,7 +64,7 @@ const serverlessConfiguration: AWS = {
             },
             {
               AttributeName: "secretKey",
-              KeyType: "HASH",
+              KeyType: "RANGE",
             },
           ],
           ProvisionedThroughput: {
