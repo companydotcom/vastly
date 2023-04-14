@@ -65,6 +65,9 @@ interface Secret {
   value?: string
 }
 
-const handler = middy(baseHandler).use(jsonBodyParser()).use(cors()).use(httpErrorHandler())
-export { handler }
+const addSecretHandler = middy(baseHandler)
+  .use(jsonBodyParser())
+  .use(cors())
+  .use(httpErrorHandler())
+export { addSecretHandler }
 // TODO: log and type event, error
