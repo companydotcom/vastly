@@ -1,20 +1,21 @@
 import { join } from "path"
-import XDGAppPaths from "xdg-app-paths"
+import XdgAppPaths from "xdg-app-paths"
+import type { XDGAppPaths } from "xdg-app-paths"
 import { loadJsonFileSync } from "load-json-file"
 import { writeJsonFileSync } from "write-json-file"
 
 // Returns in which directory the config should be present
-const getGlobalPathConfig = (): string => {
-  const dxpDirectories = XDGAppPaths("com.dxp.cli").dataDirs()
+export const getGlobalPathConfig = (): string => {
+  // NOTE: unclear why I had to explicitly type this as unknown first - after converting to ESM the types no longer worked, but only for this package
+  const configDirs = (XdgAppPaths as unknown as XDGAppPaths).configDirs()
 
-  return dxpDirectories[0]
+  return configDirs[0]
 }
 
 export default getGlobalPathConfig
 
-// TODO: Rename to new brand
-const DXP_DIR = getGlobalPathConfig()
-const AUTH_CONFIG_FILE_PATH = join(DXP_DIR, "auth.json")
+const VASTLY_DIR = getGlobalPathConfig()
+const AUTH_CONFIG_FILE_PATH = join(VASTLY_DIR, "auth.json")
 
 // reads "auth config" file atomically
 export const readAuthConfigFile = () => {

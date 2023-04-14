@@ -1,8 +1,8 @@
 import ora, { Ora } from "ora"
 import chalk from "chalk"
 import inquirer from "inquirer"
-import { Client } from "../util/client"
-import doEmailLogin from "../util/login/email"
+import { Client } from "../util/client.js"
+import doEmailLogin from "../util/login/email.js"
 
 export default async function login(client: Client) {
   const { output } = client

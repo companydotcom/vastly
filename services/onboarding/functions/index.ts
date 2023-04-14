@@ -7,7 +7,7 @@ export const functions: AWS["functions"] = {
       {
         http: {
           method: "post",
-          path: "login",
+          path: "/onboarding/login",
           cors: true,
         },
       },
