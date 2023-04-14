@@ -1,5 +1,5 @@
-import type { AWS } from "@serverless/typescript"
-import { functions } from "./functions"
+import type { AWS } from "@serverless/typescript";
+import { functions } from "./functions";
 
 const serverlessConfiguration: AWS = {
   service: "onboarding",
@@ -189,6 +189,6 @@ const serverlessConfiguration: AWS = {
       },
     },
   },
-}
+};
 
-module.exports = serverlessConfiguration
+module.exports = serverlessConfiguration;
