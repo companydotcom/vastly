@@ -1,4 +1,4 @@
-import { SystemStyleObject } from "@companydotcom/potion";
+import { SystemStyleObject } from "@chakra-ui/react";
 
 export default {
   formContainer: {
