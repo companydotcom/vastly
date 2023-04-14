@@ -1,47 +1,47 @@
 import {
   CognitoIdentityProviderClient,
   AdminUpdateUserAttributesCommand,
-} from "@aws-sdk/client-cognito-identity-provider"
-import type { APIGatewayProxyHandlerV2 } from "aws-lambda"
-import validator from "@middy/validator"
-import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses"
-import middy from "@middy/core"
-import httpErrorHandler from "@middy/http-error-handler"
-import cors from "@middy/http-cors"
-import jsonBodyParser from "@middy/http-json-body-parser"
-import { TIMEOUT_MINS } from "../../lib/constants"
-import { encrypt } from "../../lib/encryption"
-import { eventSchema, responseSchema } from "./schema"
+} from "@aws-sdk/client-cognito-identity-provider";
+import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
+import validator from "@middy/validator";
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+import middy from "@middy/core";
+import httpErrorHandler from "@middy/http-error-handler";
+import cors from "@middy/http-cors";
+import jsonBodyParser from "@middy/http-json-body-parser";
+import { TIMEOUT_MINS } from "../../lib/constants";
+import { encrypt } from "../../lib/encryption";
+import { eventSchema, responseSchema } from "./schema";
 
-const { SES_FROM_ADDRESS, USER_POOL_ID, BASE_URL, AWS_REGION } = process.env
-const ONE_MIN = 60 * 1000
+const { SES_FROM_ADDRESS, USER_POOL_ID, BASE_URL, AWS_REGION } = process.env;
+const ONE_MIN = 60 * 1000;
 
-const cognitoClient = new CognitoIdentityProviderClient({ region: AWS_REGION })
-const sesClient = new SESClient({ region: AWS_REGION })
+const cognitoClient = new CognitoIdentityProviderClient({ region: AWS_REGION });
+const sesClient = new SESClient({ region: AWS_REGION });
 
 const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
-  const { email } = typeof event.body === "string" ? JSON.parse(event.body) : event.body
+  const { email } = typeof event.body === "string" ? JSON.parse(event.body) : event.body;
   if (!email) {
     return {
       statusCode: 400,
       body: JSON.stringify({
         message: "You must provide a valid email.",
       }),
-    }
+    };
   }
 
   // only send the magic link on the first attempt
-  const now = new Date()
-  const expiration = new Date(now.getTime() + ONE_MIN * TIMEOUT_MINS)
+  const now = new Date();
+  const expiration = new Date(now.getTime() + ONE_MIN * TIMEOUT_MINS);
   const payload = {
     email,
     expiration: expiration.toJSON(),
-  }
+  };
 
-  const tokenRaw = await encrypt(JSON.stringify(payload))
-  const tokenB64 = tokenRaw ? Buffer.from(tokenRaw).toString("base64") : ""
-  const token = new URLSearchParams({ "": tokenB64 }).toString().slice(1)
-  const magicLink = `https://${BASE_URL}/magic-link?email=${email}&token=${token}`
+  const tokenRaw = await encrypt(JSON.stringify(payload));
+  const tokenB64 = tokenRaw ? Buffer.from(tokenRaw).toString("base64") : "";
+  const token = new URLSearchParams({ "": tokenB64 }).toString().slice(1);
+  const magicLink = `https://${BASE_URL}/magic-link?email=${email}&token=${token}`;
 
   try {
     // the decision to use Cognito’s user attributes has an impact on the number of users
@@ -57,25 +57,25 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
           Value: tokenB64,
         },
       ],
-    })
+    });
 
-    await cognitoClient.send(command)
+    await cognitoClient.send(command);
   } catch (error) {
-    console.log("err", error)
+    console.log("err", error);
     return {
       statusCode: 404,
       body: JSON.stringify({
         message: "User not found",
       }),
-    }
+    };
   }
 
-  await sendEmail(email, magicLink)
+  await sendEmail(email, magicLink);
   return {
     statusCode: 202,
     body: JSON.stringify({ message: "accepted" }),
-  }
-}
+  };
+};
 
 async function sendEmail(emailAddress: string, magicLink: string) {
   try {
@@ -101,12 +101,12 @@ async function sendEmail(emailAddress: string, magicLink: string) {
           },
         },
       },
-    })
+    });
 
-    await sesClient.send(command)
+    await sesClient.send(command);
   } catch (error) {
-    console.log("sendEmail ~ error:", error)
-    return error
+    console.log("sendEmail ~ error:", error);
+    return error;
   }
 }
 
@@ -119,6 +119,6 @@ const handler = middy(baseHandler)
     }),
   )
   .use(cors())
-  .use(httpErrorHandler())
+  .use(httpErrorHandler());
 
-export { handler }
+export { handler };

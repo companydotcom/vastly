@@ -1,4 +1,4 @@
-import type { StorybookConfig } from "@storybook/nextjs"
+import type { StorybookConfig } from "@storybook/nextjs";
 
 const config: StorybookConfig = {
   stories: ["../stories/**/*.mdx", "../stories/**/*.stories.@(js|jsx|ts|tsx)"],
@@ -20,5 +20,5 @@ const config: StorybookConfig = {
       url: "https://chakra-ui.netlify.app/?path=/story/accordion--default",
     },
   },
-}
-export default config
+};
+export default config;

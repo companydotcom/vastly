@@ -1,10 +1,10 @@
-import { sleep, itemExists } from "./util"
+import { sleep, itemExists } from "./util";
 
 // Safety limit for bulk insertions into DynamoDb
-const batchWriteRecordsLimit = 25
+const batchWriteRecordsLimit = 25;
 
 // Fallback safety limit for bulk queries from DynamoDb
-const dynamoDbQuerySafeBatchLimit = 1000
+const dynamoDbQuerySafeBatchLimit = 1000;
 
 /**
  * Gets records for given query object.
@@ -16,30 +16,30 @@ const dynamoDbQuerySafeBatchLimit = 1000
  * @returns {[{String: *}]}
  */
 export const fetchRecordsByQuery = async (AWS: any, queryObject: any, paginate = false) => {
-  const dynamodb = new AWS.DynamoDB({ apiVersion: "2012-08-10" })
+  const dynamodb = new AWS.DynamoDB({ apiVersion: "2012-08-10" });
   // Add safe fetch limit if one is not set
   if (!itemExists(queryObject, "Limit")) {
     // eslint-disable-next-line no-param-reassign
-    queryObject.Limit = dynamoDbQuerySafeBatchLimit
+    queryObject.Limit = dynamoDbQuerySafeBatchLimit;
   }
-  const qResult = await dynamodb.query(queryObject).promise()
+  const qResult = await dynamodb.query(queryObject).promise();
   if (paginate === true) {
     if (!itemExists(qResult, "Items") || qResult.Items.length < 1) {
-      return { items: [], ExclusiveStartKey: undefined }
+      return { items: [], ExclusiveStartKey: undefined };
     }
     return {
       items: qResult.Items.map((it: any) => AWS.DynamoDB.Converter.unmarshall(it)),
       ExclusiveStartKey: itemExists(qResult, "LastEvaluatedKey")
         ? qResult.LastEvaluatedKey
         : undefined,
-    }
+    };
   }
   if (!itemExists(qResult, "Items") || qResult.Items.length < 1) {
-    return []
+    return [];
   }
   // Convert DynamoDb stlye objects to simple Javascript objects
-  return qResult.Items.map((item: any) => AWS.DynamoDB.Converter.unmarshall(item))
-}
+  return qResult.Items.map((item: any) => AWS.DynamoDB.Converter.unmarshall(item));
+};
 
 /**
  * Increment the value in the given column by the given value
@@ -58,7 +58,7 @@ export const incrementColumn = async (
   colName: string,
   incVal = 1,
 ) => {
-  const docClient = new AWS.DynamoDB.DocumentClient()
+  const docClient = new AWS.DynamoDB.DocumentClient();
   const obj = {
     TableName: tName,
     Key: srchParams,
@@ -66,9 +66,9 @@ export const incrementColumn = async (
     ExpressionAttributeValues: {
       ":val": incVal,
     },
-  }
-  return docClient.update(obj).promise()
-}
+  };
+  return docClient.update(obj).promise();
+};
 
 /**
  * Inserts/ Upserts data into DynamoDb with given records to the given table
@@ -83,14 +83,14 @@ export const batchPutIntoDynamoDb = async (
   tName: string,
   backoff = 1000,
 ): Promise<void> => {
-  const dynamodb = new AWS.DynamoDB({ apiVersion: "2012-08-10" })
+  const dynamodb = new AWS.DynamoDB({ apiVersion: "2012-08-10" });
   // Convert all records to DynamoDb object structure and append the top level
   // object structure for each record insertion
   const preparedRecords = recs.map((record: any) => ({
     PutRequest: { Item: AWS.DynamoDB.Converter.marshall(record) },
-  }))
+  }));
 
-  const bulkRequests = []
+  const bulkRequests = [];
 
   // Split the records into batches of the safe batch request length, insert
   // the top level object for insertion and send the split batches for batch
@@ -104,7 +104,7 @@ export const batchPutIntoDynamoDb = async (
           },
         })
         .promise(),
-    )
+    );
   }
 
   console.log(
@@ -113,9 +113,9 @@ export const batchPutIntoDynamoDb = async (
     } with each request having ${batchWriteRecordsLimit} records except the last one having ${
       recs.length - batchWriteRecordsLimit * (bulkRequests.length - 1)
     } records`,
-  )
+  );
 
-  const result = await Promise.all(bulkRequests)
+  const result = await Promise.all(bulkRequests);
   const unprocessedRecords = result
     .map((resultDatum) => {
       if (
@@ -126,13 +126,13 @@ export const batchPutIntoDynamoDb = async (
         // eslint-disable-next-line max-len
         return resultDatum.UnprocessedItems[tName].map((unprocessedRec: any) =>
           AWS.DynamoDB.Converter.unmarshall(unprocessedRec.PutRequest.Item),
-        )
+        );
       }
-      return []
+      return [];
     })
-    .reduce((output, currentArray) => output.concat(currentArray))
+    .reduce((output, currentArray) => output.concat(currentArray));
   if (unprocessedRecords.length > 0) {
-    await sleep(backoff)
-    return batchPutIntoDynamoDb(AWS, unprocessedRecords, tName, backoff + 1000)
+    await sleep(backoff);
+    return batchPutIntoDynamoDb(AWS, unprocessedRecords, tName, backoff + 1000);
   }
-}
+};

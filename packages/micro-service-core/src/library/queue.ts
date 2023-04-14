@@ -1,6 +1,6 @@
-import { deepParseJson } from "./util"
+import { deepParseJson } from "./util";
 
-const safeMsgFetchLimitPerInstance = 500
+const safeMsgFetchLimitPerInstance = 500;
 /**
  * Convert the given SNS type attributes to simple JSON key-value pair of
  * attributes
@@ -10,14 +10,14 @@ const safeMsgFetchLimitPerInstance = 500
 // eslint-disable-next-line arrow-body-style
 const unmarshallMsgAttribs = (attribs: any) => {
   return Object.keys(attribs).reduce((res, key) => {
-    const { Type: type, Value: value } = attribs[key]
+    const { Type: type, Value: value } = attribs[key];
 
     if (type !== "String" && type !== "Number") {
-      return { ...res, [key]: JSON.parse(value) }
+      return { ...res, [key]: JSON.parse(value) };
     }
-    return { ...res, [key]: value }
-  }, {})
-}
+    return { ...res, [key]: value };
+  }, {});
+};
 
 /**
  * Parse the given SQS message that contains a SNS message to its body,
@@ -26,23 +26,23 @@ const unmarshallMsgAttribs = (attribs: any) => {
  * @returns { msgBody: Object, msgAttribs: Object, rcptHandle: String}
  */
 export const parseMsg = (message: any) => {
-  let msgB = message.Body ? message.Body : message.body
-  let msgAttribs = {}
+  let msgB = message.Body ? message.Body : message.body;
+  let msgAttribs = {};
   try {
-    msgB = message.Body ? deepParseJson(message.Body) : deepParseJson(message.body)
+    msgB = message.Body ? deepParseJson(message.Body) : deepParseJson(message.body);
   } catch (e1) {
-    console.log("Error: withSqsConsumer - parseMsg: Did not get a JSON parsable message in body")
-    throw e1
+    console.log("Error: withSqsConsumer - parseMsg: Did not get a JSON parsable message in body");
+    throw e1;
   }
   if (typeof msgB.MessageAttributes !== "undefined") {
-    msgAttribs = unmarshallMsgAttribs(msgB.MessageAttributes)
+    msgAttribs = unmarshallMsgAttribs(msgB.MessageAttributes);
   }
   return {
     msgBody: msgB.Message,
     msgAttribs,
     rcptHandle: message.ReceiptHandle,
-  }
-}
+  };
+};
 
 /**
  * Send the given message to the given SQS queue
@@ -53,14 +53,14 @@ export const parseMsg = (message: any) => {
  * @returns {*}
  */
 export const sendMsg = async (AWS: any, region: string, qUrl: string, msg: any) => {
-  const sqs = new AWS.SQS({ region })
+  const sqs = new AWS.SQS({ region });
   return sqs
     .sendMessage({
       QueueUrl: qUrl,
       MessageBody: msg,
     })
-    .promise()
-}
+    .promise();
+};
 
 /**
  * Gets messages from the given queue
@@ -76,15 +76,15 @@ export const getMsgsFromQueue = async (
   msgCountToFetch: number,
   QueueUrl: string,
 ) => {
-  console.log(`Fetching messages from SQS URL: ${QueueUrl}`)
-  const sqs = new AWS.SQS({ region })
-  let messages: any[] = []
-  const proms = []
+  console.log(`Fetching messages from SQS URL: ${QueueUrl}`);
+  const sqs = new AWS.SQS({ region });
+  let messages: any[] = [];
+  const proms = [];
   let msgsToFetch =
-    msgCountToFetch < safeMsgFetchLimitPerInstance ? msgCountToFetch : safeMsgFetchLimitPerInstance
+    msgCountToFetch < safeMsgFetchLimitPerInstance ? msgCountToFetch : safeMsgFetchLimitPerInstance;
   while (msgsToFetch > 0) {
-    const msgsToFetchThisIter = msgsToFetch < 10 ? msgsToFetch : 10
-    msgsToFetch -= msgsToFetchThisIter
+    const msgsToFetchThisIter = msgsToFetch < 10 ? msgsToFetch : 10;
+    msgsToFetch -= msgsToFetchThisIter;
     proms.push(
       sqs
         .receiveMessage({
@@ -93,16 +93,16 @@ export const getMsgsFromQueue = async (
           VisibilityTimeout: 900,
         })
         .promise(),
-    )
+    );
   }
-  const resps = await Promise.all(proms)
+  const resps = await Promise.all(proms);
   resps.forEach((resp) => {
     if (typeof resp.Messages !== "undefined" && resp.Messages.length > 0) {
-      messages = [...messages, ...resp.Messages]
+      messages = [...messages, ...resp.Messages];
     }
-  })
-  return messages
-}
+  });
+  return messages;
+};
 
 /**
  * Delete message from the given queue url using the given receipt handle
@@ -118,11 +118,11 @@ export const deleteMsg = async (
   QueueUrl: string,
   ReceiptHandle: string,
 ) => {
-  const sqs = new AWS.SQS({ region })
+  const sqs = new AWS.SQS({ region });
   sqs
     .deleteMessage({
       QueueUrl,
       ReceiptHandle,
     })
-    .promise()
-}
+    .promise();
+};

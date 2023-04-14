@@ -41,7 +41,7 @@ export async function hello(
       context,
       event,
     }),
-  }
+  };
 }
 ```
 

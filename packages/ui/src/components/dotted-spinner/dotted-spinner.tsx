@@ -5,17 +5,17 @@ import {
   ThemingProps,
   useStyleConfig,
   HTMLChakraProps,
-} from "@chakra-ui/react"
-import { cx } from "@companydotcom/utils"
+} from "@chakra-ui/react";
+import { cx } from "@companydotcom/utils";
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
-import type { ComponentWithAs } from "@chakra-ui/react"
+import type { ComponentWithAs } from "@chakra-ui/react";
 
 interface DottedSpinnerOptions {
   /**
    * The color of the spinner
    */
-  color?: string
+  color?: string;
   /**
    * The speed of the spinner.
    * @default "1.2s"
@@ -24,13 +24,13 @@ interface DottedSpinnerOptions {
    * <Spinner speed="0.2s"/>
    * ```
    */
-  speed?: string
+  speed?: string;
   /**
    * For accessibility, it is important to add a fallback loading text.
    * This text will be visible to screen readers.
    * @default "Loading..."
    */
-  label?: string
+  label?: string;
 }
 
 export interface DottedSpinnerProps
@@ -45,23 +45,23 @@ export interface DottedSpinnerProps
  * @see Docs https://chakra-ui.com/spinner
  */
 export const DottedSpinner = forwardRef<DottedSpinnerProps, "div">((props, ref) => {
-  const styles = useStyleConfig("DottedSpinner", props)
+  const styles = useStyleConfig("DottedSpinner", props);
   const {
     label = "Loading...",
     speed = "1.2s",
     className,
     color = "blue.500",
     ...rest
-  } = omitThemingProps(props)
+  } = omitThemingProps(props);
 
-  const _className = cx("dotted-spinner", className)
+  const _className = cx("dotted-spinner", className);
 
   const spinnerStyles = {
     display: "inline-block",
     position: "relative",
     fill: color,
     ...styles,
-  }
+  };
 
   // Spinner animation and style courtesy of https://github.com/n3r4zzurr0/svg-spinners
 
@@ -95,7 +95,7 @@ export const DottedSpinner = forwardRef<DottedSpinnerProps, "div">((props, ref) 
         </g>
       </chakra.svg>
     </chakra.div>
-  )
-})
+  );
+});
 
-DottedSpinner.displayName = "DottedSpinner"
+DottedSpinner.displayName = "DottedSpinner";

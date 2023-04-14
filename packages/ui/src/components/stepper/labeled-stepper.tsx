@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 
 import {
   chakra,
@@ -10,13 +10,13 @@ import {
   SystemStyleObject,
   createStylesContext,
   Collapse,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 // import { CheckIcon, Icon } from "@chakra-ui/icons"
-import { cx, dataAttr, isDev } from "@companydotcom/utils"
-import { getChildOfType, getChildrenOfType } from "../../utils"
+import { cx, dataAttr, isDev } from "@companydotcom/utils";
+import { getChildOfType, getChildrenOfType } from "../../utils";
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
-import type { ComponentWithAs } from "@chakra-ui/react"
+import type { ComponentWithAs } from "@chakra-ui/react";
 
 import {
   StepperProvider,
@@ -24,9 +24,9 @@ import {
   useStep,
   useStepperContext,
   UseStepperProps,
-} from "./use-stepper"
+} from "./use-stepper";
 
-const [StylesProvider, useStyles] = createStylesContext("LabeledStepper")
+const [StylesProvider, useStyles] = createStylesContext("LabeledStepper");
 
 export interface LabeledStepperProps
   extends UseStepperProps,
@@ -39,33 +39,33 @@ export interface LabeledStepperProps
  * Can be controlled or uncontrolled.
  */
 export const LabeledStepper = forwardRef<LabeledStepperProps, "div">((props, ref) => {
-  const { children, ...containerProps } = props
+  const { children, ...containerProps } = props;
   return (
     <LabeledStepperContainer ref={ref} {...containerProps}>
       <LabeledStepperSteps>{children}</LabeledStepperSteps>
     </LabeledStepperContainer>
-  )
-})
+  );
+});
 
 if (isDev()) {
-  LabeledStepper.displayName = "LabeledStepper"
+  LabeledStepper.displayName = "LabeledStepper";
 }
 
 export const LabeledStepperContainer = forwardRef<LabeledStepperProps, "div">((props, ref) => {
-  const { children, step, onChange, ...rest } = props
+  const { children, step, onChange, ...rest } = props;
 
   const styles = useMultiStyleConfig("LabeledStepper", {
     ...rest,
-  })
-  const containerProps = omitThemingProps(rest)
+  });
+  const containerProps = omitThemingProps(rest);
 
-  const context = useStepper(props)
+  const context = useStepper(props);
 
   const containerStyles: SystemStyleObject = {
     display: "flex",
     flexDirection: "column",
     ...styles.container,
-  }
+  };
 
   return (
     <StylesProvider value={styles}>
@@ -80,36 +80,36 @@ export const LabeledStepperContainer = forwardRef<LabeledStepperProps, "div">((p
         </chakra.div>
       </StepperProvider>
     </StylesProvider>
-  )
-})
+  );
+});
 
 if (isDev()) {
-  LabeledStepperContainer.displayName = "LabeledStepperContainer"
+  LabeledStepperContainer.displayName = "LabeledStepperContainer";
 }
 
 export interface LabeledStepperStepsProps extends HTMLChakraProps<"div"> {
-  stepComponent?: React.JSXElementConstructor<any>
+  stepComponent?: React.JSXElementConstructor<any>;
 }
 
 /**
  * Wrapper element containing the steps.
  */
 export const LabeledStepperSteps = (props: LabeledStepperStepsProps) => {
-  const { children, stepComponent, ...rest } = props
-  const styles = useStyles()
+  const { children, stepComponent, ...rest } = props;
+  const styles = useStyles();
 
-  const { activeIndex } = useStepperContext()
+  const { activeIndex } = useStepperContext();
 
   const stepperStyles: SystemStyleObject = {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     ...styles.steps,
-  }
+  };
 
-  const Step = stepComponent || LabeledStepperStep
+  const Step = stepComponent || LabeledStepperStep;
 
-  const steps = getChildrenOfType(children, Step)
+  const steps = getChildrenOfType(children, Step);
 
   const elements = steps.reduce<React.ReactElement[]>((memo, step, i, arr) => {
     memo.push(
@@ -120,19 +120,19 @@ export const LabeledStepperSteps = (props: LabeledStepperStepsProps) => {
         isActive={activeIndex === i}
         isCompleted={step.props.isCompleted || activeIndex > i}
       />,
-    )
+    );
 
-    return memo
-  }, [])
+    return memo;
+  }, []);
 
-  const completed = getChildOfType(children, LabeledStepperCompleted)
+  const completed = getChildOfType(children, LabeledStepperCompleted);
 
   const content =
     activeIndex >= steps.length ? (
       completed
     ) : (
       <LabeledStepperContent>{steps[activeIndex]?.props?.children}</LabeledStepperContent>
-    )
+    );
 
   return (
     <>
@@ -145,44 +145,44 @@ export const LabeledStepperSteps = (props: LabeledStepperStepsProps) => {
       </chakra.div>
       {content}
     </>
-  )
-}
+  );
+};
 
 if (isDev()) {
-  LabeledStepperSteps.displayName = "LabeledStepperSteps"
+  LabeledStepperSteps.displayName = "LabeledStepperSteps";
 }
 
 /**
  * Shown when all steps have completed.
  */
 export const LabeledStepperCompleted: React.FC<HTMLChakraProps<"div">> = (props) => {
-  const styles = useStyles()
+  const styles = useStyles();
   return (
     <chakra.div
       __css={styles.completed}
       {...props}
       className={cx("dxp-ui-labeledStepper__completed", props.className)}
     />
-  )
-}
+  );
+};
 
 if (isDev()) {
-  LabeledStepperCompleted.displayName = "LabeledStepperCompleted"
+  LabeledStepperCompleted.displayName = "LabeledStepperCompleted";
 }
 
 export interface LabeledStepperContentProps extends HTMLChakraProps<"div"> {
   /**
    * Show or hide the content
    */
-  isOpen?: boolean
+  isOpen?: boolean;
 }
 
 /**
  * Renders the step content, is collapsible.
  */
 export const LabeledStepperContent = (props: LabeledStepperContentProps) => {
-  const { children, isOpen = true, ...rest } = props
-  const styles = useStyles()
+  const { children, isOpen = true, ...rest } = props;
+  const styles = useStyles();
 
   return (
     <chakra.div
@@ -192,50 +192,50 @@ export const LabeledStepperContent = (props: LabeledStepperContentProps) => {
     >
       <Collapse in={isOpen}>{children}</Collapse>
     </chakra.div>
-  )
-}
+  );
+};
 
 if (isDev()) {
-  LabeledStepperContent.displayName = "LabeledStepperContent"
+  LabeledStepperContent.displayName = "LabeledStepperContent";
 }
 
 export interface LabeledStepperStepProps extends Omit<HTMLChakraProps<"div">, "title"> {
   /**
    * The step title
    */
-  title: React.ReactNode
+  title: React.ReactNode;
   /**
    * The step name, used for controlled steppers
    */
-  name?: string
+  name?: string;
   /**
    * Show an icon instead of the step number
    */
-  icon?: React.ReactNode
+  icon?: React.ReactNode;
   /**
    *
    */
-  isActive?: boolean
+  isActive?: boolean;
   /**
    *
    */
-  isCompleted?: boolean
+  isCompleted?: boolean;
 }
 
 /**
  * Displays the icon and step title.
  */
 export const LabeledStepperStep = (props: LabeledStepperStepProps) => {
-  const { name, title, icon, isActive, isCompleted, ...rest } = props
-  const step = useStep(props)
-  const styles = useStyles()
+  const { name, title, icon, isActive, isCompleted, ...rest } = props;
+  const step = useStep(props);
+  const styles = useStyles();
 
   const stepStyles: SystemStyleObject = {
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
     ...styles.step,
-  }
+  };
 
   return (
     <chakra.div
@@ -248,27 +248,27 @@ export const LabeledStepperStep = (props: LabeledStepperStepProps) => {
       {title && <LabeledStepperStepTitle>{title}</LabeledStepperStepTitle>}
       <LabeledStepperSeparator isActive={step?.isActive} />
     </chakra.div>
-  )
-}
+  );
+};
 
 if (isDev()) {
-  LabeledStepperStep.displayName = "LabeledStepperStep"
+  LabeledStepperStep.displayName = "LabeledStepperStep";
 }
 
 export interface LabeledStepperSeparatorProps extends HTMLChakraProps<"div"> {
-  isActive?: boolean
+  isActive?: boolean;
 }
 
 /**
  * The bar above a labeled step.
  */
 export const LabeledStepperSeparator = (props: LabeledStepperSeparatorProps) => {
-  const { isActive, ...rest } = props
-  const styles = useStyles()
+  const { isActive, ...rest } = props;
+  const styles = useStyles();
 
   const separatorStyles: SystemStyleObject = {
     ...styles.separator,
-  }
+  };
 
   return (
     <chakra.div
@@ -277,27 +277,27 @@ export const LabeledStepperSeparator = (props: LabeledStepperSeparatorProps) => 
       className={cx("dxp-ui-labeledStepper__separator", props.className)}
       __css={separatorStyles}
     />
-  )
-}
+  );
+};
 
 if (isDev()) {
-  LabeledStepperSeparator.displayName = "LabeledStepperSeparator"
+  LabeledStepperSeparator.displayName = "LabeledStepperSeparator";
 }
 
 /**
  * The step title.
  */
 export const LabeledStepperStepTitle: React.FC<HTMLChakraProps<"p">> = (props) => {
-  const styles = useStyles()
+  const styles = useStyles();
   return (
     <chakra.p
       {...props}
       __css={styles.title}
       className={cx("dxp-ui-labeledStepper__title", props.className)}
     />
-  )
-}
+  );
+};
 
 if (isDev()) {
-  LabeledStepperStepTitle.displayName = "LabeledStepperStepTitle"
+  LabeledStepperStepTitle.displayName = "LabeledStepperStepTitle";
 }

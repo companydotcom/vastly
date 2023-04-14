@@ -1,5 +1,5 @@
-import React from "react"
-import { UiProvider } from "@companydotcom/ui"
+import React from "react";
+import { UiProvider } from "@companydotcom/ui";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -9,14 +9,14 @@ export const parameters = {
       date: /Date$/,
     },
   },
-}
+};
 
 const withUi = (Story) => {
   return (
     <UiProvider>
       <Story />
     </UiProvider>
-  )
-}
+  );
+};
 
-export const decorators = [withUi]
+export const decorators = [withUi];

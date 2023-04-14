@@ -1,6 +1,6 @@
-import { useState } from "react"
-import type { Meta, StoryObj } from "@storybook/react"
-import { DatePicker, ReactDatePickerCustomHeaderProps } from "@companydotcom/forms"
+import { useState } from "react";
+import type { Meta, StoryObj } from "@storybook/react";
+import { DatePicker, ReactDatePickerCustomHeaderProps } from "@companydotcom/forms";
 import {
   IconProps,
   VStack,
@@ -14,7 +14,7 @@ import {
   ButtonGroup,
   IconButton,
   Container,
-} from "@companydotcom/ui"
+} from "@companydotcom/ui";
 
 const meta: Meta<typeof DatePicker> = {
   component: DatePicker,
@@ -26,22 +26,22 @@ const meta: Meta<typeof DatePicker> = {
       </Container>
     ),
   ],
-}
+};
 
-export default meta
-type Story = StoryObj<typeof DatePicker>
+export default meta;
+type Story = StoryObj<typeof DatePicker>;
 
 export const Basic: Story = {
   render: function CustomRenderer() {
-    const [startDate, setStartDate] = useState<Date>()
+    const [startDate, setStartDate] = useState<Date>();
 
-    return <DatePicker selected={startDate} onChange={(date) => setStartDate(date as Date)} />
+    return <DatePicker selected={startDate} onChange={(date) => setStartDate(date as Date)} />;
   },
-}
+};
 
 export const WithSizes: Story = {
   render: function CustomRenderer() {
-    const [startDate, setStartDate] = useState<Date>()
+    const [startDate, setStartDate] = useState<Date>();
 
     return (
       <VStack width="full" spacing={4}>
@@ -57,9 +57,9 @@ export const WithSizes: Story = {
           </>
         ))}
       </VStack>
-    )
+    );
   },
-}
+};
 
 const CustomHeader = ({
   date,
@@ -82,9 +82,9 @@ const CustomHeader = ({
     "October",
     "November",
     "December",
-  ]
+  ];
   function getMonth(date: Date) {
-    return date?.getMonth()
+    return date?.getMonth();
   }
 
   return (
@@ -129,11 +129,11 @@ const CustomHeader = ({
         />
       </ButtonGroup>
     </Flex>
-  )
-}
+  );
+};
 
 export const WithCustomHeader = () => {
-  const [startDate, setStartDate] = useState<Date>()
+  const [startDate, setStartDate] = useState<Date>();
 
   return (
     <DatePicker
@@ -142,8 +142,8 @@ export const WithCustomHeader = () => {
       selected={startDate}
       onChange={(date) => setStartDate(date as Date)}
     />
-  )
-}
+  );
+};
 
 const AngleLeft = (props: IconProps) => (
   <Icon viewBox="0 0 256 512" {...props}>
@@ -152,7 +152,7 @@ const AngleLeft = (props: IconProps) => (
       d="M192 448c-8.188 0-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L77.25 256l137.4 137.4c12.5 12.5 12.5 32.75 0 45.25C208.4 444.9 200.2 448 192 448z"
     />
   </Icon>
-)
+);
 
 const AngleRight = (props: IconProps) => (
   <Icon viewBox="0 0 256 512" {...props}>
@@ -161,7 +161,7 @@ const AngleRight = (props: IconProps) => (
       d="M64 448c-8.188 0-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L178.8 256L41.38 118.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160c12.5 12.5 12.5 32.75 0 45.25l-160 160C80.38 444.9 72.19 448 64 448z"
     />
   </Icon>
-)
+);
 
 const CaretDown = (props: IconProps) => (
   <Icon viewBox="0 0 320 512" {...props}>
@@ -170,4 +170,4 @@ const CaretDown = (props: IconProps) => (
       d="M310.6 246.6l-127.1 128C176.4 380.9 168.2 384 160 384s-16.38-3.125-22.63-9.375l-127.1-128C.2244 237.5-2.516 223.7 2.438 211.8S19.07 192 32 192h255.1c12.94 0 24.62 7.781 29.58 19.75S319.8 237.5 310.6 246.6z"
     />
   </Icon>
-)
+);

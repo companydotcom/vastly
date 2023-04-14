@@ -1,8 +1,8 @@
-export { usePagination } from "./use-pagination"
+export { usePagination } from "./use-pagination";
 export type {
   UsePaginationProps,
   PaginationItems,
   PageType,
   UsePaginationReturn,
-} from "./use-pagination"
-export * from "./pagination"
+} from "./use-pagination";
+export * from "./pagination";

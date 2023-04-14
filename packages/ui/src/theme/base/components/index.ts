@@ -1,8 +1,8 @@
-import { Pagination } from "./pagination"
-import { DatePicker } from "./date-picker"
-import { DottedSpinner } from "./dotted-spinner"
-import { NumberStepper } from "./number-stepper"
-import { LabeledStepper } from "./labeled-stepper"
+import { Pagination } from "./pagination";
+import { DatePicker } from "./date-picker";
+import { DottedSpinner } from "./dotted-spinner";
+import { NumberStepper } from "./number-stepper";
+import { LabeledStepper } from "./labeled-stepper";
 
 const components = {
   Pagination,
@@ -10,6 +10,6 @@ const components = {
   DottedSpinner,
   NumberStepper,
   LabeledStepper,
-}
+};
 
-export default components
+export default components;

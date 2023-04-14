@@ -2,7 +2,7 @@ export const fonts = {
   heading:
     'Heebo, -apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;',
   body: 'Heebo, -apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;',
-}
+};
 
 export const textStyles = {
   // Normal text styles
@@ -37,4 +37,4 @@ export const textStyles = {
     fontSize: "60px",
     lineHeight: 1.5,
   },
-}
+};

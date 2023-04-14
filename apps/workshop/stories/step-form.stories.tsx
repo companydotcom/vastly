@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from "@storybook/react"
-import { Form, Field, StepForm, FormLayout, FormStep, NextButton } from "@companydotcom/forms"
+import type { Meta, StoryObj } from "@storybook/react";
+import { Form, Field, StepForm, FormLayout, FormStep, NextButton } from "@companydotcom/forms";
 
 const meta: Meta<typeof Form> = {
   component: Form,
   title: "Forms/StepForm",
-}
+};
 
-export default meta
-type Story = StoryObj<typeof Form>
+export default meta;
+type Story = StoryObj<typeof Form>;
 
 export const Basic: Story = {
   render: function CustomRenderer() {
@@ -15,13 +15,13 @@ export const Basic: Story = {
       name: "Custom offering",
       email: "",
       password: "",
-    }
+    };
     const onSubmit = (params: typeof defaultValues) => {
-      console.log(params)
+      console.log(params);
       return new Promise((resolve) => {
-        setTimeout(resolve, 1000)
-      })
-    }
+        setTimeout(resolve, 1000);
+      });
+    };
     return (
       <StepForm defaultValues={defaultValues} onSubmit={onSubmit}>
         <FormLayout>
@@ -40,6 +40,6 @@ export const Basic: Story = {
           </FormStep>
         </FormLayout>
       </StepForm>
-    )
+    );
   },
-}
+};

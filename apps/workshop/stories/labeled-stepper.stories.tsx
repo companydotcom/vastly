@@ -1,5 +1,5 @@
-import * as React from "react"
-import type { Meta, StoryObj } from "@storybook/react"
+import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 import {
   LabeledStepper,
   LabeledStepperStep,
@@ -12,7 +12,7 @@ import {
   ButtonProps,
   Stack,
   ButtonGroup,
-} from "@companydotcom/ui"
+} from "@companydotcom/ui";
 
 const meta: Meta<typeof LabeledStepper> = {
   component: LabeledStepper,
@@ -24,10 +24,10 @@ const meta: Meta<typeof LabeledStepper> = {
       </Container>
     ),
   ],
-}
+};
 
-export default meta
-type Story = StoryObj<typeof LabeledStepper>
+export default meta;
+type Story = StoryObj<typeof LabeledStepper>;
 
 const Template = function CustomerRenderer({ step, steps }: any) {
   return (
@@ -40,8 +40,8 @@ const Template = function CustomerRenderer({ step, steps }: any) {
         <LabeledStepperCompleted>Completed</LabeledStepperCompleted>
       </LabeledStepper>
     </>
-  )
-}
+  );
+};
 
 export const Basic: Story = {
   args: {
@@ -65,7 +65,7 @@ export const Basic: Story = {
     ],
   },
   render: Template,
-}
+};
 
 export const WithContent: Story = {
   args: {
@@ -97,25 +97,25 @@ export const WithContent: Story = {
     ],
   },
   render: Template,
-}
+};
 
 const NextButton = (props: ButtonProps) => {
-  const { label, onClick } = useNext({ label: "Next", submitLabel: "Complete" })
+  const { label, onClick } = useNext({ label: "Next", submitLabel: "Complete" });
   return (
     <Button onClick={onClick} {...props}>
       {label}
     </Button>
-  )
-}
+  );
+};
 
 const PrevButton = (props: ButtonProps) => {
-  const { label, onClick, isDisabled } = usePrev()
+  const { label, onClick, isDisabled } = usePrev();
   return (
     <Button variant="ghost" onClick={onClick} isDisabled={isDisabled} {...props}>
       {label}
     </Button>
-  )
-}
+  );
+};
 
 const ControlledStep = ({ children }: React.PropsWithChildren) => {
   return (
@@ -127,8 +127,8 @@ const ControlledStep = ({ children }: React.PropsWithChildren) => {
         <PrevButton />
       </ButtonGroup>
     </Stack>
-  )
-}
+  );
+};
 
 export const Controlled = () => {
   const steps = [
@@ -147,7 +147,7 @@ export const Controlled = () => {
       title: "Third step",
       children: <ControlledStep>Content step 3</ControlledStep>,
     },
-  ]
+  ];
 
   return (
     <>
@@ -158,5 +158,5 @@ export const Controlled = () => {
         <LabeledStepperCompleted>Completed</LabeledStepperCompleted>
       </LabeledStepper>
     </>
-  )
-}
+  );
+};

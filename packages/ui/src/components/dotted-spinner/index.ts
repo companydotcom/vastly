@@ -1,1 +1,1 @@
-export * from "./dotted-spinner"
+export * from "./dotted-spinner";
