@@ -1,5 +1,5 @@
-import { Client } from "../client"
-import executeLogin from "./execute-login"
+import { Client } from "../client.js"
+import executeLogin from "./execute-login.js"
 
 export default async function doEmailLogin(client: Client, email: string) {
   const { output } = client

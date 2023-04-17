@@ -26,10 +26,6 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
 
   try {
     const response = await addSecret(secret)
-    console.log(
-      "🚀 ~ file: handler.ts:21 ~ constbaseHandler:APIGatewayProxyHandlerV2= ~ response:",
-      response,
-    )
     return {
       statusCode: 200,
       body: JSON.stringify(response),
@@ -70,4 +66,3 @@ const addSecretHandler = middy(baseHandler)
   .use(cors())
   .use(httpErrorHandler())
 export { addSecretHandler }
-// TODO: log and type event, error
