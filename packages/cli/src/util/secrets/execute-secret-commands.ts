@@ -11,11 +11,12 @@ export default async function executeAddSecret(
 ): Promise<AddSecretResult> {
   let func: any
   try {
-    func = (await import("../../../../../services/environment/functions/index.js")).default
+    func = (await import("../../../../../services/environment/functions/index.js")).functions
+    console.log("🚀 ~ file: execute-secret-commands.ts:15 ~ func:", func.addSecret)
 
     const secretToString = JSON.stringify(secret)
     return await client.fetch<AddSecretResult>(
-      `https://gxmblcgqcb.execute-api.us-east-1.amazonaws.com/dev/login`,
+      `https://gunm32peih.execute-api.us-east-1.amazonaws.com/dev/secrets`,
       {
         method: "POST",
         body: {

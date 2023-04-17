@@ -26,14 +26,18 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
 
   try {
     const response = await addSecret(secret)
+    console.log(
+      "🚀 ~ file: handler.ts:29 ~ constbaseHandler:APIGatewayProxyHandlerV2= ~ response:",
+      response,
+    )
     return {
       statusCode: 200,
-      body: JSON.stringify(response),
+      body: JSON.stringify({ message: "Secret added successfully" }),
     }
   } catch (error) {
     return {
       statusCode: error.statusCode || 501,
-      body: JSON.stringify(error),
+      body: JSON.stringify({ message: `Error adding secret: ${error}` }),
     }
   }
 }

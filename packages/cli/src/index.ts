@@ -59,7 +59,7 @@ const main = async () => {
         description = "Log out of company.com"
         func = (await import("./commands/logout.js")).default
         break
-      case "env":
+      case "secret":
         description = "Add a secret or env variable"
         func = (await import("./commands/secrets/add-secret.js")).default
         break

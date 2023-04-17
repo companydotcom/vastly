@@ -2,7 +2,7 @@ import type { AWS } from "@serverless/typescript"
 import { functions } from "./functions"
 
 const serverlessConfiguration: AWS = {
-  service: "environment",
+  service: "environment-srvc",
   frameworkVersion: "3",
   plugins: [
     "serverless-esbuild",
