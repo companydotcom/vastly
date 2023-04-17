@@ -9,19 +9,15 @@ export default async function executeAddSecret(
   client: Client,
   secret: Secret,
 ): Promise<AddSecretResult> {
-  let func: any
+  const isLocal = true
   try {
-    func = (await import("../../../../../services/environment/functions/index.js")).functions
-    console.log("🚀 ~ file: execute-secret-commands.ts:15 ~ func:", func.addSecret)
-
-    const secretToString = JSON.stringify(secret)
     return await client.fetch<AddSecretResult>(
-      `https://gunm32peih.execute-api.us-east-1.amazonaws.com/dev/secrets`,
+      isLocal
+        ? `http://localhost:4000/${secret.environment}/secrets`
+        : `https://gunm32peih.execute-api.us-east-1.amazonaws.com/${secret.environment}/secrets`,
       {
         method: "POST",
-        body: {
-          secretToString,
-        },
+        body: secret,
       },
     )
   } catch (err: unknown) {

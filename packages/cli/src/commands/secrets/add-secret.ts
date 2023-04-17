@@ -24,8 +24,17 @@ export default async function addSecret(client: Client) {
           message: "What is the value of your secret?",
           mask: "*",
         },
+        {
+          type: "text",
+          name: "environment",
+          message: "Which environment?",
+        },
       ])
-      .then((a: Secret) => ({ secretKey: a.secretKey, secretValue: a.secretValue }))
+      .then((a: Secret) => ({
+        environment: a.environment,
+        secretKey: a.secretKey,
+        secretValue: a.secretValue,
+      }))
       .catch((error) => {
         if (error.isTtyError) {
           // Prompt couldn't be rendered in the current environment
@@ -36,7 +45,7 @@ export default async function addSecret(client: Client) {
         }
       })
 
-    const test = await doAddSecret(client, secret)
+    const response = await doAddSecret(client, secret)
 
     spinner = ora({
       text: "Adding your secret to the database...\n",
@@ -44,6 +53,7 @@ export default async function addSecret(client: Client) {
     }).start()
 
     spinner.succeed(chalk.green("Success!"))
+    return response
   } catch (err: unknown) {
     output.error(err as string)
   }
