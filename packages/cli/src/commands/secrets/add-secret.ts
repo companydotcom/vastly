@@ -3,6 +3,7 @@ import chalk from "chalk"
 import inquirer from "inquirer"
 import { Client } from "../../util/client.js"
 import doAddSecret from "../../util/secrets/add-secret.js"
+import type { Secret } from "../../util/secrets/add-secret.js"
 
 export default async function addSecret(client: Client) {
   const { output } = client
@@ -21,9 +22,10 @@ export default async function addSecret(client: Client) {
           type: "password",
           name: "secretValue",
           message: "What is the value of your secret?",
+          mask: "*",
         },
       ])
-      .then((a) => ({ secretKey: a.secretKey, secretValue: a.secretValue }))
+      .then((a: Secret) => ({ secretKey: a.secretKey, secretValue: a.secretValue }))
       .catch((error) => {
         if (error.isTtyError) {
           // Prompt couldn't be rendered in the current environment
