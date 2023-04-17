@@ -22,7 +22,7 @@
     "eslint": "^7.32.0",
     "eslint-config-custom": "workspace:*",
     "tsconfig": "workspace:*",
-    "typescript": "^4.5.2"
+    "typescript": "^4.9.5"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
@@ -30,11 +30,11 @@
   },
   "dependencies": {
     "@companydotcom/utils": "workspace:*",
-    "@chakra-ui/react": "^2.4.9",
-    "@chakra-ui/styled-system": "^2.5.1",
+    "@chakra-ui/react": "^2.5.5",
+    "@chakra-ui/styled-system": "^2.8.0",
     "@chakra-ui/theme-tools": "^2.0.16",
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "framer-motion": "^8.5.0",
     "react-datepicker": "^4.10.0"
   }

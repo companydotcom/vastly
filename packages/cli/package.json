@@ -12,6 +12,11 @@
     }
   },
   "main": "./dist/index.cjs",
+  "tsup": {
+    "dts": true,
+    "bundle": false,
+    "treeshake": true
+  },
   "engines": {
     "node": ">=14.16"
   },
