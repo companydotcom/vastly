@@ -13,8 +13,8 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   const env = event?.pathParameters?.env?.toLowerCase()
   const secret = {
     environment: env,
-    name: event?.body?.["secretKey"],
-    value: event?.body?.["secretValue"],
+    secretKey: event?.body?.["secretKey"],
+    secretValue: event?.body?.["secretValue"],
   }
 
   if (!env) {
@@ -26,10 +26,7 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
 
   try {
     const response = await addSecret(secret)
-    console.log(
-      "🚀 ~ file: handler.ts:29 ~ constbaseHandler:APIGatewayProxyHandlerV2= ~ response:",
-      response,
-    )
+    console.log("addSecret Response: ", response)
     return {
       statusCode: 200,
       body: JSON.stringify({ message: "Secret added successfully" }),
@@ -43,11 +40,18 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
 }
 
 async function addSecret(newSecret: Secret) {
-  console.log("Adding secret to database...")
   const params: PutCommandInput = {
-    TableName: TABLE_NAME,
+    TableName: TABLE_NAME || "secrets",
     Item: newSecret,
   }
+  console.log("Adding secret to database...")
+  console.log("Secret Params: ", {
+    ...params,
+    Item: {
+      ...params.Item,
+      secretValue: "******",
+    },
+  })
   const addCommand = new add(params)
 
   try {
@@ -55,6 +59,7 @@ async function addSecret(newSecret: Secret) {
     dynamoClient.destroy()
     return response
   } catch (error) {
+    console.log("Error adding secret to database:", error)
     dynamoClient.destroy()
   }
 }
