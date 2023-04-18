@@ -185,8 +185,8 @@ importers:
   packages/cli:
     dependencies:
       chalk:
-        specifier: ^5.2.0
-        version: 5.2.0
+        specifier: ^4.1.2
+        version: 4.1.2
       commander:
         specifier: ^10.0.0
         version: 10.0.0
@@ -282,7 +282,7 @@ importers:
         specifier: ^19.0.7
         version: 19.0.7
       chalk:
-        specifier: ^4.0.0
+        specifier: ^4.1.2
         version: 4.1.2
       commander:
         specifier: ^10.0.0

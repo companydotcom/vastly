@@ -1,6 +1,6 @@
 import { Client } from "../client.js";
 
-interface LoginResult {
+export interface LoginResult {
   message: string;
 }
 

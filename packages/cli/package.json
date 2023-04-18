@@ -5,17 +5,14 @@
   "author": "Company.com",
   "license": "MIT",
   "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     }
-  },
-  "main": "./dist/index.cjs",
-  "tsup": {
-    "dts": true,
-    "bundle": false,
-    "treeshake": true
   },
   "engines": {
     "node": ">=14.16"
@@ -27,12 +24,15 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup --format esm,cjs src/index.ts",
+    "build": "tsup",
     "dev": "ts-node --esm ./src/index.ts",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
+  "sideEffects": [
+    "dist/*"
+  ],
   "dependencies": {
-    "chalk": "^5.2.0",
+    "chalk": "^4.1.2",
     "commander": "^10.0.0",
     "inquirer": "^9.1.5",
     "load-json-file": "^7.0.1",

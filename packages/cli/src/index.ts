@@ -5,12 +5,13 @@ import chalk from "chalk";
 import { mkdirp } from "fs-extra";
 import { errorToString, isErrnoException } from "@companydotcom/utils";
 import * as Sentry from "@sentry/node";
-import makeClient from "./util/client.js";
-import makeOutput from "./util/output.js";
 import getGlobalPathConfig from "./util/config/files.js";
-import pkg from "../package.json" assert { type: "json" };
 import { readConfigFile, writeToConfigFile, getConfigFilePath } from "./util/config/files.js";
 import { Config } from "./types/index.js";
+import { createRequire } from "node:module";
+
+const require = createRequire(import.meta.url);
+const pkg = require("../package.json");
 
 Sentry.init({
   dsn: "https://033b189965c244779dcf679e47a0133f@o4504997433180160.ingest.sentry.io/4505013895954432",
@@ -21,6 +22,8 @@ const VASTLY_DIR = getGlobalPathConfig();
 const VASTLY_CONFIG_PATH = getConfigFilePath();
 
 const main = async () => {
+  const clientUtil = await import("./util/client.js");
+  const outputUtil = await import("./util/output.js");
   const program = new Command();
 
   program
@@ -33,7 +36,7 @@ const main = async () => {
   // Top level command for the CLI
   const commander = program.command("vastly");
   const options = program.opts();
-  const output = makeOutput({ debugEnabled: options.debug });
+  const output = outputUtil.default({ debugEnabled: options.debug });
 
   // Make sure global config dir exists
   try {
@@ -70,7 +73,7 @@ const main = async () => {
     }
   }
 
-  const client = makeClient({
+  const client = clientUtil.default({
     program: commander,
     output,
   });
