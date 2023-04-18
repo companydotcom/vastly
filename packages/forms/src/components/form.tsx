@@ -1,6 +1,6 @@
-import * as React from "react"
-import { chakra, HTMLChakraProps, forwardRef } from "@chakra-ui/react"
-import { cx, runIfFn } from "@companydotcom/utils"
+import * as React from "react";
+import { chakra, HTMLChakraProps, forwardRef } from "@chakra-ui/react";
+import { cx, runIfFn } from "@companydotcom/utils";
 
 import {
   useForm,
@@ -13,24 +13,24 @@ import {
   ResolverOptions,
   ResolverResult,
   WatchObserver,
-} from "react-hook-form"
-import { objectFieldResolver, FieldResolver } from "./field/field-resolver"
+} from "react-hook-form";
+import { objectFieldResolver, FieldResolver } from "./field/field-resolver";
 
 export function isFunction<T extends Function = Function>(value: any): value is T {
-  return typeof value === "function"
+  return typeof value === "function";
 }
 
-export type { UseFormReturn, FieldValues, SubmitHandler }
+export type { UseFormReturn, FieldValues, SubmitHandler };
 
-import { Field as DefaultField, FieldProps } from "./field"
+import { Field as DefaultField, FieldProps } from "./field";
 
-type MaybeRenderProp<P> = React.ReactNode | ((props: P) => React.ReactNode)
+type MaybeRenderProp<P> = React.ReactNode | ((props: P) => React.ReactNode);
 
 interface FormRenderContext<
   TFieldValues extends FieldValues = FieldValues,
   TContext extends object = object,
 > extends UseFormReturn<TFieldValues, TContext> {
-  Field: React.FC<FieldProps<TFieldValues>>
+  Field: React.FC<FieldProps<TFieldValues>>;
 }
 
 interface FormOptions<
@@ -41,27 +41,27 @@ interface FormOptions<
   /**
    * The form schema, supports Yup, Zod, and AJV.
    */
-  schema?: TSchema
+  schema?: TSchema;
   /**
    * Triggers when any of the field change.
    */
-  onChange?: WatchObserver<TFieldValues>
+  onChange?: WatchObserver<TFieldValues>;
   /**
    * The submit handler.
    */
-  onSubmit: SubmitHandler<TFieldValues>
+  onSubmit: SubmitHandler<TFieldValues>;
   /**
    * Triggers when there are validation errors.
    */
-  onError?: SubmitErrorHandler<TFieldValues>
+  onError?: SubmitErrorHandler<TFieldValues>;
   /**
    * The Hook Form state ref.
    */
-  formRef?: React.RefObject<UseFormReturn<TFieldValues, TContext>>
+  formRef?: React.RefObject<UseFormReturn<TFieldValues, TContext>>;
   /**
    * The form children, can be a render prop or a ReactNode.
    */
-  children?: MaybeRenderProp<FormRenderContext<TFieldValues, TContext>>
+  children?: MaybeRenderProp<FormRenderContext<TFieldValues, TContext>>;
 }
 
 export interface FormProps<
@@ -97,7 +97,7 @@ export const Form = forwardRef(
       formRef,
       children,
       ...rest
-    } = props
+    } = props;
 
     const form = {
       mode,
@@ -112,31 +112,31 @@ export const Form = forwardRef(
       delayError,
       context,
       resetOptions,
-    }
+    };
 
     if (schema && !resolver) {
-      form.resolver = Form.getResolver?.(schema)
+      form.resolver = Form.getResolver?.(schema);
     }
 
-    const methods = useForm<TFieldValues, TContext>(form)
-    const { handleSubmit } = methods
+    const methods = useForm<TFieldValues, TContext>(form);
+    const { handleSubmit } = methods;
 
     // This exposes the useForm api through the forwarded ref
-    React.useImperativeHandle(formRef, () => methods, [formRef, methods])
+    React.useImperativeHandle(formRef, () => methods, [formRef, methods]);
 
     React.useEffect(() => {
-      let subscription: any
+      let subscription: any;
       if (onChange) {
-        subscription = methods.watch(onChange)
+        subscription = methods.watch(onChange);
       }
-      return () => subscription?.unsubscribe()
-    }, [methods, onChange])
+      return () => subscription?.unsubscribe();
+    }, [methods, onChange]);
 
     const Field: React.FC<FieldProps<TFieldValues>> = React.useMemo(
       // eslint-disable-next-line react/display-name
       () => (props) => <DefaultField<TFieldValues> {...props} />,
       [],
-    )
+    );
 
     return (
       <FormProvider {...methods}>
@@ -152,21 +152,21 @@ export const Form = forwardRef(
           })}
         </chakra.form>
       </FormProvider>
-    )
+    );
   },
 ) as (<TFieldValues extends FieldValues, TContext extends object = object, TSchema = any>(
   props: FormProps<TFieldValues, TContext, TSchema> & {
-    ref?: React.ForwardedRef<HTMLFormElement>
+    ref?: React.ForwardedRef<HTMLFormElement>;
   },
 ) => React.ReactElement) & {
-  displayName?: string
-  getResolver?: GetResolver
-  getFieldResolver: GetFieldResolver
-}
+  displayName?: string;
+  getResolver?: GetResolver;
+  getFieldResolver: GetFieldResolver;
+};
 
-Form.getFieldResolver = objectFieldResolver
+Form.getFieldResolver = objectFieldResolver;
 
-Form.displayName = "Form"
+Form.displayName = "Form";
 
 export type GetResolver = <TFieldValues extends FieldValues, TContext extends object>(
   schema: any,
@@ -174,12 +174,12 @@ export type GetResolver = <TFieldValues extends FieldValues, TContext extends ob
   values: TFieldValues,
   context: TContext | undefined,
   options: ResolverOptions<TFieldValues>,
-) => Promise<ResolverResult<TFieldValues>>
+) => Promise<ResolverResult<TFieldValues>>;
 
-export type GetFieldResolver = (schema: any) => FieldResolver
+export type GetFieldResolver = (schema: any) => FieldResolver;
 
 export interface CreateFormProps {
-  resolver?: GetResolver
+  resolver?: GetResolver;
 }
 
 export function createForm<Schema = any>({ resolver }: CreateFormProps) {
@@ -190,9 +190,9 @@ export function createForm<Schema = any>({ resolver }: CreateFormProps) {
   >(
     props: FormProps<TFieldValues, TContext, TSchema>,
   ) => {
-    const { schema, ...rest } = props
-    return <Form resolver={resolver?.(props.schema)} {...rest} />
-  }
+    const { schema, ...rest } = props;
+    return <Form resolver={resolver?.(props.schema)} {...rest} />;
+  };
 
-  return CreateForm
+  return CreateForm;
 }

@@ -3,7 +3,5 @@
     "eslint --ext js,jsx,ts,tsx --quiet --fix",
     "prettier --write"
   ],
-  "*.{md,mdx,mjs,yml,yaml,css}": [
-    "prettier --write"
-  ]
+  "*.{md,mdx,mjs,yml,yaml,css}": ["prettier --write"]
 }

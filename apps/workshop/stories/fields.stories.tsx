@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react"
-import { Field, Form } from "@companydotcom/forms"
-import { Container } from "@companydotcom/ui"
+import type { Meta, StoryObj } from "@storybook/react";
+import { Field, Form } from "@companydotcom/forms";
+import { Container } from "@companydotcom/ui";
 
 const meta: Meta<typeof Field> = {
   component: Field,
@@ -20,42 +20,42 @@ const meta: Meta<typeof Field> = {
       </Container>
     ),
   ],
-}
+};
 
-export default meta
-type Story = StoryObj<typeof Field>
+export default meta;
+type Story = StoryObj<typeof Field>;
 
 export const TextField: Story = {
   argTypes: { type: { disable: true }, name: { required: true } },
   args: { type: "text", name: "text", label: "Text", helperText: "", hideLabel: false },
-}
+};
 
 export const EmailField: Story = {
   args: { ...TextField.args, type: "email", name: "email", label: "Email" },
-}
+};
 
 export const UrlField: Story = {
   args: { ...TextField.args, type: "url", name: "url", label: "Url" },
-}
+};
 
 export const TextareaField: Story = {
   args: { ...TextField.args, type: "textarea", name: "textArea", label: "Textarea" },
-}
+};
 
 export const SwitchField: Story = {
   args: { ...TextField.args, type: "switch", name: "switch", label: "Switch" },
-}
+};
 
 export const PinField: Story = {
   argTypes: {
     pinType: { control: "select", options: ["alphanumeric", "number"] },
   },
   args: { ...TextField.args, type: "pin", name: "pin", label: "Pin", pinLength: 5 },
-}
+};
 
 export const CheckboxField: Story = {
   args: { ...TextField.args, type: "checkbox", name: "checkbox", label: "Checkbox" },
-}
+};
 
 const options = [
   {
@@ -66,27 +66,27 @@ const options = [
     value: "2",
     label: "Option 2",
   },
-]
+];
 
 export const RadioField: Story = {
   args: { ...TextField.args, type: "radio", name: "radio", label: "Radio", options },
-}
+};
 
 export const NumberInputField: Story = {
   args: { ...TextField.args, type: "number", name: "number", label: "Number" },
-}
+};
 
 export const PasswordInputField: Story = {
   args: { ...TextField.args, type: "password", name: "password", label: "Password" },
-}
+};
 
 const getOptions = (length = 6) =>
   Array.from({ length }).map((_node, index) => ({
     value: String(index),
     label: `Option ${index + 1}`,
-  }))
+  }));
 
-const selectOptions = getOptions()
+const selectOptions = getOptions();
 
 export const NativeSelectInputField: Story = {
   args: {
@@ -96,7 +96,7 @@ export const NativeSelectInputField: Story = {
     label: "Native Select",
     options: selectOptions,
   },
-}
+};
 
 export const SelectInputField: Story = {
   args: {
@@ -106,7 +106,7 @@ export const SelectInputField: Story = {
     label: "Select",
     options: selectOptions,
   },
-}
+};
 
 export const CreditCardInputField: Story = {
   args: {
@@ -115,7 +115,7 @@ export const CreditCardInputField: Story = {
     name: "creditcard",
     label: "Credit Card",
   },
-}
+};
 
 export const CreditCardExpiryField: Story = {
   args: {
@@ -124,11 +124,11 @@ export const CreditCardExpiryField: Story = {
     name: "credit-expiry",
     label: "Credit Card Expiry",
   },
-}
+};
 
 export const ReactPhoneInputField: Story = {
   args: { ...TextField.args, type: "phone", name: "phone", label: "Phone" },
-}
+};
 
 export const SelectCountryInputField: Story = {
   args: {
@@ -137,7 +137,7 @@ export const SelectCountryInputField: Story = {
     name: "select-country",
     label: "Select Country",
   },
-}
+};
 
 export const SelectRegionInputField: Story = {
   args: {
@@ -147,4 +147,4 @@ export const SelectRegionInputField: Story = {
     label: "Select Region",
     country: "US",
   },
-}
+};

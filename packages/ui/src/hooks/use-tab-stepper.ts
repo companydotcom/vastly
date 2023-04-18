@@ -1,29 +1,29 @@
-import React from "react"
-import { warn, error, isBrowser } from "../utils"
+import React from "react";
+import { warn, error, isBrowser } from "../utils";
 
 export interface Steps {
-  slug?: string
-  label?: string
-  component?: JSX.Element
-  url?: string
+  slug?: string;
+  label?: string;
+  component?: JSX.Element;
+  url?: string;
 }
 
 export interface UseTabStepperProps {
-  steps: Steps[]
+  steps: Steps[];
   /** Steps the initial step of the stepper.  @default 0 */
-  initialStep?: number | string
+  initialStep?: number | string;
   /** Scrolls the user to the top of the browser window on every step change.  @default true */
-  scrollOnStepChange?: boolean
+  scrollOnStepChange?: boolean;
 }
 
 export function useTabStepper(props: UseTabStepperProps) {
-  const { steps = [], initialStep = 0, scrollOnStepChange = true } = props
+  const { steps = [], initialStep = 0, scrollOnStepChange = true } = props;
 
   const [tabIndex, setTabIndex] = React.useState(
     typeof initialStep === "string"
       ? steps.findIndex((step) => step.slug === initialStep)
       : initialStep,
-  )
+  );
 
   React.useCallback(() => {
     if (initialStep) {
@@ -31,41 +31,41 @@ export function useTabStepper(props: UseTabStepperProps) {
         typeof initialStep === "string"
           ? steps.findIndex((step) => step.slug === initialStep)
           : initialStep,
-      )
+      );
     }
-  }, [initialStep, steps])
+  }, [initialStep, steps]);
 
-  const isFirstStep = tabIndex === 0
-  const isLastStep = tabIndex === steps.length - 1
+  const isFirstStep = tabIndex === 0;
+  const isLastStep = tabIndex === steps.length - 1;
 
   const handleTabsChange = React.useCallback(
     (index: number) => {
       if (isBrowser && scrollOnStepChange) {
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
       }
-      setTabIndex(index)
+      setTabIndex(index);
     },
     [scrollOnStepChange],
-  )
+  );
 
   const nextStep = React.useCallback(() => {
     if (isLastStep) {
-      return setTabIndex(0)
+      return setTabIndex(0);
     }
 
-    const nextStepIndex = tabIndex + 1
-    handleTabsChange(nextStepIndex)
-  }, [handleTabsChange, isLastStep, tabIndex])
+    const nextStepIndex = tabIndex + 1;
+    handleTabsChange(nextStepIndex);
+  }, [handleTabsChange, isLastStep, tabIndex]);
 
   const previousStep = React.useCallback(() => {
     if (isFirstStep) {
-      const lastStepIndex = steps.length - 1
-      return handleTabsChange(lastStepIndex)
+      const lastStepIndex = steps.length - 1;
+      return handleTabsChange(lastStepIndex);
     }
 
-    const previousStepIndex = tabIndex - 1
-    setTabIndex(previousStepIndex)
-  }, [handleTabsChange, isFirstStep, steps.length, tabIndex])
+    const previousStepIndex = tabIndex - 1;
+    setTabIndex(previousStepIndex);
+  }, [handleTabsChange, isFirstStep, steps.length, tabIndex]);
 
   const goToStep = React.useCallback(
     (index: number | string) => {
@@ -73,7 +73,7 @@ export function useTabStepper(props: UseTabStepperProps) {
         condition: !steps || steps.length === 0,
         message:
           "No steps provided. A steps array must be passed into the hook to goToStep via a slug name",
-      })
+      });
 
       if (typeof index === "string" && steps) {
         const step = steps.findIndex((step) => {
@@ -81,20 +81,20 @@ export function useTabStepper(props: UseTabStepperProps) {
             condition: !step.slug,
             message:
               "slug property not found on the steps array.  You must add a slug to each step",
-          })
-          return step?.slug === index
-        })
+          });
+          return step?.slug === index;
+        });
         if (step !== undefined) {
-          handleTabsChange(step)
+          handleTabsChange(step);
         }
       }
 
       if (typeof index === "number") {
-        handleTabsChange(index)
+        handleTabsChange(index);
       }
     },
     [handleTabsChange, steps],
-  )
+  );
 
   return {
     tabIndex,
@@ -105,7 +105,7 @@ export function useTabStepper(props: UseTabStepperProps) {
     isFirstStep,
     isLastStep,
     currentStep: steps[tabIndex],
-  }
+  };
 }
 
-export type UseTabStepperReturn = ReturnType<typeof useTabStepper>
+export type UseTabStepperReturn = ReturnType<typeof useTabStepper>;

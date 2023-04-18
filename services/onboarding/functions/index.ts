@@ -1,4 +1,4 @@
-import type { AWS } from "@serverless/typescript"
+import type { AWS } from "@serverless/typescript";
 
 export const functions: AWS["functions"] = {
   logIn: {
@@ -80,4 +80,4 @@ export const functions: AWS["functions"] = {
     ],
     iamRoleStatementsName: "${self:service}-${sls:stage}-verifyAuthChallengeResponse",
   },
-}
+};

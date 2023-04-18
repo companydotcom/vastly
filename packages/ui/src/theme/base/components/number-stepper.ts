@@ -1,5 +1,5 @@
-import { createMultiStyleConfigHelpers, defineStyle } from "@chakra-ui/styled-system"
-import { mode, orient } from "@chakra-ui/theme-tools"
+import { createMultiStyleConfigHelpers, defineStyle } from "@chakra-ui/styled-system";
+import { mode, orient } from "@chakra-ui/theme-tools";
 
 const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers([
   "container",
@@ -8,11 +8,11 @@ const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpe
   "content",
   "separator",
   "title",
-])
+]);
 
 const contentBaseStyle = defineStyle((props) => {
-  const { orientation, size } = props
-  const borderWidth = size === "lg" ? 2 : 1
+  const { orientation, size } = props;
+  const borderWidth = size === "lg" ? 2 : 1;
 
   return orient({
     orientation,
@@ -22,11 +22,11 @@ const contentBaseStyle = defineStyle((props) => {
       ps: 5,
     },
     horizontal: {},
-  })
-})
+  });
+});
 
 const stepsBaseStyle = defineStyle((props) => {
-  const { orientation } = props
+  const { orientation } = props;
 
   return orient({
     orientation,
@@ -39,12 +39,12 @@ const stepsBaseStyle = defineStyle((props) => {
       alignItems: { base: "flex-start", sm: "center" },
       position: "relative",
     },
-  })
-})
+  });
+});
 
 const stepBaseStyle = defineStyle((props) => {
-  const { orientation, size } = props
-  const borderWidth = size === "lg" ? 2 : 1
+  const { orientation, size } = props;
+  const borderWidth = size === "lg" ? 2 : 1;
 
   return orient({
     orientation,
@@ -72,11 +72,11 @@ const stepBaseStyle = defineStyle((props) => {
         display: "none",
       },
     },
-  })
-})
+  });
+});
 
 const titleBaseStyle = defineStyle((props) => {
-  const { orientation } = props
+  const { orientation } = props;
 
   return orient({
     orientation,
@@ -85,12 +85,12 @@ const titleBaseStyle = defineStyle((props) => {
       mt: { base: 2, sm: 0 },
       textAlign: "center",
     },
-  })
-})
+  });
+});
 
 const separatorBaseStyle = defineStyle((props) => {
-  const { orientation, size } = props
-  const borderWidth = size === "lg" ? 2 : 1
+  const { orientation, size } = props;
+  const borderWidth = size === "lg" ? 2 : 1;
 
   return orient({
     orientation,
@@ -108,11 +108,11 @@ const separatorBaseStyle = defineStyle((props) => {
       alignSelf: { base: "flex-start", sm: "center" },
       flex: { base: "inherit", sm: 1 },
     },
-  })
-})
+  });
+});
 
 const iconBaseStyle = defineStyle((props) => {
-  const { orientation } = props
+  const { orientation } = props;
 
   return orient({
     orientation,
@@ -122,8 +122,8 @@ const iconBaseStyle = defineStyle((props) => {
     horizontal: {
       me: { base: 0 },
     },
-  })
-})
+  });
+});
 
 const baseStyle = definePartsStyle((props) => ({
   container: {
@@ -146,10 +146,10 @@ const baseStyle = definePartsStyle((props) => ({
     transitionProperty: "common",
     transitionDuration: "normal",
   },
-}))
+}));
 
 const variantSubtle = defineStyle((props) => {
-  const { colorScheme: c } = props
+  const { colorScheme: c } = props;
 
   return {
     icon: {
@@ -164,11 +164,11 @@ const variantSubtle = defineStyle((props) => {
         color: mode(`${c}.500`, `${c}.200`)(props),
       },
     },
-  }
-})
+  };
+});
 
 const variantSolid = defineStyle((props) => {
-  const { colorScheme: c } = props
+  const { colorScheme: c } = props;
 
   return {
     icon: {
@@ -193,13 +193,13 @@ const variantSolid = defineStyle((props) => {
         borderColor: mode(`${c}.500`, `${c}.200`)(props),
       },
     },
-  }
-})
+  };
+});
 
 const variants = {
   subtle: definePartsStyle((props) => ({ ...variantSubtle(props) })),
   solid: definePartsStyle((props) => ({ ...variantSolid(props) })),
-}
+};
 
 const sizes = {
   md: definePartsStyle({
@@ -225,7 +225,7 @@ const sizes = {
       fontSize: "sm",
     },
   }),
-}
+};
 
 export const NumberStepper = defineMultiStyleConfig({
   baseStyle,
@@ -236,4 +236,4 @@ export const NumberStepper = defineMultiStyleConfig({
     colorScheme: "blue",
     size: "lg",
   },
-})
+});

@@ -1,19 +1,19 @@
 {
-    "private": true,
-    "version": "0.0.1",
-    "name": "@companydotcom/types",
-    "types": "dist/index.d.ts",
-    "main": "dist/index.js",
-    "files": [
-        "dist"
-    ],
-    "scripts": {
-        "build": "tsup index.ts",
-        "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-        "dev": "tsup src/index.ts --watch --dts"
-    },
-    "devDependencies": {
-        "tsconfig": "workspace:*",
-        "typescript": "^4.5.2"
-    }
+  "private": true,
+  "version": "0.0.1",
+  "name": "@companydotcom/types",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup index.ts",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "dev": "tsup src/index.ts --watch --dts"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*",
+    "typescript": "^4.9.5"
+  }
 }

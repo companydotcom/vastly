@@ -1,5 +1,5 @@
 /* eslint-disable react/no-children-prop */
-import { memo, useCallback, useRef, useState } from "react"
+import { memo, useCallback, useRef, useState } from "react";
 import {
   Box,
   chakra,
@@ -18,24 +18,24 @@ import {
   Text,
   Image,
   createIcon,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 import PhoneInputWithCountry, {
   type Country,
   getCountryCallingCode,
   parsePhoneNumber,
-} from "react-phone-number-input"
+} from "react-phone-number-input";
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
-import type { ComponentWithAs, IconProps } from "@chakra-ui/react"
+import type { ComponentWithAs, IconProps } from "@chakra-ui/react";
 
 export interface ReactPhoneInputProps extends ChakraInputProps {
-  country?: Country
-  defaultCountry?: Country
-  onCountryChange?: (country?: Country) => void
-  placeholder?: string
-  withCountryCallingCode?: boolean
-  addInternationalOption?: boolean
-  international?: boolean
+  country?: Country;
+  defaultCountry?: Country;
+  onCountryChange?: (country?: Country) => void;
+  placeholder?: string;
+  withCountryCallingCode?: boolean;
+  addInternationalOption?: boolean;
+  international?: boolean;
 }
 
 export const ReactPhoneInput = forwardRef<ReactPhoneInputProps, "select">((props, ref) => {
@@ -49,7 +49,7 @@ export const ReactPhoneInput = forwardRef<ReactPhoneInputProps, "select">((props
     placeholder,
     size,
     ...rest
-  } = props
+  } = props;
   return (
     <InputGroup size={size}>
       {/* @ts-ignore */}
@@ -71,38 +71,38 @@ export const ReactPhoneInput = forwardRef<ReactPhoneInputProps, "select">((props
         {...rest}
       />
     </InputGroup>
-  )
-})
+  );
+});
 
 interface CountryItem {
-  value?: Country
-  label?: string
+  value?: Country;
+  label?: string;
 }
 
 interface CountrySelectProps {
-  name?: string
-  value?: string
-  onChange?: (value?: string) => void
-  options: CountryItem[]
-  iconComponent: React.ElementType
-  disabled?: boolean
-  readOnly?: boolean
-  tabIndex?: number | string
-  className?: string
+  name?: string;
+  value?: string;
+  onChange?: (value?: string) => void;
+  options: CountryItem[];
+  iconComponent: React.ElementType;
+  disabled?: boolean;
+  readOnly?: boolean;
+  tabIndex?: number | string;
+  className?: string;
 }
 
 const CountrySelect = ({ options, value, onChange, iconComponent: Flag }: CountrySelectProps) => {
-  const [filteredList, setFilteredList] = useState(options)
+  const [filteredList, setFilteredList] = useState(options);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const evalue = event.target.value.toLowerCase()
+    const evalue = event.target.value.toLowerCase();
     const result =
       options?.filter((item) => {
-        return item?.label?.toLowerCase().includes(evalue)
-      }) || []
-    setFilteredList(result)
-  }
-  const initialFocusRef = useRef(null)
+        return item?.label?.toLowerCase().includes(evalue);
+      }) || [];
+    setFilteredList(result);
+  };
+  const initialFocusRef = useRef(null);
 
   return (
     <Popover initialFocusRef={initialFocusRef} placement="bottom-start">
@@ -160,13 +160,13 @@ const CountrySelect = ({ options, value, onChange, iconComponent: Flag }: Countr
         </>
       )}
     </Popover>
-  )
-}
+  );
+};
 
 interface MenuItemWithFlag extends Pick<CountrySelectProps, "iconComponent"> {
-  onChange?: (value?: string) => void
-  value?: Country
-  label?: string
+  onChange?: (value?: string) => void;
+  value?: Country;
+  label?: string;
 }
 
 const MenuItemWithFlag = memo(
@@ -190,54 +190,54 @@ const MenuItemWithFlag = memo(
           </Text>
         </HStack>
       </chakra.button>
-    )
+    );
   },
-)
+);
 
-MenuItemWithFlag.displayName = "MenuItemWithFlag"
+MenuItemWithFlag.displayName = "MenuItemWithFlag";
 
 interface EmbeddedFlagProps {
-  title: string
+  title: string;
 }
 
-type EmbeddedFlag = (props: EmbeddedFlagProps) => JSX.Element
+type EmbeddedFlag = (props: EmbeddedFlagProps) => JSX.Element;
 
-export type Flags = Partial<Record<Country, EmbeddedFlag>>
+export type Flags = Partial<Record<Country, EmbeddedFlag>>;
 
 interface FlagProps {
-  country: Country
-  countryName: string
-  flagUrl?: string
-  flags?: Flags
+  country: Country;
+  countryName: string;
+  flagUrl?: string;
+  flags?: Flags;
 }
 
 const FlagIcon = ({ country, flagUrl, countryName }: FlagProps) => {
   return (
     <Image alt={countryName || ""} src={flagUrl?.replace("{XX}", country)} width="5" minWidth="5" />
-  )
-}
+  );
+};
 
 export const AngleUpIcon = createIcon({
   displayName: "AngleUpIcon",
   viewBox: "0 0 448 512",
   d: "M206 114.7l22.6 22.6 160 160L411.3 320 366 365.3l-22.6-22.6L206 205.3 68.6 342.6 46 365.3 .7 320l22.6-22.6 160-160L206 114.7z",
-})
+});
 
 export const AngleDownIcon = createIcon({
   displayName: "AngleDownIcon",
   viewBox: "0 0 448 512",
   d: "M169.4 342.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 274.7 54.6 137.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z",
-})
+});
 
 export const SearchIcon = createIcon({
   displayName: "SearchIcon",
   viewBox: "0 0 512 512",
   d: "M368 208A160 160 0 1 0 48 208a160 160 0 1 0 320 0zM337.1 371.1C301.7 399.2 256.8 416 208 416C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208c0 48.8-16.8 93.7-44.9 129.1L505 471c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0L337.1 371.1z",
-})
+});
 
 interface UseGetCurrentlySelectedCountryReturn {
-  country: Country | undefined
-  onCountryChange: (e?: Country) => void
+  country: Country | undefined;
+  onCountryChange: (e?: Country) => void;
 }
 
 /**
@@ -248,17 +248,17 @@ interface UseGetCurrentlySelectedCountryReturn {
 export const useGetCurrentlySelectedCountry = (
   defaultCountry?: Country,
 ): UseGetCurrentlySelectedCountryReturn => {
-  const [country, setCountry] = useState<Country | undefined>(defaultCountry ?? "US")
+  const [country, setCountry] = useState<Country | undefined>(defaultCountry ?? "US");
 
   const onCountryChange = useCallback((e?: Country) => {
-    setCountry(e)
-  }, [])
+    setCountry(e);
+  }, []);
 
   return {
     country,
     onCountryChange,
-  }
-}
+  };
+};
 
 /**
  * If phone number starts with a +, its international (non-US)
@@ -268,10 +268,10 @@ export const useGetCurrentlySelectedCountry = (
  */
 export const isPhoneNumberUS = (phoneno: string) => {
   if (phoneno.charAt(0) === "(" || phoneno.charAt(0) !== "+" || phoneno.charAt(0) === "1") {
-    return true
+    return true;
   }
-  return false
-}
+  return false;
+};
 
 /**
  * This function ensures the correctly formatted phone number is returned for storage
@@ -281,5 +281,5 @@ export const isPhoneNumberUS = (phoneno: string) => {
 export const getFormattedPhoneNumber = (phonenum: string, country: Country) => {
   return country === "US"
     ? parsePhoneNumber(phonenum, country)?.formatNational()
-    : parsePhoneNumber(phonenum, country)?.formatInternational()
-}
+    : parsePhoneNumber(phonenum, country)?.formatInternational();
+};

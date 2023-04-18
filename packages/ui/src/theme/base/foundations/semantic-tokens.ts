@@ -4,6 +4,6 @@ const semanticTokens = {
   error: "red.500",
   warning: "yellow.500",
   info: "blue.500",
-}
+};
 
-export default semanticTokens
+export default semanticTokens;

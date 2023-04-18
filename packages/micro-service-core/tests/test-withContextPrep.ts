@@ -1,14 +1,14 @@
-import withContextPrep from "../src/middleware/withContextPrep"
-import middy from "@middy/core"
-import AWS from "aws-sdk"
-import { Options } from "../src/library/sharedTypes"
-import { getMiddyInternal } from "../src/library/util"
-AWS.config.update({ region: process.env.region })
+import withContextPrep from "../src/middleware/withContextPrep";
+import middy from "@middy/core";
+import AWS from "aws-sdk";
+import { Options } from "../src/library/sharedTypes";
+import { getMiddyInternal } from "../src/library/util";
+AWS.config.update({ region: process.env.region });
 
-const userId = "60ee01f8885a9700717e8d8e"
-const accountId = "abc3d3d7-61ef-4635-806c-e54016ad7dce"
+const userId = "60ee01f8885a9700717e8d8e";
+const accountId = "abc3d3d7-61ef-4635-806c-e54016ad7dce";
 
-const middlewareToTest = [withContextPrep]
+const middlewareToTest = [withContextPrep];
 
 const coreSettings = {
   AWS,
@@ -19,28 +19,28 @@ const coreSettings = {
   maxMessagesPerInstance: 20,
   isBulk: false,
   eventType: "fetch",
-} as Options
+} as Options;
 
 const test = async (event: any) => {
   const handler = (data: any) => {
-    console.log("INTERIOR DATA", data)
-    return data.map((m: any) => ({ ...m, workerResp: { res: "hello world" } }))
-  }
+    console.log("INTERIOR DATA", data);
+    return data.map((m: any) => ({ ...m, workerResp: { res: "hello world" } }));
+  };
 
-  const middifiedHandler = middy(handler)
-  middifiedHandler.use(middlewareToTest[0](coreSettings))
+  const middifiedHandler = middy(handler);
+  middifiedHandler.use(middlewareToTest[0](coreSettings));
   middifiedHandler.use({
     before: async (request) => {
-      const context = await getMiddyInternal(request, [`user-${userId}`, `account-${accountId}`])
-      console.log("Context should have user and account details")
-      console.log("CONTEXT", context)
+      const context = await getMiddyInternal(request, [`user-${userId}`, `account-${accountId}`]);
+      console.log("Context should have user and account details");
+      console.log("CONTEXT", context);
     },
-  })
+  });
 
   await middifiedHandler(event, {} as any, () => {
-    console.log("did this work")
-  })
-}
+    console.log("did this work");
+  });
+};
 
 const sampleMicroAppMessages = [
   {
@@ -72,7 +72,7 @@ const sampleMicroAppMessages = [
     },
     rcptHandle: undefined,
   },
-]
+];
 
 // const sampleBadEvent = {
 //   hello: 'world',
@@ -87,11 +87,11 @@ const run = async () => {
   // }
 
   try {
-    console.log("RUNNING GOOD EVENT")
-    await test(sampleMicroAppMessages)
+    console.log("RUNNING GOOD EVENT");
+    await test(sampleMicroAppMessages);
   } catch (err) {
-    console.log("This should not have erred", err)
+    console.log("This should not have erred", err);
   }
-}
+};
 
-run()
+run();

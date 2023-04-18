@@ -1,11 +1,11 @@
-import withMessageProcessing from "../src/middleware/withMessageProcessing"
-import middy from "@middy/core"
-import AWS from "aws-sdk"
-import { Options } from "../src/library/sharedTypes"
+import withMessageProcessing from "../src/middleware/withMessageProcessing";
+import middy from "@middy/core";
+import AWS from "aws-sdk";
+import { Options } from "../src/library/sharedTypes";
 
-AWS.config.update({ region: process.env.region })
+AWS.config.update({ region: process.env.region });
 
-const middlewareToTest = [withMessageProcessing]
+const middlewareToTest = [withMessageProcessing];
 
 const coreSettings = {
   AWS,
@@ -16,7 +16,7 @@ const coreSettings = {
   maxMessagesPerInstance: 20,
   isBulk: false,
   eventType: "fetch",
-} as Options
+} as Options;
 
 // return useMicroApp(
 //   AWS,
@@ -31,17 +31,17 @@ const coreSettings = {
 
 const test = async (event: any) => {
   const handler = (data: any) => {
-    console.log("INTERIOR DATA", data)
-    return data.map((m: any) => ({ ...m, workerResp: { res: "hello world" } }))
-  }
+    console.log("INTERIOR DATA", data);
+    return data.map((m: any) => ({ ...m, workerResp: { res: "hello world" } }));
+  };
 
-  const middifiedHandler = middy(handler)
-  middifiedHandler.use(middlewareToTest[0](coreSettings))
+  const middifiedHandler = middy(handler);
+  middifiedHandler.use(middlewareToTest[0](coreSettings));
 
   await middifiedHandler(event, {} as any, () => {
-    console.log("did this work")
-  })
-}
+    console.log("did this work");
+  });
+};
 
 const sampleSQSEvent = {
   Records: [
@@ -105,28 +105,28 @@ const sampleSQSEvent = {
       },
     },
   ],
-}
+};
 
-console.log("hello please")
-console.log(middy)
+console.log("hello please");
+console.log(middy);
 const sampleBadEvent = {
   hello: "world",
-}
+};
 
 const run = async () => {
   try {
-    console.log("RUNNING BAD EVENT")
-    await test(sampleBadEvent)
+    console.log("RUNNING BAD EVENT");
+    await test(sampleBadEvent);
   } catch (err) {
-    console.log("This should have erred", err)
+    console.log("This should have erred", err);
   }
 
   try {
-    console.log("RUNNING GOOD EVENT")
-    await test(sampleSQSEvent)
+    console.log("RUNNING GOOD EVENT");
+    await test(sampleSQSEvent);
   } catch (err) {
-    console.log("This should not have erred", err)
+    console.log("This should not have erred", err);
   }
-}
+};
 
-run()
+run();

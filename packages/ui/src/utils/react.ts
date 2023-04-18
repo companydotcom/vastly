@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 
 /**
  * Get the first child of a specific type.
@@ -8,7 +8,7 @@ import * as React from "react"
 export function getChildOfType(children: React.ReactNode, type: React.JSXElementConstructor<any>) {
   return (React.Children.toArray(children) as React.ReactElement[]).find(
     (item) => item.type === type,
-  )
+  );
 }
 
 /**
@@ -22,5 +22,5 @@ export function getChildrenOfType(
 ) {
   return (React.Children.toArray(children) as React.ReactElement[]).filter((item) =>
     Array.isArray(type) ? type.some((component) => component === item.type) : item.type === type,
-  )
+  );
 }

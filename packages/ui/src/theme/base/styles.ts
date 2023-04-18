@@ -1,4 +1,4 @@
-import { Styles } from "@chakra-ui/theme-tools"
+import { Styles } from "@chakra-ui/theme-tools";
 
 const styles: Styles = {
   global: () => ({
@@ -36,6 +36,6 @@ const styles: Styles = {
         backgroundColor: "rgba(0, 0, 0, 0.35) !important",
       },
   }),
-}
+};
 
-export default styles
+export default styles;

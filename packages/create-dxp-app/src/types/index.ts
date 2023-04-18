@@ -1,24 +1,24 @@
-export type PackageManagerName = "yarn" | "pnpm" | "npm"
+export type PackageManagerName = "yarn" | "pnpm" | "npm";
 export interface GenerateAnswers {
-  repoName: string
-  repoDescription: string
-  email: string
-  username: string
-  token: string
-  generate: boolean
-  packageManager: PackageManagerName
-  linkToGithub: boolean
+  repoName: string;
+  repoDescription: string;
+  email: string;
+  username: string;
+  token: string;
+  generate: boolean;
+  packageManager: PackageManagerName;
+  linkToGithub: boolean;
 }
 
 export type PackageManager = {
-  name: string
-  template: string
-  command: PackageManagerName
-  installArgs: string[]
-  version: string
-  executable: string
-  semver: string
-}
+  name: string;
+  template: string;
+  command: PackageManagerName;
+  installArgs: string[];
+  version: string;
+  executable: string;
+  semver: string;
+};
 
 export const PACKAGE_MANAGERS: Record<PackageManagerName, PackageManager[]> = {
   npm: [
@@ -72,4 +72,4 @@ export const PACKAGE_MANAGERS: Record<PackageManagerName, PackageManager[]> = {
       semver: ">=2",
     },
   ],
-}
+};

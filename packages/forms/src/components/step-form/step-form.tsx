@@ -1,8 +1,8 @@
-import * as React from "react"
+import * as React from "react";
 
-import { FieldValues } from "react-hook-form"
-import { chakra, Button, ButtonProps, HTMLChakraProps, ThemingProps } from "@chakra-ui/react"
-import { callAllHandlers, runIfFn, cx, isDev } from "@companydotcom/utils"
+import { FieldValues } from "react-hook-form";
+import { chakra, Button, ButtonProps, HTMLChakraProps, ThemingProps } from "@chakra-ui/react";
+import { callAllHandlers, runIfFn, cx, isDev } from "@companydotcom/utils";
 import {
   StepperProvider,
   NumberStepperSteps,
@@ -10,9 +10,9 @@ import {
   NumberStepperStep,
   useStepperContext,
   NumberStepperContainer,
-} from "@companydotcom/ui"
-import { Form } from "../form"
-import { SubmitButton } from "../submit-button"
+} from "@companydotcom/ui";
+import { Form } from "../form";
+import { SubmitButton } from "../submit-button";
 
 import {
   useStepForm,
@@ -20,7 +20,7 @@ import {
   StepFormProvider,
   UseStepFormProps,
   FormStepSubmitHandler,
-} from "./use-step-form"
+} from "./use-step-form";
 
 export interface StepFormProps<
   TFieldValues extends FieldValues = FieldValues,
@@ -33,13 +33,13 @@ export const StepForm = React.forwardRef(
     props: StepFormProps<TFieldValues, TContext>,
     ref: React.ForwardedRef<HTMLFormElement>,
   ) => {
-    const { children, ...rest } = props
+    const { children, ...rest } = props;
 
-    const stepper = useStepForm<TFieldValues>(props)
+    const stepper = useStepForm<TFieldValues>(props);
 
-    const { getFormProps, ...ctx } = stepper
+    const { getFormProps, ...ctx } = stepper;
 
-    const context = React.useMemo(() => ctx, [ctx])
+    const context = React.useMemo(() => ctx, [ctx]);
 
     return (
       <StepperProvider value={context}>
@@ -49,40 +49,40 @@ export const StepForm = React.forwardRef(
           </Form>
         </StepFormProvider>
       </StepperProvider>
-    )
+    );
   },
 ) as <TFieldValues extends FieldValues>(
   props: StepFormProps<TFieldValues> & {
-    ref?: React.ForwardedRef<HTMLFormElement>
+    ref?: React.ForwardedRef<HTMLFormElement>;
   },
-) => React.ReactElement
+) => React.ReactElement;
 
 export interface FormStepOptions {
   /**
    * The step name
    */
-  name: string
+  name: string;
   /**
    * Schema
    */
-  schema?: any
+  schema?: any;
   /**
    * Hook Form Resolver
    */
-  resolver?: any
+  resolver?: any;
 }
 
 export interface FormStepperProps extends NumberStepperStepsProps, ThemingProps<"Stepper"> {}
 
 export const FormStepper: React.FC<FormStepperProps> = (props) => {
-  const { activeIndex, setIndex } = useStepperContext()
+  const { activeIndex, setIndex } = useStepperContext();
 
-  const { children, orientation, variant, colorScheme, size, ...rest } = props
+  const { children, orientation, variant, colorScheme, size, ...rest } = props;
 
   const elements = React.Children.map(children, (child) => {
     if (React.isValidElement<FormStepProps>(child) && child?.type === FormStep) {
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      const { isCompleted } = useFormStep(child.props) // Register this step
+      const { isCompleted } = useFormStep(child.props); // Register this step
       return (
         <NumberStepperStep
           name={child.props.name}
@@ -92,15 +92,15 @@ export const FormStepper: React.FC<FormStepperProps> = (props) => {
         >
           {child.props.children}
         </NumberStepperStep>
-      )
+      );
     }
-    return child
-  })
+    return child;
+  });
 
   const onChange = React.useCallback((i: number) => {
-    setIndex(i)
+    setIndex(i);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   return (
     <NumberStepperContainer
@@ -115,32 +115,32 @@ export const FormStepper: React.FC<FormStepperProps> = (props) => {
         {elements}
       </NumberStepperSteps>
     </NumberStepperContainer>
-  )
-}
+  );
+};
 
 export interface FormStepProps extends FormStepOptions, Omit<HTMLChakraProps<"div">, "onSubmit"> {
-  onSubmit?: FormStepSubmitHandler
+  onSubmit?: FormStepSubmitHandler;
 }
 
 export const FormStep: React.FC<FormStepProps> = (props) => {
-  const { name, schema, resolver, children, className, onSubmit, ...rest } = props
-  const step = useFormStep({ name, schema, resolver, onSubmit })
+  const { name, schema, resolver, children, className, onSubmit, ...rest } = props;
+  const step = useFormStep({ name, schema, resolver, onSubmit });
 
-  const { isActive } = step
+  const { isActive } = step;
 
   return isActive ? (
     <chakra.div {...rest} className={cx("dxp-ui-form__step", className)}>
       {children}
     </chakra.div>
-  ) : null
-}
+  ) : null;
+};
 
 if (isDev()) {
-  FormStep.displayName = "FormStep"
+  FormStep.displayName = "FormStep";
 }
 
 export const PrevButton: React.FC<ButtonProps> = (props) => {
-  const { isFirstStep, isCompleted, prevStep } = useStepperContext()
+  const { isFirstStep, isCompleted, prevStep } = useStepperContext();
 
   return (
     <Button
@@ -150,21 +150,21 @@ export const PrevButton: React.FC<ButtonProps> = (props) => {
       className={cx("sui-form__prev-button", props.className)}
       onClick={callAllHandlers(props.onClick, prevStep)}
     />
-  )
-}
+  );
+};
 
 if (isDev()) {
-  PrevButton.displayName = "PrevButton"
+  PrevButton.displayName = "PrevButton";
 }
 
 export interface NextButtonProps extends Omit<ButtonProps, "children"> {
-  submitLabel?: string
-  label?: string
+  submitLabel?: string;
+  label?: string;
 }
 
 export const NextButton: React.FC<NextButtonProps> = (props) => {
-  const { label = "Next", submitLabel = "Complete", ...rest } = props
-  const { isLastStep, isCompleted } = useStepperContext()
+  const { label = "Next", submitLabel = "Complete", ...rest } = props;
+  const { isLastStep, isCompleted } = useStepperContext();
 
   return (
     <SubmitButton
@@ -174,9 +174,9 @@ export const NextButton: React.FC<NextButtonProps> = (props) => {
     >
       {isLastStep || isCompleted ? submitLabel : label}
     </SubmitButton>
-  )
-}
+  );
+};
 
 if (isDev()) {
-  NextButton.displayName = "NextButton"
+  NextButton.displayName = "NextButton";
 }

@@ -1,8 +1,8 @@
-import { ThemeConfig } from "@chakra-ui/react"
+import { ThemeConfig } from "@chakra-ui/react";
 
 const config = {
   useSystemColorMode: false,
   cssVarPrefix: "dxp-ui",
-} as ThemeConfig
+} as ThemeConfig;
 
-export default config
+export default config;

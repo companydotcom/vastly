@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 import {
   useFormContext,
   FormState,
@@ -7,7 +7,7 @@ import {
   RegisterOptions,
   FieldValues,
   FieldPath,
-} from "react-hook-form"
+} from "react-hook-form";
 
 import {
   forwardRef,
@@ -32,38 +32,38 @@ import {
   PinInput,
   UsePinInputProps,
   SystemProps,
-} from "@chakra-ui/react"
-import { callAllHandlers, isDev } from "@companydotcom/utils"
-import NumberFormat from "react-number-format"
-import type { NumberFormatBaseProps } from "react-number-format"
-import { RadioInput, type RadioInputProps } from "../radio-input"
-import { NumberInput, type NumberInputProps } from "../number-input"
-import { PasswordInput, type PasswordInputProps } from "../password-input"
-import { NativeSelect, type NativeSelectProps } from "../native-select"
-import { Select, type SelectProps } from "../select-input"
-import { CreditCardInput, type CreditCardInputProps } from "../credit-card-input"
-import { ReactPhoneInput, type ReactPhoneInputProps } from "../react-phone-input"
-import { CardExpiryInput, type CardExpiryInputProps } from "../card-expiry-input"
-import { SelectCountryInput, type SelectCountryInputProps } from "../select-country-input"
-import { SelectRegionInput, type SelectRegionInputProps } from "../select-region-input"
+} from "@chakra-ui/react";
+import { callAllHandlers, isDev } from "@companydotcom/utils";
+import NumberFormat from "react-number-format";
+import type { NumberFormatBaseProps } from "react-number-format";
+import { RadioInput, type RadioInputProps } from "../radio-input";
+import { NumberInput, type NumberInputProps } from "../number-input";
+import { PasswordInput, type PasswordInputProps } from "../password-input";
+import { NativeSelect, type NativeSelectProps } from "../native-select";
+import { Select, type SelectProps } from "../select-input";
+import { CreditCardInput, type CreditCardInputProps } from "../credit-card-input";
+import { ReactPhoneInput, type ReactPhoneInputProps } from "../react-phone-input";
+import { CardExpiryInput, type CardExpiryInputProps } from "../card-expiry-input";
+import { SelectCountryInput, type SelectCountryInputProps } from "../select-country-input";
+import { SelectRegionInput, type SelectRegionInputProps } from "../select-region-input";
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
-import type { ComponentWithAs } from "@chakra-ui/react"
+import type { ComponentWithAs } from "@chakra-ui/react";
 
 export interface FocusableElement {
-  focus(options?: FocusOptions): void
+  focus(options?: FocusOptions): void;
 }
 
 export interface Option {
-  value: string
-  label?: string
-  [key: string]: unknown
+  value: string;
+  label?: string;
+  [key: string]: unknown;
 }
 
 export type FieldRules = Pick<
   RegisterOptions,
   "required" | "min" | "max" | "maxLength" | "minLength" | "pattern"
->
+>;
 
 export interface FieldProps<
   TFieldValues extends FieldValues = FieldValues,
@@ -72,26 +72,26 @@ export interface FieldProps<
   /**
    * The field name
    */
-  name: TName
+  name: TName;
   /**
    * The field label
    */
-  label?: string
+  label?: string;
   /**
    * Hide the field label
    */
-  hideLabel?: boolean
+  hideLabel?: boolean;
   /**
    * Field help text
    */
-  helperText?: string
+  helperText?: string;
   /**
    * React hook form rules
    */
   rules?: Omit<
     RegisterOptions<TFieldValues, TName>,
     "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
-  >
+  >;
   /**
    * Built-in types:
    * - text
@@ -108,35 +108,35 @@ export interface FieldProps<
    *
    * Will default to a text field if there is no matching type.
    */
-  type?: keyof FieldTypes
+  type?: keyof FieldTypes;
   /**
    * The input placeholder
    */
-  placeholder?: string
+  placeholder?: string;
 }
 
-const inputTypes: Record<string, React.FC<any>> = {}
+const inputTypes: Record<string, React.FC<any>> = {};
 
-const defaultInputType = "text"
+const defaultInputType = "text";
 
 const getInput = (type: string) => {
-  return inputTypes[type] || inputTypes[defaultInputType]
-}
+  return inputTypes[type] || inputTypes[defaultInputType];
+};
 
 const getError = (name: string, formState: FormState<{ [x: string]: any }>) => {
-  return get(formState.errors, name)
-}
+  return get(formState.errors, name);
+};
 
 // const isTouched = (name: string, formState: FormState<{ [x: string]: any }>) => {
 //   return get(formState.touchedFields, name)
 // }
 
 export const BaseField = (props: FieldProps) => {
-  const { name, label, helperText, hideLabel, children, ...controlProps } = props
+  const { name, label, helperText, hideLabel, children, ...controlProps } = props;
 
-  const { formState } = useFormContext()
+  const { formState } = useFormContext();
 
-  const error = getError(name, formState)
+  const error = getError(name, formState);
 
   return (
     <FormControl {...controlProps} isInvalid={!!error}>
@@ -147,18 +147,18 @@ export const BaseField = (props: FieldProps) => {
         {error?.message && <FormErrorMessage>{error?.message}</FormErrorMessage>}
       </Box>
     </FormControl>
-  )
-}
+  );
+};
 
 if (isDev()) {
-  BaseField.displayName = "BaseField"
+  BaseField.displayName = "BaseField";
 }
 
-export type As<Props = any> = React.ElementType<Props>
+export type As<Props = any> = React.ElementType<Props>;
 
 export type PropsOf<T extends As> = React.ComponentPropsWithoutRef<T> & {
-  type?: FieldTypes
-}
+  type?: FieldTypes;
+};
 
 /**
  * Build-in types:
@@ -180,28 +180,28 @@ export const Field = React.forwardRef(
     props: FieldProps<TFieldValues> | FieldTypeProps,
     ref: React.ForwardedRef<FocusableElement>,
   ) => {
-    const { type = defaultInputType } = props
-    const InputComponent = getInput(type)
+    const { type = defaultInputType } = props;
+    const InputComponent = getInput(type);
 
-    return <InputComponent ref={ref} {...props} />
+    return <InputComponent ref={ref} {...props} />;
   },
 ) as (<TFieldValues extends FieldValues>(
   props: FieldProps<TFieldValues> &
     FieldTypeProps & {
-      ref?: React.ForwardedRef<FocusableElement>
+      ref?: React.ForwardedRef<FocusableElement>;
     },
 ) => React.ReactElement) & {
-  displayName?: string
-}
+  displayName?: string;
+};
 
 if (isDev()) {
-  Field.displayName = "Field"
+  Field.displayName = "Field";
 }
 
 interface CreateFieldProps {
-  displayName: string
-  hideLabel?: boolean
-  BaseField: React.FC<any>
+  displayName: string;
+  hideLabel?: boolean;
+  BaseField: React.FC<any>;
 }
 
 const createField = (
@@ -221,12 +221,12 @@ const createField = (
       rules,
       hideLabel: hideLabelProp,
       ...inputProps
-    } = props
+    } = props;
 
     const inputRules = {
       required: isRequired,
       ...rules,
-    }
+    };
 
     return (
       <BaseField
@@ -249,16 +249,16 @@ const createField = (
           {...inputProps}
         />
       </BaseField>
-    )
-  })
-  Field.displayName = displayName
+    );
+  });
+  Field.displayName = displayName;
 
-  return Field
-}
+  return Field;
+};
 
 export const withControlledInput = (InputComponent: React.FC<any>) => {
   return forwardRef<FieldProps, typeof InputComponent>(({ name, rules, ...inputProps }, ref) => {
-    const { control } = useFormContext()
+    const { control } = useFormContext();
 
     return (
       <Controller
@@ -276,15 +276,15 @@ export const withControlledInput = (InputComponent: React.FC<any>) => {
           />
         )}
       />
-    )
-  })
-}
+    );
+  });
+};
 
 export const withUncontrolledInput = (InputComponent: React.FC<any>) => {
   return forwardRef<FieldProps, typeof InputComponent>(({ name, rules, ...inputProps }, ref) => {
-    const { register } = useFormContext()
+    const { register } = useFormContext();
 
-    const { ref: _ref, ...field } = register(name, rules)
+    const { ref: _ref, ...field } = register(name, rules);
 
     return (
       <InputComponent
@@ -294,14 +294,14 @@ export const withUncontrolledInput = (InputComponent: React.FC<any>) => {
         onBlur={callAllHandlers(inputProps.onBlur, field.onBlur)}
         ref={useMergeRefs(ref, _ref)}
       />
-    )
-  })
-}
+    );
+  });
+};
 
 export interface RegisterFieldTypeOptions {
-  isControlled?: boolean
-  hideLabel?: boolean
-  BaseField?: React.FC<any>
+  isControlled?: boolean;
+  hideLabel?: boolean;
+  BaseField?: React.FC<any>;
 }
 
 /**
@@ -317,11 +317,11 @@ export const registerFieldType = <T extends object>(
   component: React.FC<T>,
   options?: RegisterFieldTypeOptions,
 ) => {
-  let InputComponent
+  let InputComponent;
   if (options?.isControlled) {
-    InputComponent = withControlledInput(component)
+    InputComponent = withControlledInput(component);
   } else {
-    InputComponent = withUncontrolledInput(component)
+    InputComponent = withUncontrolledInput(component);
   }
 
   const Field = createField(InputComponent, {
@@ -331,23 +331,23 @@ export const registerFieldType = <T extends object>(
       .join("")}Field`,
     hideLabel: options?.hideLabel,
     BaseField: options?.BaseField || BaseField,
-  }) as React.FC<T & FieldProps>
+  }) as React.FC<T & FieldProps>;
 
-  inputTypes[type] = Field
+  inputTypes[type] = Field;
 
-  return Field
-}
+  return Field;
+};
 
 export interface InputFieldProps extends InputProps {
-  type?: string
-  leftAddon?: React.ReactNode
-  rightAddon?: React.ReactNode
+  type?: string;
+  leftAddon?: React.ReactNode;
+  rightAddon?: React.ReactNode;
 }
 
 export const InputField = registerFieldType<InputFieldProps>(
   "text",
   forwardRef(({ type = "text", leftAddon, rightAddon, size, ...rest }, ref) => {
-    const input = <Input type={type} size={size} {...rest} ref={ref} />
+    const input = <Input type={type} size={size} {...rest} ref={ref} />;
     if (leftAddon || rightAddon) {
       return (
         <InputGroup size={size}>
@@ -355,23 +355,23 @@ export const InputField = registerFieldType<InputFieldProps>(
           {input}
           {rightAddon}
         </InputGroup>
-      )
+      );
     }
-    return input
+    return input;
   }),
-)
+);
 
-export const TextareaField = registerFieldType<TextareaProps>("textarea", Textarea)
+export const TextareaField = registerFieldType<TextareaProps>("textarea", Textarea);
 
 export const SwitchField = registerFieldType<SwitchProps>(
   "switch",
   forwardRef(({ type, value, ...rest }, ref) => {
-    return <Switch isChecked={!!value} {...rest} ref={ref} />
+    return <Switch isChecked={!!value} {...rest} ref={ref} />;
   }),
   {
     isControlled: true,
   },
-)
+);
 
 export const CheckboxField = registerFieldType<CheckboxProps>(
   "checkbox",
@@ -380,31 +380,31 @@ export const CheckboxField = registerFieldType<CheckboxProps>(
       <Checkbox ref={ref} {...props}>
         {label}
       </Checkbox>
-    )
+    );
   }),
   {
     hideLabel: true,
   },
-)
+);
 
 export const RadioField = registerFieldType<RadioInputProps>("radio", RadioInput, {
   isControlled: true,
-})
+});
 
 export interface PinFieldProps extends Omit<UsePinInputProps, "type"> {
-  pinLength?: number
-  pinType?: "alphanumeric" | "number"
-  spacing?: SystemProps["margin"]
+  pinLength?: number;
+  pinType?: "alphanumeric" | "number";
+  spacing?: SystemProps["margin"];
 }
 
 export const PinField = registerFieldType<PinFieldProps>(
   "pin",
   forwardRef((props, ref) => {
-    const { pinLength = 4, pinType, spacing, ...inputProps } = props
+    const { pinLength = 4, pinType, spacing, ...inputProps } = props;
 
-    const inputs: React.ReactNode[] = []
+    const inputs: React.ReactNode[] = [];
     for (let i = 0; i < pinLength; i++) {
-      inputs.push(<PinInputField key={i} ref={ref} />)
+      inputs.push(<PinInputField key={i} ref={ref} />);
     }
 
     return (
@@ -413,35 +413,35 @@ export const PinField = registerFieldType<PinFieldProps>(
           {inputs}
         </PinInput>
       </HStack>
-    )
+    );
   }),
   {
     isControlled: true,
   },
-)
+);
 
 export interface NumberInputFieldProps extends NumberInputProps {
-  type: "number"
+  type: "number";
 }
 
 export const NumberInputField = registerFieldType<NumberInputFieldProps>("number", NumberInput, {
   isControlled: true,
-})
+});
 
 export const PasswordInputField = registerFieldType<PasswordInputProps>(
   "password",
   forwardRef((props, ref) => <PasswordInput ref={ref} {...props} />),
-)
+);
 
 export const NativeSelectField = registerFieldType<NativeSelectProps>(
   "native-select",
   NativeSelect,
   { isControlled: true },
-)
+);
 
 export const SelectField = registerFieldType<SelectProps>("select", Select, {
   isControlled: true,
-})
+});
 
 export const CreditCardField = registerFieldType<CreditCardInputProps>(
   "credit-card",
@@ -449,7 +449,7 @@ export const CreditCardField = registerFieldType<CreditCardInputProps>(
   {
     isControlled: true,
   },
-)
+);
 
 export const CreditCardExpiryField = registerFieldType<CardExpiryInputProps>(
   "credit-expiry",
@@ -457,7 +457,7 @@ export const CreditCardExpiryField = registerFieldType<CardExpiryInputProps>(
   {
     isControlled: true,
   },
-)
+);
 
 export const ReactPhoneInputField = registerFieldType<ReactPhoneInputProps>(
   "phone",
@@ -465,7 +465,7 @@ export const ReactPhoneInputField = registerFieldType<ReactPhoneInputProps>(
   {
     isControlled: true,
   },
-)
+);
 
 export const SelectCountryInputField = registerFieldType<SelectCountryInputProps>(
   "select-country",
@@ -473,7 +473,7 @@ export const SelectCountryInputField = registerFieldType<SelectCountryInputProps
   {
     isControlled: true,
   },
-)
+);
 
 export const SelectRegionInputField = registerFieldType<SelectRegionInputProps>(
   "select-region",
@@ -481,7 +481,7 @@ export const SelectRegionInputField = registerFieldType<SelectRegionInputProps>(
   {
     isControlled: true,
   },
-)
+);
 
 const fieldTypes = {
   text: InputField,
@@ -501,18 +501,18 @@ const fieldTypes = {
   "credit-expiry": CreditCardExpiryField,
   "select-country": SelectCountryInputField,
   "select-region": SelectRegionInputField,
-}
+};
 
-type FieldTypes = typeof fieldTypes
+type FieldTypes = typeof fieldTypes;
 
-type FieldType<Props = any> = React.ElementType<Props>
+type FieldType<Props = any> = React.ElementType<Props>;
 
 type TypeProps<P extends FieldType, T> = React.ComponentPropsWithoutRef<P> & {
-  type: T
-}
+  type: T;
+};
 
 type FieldTypeProps =
   | {
-      [Property in keyof FieldTypes]: TypeProps<FieldTypes[Property], Property>
+      [Property in keyof FieldTypes]: TypeProps<FieldTypes[Property], Property>;
     }[keyof FieldTypes]
-  | { type?: string }
+  | { type?: string };

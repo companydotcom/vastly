@@ -1,4 +1,4 @@
-import { useControllableState } from "@chakra-ui/react"
+import { useControllableState } from "@chakra-ui/react";
 
 export type PageType =
   | "end-ellipsis"
@@ -8,37 +8,37 @@ export type PageType =
   | "page"
   | "previous"
   | "start-ellipsis"
-  | string
+  | string;
 
 export type PaginationItems =
   | {
-      onClick: (event: any) => void
-      pageType: PageType
-      page: number | null
-      isSelected: boolean
-      isDisabled: boolean
-      "aria-current": React.AriaAttributes["aria-current"]
+      onClick: (event: any) => void;
+      pageType: PageType;
+      page: number | null;
+      isSelected: boolean;
+      isDisabled: boolean;
+      "aria-current": React.AriaAttributes["aria-current"];
     }
   | {
-      onClick: (event: React.ChangeEvent<unknown>) => void
-      pageType: PageType
-      page: number | null
-      isSelected: boolean
-      isDisabled: boolean
-      "aria-current"?: React.AriaAttributes["aria-current"]
-    }
+      onClick: (event: React.ChangeEvent<unknown>) => void;
+      pageType: PageType;
+      page: number | null;
+      isSelected: boolean;
+      isDisabled: boolean;
+      "aria-current"?: React.AriaAttributes["aria-current"];
+    };
 
 export interface UsePaginationProps {
-  count?: number
-  boundaryCount?: number
-  defaultPage?: number
-  isDisabled?: boolean
-  hideNextButton?: boolean
-  hidePrevButton?: boolean
-  onChange?: (event: any, value: number) => void
-  page?: number
-  siblingCount?: number
-  items?: PaginationItems[]
+  count?: number;
+  boundaryCount?: number;
+  defaultPage?: number;
+  isDisabled?: boolean;
+  hideNextButton?: boolean;
+  hidePrevButton?: boolean;
+  onChange?: (event: any, value: number) => void;
+  page?: number;
+  siblingCount?: number;
+  items?: PaginationItems[];
 }
 
 export function usePagination(props: UsePaginationProps) {
@@ -53,30 +53,30 @@ export function usePagination(props: UsePaginationProps) {
     page: pageProp,
     siblingCount = 1,
     ...other
-  } = props
+  } = props;
 
   const [page, setPageState] = useControllableState({
     value: pageProp,
     defaultValue: defaultPage,
-  })
+  });
 
   const handleClick = (event: React.ChangeEvent<unknown>, value: number) => {
     if (!pageProp) {
-      setPageState(value)
+      setPageState(value);
     }
     if (handleChange) {
-      handleChange(event, value)
+      handleChange(event, value);
     }
-  }
+  };
 
   // https://dev.to/namirsab/comment/2050
   const range = (start: number, end: number) => {
-    const length = end - start + 1
-    return Array.from({ length }, (_, i) => start + i)
-  }
+    const length = end - start + 1;
+    return Array.from({ length }, (_, i) => start + i);
+  };
 
-  const startPages = range(1, Math.min(boundaryCount, count))
-  const endPages = range(Math.max(count - boundaryCount + 1, boundaryCount + 1), count)
+  const startPages = range(1, Math.min(boundaryCount, count));
+  const endPages = range(Math.max(count - boundaryCount + 1, boundaryCount + 1), count);
 
   const siblingsStart = Math.max(
     Math.min(
@@ -87,7 +87,7 @@ export function usePagination(props: UsePaginationProps) {
     ),
     // Greater than startPages
     boundaryCount + 2,
-  )
+  );
 
   const siblingsEnd = Math.min(
     Math.max(
@@ -98,7 +98,7 @@ export function usePagination(props: UsePaginationProps) {
     ),
     // Less than endPages
     endPages.length > 0 ? endPages[0] - 2 : count - 1,
-  )
+  );
 
   // Basic list of items to render
   // e.g. itemList = ['first', 'previous', 1, 'ellipsis', 4, 5, 6, 'ellipsis', 10, 'next', 'last']
@@ -129,30 +129,30 @@ export function usePagination(props: UsePaginationProps) {
     ...endPages,
     ...(hideNextButton ? [] : ["next"]),
     // ...(showLastButton ? ['last'] : []),
-  ]
+  ];
 
   // Map the button type to its page number
   const buttonPage = (pageType: PageType) => {
     switch (pageType) {
       case "first":
-        return 1
+        return 1;
       case "previous":
-        return page - 1
+        return page - 1;
       case "next":
-        return page + 1
+        return page + 1;
       case "last":
-        return count
+        return count;
       default:
-        return null
+        return null;
     }
-  }
+  };
 
   // Convert the basic item list to PaginationItem props objects
   const items = itemList.map((item) => {
     return typeof item === "number"
       ? {
           onClick: (event: any) => {
-            handleClick(event, item)
+            handleClick(event, item);
           },
           pageType: "page",
           page: item,
@@ -164,7 +164,7 @@ export function usePagination(props: UsePaginationProps) {
         }
       : {
           onClick: (event: React.ChangeEvent<unknown>) => {
-            handleClick(event, buttonPage(item) as number)
+            handleClick(event, buttonPage(item) as number);
           },
           pageType: item,
           page: buttonPage(item),
@@ -173,13 +173,13 @@ export function usePagination(props: UsePaginationProps) {
             isDisabled ||
             (item.indexOf("ellipsis") === -1 &&
               (item === "next" || item === "last" ? page >= count : page <= 1)),
-        }
-  })
+        };
+  });
 
   return {
     items,
     ...other,
-  }
+  };
 }
 
-export type UsePaginationReturn = ReturnType<typeof usePagination>
+export type UsePaginationReturn = ReturnType<typeof usePagination>;

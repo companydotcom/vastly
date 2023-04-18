@@ -1,4 +1,4 @@
-import { SystemStyleObject } from "@companydotcom/potion"
+import { SystemStyleObject } from "@chakra-ui/react";
 
 export default {
   formContainer: {
@@ -10,4 +10,4 @@ export default {
     border: "1px solid",
     borderColor: "gray.100",
   },
-} as Record<string, SystemStyleObject>
+} as Record<string, SystemStyleObject>;

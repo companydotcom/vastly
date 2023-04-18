@@ -3,5 +3,5 @@ export default function App() {
     <div>
       <h1>Hello Creator, Welcome to your DXP!</h1>
     </div>
-  )
+  );
 }

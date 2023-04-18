@@ -1,5 +1,5 @@
-import React from "react"
-import { DocsThemeConfig } from "nextra-theme-docs"
+import React from "react";
+import { DocsThemeConfig } from "nextra-theme-docs";
 
 // For more information on doc theme config, see: https://nextra.site/docs/docs-theme/start
 
@@ -15,6 +15,6 @@ const config: DocsThemeConfig = {
   footer: {
     text: "Company.com Docs",
   },
-}
+};
 
-export default config
+export default config;
