@@ -15,7 +15,7 @@ export const WithSizes: Story = {
   args: {
     sizes: ["xs", "sm", "md", "lg", "xl"],
   },
-  render: function CustomRenderer({ sizes }) {
+  render: function CustomRenderer({ sizes }: any) {
     return sizes.map((size: string) => <DottedSpinner size={size} key={size} />);
   },
 };

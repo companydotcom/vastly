@@ -28,7 +28,7 @@ export const WithSizes: Story = {
   args: {
     sizes: ["xs", "sm", "md", "lg"],
   },
-  render: function CustomRenderer({ sizes }) {
+  render: function CustomRenderer({ sizes }: any) {
     const { items } = usePagination({ count: 8 });
     return sizes.map((size: string) => (
       <Pagination size={size} key={size} mb="4">
@@ -46,7 +46,7 @@ export const WithVariants: Story = {
   args: {
     variants: ["ghost", "outline", "unstyled"],
   },
-  render: function CustomRenderer({ variants }) {
+  render: function CustomRenderer({ variants }: any) {
     const { items } = usePagination({ count: 8 });
     return variants.map((variant: string) => (
       <Pagination size={variant} key={variant} mb="4">
@@ -64,7 +64,7 @@ export const WithColorSchemes: Story = {
   args: {
     colorSchemes: ["green", "red", "blue"],
   },
-  render: function CustomRenderer({ colorSchemes }) {
+  render: function CustomRenderer({ colorSchemes }: any) {
     const { items } = usePagination({ count: 8 });
     return colorSchemes.map((colorScheme: string) => (
       <Pagination colorScheme={colorScheme} key={colorScheme} mb="4">
