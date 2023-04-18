@@ -1,26 +1,26 @@
-import type { Meta, StoryObj } from "@storybook/react"
-import { Form, Field, SubmitButton, FormLayout } from "@companydotcom/forms"
+import type { Meta, StoryObj } from "@storybook/react";
+import { Form, Field, SubmitButton, FormLayout } from "@companydotcom/forms";
 
 const meta: Meta<typeof Form> = {
   component: Form,
   title: "Forms/Form",
-}
+};
 
-export default meta
-type Story = StoryObj<typeof Form>
+export default meta;
+type Story = StoryObj<typeof Form>;
 
 export const Basic: Story = {
   render: function CustomRenderer() {
     const defaultValues = {
       name: "Custom offering",
       description: "",
-    }
+    };
     const onSubmit = (params: typeof defaultValues) => {
-      console.log(params)
+      console.log(params);
       return new Promise((resolve) => {
-        setTimeout(resolve, 1000)
-      })
-    }
+        setTimeout(resolve, 1000);
+      });
+    };
     return (
       <Form defaultValues={defaultValues} onSubmit={onSubmit}>
         <FormLayout>
@@ -42,6 +42,6 @@ export const Basic: Story = {
           <SubmitButton>Create Project</SubmitButton>
         </FormLayout>
       </Form>
-    )
+    );
   },
-}
+};

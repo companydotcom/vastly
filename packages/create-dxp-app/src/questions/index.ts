@@ -1,9 +1,9 @@
-import { shouldUseYarn } from "../utils/should-use-yarn.js"
-import { shouldUsePnpm } from "../utils/should-use-pnpm.js"
+import { shouldUseYarn } from "../utils/should-use-yarn.js";
+import { shouldUsePnpm } from "../utils/should-use-pnpm.js";
 
 //check if yarn and pnpm are installed; if not, disable option in prompt
-const isYarnInstalled = shouldUseYarn()
-const isPnpmInstalled = shouldUsePnpm()
+const isYarnInstalled = shouldUseYarn();
+const isPnpmInstalled = shouldUsePnpm();
 
 export const generateQuestions = [
   {
@@ -12,9 +12,9 @@ export const generateQuestions = [
     message: "What would you like to name your project?",
     validate: (answer) => {
       if (answer.length === 0) {
-        return "Please enter a name for your project"
+        return "Please enter a name for your project";
       }
-      return true
+      return true;
     },
   },
   {
@@ -36,11 +36,11 @@ export const generateQuestions = [
     type: "text",
     message: "What is your GitHub email?",
     validate: (email) => {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
-        return "Please enter a valid email address"
+        return "Please enter a valid email address";
       }
-      return true
+      return true;
     },
     when: (answers) => answers.linkToGithub,
   },
@@ -50,9 +50,9 @@ export const generateQuestions = [
     message: "What is your GitHub username?",
     validate: (answer) => {
       if (answer.length === 0) {
-        return "Please enter your GitHub username"
+        return "Please enter your GitHub username";
       }
-      return true
+      return true;
     },
     when: (answers) => answers.linkToGithub,
   },
@@ -62,9 +62,9 @@ export const generateQuestions = [
     message: "What is your GitHub token?",
     validate: (answer) => {
       if (answer.length === 0) {
-        return "Please enter your GitHub token"
+        return "Please enter your GitHub token";
       }
-      return true
+      return true;
     },
     when: (answers) => answers.linkToGithub,
   },
@@ -95,4 +95,4 @@ export const generateQuestions = [
       { name: "No", value: false },
     ],
   },
-]
+];

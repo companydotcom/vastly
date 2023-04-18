@@ -1,7 +1,7 @@
-import middy from "@middy/core"
-import _get from "lodash/get"
-import { MicroAppMessage, HandledMicroAppMessage, Options } from "../library/sharedTypes"
-import { getMiddyInternal, prepareMiddlewareDataForWorker } from "../library/util"
+import middy from "@middy/core";
+import _get from "lodash/get";
+import { MicroAppMessage, HandledMicroAppMessage, Options } from "../library/sharedTypes";
+import { getMiddyInternal, prepareMiddlewareDataForWorker } from "../library/util";
 
 /*
  * The purpose of the "Privacy screen" is four fold
@@ -13,44 +13,44 @@ import { getMiddyInternal, prepareMiddlewareDataForWorker } from "../library/uti
 const createWithPrivacyScreen = (
   options: Options,
 ): middy.MiddlewareObj<[MicroAppMessage] | any, [HandledMicroAppMessage] | any> => {
-  const middlewareName = "withPrivacyScreen"
-  let requestInternalStash = {} as any
+  const middlewareName = "withPrivacyScreen";
+  let requestInternalStash = {} as any;
   const before: middy.MiddlewareFn<
     [MicroAppMessage] | any,
     [HandledMicroAppMessage] | any
   > = async (request): Promise<void> => {
     if (options.debugMode) {
-      console.log("before", middlewareName)
+      console.log("before", middlewareName);
     }
 
-    const data = await getMiddyInternal(request, ["vendorConfig"])
-    requestInternalStash = Object.assign({}, request.internal)
+    const data = await getMiddyInternal(request, ["vendorConfig"]);
+    requestInternalStash = Object.assign({}, request.internal);
 
     request.event = await Promise.all(
       request.event.map(async (m: MicroAppMessage) => {
-        console.log("Micro Application Message: ", m)
-        const userId: string = _get(m, ["msgBody", "context", "user", "userId"], "")
-        const accountId: string = _get(m, ["msgBody", "context", "user", "accountId"], "")
-        const context = await getMiddyInternal(request, [`user-${userId}`, `account-${accountId}`])
+        console.log("Micro Application Message: ", m);
+        const userId: string = _get(m, ["msgBody", "context", "user", "userId"], "");
+        const accountId: string = _get(m, ["msgBody", "context", "user", "accountId"], "");
+        const context = await getMiddyInternal(request, [`user-${userId}`, `account-${accountId}`]);
         if (context[`user-${userId}`]) {
           if (typeof context[`user-${userId}`].vendorData !== "undefined") {
-            delete context[`user-${userId}`].vendorData
+            delete context[`user-${userId}`].vendorData;
           }
           if (typeof context[`user-${userId}`].globalMicroAppData !== "undefined") {
-            delete context[`user-${userId}`].globalMicroAppData
+            delete context[`user-${userId}`].globalMicroAppData;
           }
         } else {
-          console.log("User", userId, "not found in DB")
+          console.log("User", userId, "not found in DB");
         }
         if (context[`account-${accountId}`]) {
           if (typeof context[`account-${accountId}`].vendorData !== "undefined") {
-            delete context[`account-${accountId}`].vendorData
+            delete context[`account-${accountId}`].vendorData;
           }
           if (typeof context[`account-${accountId}`].globalMicroAppData !== "undefined") {
-            delete context[`account-${accountId}`].globalMicroAppData
+            delete context[`account-${accountId}`].globalMicroAppData;
           }
         } else {
-          console.log("Account", accountId, "not found in DB")
+          console.log("Account", accountId, "not found in DB");
         }
 
         return {
@@ -69,18 +69,18 @@ const createWithPrivacyScreen = (
           rcptHandle: m.rcptHandle,
           serviceConfigData: data.vendorConfig,
           ...(await prepareMiddlewareDataForWorker(request, m)),
-        }
+        };
       }),
-    )
-    console.log("Stashing request.internal & reformating event messages")
-    request.internal = {}
-  }
+    );
+    console.log("Stashing request.internal & reformating event messages");
+    request.internal = {};
+  };
 
   const after: middy.MiddlewareFn<[MicroAppMessage] | any, [HandledMicroAppMessage] | any> = async (
     request,
   ): Promise<void> => {
     if (options.debugMode) {
-      console.log("after", middlewareName)
+      console.log("after", middlewareName);
     }
     request.response = request.response.map((m: any) => {
       return {
@@ -89,16 +89,16 @@ const createWithPrivacyScreen = (
         rcptHandle: m.rcptHandle,
         workerResp: m.workerResp,
         status: m.status,
-      }
-    })
-    console.log("Popping request.internal & reformating event messages")
-    request.internal = Object.assign({}, requestInternalStash)
-  }
+      };
+    });
+    console.log("Popping request.internal & reformating event messages");
+    request.internal = Object.assign({}, requestInternalStash);
+  };
 
   return {
     before,
     after,
-  }
-}
+  };
+};
 
-export default createWithPrivacyScreen
+export default createWithPrivacyScreen;

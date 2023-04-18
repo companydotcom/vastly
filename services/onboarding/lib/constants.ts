@@ -1,1 +1,1 @@
-export const TIMEOUT_MINS = 5
+export const TIMEOUT_MINS = 5;

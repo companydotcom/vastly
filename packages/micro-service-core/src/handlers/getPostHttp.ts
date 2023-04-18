@@ -1,6 +1,6 @@
-import { v4 as uuid } from "uuid"
-import es from "../library/eventStream"
-import { getErrorString } from "../library/util"
+import { v4 as uuid } from "uuid";
+import es from "../library/eventStream";
+import { getErrorString } from "../library/util";
 
 /**
  * This is the handler that is invoked by a http event to process
@@ -27,13 +27,13 @@ export const handler = async (
       `getpostHttp: INFO: Input is: ${
         typeof event === "object" ? JSON.stringify(event, null, 4) : event
       }`,
-    )
+    );
 
-    const eventMsg = typeof event === "object" ? event : JSON.parse(event)
-    const eventBody = eventMsg.body
-    const eventPathParams = eventMsg.pathParameters
+    const eventMsg = typeof event === "object" ? event : JSON.parse(event);
+    const eventBody = eventMsg.body;
+    const eventPathParams = eventMsg.pathParameters;
     const eventQueryStringParams =
-      eventMsg.queryStringParameters !== "undefined" ? eventMsg.queryStringParameters : {}
+      eventMsg.queryStringParameters !== "undefined" ? eventMsg.queryStringParameters : {};
 
     await es.publish(
       AWS,
@@ -58,7 +58,7 @@ export const handler = async (
         emitter: service,
         eventType: eventPathParams.operation,
       },
-    )
+    );
 
     return {
       statusCode: 200,
@@ -70,9 +70,9 @@ export const handler = async (
         status: "getpostHttp: INFO: Request accepted and queued",
         input: event,
       }),
-    }
+    };
   } catch (e) {
-    console.log(`getpostHttp: ERROR: ${getErrorString(e)}`)
+    console.log(`getpostHttp: ERROR: ${getErrorString(e)}`);
     return {
       statusCode: 500,
       headers: {
@@ -83,6 +83,6 @@ export const handler = async (
         status: `getpostHttp: ERROR: We encountered an error. Please quote TS${Date.now()} as reference id for further assistance`,
         input: event,
       }),
-    }
+    };
   }
-}
+};

@@ -8,4 +8,4 @@ module.exports = {
     },
   },
   ignorePatterns: ["generators/*/app/templates/**/*", "templates/**/*"],
-}
+};

@@ -1,5 +1,5 @@
-import { createMultiStyleConfigHelpers } from "@chakra-ui/styled-system"
-import type { StyleFunctionProps } from "@chakra-ui/styled-system"
+import { createMultiStyleConfigHelpers } from "@chakra-ui/styled-system";
+import type { StyleFunctionProps } from "@chakra-ui/styled-system";
 
 const helpers = createMultiStyleConfigHelpers([
   "root",
@@ -7,10 +7,10 @@ const helpers = createMultiStyleConfigHelpers([
   "prevButton",
   "nextButton",
   "page",
-])
+]);
 
 function variantGhost(props: StyleFunctionProps) {
-  const { colorScheme: c } = props
+  const { colorScheme: c } = props;
 
   if (c === "gray") {
     return {
@@ -23,7 +23,7 @@ function variantGhost(props: StyleFunctionProps) {
         _active: { bg: `gray.200` },
         _current: { bg: `gray.400` },
       },
-    }
+    };
   }
 
   return {
@@ -41,20 +41,20 @@ function variantGhost(props: StyleFunctionProps) {
         color: "white",
       },
     },
-  }
+  };
 }
 
 function variantOutline(props: StyleFunctionProps) {
-  const { colorScheme: c } = props
-  const borderColor = `gray.200`
-  const ghostStyles = variantGhost(props).page
+  const { colorScheme: c } = props;
+  const borderColor = `gray.200`;
+  const ghostStyles = variantGhost(props).page;
   return {
     page: {
       border: "1px solid",
       borderColor: c === "gray" ? borderColor : "currentColor",
       ...ghostStyles,
     },
-  }
+  };
 }
 
 const variantUnstyled = {
@@ -66,7 +66,7 @@ const variantUnstyled = {
     m: 0,
     p: 0,
   },
-}
+};
 
 export const Pagination = helpers.defineMultiStyleConfig({
   baseStyle: {
@@ -136,4 +136,4 @@ export const Pagination = helpers.defineMultiStyleConfig({
     variant: "outline",
     colorScheme: "blue",
   },
-})
+});

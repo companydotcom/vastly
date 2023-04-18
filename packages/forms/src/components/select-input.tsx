@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 
 import {
   chakra,
@@ -19,15 +19,15 @@ import {
   useFormControl,
   HTMLChakraProps,
   createIcon,
-} from "@chakra-ui/react"
-import { __DEV__ } from "../utils"
+} from "@chakra-ui/react";
+import { __DEV__ } from "../utils";
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
-import type { ComponentWithAs, IconProps } from "@chakra-ui/react"
+import type { ComponentWithAs, IconProps } from "@chakra-ui/react";
 
 interface Option {
-  value: string
-  label?: string
+  value: string;
+  label?: string;
 }
 
 interface SelectOptions {
@@ -35,20 +35,20 @@ interface SelectOptions {
    * An array of options
    * If you leave this empty the children prop will be rendered.
    */
-  options?: Option[]
+  options?: Option[];
   /**
    * Props passed to the MenuList.
    */
-  menuListProps?: MenuListProps
+  menuListProps?: MenuListProps;
   /**
    * Customize how the value is rendered.
    * @type (value?: string[]) => React.ReactElement
    */
-  renderValue?: (value?: string[]) => React.ReactElement | undefined
+  renderValue?: (value?: string[]) => React.ReactElement | undefined;
   /**
    * Enable multiple select.
    */
-  multiple?: boolean
+  multiple?: boolean;
 }
 
 export interface SelectProps
@@ -58,12 +58,12 @@ export interface SelectProps
     SelectOptions {}
 
 const SelectButton = forwardRef((props, ref) => {
-  const styles = useMultiStyleConfig("Input", props)
+  const styles = useMultiStyleConfig("Input", props);
 
   /* @ts-ignore */
-  const focusStyles = styles.field._focusVisible
+  const focusStyles = styles.field._focusVisible;
 
-  const height = styles.field.h || styles.field.height
+  const height = styles.field.h || styles.field.height;
 
   const buttonStyles: SystemStyleObject = {
     fontWeight: "normal",
@@ -77,14 +77,14 @@ const SelectButton = forwardRef((props, ref) => {
     _expanded: focusStyles,
     ...styles.field,
     h: "auto",
-  }
+  };
 
   // Using a Button, so we can simply use leftIcon and rightIcon
-  return <MenuButton as={Button} {...props} ref={ref} sx={buttonStyles} />
-})
+  return <MenuButton as={Button} {...props} ref={ref} sx={buttonStyles} />;
+});
 
 if (__DEV__) {
-  SelectButton.displayName = "SelectButton"
+  SelectButton.displayName = "SelectButton";
 }
 
 export const Select = forwardRef<SelectProps, "select">((props, ref) => {
@@ -105,17 +105,17 @@ export const Select = forwardRef<SelectProps, "select">((props, ref) => {
     menuListProps,
     renderValue = (value) => value?.join(", "),
     ...rest
-  } = props
-  const menuProps = omitThemingProps(rest)
+  } = props;
+  const menuProps = omitThemingProps(rest);
 
-  const [currentValue, setCurrentValue] = React.useState(value || defaultValue)
+  const [currentValue, setCurrentValue] = React.useState(value || defaultValue);
 
-  const controlProps = useFormControl({ name } as HTMLChakraProps<"input">)
+  const controlProps = useFormControl({ name } as HTMLChakraProps<"input">);
 
   const handleChange = (value: string | string[]) => {
-    setCurrentValue(value)
-    onChange?.(value)
-  }
+    setCurrentValue(value);
+    onChange?.(value);
+  };
 
   const buttonProps = {
     isDisabled,
@@ -123,28 +123,28 @@ export const Select = forwardRef<SelectProps, "select">((props, ref) => {
     rightIcon,
     size,
     variant,
-  }
+  };
 
   const getDisplayValue = React.useCallback(
     (value: string) => {
       if (!options) {
-        return value
+        return value;
       }
 
       for (const option of options) {
         if (option.label && option.value === value) {
-          return option.label
+          return option.label;
         }
       }
 
-      return value
+      return value;
     },
     [options],
-  )
+  );
 
   const displayValue = currentValue
     ? (Array.isArray(currentValue) ? currentValue : [currentValue]).map(getDisplayValue)
-    : []
+    : [];
 
   return (
     <Menu {...menuProps} closeOnSelect={!multiple}>
@@ -176,14 +176,14 @@ export const Select = forwardRef<SelectProps, "select">((props, ref) => {
         />
       </chakra.div>
     </Menu>
-  )
-})
+  );
+});
 
 if (__DEV__) {
-  Select.displayName = "Select"
+  Select.displayName = "Select";
 }
 
 export const ChevronDownIcon = createIcon({
   displayName: "ChevronDownIcon",
   d: "M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z",
-})
+});

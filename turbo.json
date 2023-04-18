@@ -11,23 +11,12 @@
   ],
   "pipeline": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        "dist/**",
-        ".next/**",
-        "storybook-static/**"
-      ]
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**", "storybook-static/**"]
     },
     "workshop#build-storybook": {
-      "outputs": [
-        "storybook-static/**"
-      ],
-      "dependsOn": [
-        "@companydotcom/ui#build",
-        "@companydotcom/forms#build"
-      ]
+      "outputs": ["storybook-static/**"],
+      "dependsOn": ["@companydotcom/ui#build", "@companydotcom/forms#build"]
     },
     "lint": {
       "outputs": []
@@ -40,22 +29,13 @@
       "cache": false
     },
     "workshop#storybook": {
-      "dependsOn": [
-        "@companydotcom/ui#dev",
-        "@companydotcom/forms#dev"
-      ]
+      "dependsOn": ["@companydotcom/ui#dev", "@companydotcom/forms#dev"]
     },
     "test": {
-      "outputs": [
-        "coverage/**"
-      ]
+      "outputs": ["coverage/**"]
     },
     "@companydotcom/micro-service-core#test": {
-      "env": [
-        "region",
-        "service",
-        "accountId"
-      ]
+      "env": ["region", "service", "accountId"]
     }
   }
 }

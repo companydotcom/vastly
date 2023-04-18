@@ -1,7 +1,7 @@
-import { Client } from "../client.js"
+import { Client } from "../client.js";
 
-interface LoginResult {
-  message: string
+export interface LoginResult {
+  message: string;
 }
 
 export default async function executeLogin(client: Client, email: string): Promise<LoginResult> {
@@ -14,8 +14,8 @@ export default async function executeLogin(client: Client, email: string): Promi
           email,
         },
       },
-    )
+    );
   } catch (err: unknown) {
-    throw new Error(`Unexpected error: ${err}`)
+    throw new Error(`Unexpected error: ${err}`);
   }
 }

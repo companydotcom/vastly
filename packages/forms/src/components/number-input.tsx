@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 
 import {
   forwardRef,
@@ -8,31 +8,31 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   NumberInputProps as ChakraNumberInputProps,
-} from "@chakra-ui/react"
-import { __DEV__ } from "../utils"
+} from "@chakra-ui/react";
+import { __DEV__ } from "../utils";
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
-import type { ComponentWithAs } from "@chakra-ui/react"
+import type { ComponentWithAs } from "@chakra-ui/react";
 
 interface NumberInputOptions {
   /**
    * Hide the stepper.
    */
-  hideStepper?: boolean
+  hideStepper?: boolean;
   /**
    * Render a custom increment icon.
    */
-  incrementIcon?: React.ReactNode
+  incrementIcon?: React.ReactNode;
   /**
    * Render a custom decrement icon.
    */
-  decrementIcon?: React.ReactNode
+  decrementIcon?: React.ReactNode;
 }
 
 export interface NumberInputProps extends ChakraNumberInputProps, NumberInputOptions {}
 
 export const NumberInput = forwardRef<NumberInputProps, "div">((props, ref) => {
-  const { hideStepper, incrementIcon, decrementIcon, ...rest } = props
+  const { hideStepper, incrementIcon, decrementIcon, ...rest } = props;
 
   return (
     <ChakraNumberInput {...rest} ref={ref}>
@@ -45,13 +45,13 @@ export const NumberInput = forwardRef<NumberInputProps, "div">((props, ref) => {
         </NumberInputStepper>
       )}
     </ChakraNumberInput>
-  )
-})
+  );
+});
 
 NumberInput.defaultProps = {
   hideStepper: false,
-}
+};
 
 if (__DEV__) {
-  NumberInput.displayName = "NumberInput"
+  NumberInput.displayName = "NumberInput";
 }

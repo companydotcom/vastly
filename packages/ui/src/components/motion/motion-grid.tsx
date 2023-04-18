@@ -1,6 +1,6 @@
-import * as React from "react"
+import * as React from "react";
 
-import { Grid, GridProps } from "@chakra-ui/react"
-import { motion } from "framer-motion"
+import { Grid, GridProps } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 
-export const MotionGrid = motion<GridProps>(Grid)
+export const MotionGrid = motion<GridProps>(Grid);

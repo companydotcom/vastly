@@ -6,6 +6,6 @@ const dxpConfig = {
    * Leaning towards contraining the creator to only being able to populate specific templates into specific directories
    *
    */
-}
+};
 
-module.exports = dxpConfig
+module.exports = dxpConfig;

@@ -1,4 +1,4 @@
-import * as React from "react"
+import * as React from "react";
 
 import {
   forwardRef,
@@ -9,28 +9,28 @@ import {
   RadioProps,
   SystemProps,
   StackDirection,
-} from "@chakra-ui/react"
-import { __DEV__ } from "../utils"
+} from "@chakra-ui/react";
+import { __DEV__ } from "../utils";
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
-import type { ComponentWithAs } from "@chakra-ui/react"
+import type { ComponentWithAs } from "@chakra-ui/react";
 
 interface Option extends RadioProps {
-  value: string
-  label?: string
+  value: string;
+  label?: string;
 }
 
 interface RadioInputOptions {
-  options: Option[]
-  spacing?: SystemProps["margin"]
-  direction?: StackDirection
+  options: Option[];
+  spacing?: SystemProps["margin"];
+  direction?: StackDirection;
 }
 
 export interface RadioInputProps extends Omit<RadioGroupProps, "children">, RadioInputOptions {}
 
 export const RadioInput = forwardRef<RadioInputProps, "div">(
   ({ options, spacing, direction, ...props }, ref) => {
-    const { onBlur, onChange, ...groupProps } = props
+    const { onBlur, onChange, ...groupProps } = props;
 
     return (
       <RadioGroup onChange={onChange} {...groupProps}>
@@ -40,14 +40,14 @@ export const RadioInput = forwardRef<RadioInputProps, "div">(
               <Radio key={i} onBlur={onBlur} value={value} ref={ref} {...radioProps}>
                 {label || value}
               </Radio>
-            )
+            );
           })}
         </Stack>
       </RadioGroup>
-    )
+    );
   },
-)
+);
 
 if (__DEV__) {
-  RadioInput.displayName = "RadioInput"
+  RadioInput.displayName = "RadioInput";
 }

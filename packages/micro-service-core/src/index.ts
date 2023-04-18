@@ -1,22 +1,22 @@
-import middy from "@middy/core"
-import { neverThrowError, addToEventContext } from "./library/util"
-import withMessageProcessing from "./middleware/withMessageProcessing"
-import withServiceData from "./middleware/withServiceData"
-import withThrottling from "./middleware/withThrottling"
-import withVendorConfig from "./middleware/withVendorConfig"
-import withContextPrep from "./middleware/withContextPrep"
-import withCrmData from "./middleware/withCrmData"
-import withMads from "./middleware/withMads"
-import withPrivacyScreen from "./middleware/withPrivacyScreen"
+import middy from "@middy/core";
+import { neverThrowError, addToEventContext } from "./library/util";
+import withMessageProcessing from "./middleware/withMessageProcessing";
+import withServiceData from "./middleware/withServiceData";
+import withThrottling from "./middleware/withThrottling";
+import withVendorConfig from "./middleware/withVendorConfig";
+import withContextPrep from "./middleware/withContextPrep";
+import withCrmData from "./middleware/withCrmData";
+import withMads from "./middleware/withMads";
+import withPrivacyScreen from "./middleware/withPrivacyScreen";
 import {
   CoreMicroAppConfig,
   MicroAppMessage,
   AllowableConfigKeys,
   Options,
-} from "./library/sharedTypes"
+} from "./library/sharedTypes";
 
-import { handler as gpH } from "./handlers/getPostHttp"
-import { handler as sDb } from "./handlers/setupDatabase"
+import { handler as gpH } from "./handlers/getPostHttp";
+import { handler as sDb } from "./handlers/setupDatabase";
 
 const createTailoredOptions = (
   keys: Array<AllowableConfigKeys>,
@@ -29,8 +29,8 @@ const createTailoredOptions = (
       [key]: microAppConfig[key],
     }),
     AWS ? { AWS } : {},
-  )
-}
+  );
+};
 
 export const useMicroApp = (
   AWS: any,
@@ -38,24 +38,24 @@ export const useMicroApp = (
   worker: (params: any) => any,
   additionalMiddleware: [(opt: Options) => middy.MiddlewareObj],
 ) => {
-  console.log("Preparing MicroApp Handler")
+  console.log("Preparing MicroApp Handler");
   const handler = middy(async (event: any) => {
-    console.log("Delegating processed messages to worker:")
+    console.log("Delegating processed messages to worker:");
     return Promise.all(
       // opportunity to adjust call signature of the worker to best suit this approach
       event.map((m: MicroAppMessage) =>
         neverThrowError(m, worker).then((result: any) => {
-          console.log("Received worker response", JSON.stringify(result.workerResp, null, 2))
+          console.log("Received worker response", JSON.stringify(result.workerResp, null, 2));
           return {
             ...result,
             ...result.params,
-          }
+          };
         }),
       ),
-    )
-  })
+    );
+  });
 
-  let middleware: Array<any>
+  let middleware: Array<any>;
   switch (microAppConfig.eventType) {
     case "webhook":
       middleware = [
@@ -87,8 +87,8 @@ export const useMicroApp = (
             ),
           ),
         ),
-      ]
-      break
+      ];
+      break;
     case "fetch":
     case "transition":
       middleware = [
@@ -147,22 +147,22 @@ export const useMicroApp = (
             ),
           ),
         ),
-      ]
+      ];
 
       if (microAppConfig.useThrottling) {
         middleware.unshift(
           withThrottling(
             createTailoredOptions(["service", "isBulk", "throttleOptions"], microAppConfig, AWS),
           ),
-        )
+        );
       }
-      break
+      break;
     default:
-      middleware = []
+      middleware = [];
   }
-  console.log("Applying", middleware.length, "middlewares.")
-  return middleware.reduce((middyHandler, midlw) => middyHandler.use(midlw), handler)
-}
+  console.log("Applying", middleware.length, "middlewares.");
+  return middleware.reduce((middyHandler, midlw) => middyHandler.use(midlw), handler);
+};
 
 /**
  * This is the fetch request handler
@@ -171,20 +171,22 @@ export const useMicroApp = (
  * @param {string} s service is the name of the service
  */
 export const setupDatabase = async (AWS: any, d: any, s: string) => {
-  let data = ""
+  let data = "";
   if (typeof d === "object") {
-    data = d
+    data = d;
   } else {
     try {
-      data = JSON.parse(d)
+      data = JSON.parse(d);
     } catch (e) {
-      console.log("Unable to parse the database file. Please check if it is a valid JSON document.")
-      return
+      console.log(
+        "Unable to parse the database file. Please check if it is a valid JSON document.",
+      );
+      return;
     }
   }
   // eslint-disable-next-line consistent-return
-  return sDb(AWS, data, s)
-}
+  return sDb(AWS, data, s);
+};
 
 // TODO: I think we should be able to kill this - I'm not sure what currently uses it, it was a Bharath add.  Http requests should go through management-svc, we don't need a separate endpoint on every service just to push the request into SNS
 /**
@@ -196,12 +198,12 @@ export const setupDatabase = async (AWS: any, d: any, s: string) => {
  * @param {object} b is the event input
  */
 export const httpReqHandler = async (AWS: any, r: string, s: string, a: string, b: any, c: any) =>
-  gpH(AWS, r, s, a, b, c)
+  gpH(AWS, r, s, a, b, c);
 
 export const utils = {
   addToEventContext,
-} as any
+} as any;
 
 export const middleware = {
   withCrmData,
-} as any
+} as any;

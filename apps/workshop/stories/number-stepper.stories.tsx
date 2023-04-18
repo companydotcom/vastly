@@ -1,5 +1,5 @@
-import * as React from "react"
-import type { Meta, StoryObj } from "@storybook/react"
+import * as React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 import {
   NumberStepper,
   NumberStepperStep,
@@ -13,7 +13,7 @@ import {
   Stack,
   ButtonGroup,
   Spacer,
-} from "@companydotcom/ui"
+} from "@companydotcom/ui";
 
 const meta: Meta<typeof NumberStepper> = {
   component: NumberStepper,
@@ -25,10 +25,10 @@ const meta: Meta<typeof NumberStepper> = {
       </Container>
     ),
   ],
-}
+};
 
-export default meta
-type Story = StoryObj<typeof NumberStepper>
+export default meta;
+type Story = StoryObj<typeof NumberStepper>;
 
 const Template = function CustomerRenderer({ step, steps, orientation = "horizontal" }: any) {
   return (
@@ -41,8 +41,8 @@ const Template = function CustomerRenderer({ step, steps, orientation = "horizon
         <NumberStepperCompleted>Completed</NumberStepperCompleted>
       </NumberStepper>
     </>
-  )
-}
+  );
+};
 
 export const Basic: Story = {
   args: {
@@ -60,7 +60,7 @@ export const Basic: Story = {
     ],
   },
   render: Template,
-}
+};
 
 export const WithContent: Story = {
   args: {
@@ -92,7 +92,7 @@ export const WithContent: Story = {
     ],
   },
   render: Template,
-}
+};
 
 export const WithVerticalOrientation: Story = {
   args: {
@@ -110,25 +110,25 @@ export const WithVerticalOrientation: Story = {
     ],
   },
   render: Template,
-}
+};
 
 const NextButton = (props: ButtonProps) => {
-  const { label, onClick } = useNext({ label: "Next", submitLabel: "Complete" })
+  const { label, onClick } = useNext({ label: "Next", submitLabel: "Complete" });
   return (
     <Button onClick={onClick} {...props}>
       {label}
     </Button>
-  )
-}
+  );
+};
 
 const PrevButton = (props: ButtonProps) => {
-  const { label, onClick, isDisabled } = usePrev()
+  const { label, onClick, isDisabled } = usePrev();
   return (
     <Button variant="ghost" onClick={onClick} isDisabled={isDisabled} {...props}>
       {label}
     </Button>
-  )
-}
+  );
+};
 
 const ControlledStep = ({ children }: React.PropsWithChildren) => {
   return (
@@ -140,8 +140,8 @@ const ControlledStep = ({ children }: React.PropsWithChildren) => {
         <PrevButton />
       </ButtonGroup>
     </Stack>
-  )
-}
+  );
+};
 
 export const Controlled = () => {
   const steps = [
@@ -160,7 +160,7 @@ export const Controlled = () => {
       title: "Third step",
       children: <ControlledStep>Content step 3</ControlledStep>,
     },
-  ]
+  ];
 
   return (
     <>
@@ -171,19 +171,19 @@ export const Controlled = () => {
         <NumberStepperCompleted>Completed</NumberStepperCompleted>
       </NumberStepper>
     </>
-  )
-}
+  );
+};
 
 export const UnControlled = () => {
-  const [step, setStep] = React.useState(0)
+  const [step, setStep] = React.useState(0);
 
   const back = () => {
-    setStep(step - 1)
-  }
+    setStep(step - 1);
+  };
 
   const next = () => {
-    setStep(step + 1)
-  }
+    setStep(step + 1);
+  };
 
   const steps = [
     {
@@ -201,7 +201,7 @@ export const UnControlled = () => {
       title: "Third step",
       children: <Box py="4">Content step 3</Box>,
     },
-  ]
+  ];
 
   return (
     <>
@@ -221,5 +221,5 @@ export const UnControlled = () => {
         </Button>
       </ButtonGroup>
     </>
-  )
-}
+  );
+};

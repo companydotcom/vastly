@@ -1,4 +1,4 @@
-import { createMultiStyleConfigHelpers, defineStyle } from "@chakra-ui/styled-system"
+import { createMultiStyleConfigHelpers, defineStyle } from "@chakra-ui/styled-system";
 
 const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpers([
   "container",
@@ -8,15 +8,15 @@ const { definePartsStyle, defineMultiStyleConfig } = createMultiStyleConfigHelpe
   "separator",
   "title",
   "step",
-])
+]);
 
 const stepsBaseStyle = defineStyle({
   justifyContent: "center",
   gap: "1",
-})
+});
 
 const separatorBaseStyle = defineStyle((props) => {
-  const { colorScheme: c } = props
+  const { colorScheme: c } = props;
 
   return {
     height: "10px",
@@ -28,8 +28,8 @@ const separatorBaseStyle = defineStyle((props) => {
     "[data-completed] &": {
       backgroundColor: `${c}.600`,
     },
-  }
-})
+  };
+});
 
 const stepBaseStyle = defineStyle({
   minWidth: "144px",
@@ -41,10 +41,10 @@ const stepBaseStyle = defineStyle({
     borderTopRightRadius: "full",
     borderBottomRightRadius: "full",
   },
-})
+});
 
 const titleBaseStyle = defineStyle((props) => {
-  const { colorScheme: c } = props
+  const { colorScheme: c } = props;
 
   return {
     fontWeight: "medium",
@@ -57,19 +57,19 @@ const titleBaseStyle = defineStyle((props) => {
     "[data-completed] &": {
       color: `${c}.600`,
     },
-  }
-})
+  };
+});
 
 const baseStyle = definePartsStyle((props) => ({
   steps: stepsBaseStyle,
   separator: separatorBaseStyle(props),
   step: { ...stepBaseStyle, py: 2 },
   title: titleBaseStyle(props),
-}))
+}));
 
 export const LabeledStepper = defineMultiStyleConfig({
   baseStyle,
   defaultProps: {
     colorScheme: "blue",
   },
-})
+});

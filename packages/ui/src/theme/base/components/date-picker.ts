@@ -1,6 +1,6 @@
-import { createMultiStyleConfigHelpers } from "@chakra-ui/styled-system"
+import { createMultiStyleConfigHelpers } from "@chakra-ui/styled-system";
 
-const helpers = createMultiStyleConfigHelpers(["container", "header", "title", "day", "navIcon"])
+const helpers = createMultiStyleConfigHelpers(["container", "header", "title", "day", "navIcon"]);
 
 export const DatePicker = helpers.defineMultiStyleConfig({
   baseStyle: ({ colorScheme: c }) => ({
@@ -40,4 +40,4 @@ export const DatePicker = helpers.defineMultiStyleConfig({
     size: "sm",
     colorScheme: "blue",
   },
-})
+});

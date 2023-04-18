@@ -12,7 +12,7 @@ export const responseSchema = () => ({
       type: "object",
     },
   },
-})
+});
 
 export const eventSchema = () => ({
   type: "object",
@@ -25,4 +25,4 @@ export const eventSchema = () => ({
       required: ["email"],
     },
   },
-})
+});
