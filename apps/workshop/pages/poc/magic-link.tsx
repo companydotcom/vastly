@@ -1,56 +1,49 @@
-import { Button } from "@companydotcom/ui";
+import { Box, Button, Container, Heading } from "@companydotcom/ui";
+import { Amplify, Auth } from "aws-amplify";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
-export default function Web() {
+Amplify.configure({
+  Auth: {
+    region: "us-east-1",
+    userPoolId: "us-east-1_FBBnPmKc7",
+    userPoolWebClientId: "4vr9r59ednfan4cj167sf8mrqf",
+    mandatorySignIn: true,
+  },
+});
+
+export default function MagicLink() {
+  const router = useRouter();
+  const { qsEmail, qsToken } = router.query;
+
+  useEffect(() => {
+    const verifyChallenge = async () => {
+      if (qsToken && typeof qsToken === "string" && typeof qsEmail === "string") {
+        const email = decodeURIComponent(qsEmail?.substring(6));
+        const cognitoUser = await Auth.signIn(email);
+
+        const token = decodeURIComponent(qsToken?.substring(6));
+        try {
+          const challengeResult = await Auth.sendCustomChallengeAnswer(cognitoUser, token);
+          console.log("👾 ~ verifyChallenge ~ challengeResult:", challengeResult);
+        } catch (err) {
+          console.log(err);
+          alert("The token is invalid.");
+        }
+      }
+    };
+
+    if (qsEmail && qsToken) {
+      verifyChallenge();
+    }
+  }, []);
+
   return (
-    <div>
-      <h1></h1>
-      <Button>Verify</Button>
-    </div>
+    <Box mt="120">
+      <Container centerContent>
+        <Heading>Click to verify</Heading>
+        <Button mt="12">Verify</Button>
+      </Container>
+    </Box>
   );
 }
-
-// import { onMounted } from 'vue'
-// import { Amplify, Auth } from 'aws-amplify'
-
-// onMounted(async () => {
-//   // the search string looks like "?email=xxx&token=yyy"
-//   if (window.location.search) {
-//     const qs = window.location.search.substring(1)
-//     const qsParams = qs.split(['&'])
-//     const qsEmail = qsParams.find(x => x.startsWith('email='))
-//     const qsToken = qsParams.find(x => x.startsWith('token='))
-//     if (qsToken) {
-//       const email = decodeURIComponent(qsEmail.substring(6))
-//       const cognitoUser = await Auth.signIn(email)
-
-//       const token = decodeURIComponent(qsToken.substring(6))
-//       try {
-//         const challengeResult = await Auth.sendCustomChallengeAnswer(cognitoUser, token)
-//       } catch (err) {
-//         console.log(err)
-//         alert('The token is invalid.')
-//       }
-//     }
-//   }
-// })
-
-// async function sendMagicLink() {
-//   const response = await fetch('https://xxx.execute-api.eu-west-1.amazonaws.com/dev/login', {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify({
-//       email: email.value
-//     })
-//   }).catch(err => {
-//     alert(`Failed to send magic link: ${err.message}`)
-//   })
-
-//   if (response.status !== 202) {
-//     const responseBody = await response.json()
-//     alert(`Failed to send magic link: ${responseBody.message}`)
-//   } else {
-//     signInStep.value = 'SENT_MAGIC_LINK'
-//   }
-// }
