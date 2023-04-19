@@ -1,15 +1,10 @@
-import type { AWS } from "@serverless/typescript"
-import { functions } from "./functions"
+import type { AWS } from "@serverless/typescript";
+import { functions } from "./functions";
 
 const serverlessConfiguration: AWS = {
   service: "environment-srvc",
   frameworkVersion: "3",
-  plugins: [
-    "serverless-esbuild",
-    "serverless-offline",
-    "serverless-dynamodb-local",
-    "serverless-iam-roles-per-function",
-  ],
+  plugins: ["serverless-esbuild", "serverless-offline", "serverless-iam-roles-per-function"],
   provider: {
     name: "aws",
     runtime: "nodejs16.x",
@@ -85,6 +80,6 @@ const serverlessConfiguration: AWS = {
       },
     },
   },
-}
+};
 
-module.exports = serverlessConfiguration
+module.exports = serverlessConfiguration;
