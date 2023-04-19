@@ -1,6 +1,5 @@
 import { Box, Button, Container, Heading } from "@companydotcom/ui";
 import { Amplify, Auth } from "aws-amplify";
-import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 Amplify.configure({
@@ -14,35 +13,30 @@ Amplify.configure({
 
 export default function MagicLink() {
   const router = useRouter();
-  const { qsEmail, qsToken } = router.query;
+  const { email, token } = router.query;
 
-  useEffect(() => {
-    const verifyChallenge = async () => {
-      if (qsToken && typeof qsToken === "string" && typeof qsEmail === "string") {
-        const email = decodeURIComponent(qsEmail?.substring(6));
+  const verifyChallenge = async () => {
+    if (token && typeof token === "string" && typeof email === "string") {
+      try {
         const cognitoUser = await Auth.signIn(email);
+        console.log("cognitoUser:", cognitoUser);
 
-        const token = decodeURIComponent(qsToken?.substring(6));
-        try {
-          const challengeResult = await Auth.sendCustomChallengeAnswer(cognitoUser, token);
-          console.log("👾 ~ verifyChallenge ~ challengeResult:", challengeResult);
-        } catch (err) {
-          console.log(err);
-          alert("The token is invalid.");
-        }
+        const challengeResult = await Auth.sendCustomChallengeAnswer(cognitoUser, token);
+        console.log(" challengeResult:", challengeResult);
+      } catch (err) {
+        console.log(err);
+        alert("The token is invalid.");
       }
-    };
-
-    if (qsEmail && qsToken) {
-      verifyChallenge();
     }
-  }, []);
+  };
 
   return (
     <Box mt="120">
       <Container centerContent>
         <Heading>Click to verify</Heading>
-        <Button mt="12">Verify</Button>
+        <Button mt="12" onClick={() => verifyChallenge()}>
+          Verify
+        </Button>
       </Container>
     </Box>
   );

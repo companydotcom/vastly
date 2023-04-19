@@ -15,7 +15,7 @@ export const functions: AWS["functions"] = {
     environment: {
       SES_FROM_ADDRESS: "noreply@${self:custom.domain}",
       KMS_KEY_ID: { Ref: "EncryptionKey" },
-      BASE_URL: "ses.companydev.com",
+      BASE_URL: "workshop-black-ten.vercel.app",
       USER_POOL_ID: { Ref: "PasswordlessMagicLinksUserPool" },
     },
     // @ts-expect-error no types for serverless-iam-roles-per-function

@@ -27,6 +27,7 @@ const serverlessConfiguration: AWS = {
     domain: "ses.companydev.com",
     "serverless-offline": {
       httpPort: 4000,
+      useChildProcesses: true,
     },
     esbuild: {
       bundle: true,

@@ -21,6 +21,7 @@ const sesClient = new SESClient({ region: AWS_REGION });
 
 const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   const { email } = typeof event.body === "string" ? JSON.parse(event.body) : event.body;
+
   if (!email) {
     return {
       statusCode: 400,
@@ -39,9 +40,8 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   };
 
   const tokenRaw = await encrypt(JSON.stringify(payload));
-  const tokenB64 = tokenRaw ? Buffer.from(tokenRaw).toString("base64") : "";
-  const token = new URLSearchParams({ "": tokenB64 }).toString().slice(1);
-  const magicLink = `https://${BASE_URL}/magic-link?email=${email}&token=${token}`;
+  const token = new URLSearchParams({ "": tokenRaw || "" }).toString().slice(1);
+  const magicLink = `https://${BASE_URL}/poc/magic-link?email=${email}&token=${token}`;
 
   try {
     // the decision to use Cognito’s user attributes has an impact on the number of users
@@ -54,7 +54,7 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
       UserAttributes: [
         {
           Name: "custom:authChallenge",
-          Value: tokenB64,
+          Value: tokenRaw,
         },
       ],
     });

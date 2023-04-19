@@ -12,16 +12,22 @@ export const handler: VerifyAuthChallengeResponseTriggerHandler = async (event) 
   }
 
   const json = await decrypt(event.request.challengeAnswer);
-  const payload = JSON.parse(JSON.stringify(json));
-  console.log(payload);
+
+  const payload = JSON.parse(json ?? "");
 
   const isExpired = new Date().toJSON() > payload.expiration;
-  console.log("isExpired:", isExpired);
 
   if (payload.email === email && !isExpired) {
     event.response.answerCorrect = true;
-  } else {
-    console.log("email doesn't match or token is expired");
+  }
+
+  if (payload.email !== email) {
+    console.log("email doesn't match");
+    event.response.answerCorrect = false;
+  }
+
+  if (isExpired) {
+    console.log("token is expired");
     event.response.answerCorrect = false;
   }
 

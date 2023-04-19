@@ -1,0 +1,27 @@
+{
+    "version": "1",
+    "region": "us-east-1",
+    "userPoolId": "us-east-1_FBBnPmKc7",
+    "userName": "dc301f5c-8516-4bf8-b8eb-f6d3da48e9a6",
+    "callerContext": {
+        "awsSdkVersion": "aws-sdk-unknown-unknown",
+        "clientId": "4vr9r59ednfan4cj167sf8mrqf"
+    },
+    "triggerSource": "VerifyAuthChallengeResponse_Authentication",
+    "request": {
+        "userAttributes": {
+            "sub": "dc301f5c-8516-4bf8-b8eb-f6d3da48e9a6",
+            "cognito:user_status": "FORCE_CHANGE_PASSWORD",
+            "custom:authChallenge": "AQICAHhPOsHKNQZ/d0qTs+E/sKG7IN09zbxnVqLSP8Fnn6X3tQGQicyBuUDowVGv6cBjI06MAAAAtjCBswYJKoZIhvcNAQcGoIGlMIGiAgEAMIGcBgkqhkiG9w0BBwEwHgYJYIZIAWUDBAEuMBEEDC+yAkIXfhGJiixY8AIBEIBv5lp42X+DEeXkMVizxgvu9ceWvoFxmX0U/L26XsWYyCLYobEgZoRls7EodOTCW85Uakf7+ZCbsQr+aL8S3R9jg74t9uyxDN8EkMMQnS8Z4OXhjin02ruDT36ew3DsEgRs2piU7P3mbfxO8LbuGJnH",
+            "email": "jacob.granberry@company-corp.com"
+        },
+        "privateChallengeParameters": {
+            "challenge": "AQICAHhPOsHKNQZ/d0qTs+E/sKG7IN09zbxnVqLSP8Fnn6X3tQGQicyBuUDowVGv6cBjI06MAAAAtjCBswYJKoZIhvcNAQcGoIGlMIGiAgEAMIGcBgkqhkiG9w0BBwEwHgYJYIZIAWUDBAEuMBEEDC+yAkIXfhGJiixY8AIBEIBv5lp42X+DEeXkMVizxgvu9ceWvoFxmX0U/L26XsWYyCLYobEgZoRls7EodOTCW85Uakf7+ZCbsQr+aL8S3R9jg74t9uyxDN8EkMMQnS8Z4OXhjin02ruDT36ew3DsEgRs2piU7P3mbfxO8LbuGJnH"
+        },
+        "challengeAnswer": "AQICAHhPOsHKNQZ/d0qTs+E/sKG7IN09zbxnVqLSP8Fnn6X3tQGQicyBuUDowVGv6cBjI06MAAAAtjCBswYJKoZIhvcNAQcGoIGlMIGiAgEAMIGcBgkqhkiG9w0BBwEwHgYJYIZIAWUDBAEuMBEEDC+yAkIXfhGJiixY8AIBEIBv5lp42X+DEeXkMVizxgvu9ceWvoFxmX0U/L26XsWYyCLYobEgZoRls7EodOTCW85Uakf7+ZCbsQr+aL8S3R9jg74t9uyxDN8EkMMQnS8Z4OXhjin02ruDT36ew3DsEgRs2piU7P3mbfxO8LbuGJnH",
+        "userNotFound": false
+    },
+    "response": {
+        "answerCorrect": null
+    }
+}

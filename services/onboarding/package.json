@@ -25,6 +25,7 @@
     "@aws-sdk/client-cognito-identity-provider": "^3.298.0",
     "@aws-sdk/client-kms": "^3.297.0",
     "@aws-sdk/client-ses": "^3.298.0",
+    "@aws-sdk/util-base64": "^3.310.0",
     "@companydotcom/utils": "workspace:*",
     "@middy/core": "^4.2.7",
     "@middy/http-cors": "^4.2.7",
