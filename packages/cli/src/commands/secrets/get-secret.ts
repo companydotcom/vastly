@@ -2,39 +2,23 @@ import ora, { Ora } from "ora";
 import chalk from "chalk";
 import inquirer from "inquirer";
 import { Client } from "../../util/client.js";
-import doAddSecret from "../../util/secrets/add-secret.js";
-import { Secret } from "../../types/index.js";
+import doGetSecret from "../../util/secrets/get-secret.js";
 
-export default async function addSecret(client: Client) {
+export default async function getSecret(client: Client) {
   const { output } = client;
 
   try {
     let spinner: Ora;
 
-    const secret: any = await inquirer
+    const environment: string = await inquirer
       .prompt([
-        {
-          type: "text",
-          name: "secretKey",
-          message: "What is the name of your secret?",
-        },
-        {
-          type: "password",
-          name: "secretValue",
-          message: "What is the value of your secret?",
-          mask: "*",
-        },
         {
           type: "text",
           name: "environment",
           message: "Which environment?",
         },
       ])
-      .then((a: Secret) => ({
-        environment: a.environment,
-        secretKey: a.secretKey,
-        secretValue: a.secretValue,
-      }))
+      .then((a) => a.environment)
       .catch((error) => {
         if (error.isTtyError) {
           // Prompt couldn't be rendered in the current environment
@@ -45,10 +29,10 @@ export default async function addSecret(client: Client) {
         }
       });
 
-    const response = await doAddSecret(client, secret);
+    const response = await doGetSecret(client, environment);
 
     spinner = ora({
-      text: "Adding your secret to the database...\n",
+      text: `Fetching your secrets for ${environment}\n`,
       color: "yellow",
     }).start();
 

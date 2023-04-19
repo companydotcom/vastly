@@ -2,10 +2,10 @@ import ora, { Ora } from "ora";
 import chalk from "chalk";
 import inquirer from "inquirer";
 import { Client } from "../../util/client.js";
-import doAddSecret from "../../util/secrets/add-secret.js";
+import doDeleteSecret from "../../util/secrets/delete-secret.js";
 import { Secret } from "../../types/index.js";
 
-export default async function addSecret(client: Client) {
+export default async function deleteSecret(client: Client) {
   const { output } = client;
 
   try {
@@ -16,13 +16,7 @@ export default async function addSecret(client: Client) {
         {
           type: "text",
           name: "secretKey",
-          message: "What is the name of your secret?",
-        },
-        {
-          type: "password",
-          name: "secretValue",
-          message: "What is the value of your secret?",
-          mask: "*",
+          message: "What is the name of the secret you want to delete? (CASE SENSITIVE)",
         },
         {
           type: "text",
@@ -33,7 +27,6 @@ export default async function addSecret(client: Client) {
       .then((a: Secret) => ({
         environment: a.environment,
         secretKey: a.secretKey,
-        secretValue: a.secretValue,
       }))
       .catch((error) => {
         if (error.isTtyError) {
@@ -45,7 +38,7 @@ export default async function addSecret(client: Client) {
         }
       });
 
-    const response = await doAddSecret(client, secret);
+    const response = await doDeleteSecret(client, secret);
 
     spinner = ora({
       text: "Adding your secret to the database...\n",

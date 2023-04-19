@@ -1,65 +1,64 @@
-import { EventKeys } from "./../../../../packages/ui/src/utils/types"
-import httpErrorHandler from "@middy/http-error-handler"
-import cors from "@middy/http-cors"
-import jsonBodyParser from "@middy/http-json-body-parser"
-import middy from "@middy/core"
-import type { APIGatewayProxyHandlerV2 } from "aws-lambda"
-import { dynamoDocClient, dynamoClient, remove } from "../../lib/dynamodb"
-import { DeleteItemCommandInput, PutItemCommandInput } from "@aws-sdk/client-dynamodb"
+import httpErrorHandler from "@middy/http-error-handler";
+import cors from "@middy/http-cors";
+import jsonBodyParser from "@middy/http-json-body-parser";
+import middy from "@middy/core";
+import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
+import { dynamoDocClient, dynamoClient, remove } from "../../lib/dynamodb";
+import { DeleteCommandInput } from "@aws-sdk/lib-dynamodb";
 
-const db = dynamoDocClient
-const { TABLE_NAME } = process.env
+const db = dynamoDocClient;
+const { TABLE_NAME } = process.env;
 
 const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
-  const env = event?.pathParameters?.env?.toLowerCase()
-  const secret = event?.body?.["secretKey"]
+  const env = event?.pathParameters?.env?.toLowerCase();
+  const secretKey = event.body as string;
 
   if (!env) {
     return {
       statusCode: 404,
       body: "Please check your inputs. Do you have the right environment? EX: dev, prod",
-    }
+    };
   }
 
   try {
-    const response = await deleteSecret(secret)
-    console.log(
-      "🚀 ~ file: handler.ts:21 ~ constbaseHandler:APIGatewayProxyHandlerV2= ~ response:",
-      response,
-    )
+    const response = await deleteSecret(secretKey, env);
+    console.log("Deleting secret...");
     return {
       statusCode: 200,
-      body: JSON.stringify(response),
-    }
+      body: JSON.stringify({ message: `Secret deleted successfully ---> ${response}` }),
+    };
   } catch (error) {
     return {
       statusCode: error.statusCode || 501,
-      body: JSON.stringify(error),
-    }
+      body: JSON.stringify({ message: `Error deleting secret ---> ${error}` }),
+    };
   }
-}
+};
 
-async function deleteSecret(secret: string) {
-  console.log("Removing secret to database...")
-  const params: DeleteItemCommandInput = {
-    TableName: TABLE_NAME,
+async function deleteSecret(secret: string, env: string) {
+  const params: DeleteCommandInput = {
+    TableName: TABLE_NAME || "secrets",
     Key: {
-      name: {
-        S: secret,
-      },
+      environment: env,
+      secretKey: secret,
     },
-  }
-  const deleteCommand = new remove(params)
+  };
+  console.log("Removing secret from database...");
+  console.log(`SecretKey: ${params.Key}`);
+  const deleteCommand = new remove(params);
 
   try {
-    const response = await dynamoClient.send(deleteCommand)
-    dynamoClient.destroy()
-    return response
+    const response = await db.send(deleteCommand);
+    dynamoClient.destroy();
+    return response;
   } catch (error) {
-    dynamoClient.destroy()
+    console.log("Error deleting secret to database:", error);
+    dynamoClient.destroy();
   }
 }
 
-const handler = middy(baseHandler).use(jsonBodyParser()).use(cors()).use(httpErrorHandler())
-export { handler }
-// TODO: log and type event, error
+const deleteSecretHandler = middy(baseHandler)
+  .use(jsonBodyParser())
+  .use(cors())
+  .use(httpErrorHandler());
+export { deleteSecretHandler };
