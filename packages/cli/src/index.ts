@@ -107,7 +107,7 @@ const main = async () => {
           "add",
           "delete",
           "get",
-        ]);
+        ]); // This is not a permanent solution
         break;
       default:
         description = "";
@@ -125,7 +125,6 @@ const main = async () => {
       .description(description)
       .addArgument(argument ?? "")
       .action(async (arg) => {
-        console.log("test");
         await func(client, arg);
       });
   } catch (err: unknown) {

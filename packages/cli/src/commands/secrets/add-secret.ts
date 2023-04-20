@@ -34,6 +34,7 @@ export default async function addSecret(client: Client) {
         environment: a.environment,
         secretKey: a.secretKey,
         secretValue: a.secretValue,
+        // workspace: a.workspace,
       }))
       .catch((error) => {
         if (error.isTtyError) {

@@ -9,4 +9,5 @@ export interface Secret {
   environment?: string;
   secretKey?: string;
   secretValue?: string;
+  workspace?: string;
 }

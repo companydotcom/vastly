@@ -35,10 +35,10 @@ export async function executeDeleteSecret(client: Client, secret: Secret): Promi
   }
 }
 
-export async function executeGetSecret(client: Client, env: string): Promise<SecretResult> {
+export async function executeGetSecret(client: Client, env: string): Promise<Secret[]> {
   const isLocal = true; // change when pinging lambdas
   try {
-    return await client.fetch<SecretResult>(
+    return await client.fetch<Secret[]>(
       isLocal
         ? `http://localhost:4000/${env}/secrets`
         : `https://gunm32peih.execute-api.us-east-1.amazonaws.com/${env}/secrets`,

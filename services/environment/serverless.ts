@@ -2,7 +2,7 @@ import type { AWS } from "@serverless/typescript";
 import { functions } from "./functions";
 
 const serverlessConfiguration: AWS = {
-  service: "environment-srvc",
+  service: "environment",
   frameworkVersion: "3",
   plugins: ["serverless-esbuild", "serverless-offline", "serverless-iam-roles-per-function"],
   provider: {
@@ -17,6 +17,11 @@ const serverlessConfiguration: AWS = {
     deploymentMethod: "direct",
     httpApi: {
       cors: true,
+    },
+    iam: {
+      role: {
+        name: "environment-dev-us-east-1-lambdaRole",
+      },
     },
   },
   functions: { ...functions },
