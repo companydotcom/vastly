@@ -1,0 +1,17 @@
+{
+  "name": "pothos-appsync-poc",
+  "version": "0.1.0",
+  "description": "pothos-appsync-poc",
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.36.0",
+    "eslint-config-custom-server": "workspace:*",
+    "tsconfig": "workspace:*"
+  },
+  "dependencies": {
+    "@pothos/core": "^3.29.0",
+    "graphql": "^16.6.0",
+    "graphql-scalars": "^1.21.3"
+  }
+}

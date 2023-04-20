@@ -1,0 +1,16 @@
+{
+  "name": "prisma-aurora-mysql-poc",
+  "version": "0.1.0",
+  "description": "prisma-aurora-mysql-poc",
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.36.0",
+    "eslint-config-custom-server": "workspace:*",
+    "prisma": "4.13.0",
+    "tsconfig": "workspace:*"
+  },
+  "dependencies": {
+    "@prisma/client": "4.13.0"
+  }
+}
