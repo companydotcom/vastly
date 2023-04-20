@@ -18,11 +18,6 @@ const serverlessConfiguration: AWS = {
     httpApi: {
       cors: true,
     },
-    iam: {
-      role: {
-        name: "environment-dev-us-east-1-lambdaRole",
-      },
-    },
   },
   functions: { ...functions },
   package: { individually: true },
