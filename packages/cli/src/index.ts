@@ -114,7 +114,6 @@ const main = async () => {
       .command(subcommand)
       .description(description)
       .action(async () => {
-        console.log("test");
         await func(client);
       });
   } catch (err: unknown) {

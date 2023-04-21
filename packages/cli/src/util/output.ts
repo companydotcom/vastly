@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import ora from "ora";
 
 export interface OutputOptions {
   debugEnabled: boolean;
@@ -6,6 +7,7 @@ export interface OutputOptions {
 
 export default function makeOutput(opts: OutputOptions) {
   const { debugEnabled } = opts;
+  let spinner = ora();
 
   const log = (str: string, color = chalk.grey) => {
     console.log(color(str));
@@ -30,6 +32,7 @@ export default function makeOutput(opts: OutputOptions) {
     error,
     debug,
     success,
+    spinner,
   };
 }
 

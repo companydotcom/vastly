@@ -1,6 +1,11 @@
 import { Box, Button, Container, Heading } from "@companydotcom/ui";
+import { useState } from "react";
+import useSWRMutation from "swr/mutation";
 import { Amplify, Auth } from "aws-amplify";
 import { useRouter } from "next/router";
+
+// @ts-ignore
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 Amplify.configure({
   Auth: {
@@ -11,20 +16,47 @@ Amplify.configure({
   },
 });
 
+async function sendRequest(url: string, { arg }: { arg: { username: string } }) {
+  return fetch(url, {
+    method: "POST",
+    body: JSON.stringify(arg),
+  }).then((res) => res.json());
+}
+
 export default function MagicLink() {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { email, token } = router.query;
+
+  const { trigger, isMutating } = useSWRMutation("/api/user", sendRequest /* options */);
 
   const verifyChallenge = async () => {
     if (token && typeof token === "string" && typeof email === "string") {
       try {
+        setIsLoading(true);
         const cognitoUser = await Auth.signIn(email);
         console.log("cognitoUser:", cognitoUser);
 
         const challengeResult = await Auth.sendCustomChallengeAnswer(cognitoUser, token);
+
+        await fetch("http://localhost:5001", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            message: challengeResult?.signInUserSession?.accessToken?.jwtToken,
+          }),
+        })
+          .then((response) => response.text())
+          .then((data) => console.log(data))
+          .catch((error) => console.error(error));
+
         console.log(" challengeResult:", challengeResult);
+        setIsLoading(false);
       } catch (err) {
         console.log(err);
+        setIsLoading(false);
         alert("The token is invalid.");
       }
     }
@@ -34,7 +66,7 @@ export default function MagicLink() {
     <Box mt="120">
       <Container centerContent>
         <Heading>Click to verify</Heading>
-        <Button mt="12" onClick={() => verifyChallenge()}>
+        <Button isLoading={isLoading} mt="12" onClick={() => verifyChallenge()}>
           Verify
         </Button>
       </Container>

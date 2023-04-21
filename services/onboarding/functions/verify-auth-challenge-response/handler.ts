@@ -3,8 +3,8 @@ import { decrypt } from "../../lib/encryption";
 
 export const handler: VerifyAuthChallengeResponseTriggerHandler = async (event) => {
   const email = event.request.userAttributes.email;
-
   const expected = event.request.privateChallengeParameters.challenge;
+
   if (event.request.challengeAnswer !== expected) {
     console.log("answer doesn't match current challenge token");
     event.response.answerCorrect = false;
