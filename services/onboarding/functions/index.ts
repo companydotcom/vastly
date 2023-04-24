@@ -61,6 +61,9 @@ export const functions: AWS["functions"] = {
   createAuthChallenge: {
     handler: "functions/create-auth-challenge/handler.handler",
   },
+  postAuthentication: {
+    handler: "functions/post-authentication/handler.handler",
+  },
   verifyAuthChallengeResponse: {
     handler: "functions/verify-auth-challenge-response/handler.handler",
     environment: {

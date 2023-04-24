@@ -28,7 +28,7 @@ export default function MagicLink() {
   const router = useRouter();
   const { email, token } = router.query;
 
-  const { trigger, isMutating } = useSWRMutation("/api/user", sendRequest /* options */);
+  // const { trigger, isMutating } = useSWRMutation("/api/user", sendRequest /* options */);
 
   const verifyChallenge = async () => {
     if (token && typeof token === "string" && typeof email === "string") {
@@ -36,23 +36,24 @@ export default function MagicLink() {
         setIsLoading(true);
         const cognitoUser = await Auth.signIn(email);
         console.log("cognitoUser:", cognitoUser);
-
-        const challengeResult = await Auth.sendCustomChallengeAnswer(cognitoUser, token);
-
-        await fetch("http://localhost:5001", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            message: challengeResult?.signInUserSession?.accessToken?.jwtToken,
-          }),
-        })
-          .then((response) => response.text())
-          .then((data) => console.log(data))
-          .catch((error) => console.error(error));
-
+        const challengeResult = await Auth.sendCustomChallengeAnswer(cognitoUser, token, {
+          test: cognitoUser?.signInUserSession?.accessToken?.jwtToken,
+        });
         console.log(" challengeResult:", challengeResult);
+
+        // await fetch("http://localhost:5001", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({
+        //     message: challengeResult?.signInUserSession?.accessToken?.jwtToken,
+        //   }),
+        // })
+        //   .then((response) => response.text())
+        //   .then((data) => console.log(data))
+        //   .catch((error) => console.error(error));
+
         setIsLoading(false);
       } catch (err) {
         console.log(err);

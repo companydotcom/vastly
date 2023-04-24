@@ -17,19 +17,28 @@ export default async function doEmailLogin(client: Client, email: string) {
       output.error(errorToString(err));
     }
 
-    const server = http.createServer((req, res) => {
-      // handle incoming requests
-      output.log(`We sent an email to ${email}. Please follow the steps in that email.\n`);
+    // replace with express or webhook library
+    // const server = http.createServer((req, res) => {
+    //   // handle incoming requests
+    //   output.log(`We sent an email to ${email}. Please follow the steps in that email.\n`);
 
-      output.spinner.start("Waiting for your email confirmation\n");
+    //   // Parse the request body
+    //   let body = "";
+    //   req.on("data", (chunk) => {
+    //     body += chunk.toString();
+    //   });
 
-      console.log("REQ:", req);
+    //   // Handle the end of the request
+    //   req.on("end", () => {
+    //     console.log(`Request body: ${body}`);
+    //     output.spinner.succeed("You are now logged in");
+    //     res.end("OK");
+    //   });
+    // });
 
-      server.listen(5001, () => {
-        console.log("Server listening on port 3000");
-      });
-    });
-
+    // server.listen("/verify", () => {
+    //   output.spinner.start("Waiting for your email confirmation\n");
+    // });
     // spinner.succeed(chalk.green("waiting for verification"));
   } catch (err: unknown) {
     output.error(err as string);
