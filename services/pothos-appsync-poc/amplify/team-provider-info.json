@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-pothosappsyncpoc-dev-84303-authRole",
+      "UnauthRoleArn": "arn:aws:iam::480162884130:role/amplify-pothosappsyncpoc-dev-84303-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::480162884130:role/amplify-pothosappsyncpoc-dev-84303-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-pothosappsyncpoc-dev-84303-deployment",
+      "UnauthRoleName": "amplify-pothosappsyncpoc-dev-84303-unauthRole",
+      "StackName": "amplify-pothosappsyncpoc-dev-84303",
+      "StackId": "arn:aws:cloudformation:us-east-1:480162884130:stack/amplify-pothosappsyncpoc-dev-84303/0a75e070-df92-11ed-8c47-0e38177b5ffd",
+      "AmplifyAppId": "dniaabr64cy5f"
+    },
+    "categories": {
+      "api": {
+        "pothosappsyncpoc": {}
+      }
+    }
+  }
+}

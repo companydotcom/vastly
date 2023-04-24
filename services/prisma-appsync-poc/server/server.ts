@@ -1,6 +1,7 @@
 import { join } from "path"
 import { readFileSync } from "fs"
 import { argv, createServer } from "prisma-appsync/dist/server"
+
 ;(async () => {
   const schema = readFileSync(join(process.cwd(), argv.flags.schema), { encoding: "utf-8" })
   const lambdaHandler = await import(join(process.cwd(), argv.flags.handler))
@@ -15,6 +16,7 @@ import { argv, createServer } from "prisma-appsync/dist/server"
         title
       }
     }
+
     mutation createPost {
       createPost(data: { title: "My first post" }) {
         title
@@ -31,5 +33,3 @@ import { argv, createServer } from "prisma-appsync/dist/server"
     headers,
   })
 })()
-
-//pnpx ts-node server.ts

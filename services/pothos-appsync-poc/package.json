@@ -10,6 +10,7 @@
     "tsconfig": "workspace:*"
   },
   "dependencies": {
+    "@aws-sdk/client-appsync": "^3.316.0",
     "@pothos/core": "^3.29.0",
     "graphql": "^16.6.0",
     "graphql-scalars": "^1.21.3"
