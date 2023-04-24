@@ -88,9 +88,6 @@ const serverlessConfiguration: AWS = {
             VerifyAuthChallengeResponse: {
               "Fn::GetAtt": ["VerifyAuthChallengeResponseLambdaFunction", "Arn"],
             },
-            PostAuthentication: {
-              "Fn::GetAtt": ["PostAuthenticationLambdaFunction", "Arn"],
-            },
           },
         },
       },
@@ -109,15 +106,6 @@ const serverlessConfiguration: AWS = {
           Action: "lambda:invokeFunction",
           Principal: "cognito-idp.amazonaws.com",
           FunctionName: { Ref: "PreSignUpLambdaFunction" },
-          SourceArn: { "Fn::GetAtt": ["PasswordlessMagicLinksUserPool", "Arn"] },
-        },
-      },
-      UserPoolPostAuthenticationLambdaPermission: {
-        Type: "AWS::Lambda::Permission",
-        Properties: {
-          Action: "lambda:invokeFunction",
-          Principal: "cognito-idp.amazonaws.com",
-          FunctionName: { Ref: "PostAuthenticationLambdaFunction" },
           SourceArn: { "Fn::GetAtt": ["PasswordlessMagicLinksUserPool", "Arn"] },
         },
       },

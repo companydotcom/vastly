@@ -52,6 +52,18 @@ export const functions: AWS["functions"] = {
       },
     ],
   },
+  verify: {
+    handler: "functions/verify/handler.handler",
+    events: [
+      {
+        http: {
+          method: "post",
+          path: "/onboarding/verify",
+          cors: true,
+        },
+      },
+    ],
+  },
   preSignUp: {
     handler: "functions/pre-sign-up/handler.handler",
   },
@@ -60,9 +72,6 @@ export const functions: AWS["functions"] = {
   },
   createAuthChallenge: {
     handler: "functions/create-auth-challenge/handler.handler",
-  },
-  postAuthentication: {
-    handler: "functions/post-authentication/handler.handler",
   },
   verifyAuthChallengeResponse: {
     handler: "functions/verify-auth-challenge-response/handler.handler",

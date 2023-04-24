@@ -16,7 +16,7 @@ Amplify.configure({
   },
 });
 
-async function sendRequest(url: string, { arg }: { arg: { username: string } }) {
+async function sendRequest(url: string, { arg }: { arg: { test: string } }) {
   return fetch(url, {
     method: "POST",
     body: JSON.stringify(arg),
@@ -28,7 +28,10 @@ export default function MagicLink() {
   const router = useRouter();
   const { email, token } = router.query;
 
-  // const { trigger, isMutating } = useSWRMutation("/api/user", sendRequest /* options */);
+  const { trigger, isMutating } = useSWRMutation(
+    "https://gxmblcgqcb.execute-api.us-east-1.amazonaws.com/dev/onboarding/verify",
+    sendRequest,
+  );
 
   const verifyChallenge = async () => {
     if (token && typeof token === "string" && typeof email === "string") {
@@ -36,10 +39,11 @@ export default function MagicLink() {
         setIsLoading(true);
         const cognitoUser = await Auth.signIn(email);
         console.log("cognitoUser:", cognitoUser);
-        const challengeResult = await Auth.sendCustomChallengeAnswer(cognitoUser, token, {
-          test: cognitoUser?.signInUserSession?.accessToken?.jwtToken,
-        });
+        const challengeResult = await Auth.sendCustomChallengeAnswer(cognitoUser, token);
         console.log(" challengeResult:", challengeResult);
+
+        const test = await trigger({ test: cognitoUser?.signInUserSession?.accessToken?.jwtToken });
+        console.log("👾 ~ verifyChallenge ~ test:", test);
 
         // await fetch("http://localhost:5001", {
         //   method: "POST",
