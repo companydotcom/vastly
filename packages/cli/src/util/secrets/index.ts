@@ -35,15 +35,21 @@ export async function executeDeleteSecret(client: Client, secret: Secret): Promi
   }
 }
 
-export async function executeGetSecret(client: Client, env: string): Promise<Secret[]> {
+export async function executeGetAllSecrets(
+  client: Client,
+  { environment, directory }: { environment: string; directory: string[] },
+): Promise<Secret[]> {
   const isLocal = true; // change when pinging lambdas
   try {
     return await client.fetch<Secret[]>(
       isLocal
-        ? `http://localhost:4000/${env}/secrets`
-        : `https://96dcyft9wj.execute-api.us-east-1.amazonaws.com/${env}/secrets`,
+        ? `http://localhost:4000/${environment}/secrets`
+        : `https://96dcyft9wj.execute-api.us-east-1.amazonaws.com/${environment}/secrets`,
       {
         method: "GET",
+        // body: {
+        //   // TODO: send directory params here
+        // },
       },
     );
   } catch (err: unknown) {

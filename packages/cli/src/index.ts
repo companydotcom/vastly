@@ -101,12 +101,12 @@ const main = async () => {
         func = (await import("./commands/logout.js")).default;
         break;
       case "secret":
-        description = "Add, delete, or get all stored secrets";
+        description = "Add, delete, or pull all stored secrets";
         func = (await import("./commands/secrets/index.js")).default;
         argument = new Argument("<action>", "Preferred action to preform on a secret").choices([
           "add",
           "delete",
-          "get",
+          "pull",
         ]); // This is not a permanent solution
         break;
       default:

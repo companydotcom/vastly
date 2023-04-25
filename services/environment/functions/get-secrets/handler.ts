@@ -19,7 +19,7 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   }
 
   try {
-    const response = await getSecrets(env);
+    const response = await getAllSecrets(env);
     return {
       statusCode: 200,
       body: JSON.stringify(response),
@@ -32,7 +32,7 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   }
 };
 
-async function getSecrets(env: string) {
+async function getAllSecrets(env: string) {
   console.log(`Fetching secrets for ${env}...`);
   const input: QueryCommandInput = {
     ExpressionAttributeValues: {
@@ -52,9 +52,9 @@ async function getSecrets(env: string) {
   }
 }
 
-const getSecretHandler = middy(baseHandler)
+const getAllSecretsHandler = middy(baseHandler)
   .use(jsonBodyParser())
   .use(cors())
   .use(httpErrorHandler());
 
-export { getSecretHandler };
+export { getAllSecretsHandler };

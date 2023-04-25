@@ -49,8 +49,8 @@ export const functions: AWS["functions"] = {
       },
     ],
   },
-  getSecret: {
-    handler: "functions/get-secrets/handler.getSecretHandler",
+  getAllSecrets: {
+    handler: "functions/get-secrets/handler.getAllSecretsHandler",
     description: "Fetch all secrets per environment",
     events: [
       {
