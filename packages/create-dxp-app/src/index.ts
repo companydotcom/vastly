@@ -7,10 +7,10 @@ import { generateLocalRepo } from "./utils/generate-local-repo.js";
 import { GenerateAnswers } from "../src/types";
 
 const program = new Command();
-program.description("Company.com create-dxp-app").parse(process.argv);
+program.description("Company.com create-wave-app").parse(process.argv);
 
-console.log(chalk.yellow.bold(">>> COMPANY.COM dxp"));
-console.log(chalk.cyan(">>> Welcome to Company.com! Let's get you set up with a new dxp."));
+console.log(chalk.yellow.bold(">>> COMPANY.COM wave"));
+console.log(chalk.cyan(">>> Welcome to Company.com! Let's get you set up with a new wave."));
 console.log();
 
 inquirer.prompt(generateQuestions).then((answers: GenerateAnswers) => {

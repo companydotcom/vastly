@@ -14,7 +14,7 @@ export const copyTemplate = async (packageManager: PackageManagerName): Promise<
 
   try {
     const generateSpinner = ora({
-      text: "Generating files with dxp-app generator...",
+      text: "Generating files with wave-app generator...",
       color: "yellow",
     }).start();
 
@@ -44,7 +44,7 @@ export const copyTemplate = async (packageManager: PackageManagerName): Promise<
       });
     }
 
-    generateSpinner.succeed(chalk.green("dxp-app generator completed successfully"));
+    generateSpinner.succeed(chalk.green("wave-app generator completed successfully"));
   } catch (error) {
     console.error(error);
   }

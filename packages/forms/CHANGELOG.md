@@ -1,4 +1,4 @@
-# @dxp/forms
+# @wave/forms
 
 ## 0.1.0
 

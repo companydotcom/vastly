@@ -129,7 +129,7 @@ export const FormStep: React.FC<FormStepProps> = (props) => {
   const { isActive } = step;
 
   return isActive ? (
-    <chakra.div {...rest} className={cx("dxp-ui-form__step", className)}>
+    <chakra.div {...rest} className={cx("wave-ui-form__step", className)}>
       {children}
     </chakra.div>
   ) : null;

@@ -5,4 +5,4 @@
 ### Patch Changes
 
 - Updated dependencies [0ce3ac6]
-  - @dxp/forms@0.1.0
+  - @wave/forms@0.1.0

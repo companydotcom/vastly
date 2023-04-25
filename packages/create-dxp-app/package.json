@@ -1,12 +1,12 @@
 {
-  "name": "@companydotcom/create-dxp-app",
+  "name": "@companydotcom/create-wave-app",
   "version": "0.2.5",
-  "description": "Company.com create-dxp-app",
+  "description": "Company.com create-wave-app",
   "author": "Company.com",
   "license": "MIT",
   "bin": "dist/index.js",
   "scripts": {
-    "create-dxp-app": "npx ts-node --esm src/index.ts",
+    "create-wave-app": "npx ts-node --esm src/index.ts",
     "build": "tsc"
   },
   "dependencies": {

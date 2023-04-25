@@ -16,6 +16,6 @@
     "incremental": true,
     "baseUrl": "."
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "dxp.config.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "wave.config.js"],
   "exclude": ["apps/client/node_modules"]
 }

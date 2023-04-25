@@ -1,5 +1,5 @@
 {
-  "name": "dxp-yarn",
+  "name": "wave-yarn",
   "description": "<%= description %>",
   "version": "1.0.0",
   "workspaces": [

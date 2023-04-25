@@ -46,7 +46,7 @@ This monorepo has some tools setup for managing our packages:
 To build all apps and packages, run the following command:
 
 ```
-cd dxp
+cd wave
 pnpm run build:all
 ```
 
@@ -55,13 +55,13 @@ pnpm run build:all
 To develop all apps and packages, run the following command:
 
 ```
-cd dxp
+cd wave
 pnpm run dev
 ```
 
 ## Development Guidelines
 
-- Keep dependecy list as small as possible
+- Keep dependency list as small as possible
 - Document features as they are built and modified
 - Colocate dependencies with their packages - don't install packages in monorepo root unless
   necessary

@@ -33,11 +33,11 @@ const separatorBaseStyle = defineStyle((props) => {
 
 const stepBaseStyle = defineStyle({
   minWidth: "144px",
-  "&:first-of-type .dxp-ui-labeledStepper__separator": {
+  "&:first-of-type .wave-ui-labeledStepper__separator": {
     borderTopLeftRadius: "full",
     borderBottomLeftRadius: "full",
   },
-  "&:last-of-type .dxp-ui-labeledStepper__separator": {
+  "&:last-of-type .wave-ui-labeledStepper__separator": {
     borderTopRightRadius: "full",
     borderBottomRightRadius: "full",
   },

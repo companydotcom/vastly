@@ -77,7 +77,7 @@ export const NumberStepperContainer = forwardRef<NumberStepperProps, "div">((pro
           ref={ref}
           __css={containerStyles}
           {...containerProps}
-          className={cx("dxp-ui-numberstepper", props.className)}
+          className={cx("wave-ui-numberstepper", props.className)}
         >
           {children}
         </chakra.div>
@@ -157,7 +157,7 @@ export const NumberStepperSteps = (props: NumberStepperStepsProps) => {
       <chakra.div
         __css={stepperStyles}
         {...rest}
-        className={cx("dxp-ui-stepper__steps", props.className)}
+        className={cx("wave-ui-stepper__steps", props.className)}
       >
         {elements}
       </chakra.div>
@@ -188,7 +188,7 @@ export const NumberStepperContent = (props: NumberStepperContentProps) => {
     <chakra.div
       __css={styles.content}
       {...rest}
-      className={cx("dxp-ui-stepper__content", props.className)}
+      className={cx("wave-ui-stepper__content", props.className)}
     >
       <Collapse in={isOpen}>{children}</Collapse>
     </chakra.div>
@@ -230,7 +230,7 @@ export const NumberStepperIcon = (props: StepperIconProps) => {
   // }
 
   return (
-    <chakra.div __css={iconStyles} {...rest} className={cx("dxp-ui-stepper__icon", className)}>
+    <chakra.div __css={iconStyles} {...rest} className={cx("wave-ui-stepper__icon", className)}>
       {content}
     </chakra.div>
   );
@@ -284,7 +284,7 @@ export const NumberStepperStep = (props: NumberStepperStepProps) => {
       __css={stepStyles}
       data-active={dataAttr(step.isActive)}
       data-completed={dataAttr(step.isCompleted)}
-      className={cx("dxp-ui-stepper__step", props.className)}
+      className={cx("wave-ui-stepper__step", props.className)}
     >
       <NumberStepperIcon icon={icon} isActive={isActive} isCompleted={isCompleted} />
       {title && <NumberStepperStepTitle>{title}</NumberStepperStepTitle>}
@@ -317,7 +317,7 @@ export const NumberStepperSeparator = (props: NumberStepperSeparatorProps) => {
     <chakra.div
       {...rest}
       data-active={dataAttr(isActive)}
-      className={cx("dxp-ui-stepper__separator", props.className)}
+      className={cx("wave-ui-stepper__separator", props.className)}
       __css={separatorStyles}
     />
   );
@@ -336,7 +336,7 @@ export const NumberStepperStepTitle: React.FC<HTMLChakraProps<"p">> = (props) =>
     <chakra.p
       {...props}
       __css={styles.title}
-      className={cx("dxp-ui-stepper__title", props.className)}
+      className={cx("wave-ui-stepper__title", props.className)}
     />
   );
 };
@@ -354,7 +354,7 @@ export const NumberStepperCompleted: React.FC<HTMLChakraProps<"div">> = (props) 
     <chakra.div
       __css={styles.completed}
       {...props}
-      className={cx("dxp-ui-stepper__completed", props.className)}
+      className={cx("wave-ui-stepper__completed", props.className)}
     />
   );
 };

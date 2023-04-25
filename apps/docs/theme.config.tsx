@@ -6,12 +6,12 @@ import { DocsThemeConfig } from "nextra-theme-docs";
 const config: DocsThemeConfig = {
   logo: <span>Company.com Docs</span>,
   project: {
-    link: "https://github.com/companydotcom/dxp",
+    link: "https://github.com/companydotcom/wave",
   },
   chat: {
     link: "https://discord.com",
   },
-  docsRepositoryBase: "https://github.com/companydotcom/dxp/tree/main/apps/docs",
+  docsRepositoryBase: "https://github.com/companydotcom/wave/tree/main/apps/docs",
   footer: {
     text: "Company.com Docs",
   },

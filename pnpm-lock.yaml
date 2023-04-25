@@ -145,14 +145,14 @@ importers:
         specifier: ^4.9.5
         version: 4.9.5
 
-  generators/generator-dxp-service:
+  generators/generator-wave-service:
     dependencies:
       fs-extra:
         specifier: ^11.1.0
         version: 11.1.0
-      generator-dxp-app:
-        specifier: link:/Users/nhumai/company/dxp/generators/generator-dxp-app
-        version: link:../../../../../../Users/nhumai/company/dxp/generators/generator-dxp-app
+      generator-wave-app:
+        specifier: link:/Users/nhumai/company/wave/generators/generator-wave-app
+        version: link:../../../../../../Users/nhumai/company/wave/generators/generator-wave-app
       yeoman-generator:
         specifier: ^5.7.0
         version: 5.8.0
@@ -276,7 +276,7 @@ importers:
         specifier: ^4.9.5
         version: 4.9.5
 
-  packages/create-dxp-app:
+  packages/create-wave-app:
     dependencies:
       '@octokit/rest':
         specifier: ^19.0.7
