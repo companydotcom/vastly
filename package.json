@@ -35,7 +35,7 @@
     "prettier": "latest",
     "tsup": "^6.5.0",
     "tsx": "^3.12.2",
-    "turbo": "latest"
+    "turbo": "^1.9.3"
   },
   "commitlint": {
     "rules": {
