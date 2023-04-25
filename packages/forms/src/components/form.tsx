@@ -144,7 +144,7 @@ export const Form = forwardRef(
           ref={ref}
           onSubmit={handleSubmit(onSubmit, onError)}
           {...rest}
-          className={cx("dxpui-form", props.className)}
+          className={cx("waveui-form", props.className)}
         >
           {runIfFn(children, {
             Field,

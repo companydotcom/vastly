@@ -15,7 +15,6 @@
   "license": "ISC",
   "dependencies": {
     "fs-extra": "^11.1.0",
-    "generator-wave-app": "link:/Users/nhumai/company/wave/generators/generator-wave-app",
     "yeoman-generator": "^5.7.0"
   },
   "devDependencies": {

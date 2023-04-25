@@ -4,7 +4,7 @@ import chalk from "chalk";
 import { generateQuestions } from "./questions/index.js";
 import { generateGithubRepo } from "./utils/generate-github-repo.js";
 import { generateLocalRepo } from "./utils/generate-local-repo.js";
-import { GenerateAnswers } from "../src/types";
+import { GenerateAnswers } from "./types";
 
 const program = new Command();
 program.description("Company.com create-wave-app").parse(process.argv);

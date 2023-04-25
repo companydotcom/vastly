@@ -36,7 +36,7 @@ export const FormLayout = ({ children, ...props }: FormLayoutProps) => {
   };
 
   return (
-    <SimpleGrid {...gridProps} className={cx("dxpui-form__layout", props.className)}>
+    <SimpleGrid {...gridProps} className={cx("waveui-form__layout", props.className)}>
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child)) {
           return <FormLayoutItem>{child}</FormLayoutItem>;
