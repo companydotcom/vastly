@@ -41,7 +41,7 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
 
   const tokenRaw = await encrypt(JSON.stringify(payload));
   const token = new URLSearchParams({ "": tokenRaw || "" }).toString().slice(1);
-  const magicLink = `https://${BASE_URL}/poc/magic-link?email=${email}&token=${token}`;
+  const magicLink = `https://${BASE_URL}/confirm?email=${email}&token=${token}`;
 
   try {
     // the decision to use Cognito’s user attributes has an impact on the number of users
@@ -65,6 +65,7 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
     return {
       statusCode: 404,
       body: JSON.stringify({
+        status: "ERROR",
         message: "User not found",
       }),
     };
@@ -73,7 +74,7 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   await sendEmail(email, magicLink);
   return {
     statusCode: 202,
-    body: JSON.stringify({ message: "accepted" }),
+    body: JSON.stringify({ status: "EMAIL_SENT", message: "The email has been sent!" }),
   };
 };
 

@@ -25,7 +25,7 @@ export default async function login(client: Client) {
         }
       });
 
-    const test = await doEmailLogin(client, email);
+    await doEmailLogin(client, email);
   } catch (err: unknown) {
     output.error(err as string);
   }
