@@ -3,8 +3,8 @@ import cors from "@middy/http-cors";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import middy from "@middy/core";
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
-import { dynamoDocClient, dynamoClient, remove } from "../../lib/dynamodb";
 import { DeleteCommandInput } from "@aws-sdk/lib-dynamodb";
+import { dynamoDocClient, dynamoClient, remove } from "../../lib/dynamodb";
 
 const db = dynamoDocClient;
 const { TABLE_NAME } = process.env;
@@ -49,10 +49,10 @@ async function deleteSecret(secret: string, env: string) {
 
   try {
     const response = await db.send(deleteCommand);
-    dynamoClient.destroy();
     return response;
   } catch (error) {
     console.log("Error deleting secret to database:", error);
+  } finally {
     dynamoClient.destroy();
   }
 }

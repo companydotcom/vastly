@@ -3,8 +3,8 @@ import cors from "@middy/http-cors";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import middy from "@middy/core";
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
-import { get, dynamoClient, dynamoDocClient } from "../../lib/dynamodb";
 import { QueryCommandInput } from "@aws-sdk/lib-dynamodb";
+import { get, dynamoClient, dynamoDocClient } from "../../lib/dynamodb";
 
 const db = dynamoDocClient;
 const { TABLE_NAME } = process.env;
@@ -45,9 +45,10 @@ async function getAllSecrets(env: string) {
 
   try {
     const { Items } = await db.send(queryCommand);
-    dynamoClient.destroy();
     return Items;
   } catch (error) {
+    console.log("Error fetching secrets: ", error);
+  } finally {
     dynamoClient.destroy();
   }
 }

@@ -1,9 +1,8 @@
 import path from "node:path";
 import { findUp } from "find-up";
 import pkg from "fs-extra";
-import yaml from "js-yaml";
-import { Secret } from "../types";
 import chalk from "chalk";
+import { Secret } from "../types";
 
 // Cache directory config and find root
 const { writeFile } = pkg;

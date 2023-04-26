@@ -46,12 +46,12 @@ export default async function addSecret(client: Client) {
         }
       });
 
-    const response = await doAddSecret(client, secret);
-
     spinner = ora({
       text: "Adding your secret to the database...\n",
       color: "yellow",
     }).start();
+
+    const response = await doAddSecret(client, secret);
 
     spinner.succeed(chalk.green("Success!"));
     return response;

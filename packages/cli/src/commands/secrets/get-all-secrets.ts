@@ -2,11 +2,11 @@ import fastGlob from "fast-glob";
 import ora, { Ora } from "ora";
 import chalk from "chalk";
 import inquirer from "inquirer";
+import { findUp } from "find-up";
+import path from "node:path";
 import { Client } from "../../util/client.js";
 import doGetAllSecrets from "../../util/secrets/get-all-secrets.js";
 import writeToFile from "../../util/write-env-files.js";
-import { findUp } from "find-up";
-import path from "node:path";
 
 export default async function getAllSecrets(client: Client) {
   const rootDir = path.dirname((await findUp(["apps", "services", "pnpm-workspace.yaml"])) || ".");

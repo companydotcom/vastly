@@ -3,8 +3,8 @@ import cors from "@middy/http-cors";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import middy from "@middy/core";
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
-import { dynamoDocClient, add, dynamoClient } from "../../lib/dynamodb";
 import { PutCommandInput } from "@aws-sdk/lib-dynamodb";
+import { dynamoDocClient, add, dynamoClient } from "../../lib/dynamodb";
 import { Secret } from "../../lib/types";
 
 const db = dynamoDocClient;
@@ -56,10 +56,10 @@ async function addSecret(newSecret: Secret) {
 
   try {
     const response = await db.send(addCommand);
-    dynamoClient.destroy();
     return response;
   } catch (error) {
     console.log("Error adding secret to database:", error);
+  } finally {
     dynamoClient.destroy();
   }
 }

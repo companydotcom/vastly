@@ -11,7 +11,7 @@ export default async function deleteSecret(client: Client) {
   try {
     let spinner: Ora;
 
-    const secret: any = await inquirer
+    const { environment, secretKey }: Secret = await inquirer
       .prompt([
         {
           type: "text",
@@ -24,10 +24,7 @@ export default async function deleteSecret(client: Client) {
           message: "Which environment?",
         },
       ])
-      .then((a: Secret) => ({
-        environment: a.environment,
-        secretKey: a.secretKey,
-      }))
+      .then((a) => a)
       .catch((error) => {
         if (error.isTtyError) {
           // Prompt couldn't be rendered in the current environment
@@ -38,13 +35,12 @@ export default async function deleteSecret(client: Client) {
         }
       });
 
-    const response = await doDeleteSecret(client, secret);
-
     spinner = ora({
       text: "Adding your secret to the database...\n",
       color: "yellow",
     }).start();
 
+    const response = await doDeleteSecret(client, { secretKey, environment });
     spinner.succeed(chalk.green("Success!"));
     return response;
   } catch (err: unknown) {
