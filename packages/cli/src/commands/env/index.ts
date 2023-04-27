@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import { Client } from "../../util/client.js";
 import addEnv from "./add.js";
-import deleteSecret from "./delete-secret.js";
+import deleteEnv from "./delete.js";
 import getAllSecrets from "./get-all-secrets.js";
 
 export default async function determineEnvCommand(client: Client, action: string) {
@@ -11,7 +11,7 @@ export default async function determineEnvCommand(client: Client, action: string
         await addEnv(client);
         break;
       case "delete":
-        await deleteSecret(client);
+        await deleteEnv(client);
         break;
       case "pull":
         await getAllSecrets(client);

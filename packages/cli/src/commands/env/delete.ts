@@ -2,21 +2,21 @@ import ora, { Ora } from "ora";
 import chalk from "chalk";
 import inquirer from "inquirer";
 import { Client } from "../../util/client.js";
-import doDeleteSecret from "../../util/env/delete-secret.js";
-import { Secret } from "../../types/index.js";
+import doDeleteEnv from "../../util/env/delete.js";
+import { EnvVariable } from "../../types/index.js";
 
-export default async function deleteSecret(client: Client) {
+export default async function deleteEnv(client: Client) {
   const { output } = client;
 
   try {
     let spinner: Ora;
 
-    const { environment, secretKey }: Secret = await inquirer
+    const { environment, key }: EnvVariable = await inquirer
       .prompt([
         {
           type: "text",
-          name: "secretKey",
-          message: "What is the name of the secret you want to delete? (CASE SENSITIVE)",
+          name: "key",
+          message: "What is the name of the variable you want to delete? (CASE SENSITIVE)",
         },
         {
           type: "text",
@@ -36,11 +36,11 @@ export default async function deleteSecret(client: Client) {
       });
 
     spinner = ora({
-      text: "Adding your secret to the database...\n",
+      text: "Adding to the database...\n",
       color: "yellow",
     }).start();
 
-    const response = await doDeleteSecret(client, { secretKey, environment });
+    const response = await doDeleteEnv(client, { key, environment });
     spinner.succeed(chalk.green("Success!"));
     return response;
   } catch (err: unknown) {

@@ -2,7 +2,7 @@ import { EnvVariable } from "../../types/index.js";
 import { Client } from "../client.js";
 import { executeDeleteVariable } from "./index.js";
 
-export default async function doDeleteSecret(client: Client, env: EnvVariable) {
+export default async function doDeleteEnv(client: Client, env: EnvVariable) {
   const { output } = client;
   try {
     const data = await executeDeleteVariable(client, env);
