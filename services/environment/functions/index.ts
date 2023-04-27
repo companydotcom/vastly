@@ -2,8 +2,8 @@ import type { AWS } from "@serverless/typescript";
 
 export const functions: AWS["functions"] = {
   addSecret: {
-    handler: "functions/add-secret/handler.addSecretHandler",
-    description: "Add a secret",
+    handler: "functions/add/handler.addEnvHandler",
+    description: "Add a secret or environment variable",
     events: [
       {
         httpApi: {

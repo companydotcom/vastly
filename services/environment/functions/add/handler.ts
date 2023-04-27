@@ -5,17 +5,23 @@ import middy from "@middy/core";
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { PutCommandInput } from "@aws-sdk/lib-dynamodb";
 import { dynamoDocClient, add, dynamoClient } from "../../lib/dynamodb";
-import { Secret } from "../../lib/types";
+import { EnvVariable } from "../../lib/types";
 
 const db = dynamoDocClient;
 const { TABLE_NAME } = process.env;
 
 const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
+  console.log(
+    "🚀 ~ file: handler.ts:14 ~ constbaseHandler:APIGatewayProxyHandlerV2= ~ event:",
+    event,
+  );
   const env = event?.pathParameters?.env?.toLowerCase();
-  const secret = {
+  const input = {
     environment: env,
-    secretKey: event?.body?.["secretKey"],
-    secretValue: event?.body?.["secretValue"],
+    key: event?.body?.["key"],
+    value: event?.body?.["value"],
+    project_value: `${event?.body?.["project"]}#${event?.body?.["environment"]}`,
+    project: event?.body?.["project"],
   };
 
   if (!env) {
@@ -26,30 +32,30 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   }
 
   try {
-    const response = await addSecret(secret);
+    const response = await addVariable(input);
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: `Secret added successfully ---> ${response}` }),
+      body: JSON.stringify({ message: `Variables added successfully ---> ${response}` }),
     };
   } catch (error) {
     return {
       statusCode: error.statusCode || 501,
-      body: JSON.stringify({ message: `Error adding secret ---> ${error}` }),
+      body: JSON.stringify({ message: `Error adding variable ---> ${error}` }),
     };
   }
 };
 
-async function addSecret(newSecret: Secret) {
+async function addVariable(newVariable: EnvVariable) {
   const params: PutCommandInput = {
-    TableName: TABLE_NAME || "secrets",
-    Item: newSecret,
+    TableName: TABLE_NAME || "env",
+    Item: newVariable,
   };
-  console.log("Adding secret to database...");
-  console.log("Secret Params: ", {
+  console.log("Adding to database...");
+  console.log("ENV Params: ", {
     ...params,
     Item: {
       ...params.Item,
-      secretValue: "******",
+      value: "******",
     },
   });
   const addCommand = new add(params);
@@ -58,14 +64,11 @@ async function addSecret(newSecret: Secret) {
     const response = await db.send(addCommand);
     return response;
   } catch (error) {
-    console.log("Error adding secret to database:", error);
+    console.log("Error adding to database:", error);
   } finally {
     dynamoClient.destroy();
   }
 }
 
-const addSecretHandler = middy(baseHandler)
-  .use(jsonBodyParser())
-  .use(cors())
-  .use(httpErrorHandler());
-export { addSecretHandler };
+const addEnvHandler = middy(baseHandler).use(jsonBodyParser()).use(cors()).use(httpErrorHandler());
+export { addEnvHandler };
