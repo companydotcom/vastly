@@ -102,7 +102,7 @@ const main = async () => {
         break;
       case "env":
         description = "Add, delete, or pull all stored env variables";
-        func = (await import("./commands/secrets/index.js")).default;
+        func = (await import("./commands/env/index.js")).default;
         argument = new Argument("<action>", "Preferred action to preform on a variable").choices([
           "add",
           "delete",
