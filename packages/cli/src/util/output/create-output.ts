@@ -1,24 +1,31 @@
 import chalk from "chalk";
 import ora from "ora";
+import { Writable } from "stream";
 
 export interface OutputOptions {
+  stream: Writable;
   debugEnabled: boolean;
 }
 
 export default function makeOutput(opts: OutputOptions) {
-  const { debugEnabled } = opts;
+  const { debugEnabled, stream } = opts;
   let spinner = ora();
 
+  const print = (str: string) => {
+    spinner.stop();
+    stream.write(str);
+  };
+
   const log = (str: string, color = chalk.grey) => {
-    console.log(color(str));
+    print(color(str));
   };
 
   const error = (str: string) => {
-    console.log(`${chalk.red(`Error:`)} ${str}\n`);
+    print(`${chalk.red(`Error:`)} ${str}\n`);
   };
 
   const success = (str: string) => {
-    console.log(`${chalk.green(`Success!`)} ${str}\n`);
+    print(`${chalk.green(`Success!`)} ${str}\n`);
   };
 
   const debug = (str: string) => {
@@ -32,6 +39,7 @@ export default function makeOutput(opts: OutputOptions) {
     error,
     debug,
     success,
+    print,
     spinner,
   };
 }

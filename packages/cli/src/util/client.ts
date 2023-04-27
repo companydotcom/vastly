@@ -1,7 +1,7 @@
 import { Command } from "commander";
 import { JSONObject } from "@companydotcom/types";
 import fetch, { BodyInit, Headers, RequestInit } from "node-fetch";
-import { Output } from "./output.js";
+import { Output } from "./output/index.js";
 
 export interface FetchOptions extends Omit<RequestInit, "body"> {
   body?: BodyInit | JSONObject;

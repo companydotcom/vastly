@@ -25,7 +25,11 @@ export default async function login(client: Client) {
         }
       });
 
-    await doEmailLogin(client, email);
+    const result = await doEmailLogin(client, email);
+
+    if (result) {
+      // write result (tokens) to config file here
+    }
   } catch (err: unknown) {
     output.error(err as string);
   }

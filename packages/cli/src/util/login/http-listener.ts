@@ -2,6 +2,7 @@ import * as http from "http";
 import * as url from "url";
 import { IncomingMessage, ServerResponse } from "http";
 import { Amplify, Auth } from "aws-amplify";
+import { Client } from "../client";
 
 Amplify.configure({
   Auth: {
@@ -15,7 +16,10 @@ Amplify.configure({
 function handleRequest(
   resolve: (value: { access_token: string; id_token: string; refresh_token: string }) => void,
   server: http.Server,
+  client: Client,
 ) {
+  const { output } = client;
+
   return async (req: IncomingMessage, res: ServerResponse) => {
     const parsedUrl = url.parse(req.url || "", true);
     const { email, token } = parsedUrl.query;
@@ -30,17 +34,19 @@ function handleRequest(
       const cognitoUser = await Auth.signIn(email.toString());
       const authResponse = await Auth.sendCustomChallengeAnswer(cognitoUser, token.toString());
 
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end("You're logged in.  You can close the browser now.");
+      if (authResponse) {
+        res.writeHead(200, { "Content-Type": "application/json" });
+        res.end("You're logged in.  You can close the browser now.");
 
-      resolve({
-        access_token: authResponse.signInUserSession?.accessToken || "",
-        id_token: authResponse.signInUserSession?.idToken || "",
-        refresh_token: authResponse.signInUserSession?.refreshToken || "",
-      });
+        resolve({
+          access_token: authResponse.signInUserSession?.accessToken || "",
+          id_token: authResponse.signInUserSession?.idToken || "",
+          refresh_token: authResponse.signInUserSession?.refreshToken || "",
+        });
+      }
 
       server.close(() => {
-        console.log("HTTP listener stopped");
+        output.spinner.succeed("Verification Success");
       });
     } catch (error) {
       res.writeHead(500, { "Content-Type": "application/json" });
@@ -52,19 +58,22 @@ function handleRequest(
   };
 }
 
-export function startHttpListener(): Promise<{ access_token: string; id_token: string }> {
+export function startHttpListener(
+  client: Client,
+): Promise<{ access_token: string; id_token: string }> {
+  const { output } = client;
+
   return new Promise((resolve) => {
     const server = http.createServer();
-    const requestHandler = handleRequest(resolve, server);
+    const requestHandler = handleRequest(resolve, server, client);
     server.on("request", requestHandler);
 
     server.listen(5001, () => {
-      console.log("HTTP listener started on port 5001");
+      output.spinner.start("\nWaiting for verification\n");
     });
 
     process.on("SIGINT", () => {
       server.close(() => {
-        console.log("HTTP listener stopped");
         process.exit(0);
       });
     });

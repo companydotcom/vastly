@@ -35,6 +35,7 @@
     "@aws-sdk/client-cognito-identity-provider": "^3.298.0",
     "@aws-sdk/credential-providers": "^3.321.1",
     "@aws-sdk/types": "^3.310.0",
+    "ansi-escapes": "^6.2.0",
     "aws-amplify": "^5.1.2",
     "chalk": "^4.1.2",
     "commander": "^10.0.0",
