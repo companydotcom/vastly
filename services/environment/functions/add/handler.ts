@@ -11,17 +11,14 @@ const db = dynamoDocClient;
 const { TABLE_NAME } = process.env;
 
 const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
-  console.log(
-    "🚀 ~ file: handler.ts:14 ~ constbaseHandler:APIGatewayProxyHandlerV2= ~ event:",
-    event,
-  );
+  console.log("EVENT ----->", event);
   const env = event?.pathParameters?.env?.toLowerCase();
   const input = {
     environment: env,
     key: event?.body?.["key"],
     value: event?.body?.["value"],
-    project_value: `${event?.body?.["project"]}#${event?.body?.["environment"]}`,
-    project: event?.body?.["project"],
+    project_environment: `${event?.body?.["project"]}#${event?.body?.["environment"]}`,
+    projects: event?.body?.["project"],
   };
 
   if (!env) {
