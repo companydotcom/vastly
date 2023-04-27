@@ -16,12 +16,12 @@ export default async function addEnv(client: Client) {
         {
           type: "text",
           name: "key",
-          message: "What is the name of your secret?",
+          message: "What is the name of your env variable?",
         },
         {
           type: "password",
           name: "value",
-          message: "What is the value of your secret?",
+          message: "What is the value of your env variable?",
           mask: "*",
         },
         {
