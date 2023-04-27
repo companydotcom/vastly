@@ -73,6 +73,7 @@ const main = async () => {
     }
   }
 
+  // Shared client instance for all subcommands to use
   const client = clientUtil.default({
     program: commander,
     output,
