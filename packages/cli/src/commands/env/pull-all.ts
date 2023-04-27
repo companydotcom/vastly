@@ -5,10 +5,10 @@ import inquirer from "inquirer";
 import { findUp } from "find-up";
 import path from "node:path";
 import { Client } from "../../util/client.js";
-import doGetAllSecrets from "../../util/env/get-all-secrets.js";
+import doPullAllEnv from "../../util/env/get-all-secrets.js";
 import writeToFile from "../../util/write-env-files.js";
 
-export default async function getAllSecrets(client: Client) {
+export default async function pullAllEnv(client: Client) {
   const rootDir = path.dirname((await findUp(["apps", "services", "pnpm-workspace.yaml"])) || ".");
   const allDirs = await fastGlob(["apps/*/", "services/*/"], {
     cwd: rootDir,
@@ -52,13 +52,13 @@ export default async function getAllSecrets(client: Client) {
       });
 
     spinner = ora({
-      text: `Fetching your secrets for ${answers.environment}...\n`,
+      text: `Fetching your variables for ${answers.environment}...\n`,
       color: "yellow",
     }).start();
 
-    const response = await doGetAllSecrets(client, answers);
+    const response = await doPullAllEnv(client, answers);
     if (response?.length) {
-      spinner.succeed(chalk.green(`Secrets for ${answers.environment} successfully fetched!`));
+      spinner.succeed(chalk.green(`Variables for ${answers.environment} successfully fetched!`));
 
       spinner = ora({
         text: "Creating .env file...\n",
