@@ -29,7 +29,7 @@ export async function executeDeleteVariable(client: Client, env: EnvVariable): P
   }
 }
 
-export async function executeGetAllSecrets(
+export async function executePullAllVariables(
   client: Client,
   { environment, directory }: { environment: string; directory: string[] },
 ): Promise<EnvVariable[]> {

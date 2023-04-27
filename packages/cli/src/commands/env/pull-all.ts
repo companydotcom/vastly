@@ -5,7 +5,7 @@ import inquirer from "inquirer";
 import { findUp } from "find-up";
 import path from "node:path";
 import { Client } from "../../util/client.js";
-import doPullAllEnv from "../../util/env/get-all-secrets.js";
+import doPullAllEnv from "../../util/env/pull-all.js";
 import writeToFile from "../../util/write-env-files.js";
 
 export default async function pullAllEnv(client: Client) {
