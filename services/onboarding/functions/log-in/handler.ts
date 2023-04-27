@@ -41,7 +41,7 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
 
   const tokenRaw = await encrypt(JSON.stringify(payload));
   const token = new URLSearchParams({ "": tokenRaw || "" }).toString().slice(1);
-  const magicLink = `https://${BASE_URL}/confirm?email=${email}&token=${token}`;
+  const magicLink = `http://${BASE_URL}?email=${email}&token=${token}`;
 
   try {
     // the decision to use Cognito’s user attributes has an impact on the number of users
@@ -80,7 +80,7 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
 
 async function sendEmail(emailAddress: string, magicLink: string) {
   try {
-    const command = new SendEmailCommand({
+    const emailInput = {
       Destination: {
         ToAddresses: [emailAddress],
       },
@@ -102,7 +102,11 @@ async function sendEmail(emailAddress: string, magicLink: string) {
           },
         },
       },
-    });
+    };
+
+    console.log(emailInput);
+
+    const command = new SendEmailCommand(emailInput);
 
     await sesClient.send(command);
   } catch (error) {
