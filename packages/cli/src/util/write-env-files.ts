@@ -2,14 +2,14 @@ import path from "node:path";
 import { findUp } from "find-up";
 import pkg from "fs-extra";
 import chalk from "chalk";
-import { Secret } from "../types";
+import { EnvVariable } from "../types";
 
 // Cache directory config and find root
 const { writeFile } = pkg;
 const config = ["apps", "services", "pnpm-workspace.yaml"];
 const rootDir = path.dirname((await findUp(config, { type: "directory" })) || ".");
 
-export default async function writeToFile(data: Secret[], directory: string[] | ["root"]) {
+export default async function writeToFile(data: EnvVariable[], directory: string[] | ["root"]) {
   const content = convertJSONToEnv(data);
   // const contentYAML = yaml.dump(data);
 
@@ -38,7 +38,7 @@ export default async function writeToFile(data: Secret[], directory: string[] | 
 
 const convertJSONToEnv = (items: Record<string, any>[]): string => {
   return items.reduce((envFile, item) => {
-    return envFile + `${item.secretKey}=${item.secretValue}\n`;
+    return envFile + `${item.key}=${item.value}\n`;
   }, "");
 };
 
