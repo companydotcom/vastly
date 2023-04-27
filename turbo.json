@@ -6,7 +6,8 @@
     "SES_FROM_ADDRESS",
     "USER_POOL_ID",
     "BASE_URL",
-    "AWS_REGION"
+    "AWS_REGION",
+    "TABLE_NAME"
   ],
   "pipeline": {
     "build": {
