@@ -2,7 +2,7 @@ import ora, { Ora } from "ora";
 import chalk from "chalk";
 import inquirer from "inquirer";
 import { Client } from "../../util/client.js";
-import doAddSecret from "../../util/secrets/add-secret.js";
+import doAddSecret from "../../util/env/add-secret.js";
 import { Secret } from "../../types/index.js";
 
 export default async function addSecret(client: Client) {

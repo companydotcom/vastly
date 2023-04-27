@@ -100,10 +100,10 @@ const main = async () => {
         description = "Log out of company.com";
         func = (await import("./commands/logout.js")).default;
         break;
-      case "secret":
-        description = "Add, delete, or pull all stored secrets";
+      case "env":
+        description = "Add, delete, or pull all stored env variables";
         func = (await import("./commands/secrets/index.js")).default;
-        argument = new Argument("<action>", "Preferred action to preform on a secret").choices([
+        argument = new Argument("<action>", "Preferred action to preform on a variable").choices([
           "add",
           "delete",
           "pull",

@@ -51,18 +51,18 @@ const serverlessConfiguration: AWS = {
               AttributeName: "project_environment",
               AttributeType: "S",
             },
-            {
-              AttributeName: "environment",
-              AttributeType: "S",
-            },
-            {
-              AttributeName: "project",
-              AttributeType: "S",
-            },
-            {
-              AttributeName: "value",
-              AttributeType: "S",
-            },
+            // {
+            //   AttributeName: "environment",
+            //   AttributeType: "S",
+            // },
+            // {
+            //   AttributeName: "project",
+            //   AttributeType: "S",
+            // },
+            // {
+            //   AttributeName: "value",
+            //   AttributeType: "S",
+            // },
           ],
           KeySchema: [
             {

@@ -2,7 +2,7 @@ import ora, { Ora } from "ora";
 import chalk from "chalk";
 import inquirer from "inquirer";
 import { Client } from "../../util/client.js";
-import doDeleteSecret from "../../util/secrets/delete-secret.js";
+import doDeleteSecret from "../../util/env/delete-secret.js";
 import { Secret } from "../../types/index.js";
 
 export default async function deleteSecret(client: Client) {
