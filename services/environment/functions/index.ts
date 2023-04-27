@@ -19,7 +19,7 @@ export const functions: AWS["functions"] = {
         Action: "dynamodb:PutItem",
         Resource: [
           {
-            "Fn::GetAtt": ["SecretsTable", "Arn"],
+            "Fn::GetAtt": ["EnvTable", "Arn"],
           },
         ],
       },
@@ -43,20 +43,20 @@ export const functions: AWS["functions"] = {
         Action: "dynamodb:PutItem",
         Resource: [
           {
-            "Fn::GetAtt": ["SecretsTable", "Arn"],
+            "Fn::GetAtt": ["EnvTable", "Arn"],
           },
         ],
       },
     ],
   },
-  getAllSecrets: {
-    handler: "functions/get-secrets/handler.getAllSecretsHandler",
-    description: "Fetch all secrets per environment",
+  getAllEnv: {
+    handler: "functions/pull/handler.getAllEnvHandler",
+    description: "Fetch all secrets and variables per environment and project",
     events: [
       {
         httpApi: {
           method: "GET",
-          path: "/{env}/secrets",
+          path: "/{env}/env",
         },
       },
     ],
@@ -67,7 +67,7 @@ export const functions: AWS["functions"] = {
         Action: "dynamodb:PutItem",
         Resource: [
           {
-            "Fn::GetAtt": ["SecretsTable", "Arn"],
+            "Fn::GetAtt": ["EnvTable", "Arn"],
           },
         ],
       },

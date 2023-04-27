@@ -4,7 +4,7 @@ import jsonBodyParser from "@middy/http-json-body-parser";
 import middy from "@middy/core";
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { QueryCommandInput } from "@aws-sdk/lib-dynamodb";
-import { get, dynamoClient, dynamoDocClient } from "../../lib/dynamodb";
+import { pull, dynamoClient, dynamoDocClient } from "../../lib/dynamodb";
 
 const db = dynamoDocClient;
 const { TABLE_NAME } = process.env;
@@ -19,7 +19,7 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   }
 
   try {
-    const response = await getAllSecrets(env);
+    const response = await getAllEnv(env);
     return {
       statusCode: 200,
       body: JSON.stringify(response),
@@ -32,30 +32,30 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   }
 };
 
-async function getAllSecrets(env: string) {
-  console.log(`Fetching secrets for ${env}...`);
+async function getAllEnv(env: string) {
+  console.log(`Fetching variables for ${env}...`);
   const input: QueryCommandInput = {
     ExpressionAttributeValues: {
       ":v1": env,
     },
     KeyConditionExpression: "environment = :v1",
-    TableName: TABLE_NAME || "secrets",
+    TableName: TABLE_NAME || "env",
   };
-  const queryCommand = new get(input);
+  const queryCommand = new pull(input);
 
   try {
     const { Items } = await db.send(queryCommand);
     return Items;
   } catch (error) {
-    console.log("Error fetching secrets: ", error);
+    console.log("Error fetching variables: ", error);
   } finally {
     dynamoClient.destroy();
   }
 }
 
-const getAllSecretsHandler = middy(baseHandler)
+const getAllEnvHandler = middy(baseHandler)
   .use(jsonBodyParser())
   .use(cors())
   .use(httpErrorHandler());
 
-export { getAllSecretsHandler };
+export { getAllEnvHandler };
