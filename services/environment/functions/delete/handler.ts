@@ -11,7 +11,7 @@ const { TABLE_NAME } = process.env;
 
 const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   const env = event?.pathParameters?.env?.toLowerCase();
-  const secretKey = event.body as string;
+  const key = event.body as string;
 
   if (!env) {
     return {
@@ -21,44 +21,44 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   }
 
   try {
-    const response = await deleteSecret(secretKey, env);
-    console.log("Deleting secret...");
+    const response = await deleteVariable(key, env);
+    console.log("Deleting...");
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: `Secret deleted successfully ---> ${response}` }),
+      body: JSON.stringify({ message: `Variable deleted successfully ---> ${response}` }),
     };
   } catch (error) {
     return {
       statusCode: error.statusCode || 501,
-      body: JSON.stringify({ message: `Error deleting secret ---> ${error}` }),
+      body: JSON.stringify({ message: `Error deleting variable ---> ${error}` }),
     };
   }
 };
 
-async function deleteSecret(secret: string, env: string) {
+async function deleteVariable(key: string, env: string) {
   const params: DeleteCommandInput = {
-    TableName: TABLE_NAME || "secrets",
+    TableName: TABLE_NAME || "env",
     Key: {
       environment: env,
-      secretKey: secret,
+      key,
     },
   };
-  console.log("Removing secret from database...");
-  console.log(`SecretKey: ${params.Key}`);
+  console.log("Removing variable from database...");
+  console.log(`EnvKey: ${params.Key}`);
   const deleteCommand = new remove(params);
 
   try {
     const response = await db.send(deleteCommand);
     return response;
   } catch (error) {
-    console.log("Error deleting secret to database:", error);
+    console.log("Error deleting from database:", error);
   } finally {
     dynamoClient.destroy();
   }
 }
 
-const deleteSecretHandler = middy(baseHandler)
+const deleteEnvHandler = middy(baseHandler)
   .use(jsonBodyParser())
   .use(cors())
   .use(httpErrorHandler());
-export { deleteSecretHandler };
+export { deleteEnvHandler };

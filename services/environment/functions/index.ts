@@ -1,14 +1,14 @@
 import type { AWS } from "@serverless/typescript";
 
 export const functions: AWS["functions"] = {
-  addSecret: {
+  addEnv: {
     handler: "functions/add/handler.addEnvHandler",
     description: "Add a secret or environment variable",
     events: [
       {
         httpApi: {
           method: "POST",
-          path: "/{env}/secrets",
+          path: "/{env}/env",
         },
       },
     ],
@@ -25,14 +25,14 @@ export const functions: AWS["functions"] = {
       },
     ],
   },
-  deleteSecret: {
-    handler: "functions/delete-secret/handler.deleteSecretHandler",
-    description: "Delete a secret",
+  deleteEnv: {
+    handler: "functions/delete/handler.deleteEnvHandler",
+    description: "Delete a secret or environment variable",
     events: [
       {
         httpApi: {
           method: "DELETE",
-          path: "/{env}/secrets",
+          path: "/{env}/env",
         },
       },
     ],
