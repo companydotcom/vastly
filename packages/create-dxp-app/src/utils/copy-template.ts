@@ -20,7 +20,7 @@ export const copyTemplate = async (packageManager: PackageManagerName): Promise<
 
     //copy template
     let sharedTemplate = path.resolve(__dirname, "../../src/templates", `_shared_ts`);
-    fse.copySync(sharedTemplate, "./", { recursive: true });
+    fse.copySync(sharedTemplate, "./");
 
     //check package manager version is supported
     let packageManagerVersion = getPackageManagerVersion(packageManager);
@@ -39,7 +39,6 @@ export const copyTemplate = async (packageManager: PackageManagerName): Promise<
     );
     if (fse.existsSync(packageManagerTemplate)) {
       fse.copySync(packageManagerTemplate, "./", {
-        recursive: true,
         overwrite: true,
       });
     }
