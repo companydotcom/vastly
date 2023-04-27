@@ -15,13 +15,13 @@ export async function executeAddVariable(client: Client, env: EnvVariable): Prom
   }
 }
 
-export async function executeDeleteSecret(client: Client, secret: EnvVariable): Promise<EnvResult> {
+export async function executeDeleteVariable(client: Client, env: EnvVariable): Promise<EnvResult> {
   try {
     return await client.fetch<EnvResult>(
-      `https://96dcyft9wj.execute-api.us-east-1.amazonaws.com/${secret.environment}/env`,
+      `https://96dcyft9wj.execute-api.us-east-1.amazonaws.com/${env.environment}/env`,
       {
         method: "DELETE",
-        body: secret.key,
+        body: env.key,
       },
     );
   } catch (err: unknown) {
