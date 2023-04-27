@@ -39,9 +39,9 @@ function handleRequest(
         res.end("You're logged in.  You can close the browser now.");
 
         resolve({
-          access_token: authResponse.signInUserSession?.accessToken || "",
-          id_token: authResponse.signInUserSession?.idToken || "",
-          refresh_token: authResponse.signInUserSession?.refreshToken || "",
+          access_token: authResponse.signInUserSession?.accessToken?.jwtToken || "",
+          id_token: authResponse.signInUserSession?.idToken?.jwtToken || "",
+          refresh_token: authResponse.signInUserSession?.refreshToken?.jwtToken || "",
         });
       }
 
@@ -69,7 +69,7 @@ export function startHttpListener(
     server.on("request", requestHandler);
 
     server.listen(5001, () => {
-      output.spinner.start("\nWaiting for verification\n");
+      output.spinner.start("Waiting for verification\n");
     });
 
     process.on("SIGINT", () => {
