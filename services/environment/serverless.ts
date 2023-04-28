@@ -42,36 +42,24 @@ const serverlessConfiguration: AWS = {
         Type: "AWS::DynamoDB::Table",
         Properties: {
           TableName: "env",
-          AttributeDefinitions: [
-            {
-              AttributeName: "key",
-              AttributeType: "S",
-            },
-            {
-              AttributeName: "project_environment",
-              AttributeType: "S",
-            },
-            // {
-            //   AttributeName: "environment",
-            //   AttributeType: "S",
-            // },
-            // {
-            //   AttributeName: "project",
-            //   AttributeType: "S",
-            // },
-            // {
-            //   AttributeName: "value",
-            //   AttributeType: "S",
-            // },
-          ],
           KeySchema: [
             {
-              AttributeName: "project_environment",
+              AttributeName: "projects",
               KeyType: "HASH",
             },
             {
-              AttributeName: "key",
+              AttributeName: "environment_keyName",
               KeyType: "RANGE",
+            },
+          ],
+          AttributeDefinitions: [
+            {
+              AttributeName: "projects",
+              AttributeType: "S",
+            },
+            {
+              AttributeName: "environment_keyName",
+              AttributeType: "S",
             },
           ],
           ProvisionedThroughput: {

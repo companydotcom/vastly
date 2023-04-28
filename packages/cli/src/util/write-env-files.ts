@@ -38,7 +38,8 @@ export default async function writeToFile(data: EnvVariable[], directory: string
 
 const convertJSONToEnv = (items: Record<string, any>[]): string => {
   return items.reduce((envFile, item) => {
-    return envFile + `${item.key}=${item.value}\n`;
+    const key = item.environment_keyName.split(":")[1];
+    return envFile + `${key}=${item.keyValue}\n`;
   }, "");
 };
 

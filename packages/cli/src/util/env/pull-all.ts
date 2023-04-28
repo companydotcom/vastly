@@ -1,9 +1,9 @@
 import { Client } from "../client.js";
 import { executePullAllVariables } from "./index.js";
 
-export default async function doPullAllEnv(
+export async function doPullEnv(
   client: Client,
-  env: { environment: string; directory: string[] },
+  env: { environment?: string; projects?: string; eventType: string },
 ) {
   const { output } = client;
   try {

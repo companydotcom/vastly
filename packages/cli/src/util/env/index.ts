@@ -4,7 +4,7 @@ import { Client } from "../client.js";
 export async function executeAddVariable(client: Client, env: EnvVariable): Promise<EnvResult> {
   try {
     return await client.fetch<EnvResult>(
-      `https://96dcyft9wj.execute-api.us-east-1.amazonaws.com/${env.environment}/env`,
+      `https://3qbwszlve1.execute-api.us-east-1.amazonaws.com/${env.environment}/env`,
       {
         method: "POST",
         body: env,
@@ -18,7 +18,7 @@ export async function executeAddVariable(client: Client, env: EnvVariable): Prom
 export async function executeDeleteVariable(client: Client, env: EnvVariable): Promise<EnvResult> {
   try {
     return await client.fetch<EnvResult>(
-      `https://96dcyft9wj.execute-api.us-east-1.amazonaws.com/${env.environment}/env`,
+      `https://3qbwszlve1.execute-api.us-east-1.amazonaws.com/env/${env.environment}`,
       {
         method: "DELETE",
         body: env.key,
@@ -31,11 +31,15 @@ export async function executeDeleteVariable(client: Client, env: EnvVariable): P
 
 export async function executePullAllVariables(
   client: Client,
-  { environment, directory }: { environment: string; directory: string[] },
-): Promise<EnvVariable[]> {
+  {
+    environment = "dev",
+    projects,
+    eventType,
+  }: { environment?: string; projects?: string; eventType: string },
+): Promise<any> {
   try {
-    return await client.fetch<EnvVariable[]>(
-      `https://96dcyft9wj.execute-api.us-east-1.amazonaws.com/${environment}/env`,
+    return await client.fetch<any>(
+      `http://localhost:4000/env/${environment}?event=${eventType}&p=${projects}`,
       {
         method: "GET",
       },

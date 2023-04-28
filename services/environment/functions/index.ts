@@ -8,7 +8,7 @@ export const functions: AWS["functions"] = {
       {
         httpApi: {
           method: "POST",
-          path: "/{env}/env",
+          path: "/env/{env}",
         },
       },
     ],
@@ -32,7 +32,7 @@ export const functions: AWS["functions"] = {
       {
         httpApi: {
           method: "DELETE",
-          path: "/{env}/env",
+          path: "/env/{env}",
         },
       },
     ],
@@ -56,7 +56,7 @@ export const functions: AWS["functions"] = {
       {
         httpApi: {
           method: "GET",
-          path: "/{env}/env",
+          path: "/env/{env}",
         },
       },
     ],
@@ -64,7 +64,16 @@ export const functions: AWS["functions"] = {
     iamRoleStatements: [
       {
         Effect: "Allow",
-        Action: "dynamodb:PutItem",
+        Action: "dynamodb:Query",
+        Resource: [
+          {
+            "Fn::GetAtt": ["EnvTable", "Arn"],
+          },
+        ],
+      },
+      {
+        Effect: "Allow",
+        Action: "dynamodb:Scan",
         Resource: [
           {
             "Fn::GetAtt": ["EnvTable", "Arn"],
