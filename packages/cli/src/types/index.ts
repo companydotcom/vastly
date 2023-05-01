@@ -7,8 +7,8 @@ export interface EnvResult {
 }
 export interface EnvVariable {
   environment?: string;
-  key?: string;
-  value?: string;
-  project?: string;
-  project_environment?: string;
+  keyName?: string;
+  keyValue?: string;
+  projects?: string;
+  environment_keyName?: string;
 }

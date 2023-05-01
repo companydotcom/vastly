@@ -4,7 +4,7 @@ import { Client } from "../client.js";
 export async function executeAddVariable(client: Client, env: EnvVariable): Promise<EnvResult> {
   try {
     return await client.fetch<EnvResult>(
-      `https://3qbwszlve1.execute-api.us-east-1.amazonaws.com/${env.environment}/env`,
+      `https://3qbwszlve1.execute-api.us-east-1.amazonaws.com/env/${env.environment}`,
       {
         method: "POST",
         body: env,
@@ -21,7 +21,7 @@ export async function executeDeleteVariable(client: Client, env: EnvVariable): P
       `https://3qbwszlve1.execute-api.us-east-1.amazonaws.com/env/${env.environment}`,
       {
         method: "DELETE",
-        body: env.key,
+        body: env.keyName,
       },
     );
   } catch (err: unknown) {

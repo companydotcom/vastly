@@ -4,6 +4,7 @@ import inquirer from "inquirer";
 import { Client } from "../../util/client.js";
 import doAddEnv from "../../util/env/add.js";
 import { EnvVariable } from "../../types/index.js";
+import { doPullEnv } from "../../util/env/pull-all.js";
 
 export default async function addEnv(client: Client) {
   const { output } = client;
@@ -11,36 +12,58 @@ export default async function addEnv(client: Client) {
   try {
     let spinner: Ora;
 
+    spinner = ora({
+      text: `Fetching your projects...\n`,
+      color: "yellow",
+    }).start();
+
+    let projects = await doPullEnv(client, { eventType: "pull-projects" });
+    if (!projects?.length) {
+      spinner.succeed(
+        chalk.bgMagentaBright(
+          "  No projects found! Let's get started adding a new env variable :D  \n",
+        ),
+      );
+      projects = [];
+    } else {
+      spinner.succeed();
+    }
+
     const input: any = await inquirer
       .prompt([
         {
           type: "text",
-          name: "key",
-          message: "What is the name of your env variable?",
+          name: "keyName",
+          message: "What is the NAME of your env variable?",
         },
         {
           type: "password",
-          name: "value",
-          message: "What is the value of your env variable?",
+          name: "keyValue",
+          message: "What is the VALUE of your env variable?",
           mask: "*",
         },
         {
-          type: "text",
+          type: "list",
           name: "environment",
-          message: "Which environment?",
+          message: "Which ENVIRONMENT is this for?",
+          choices: ["dev", "prod"],
         },
         {
           type: "text",
-          name: "project",
-          message: "Which project?",
+          name: "projects",
+          message: "What is the name of your PROJECT?",
+          choices: projects,
+          when: () => !projects?.length,
+        },
+        {
+          type: "list",
+          name: "projects",
+          message: "Which PROJECT is this for?",
+          choices: projects,
+          when: () => projects?.length,
         },
       ])
-      .then((a: EnvVariable) => ({
-        environment: a.environment,
-        key: a.key,
-        value: a.value,
-        project: a.project,
-      }))
+      .then((a: EnvVariable) => a)
       .catch((error) => {
         if (error.isTtyError) {
           // Prompt couldn't be rendered in the current environment

@@ -11,7 +11,7 @@ export default async function deleteEnv(client: Client) {
   try {
     let spinner: Ora;
 
-    const { environment, key }: EnvVariable = await inquirer
+    const { environment, keyName }: EnvVariable = await inquirer
       .prompt([
         {
           type: "text",
@@ -40,7 +40,7 @@ export default async function deleteEnv(client: Client) {
       color: "yellow",
     }).start();
 
-    const response = await doDeleteEnv(client, { key, environment });
+    const response = await doDeleteEnv(client, { keyName, environment });
     spinner.succeed(chalk.green("Success!"));
     return response;
   } catch (err: unknown) {

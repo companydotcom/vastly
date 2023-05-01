@@ -14,11 +14,10 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   console.log("EVENT ----->", event);
   const env = event?.pathParameters?.env?.toLowerCase();
   const input = {
-    environment: env,
-    key: event?.body?.["key"],
-    value: event?.body?.["value"],
-    project_environment: `${event?.body?.["project"]}#${event?.body?.["environment"]}`,
-    projects: event?.body?.["project"],
+    keyName: event?.body?.["keyName"],
+    keyValue: event?.body?.["keyValue"],
+    environment_keyName: `${env}:${event?.body?.["keyName"]}`,
+    projects: event?.body?.["projects"],
   };
 
   if (!env) {
@@ -52,7 +51,7 @@ async function addVariable(newVariable: EnvVariable) {
     ...params,
     Item: {
       ...params.Item,
-      value: "******",
+      keyValue: "******",
     },
   });
   const addCommand = new add(params);
