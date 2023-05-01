@@ -32,7 +32,6 @@ export async function executeDeleteVariable(
   }
 }
 
-// TODO: retype this please
 export async function executePullAllVariables(
   client: Client,
   {
