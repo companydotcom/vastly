@@ -29,6 +29,7 @@ export async function executeDeleteVariable(client: Client, env: EnvVariable): P
   }
 }
 
+// TODO: retype this please
 export async function executePullAllVariables(
   client: Client,
   {
@@ -36,10 +37,10 @@ export async function executePullAllVariables(
     projects,
     eventType,
   }: { environment?: string; projects?: string; eventType: string },
-): Promise<any> {
+): Promise<EnvVariable[]> {
   try {
-    return await client.fetch<any>(
-      `http://localhost:4000/env/${environment}?event=${eventType}&p=${projects}`,
+    return await client.fetch<EnvVariable[]>(
+      `https://3qbwszlve1.execute-api.us-east-1.amazonaws.com/env/${environment}?event=${eventType}&p=${projects}`,
       {
         method: "GET",
       },

@@ -90,7 +90,7 @@ async function getAllProjects() {
 
     // Returns only unique values
     const projects = new Set<string>();
-    Items?.forEach((item: Record<string, any>) => {
+    Items?.forEach((item: Record<string, string>) => {
       projects.add(item["projects"]);
     });
     console.log([...projects]);

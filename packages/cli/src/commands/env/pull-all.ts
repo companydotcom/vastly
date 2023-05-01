@@ -26,9 +26,9 @@ export default async function pullAllEnv(client: Client) {
       color: "yellow",
     }).start();
 
-    // Grabs projects from data
+    // Grabs projects from data, throws error if no projects are found
     const projects = await doPullEnv(client, { eventType: "pull-projects" });
-    if (!projects.length) {
+    if (!projects?.length) {
       spinner.fail(chalk.bgMagentaBright("  No projects found! Add an env to get started :D  "));
       throw new Error("Command failed with exit code 1");
     }
