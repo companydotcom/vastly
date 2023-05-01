@@ -11,7 +11,8 @@ const { TABLE_NAME } = process.env;
 
 const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   const env = event?.pathParameters?.env?.toLowerCase();
-  const key = event.body as string;
+  const project = event?.queryStringParameters?.["p"] || "";
+  const keyName = event.body as string;
 
   if (!env) {
     return {
@@ -21,7 +22,7 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   }
 
   try {
-    const response = await deleteVariable(key, env);
+    const response = await deleteVariable(keyName, env, project);
     console.log("Deleting...");
     return {
       statusCode: 200,
@@ -35,12 +36,12 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   }
 };
 
-async function deleteVariable(key: string, env: string) {
+async function deleteVariable(key: string, env: string, projects: string) {
   const params: DeleteCommandInput = {
     TableName: TABLE_NAME || "env",
     Key: {
-      environment: env,
-      key,
+      environment_keyName: `${env}:${key}`,
+      projects,
     },
   };
   console.log("Removing variable from database...");

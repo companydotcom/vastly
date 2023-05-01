@@ -29,6 +29,12 @@ const baseHandler: APIGatewayProxyHandlerV2 = async ({ pathParameters, queryStri
         break;
       case "pull-env":
         response = await getAllEnv(env, project);
+        break;
+      case "pull-keys":
+        response = await getKeyNames(env, project);
+        break;
+      default:
+        break;
     }
 
     return {
@@ -49,14 +55,10 @@ async function getAllEnv(env: string, proj: string) {
   // Psycho AWS login: if projects = 'input project' AND env_keyName starts with 'input env'
   const input: QueryCommandInput = {
     TableName: TABLE_NAME || "env",
-    KeyConditionExpression: "#pk = :pk and begins_with(#sk, :sk)",
-    ExpressionAttributeNames: {
-      "#pk": "projects",
-      "#sk": "environment_keyName",
-    },
+    KeyConditionExpression: "projects = :project and begins_with(environment_keyName, :env)",
     ExpressionAttributeValues: {
-      ":pk": proj,
-      ":sk": env,
+      ":project": proj,
+      ":env": `${env}:`,
     },
     ProjectionExpression: "environment_keyName, keyValue",
   };
@@ -99,6 +101,28 @@ async function getAllProjects() {
     console.log("Error fetching variables: ", error);
   } finally {
     dynamoClient.destroy();
+  }
+}
+
+async function getKeyNames(env: string, proj: string) {
+  const params = {
+    TableName: "your-table-name",
+    KeyConditionExpression: "projects = :project and begins_with(environment_keyName, :env)",
+    ExpressionAttributeValues: {
+      ":project": proj,
+      ":env": `${env}:`,
+    },
+    ProjectionExpression: "environment_keyName",
+  };
+
+  const command = new pull(params);
+
+  try {
+    const { Items } = await db.send(command);
+    const keyNames = Items?.map((item) => item.environment_keyName.S.split(":")[1]);
+    return keyNames;
+  } catch (err) {
+    console.error(err);
   }
 }
 

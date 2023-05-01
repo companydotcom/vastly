@@ -4,6 +4,7 @@ import inquirer from "inquirer";
 import { Client } from "../../util/client.js";
 import doDeleteEnv from "../../util/env/delete.js";
 import { EnvVariable } from "../../types/index.js";
+import { doPullEnv } from "../../util/env/pull-all.js";
 
 export default async function deleteEnv(client: Client) {
   const { output } = client;
@@ -11,17 +12,42 @@ export default async function deleteEnv(client: Client) {
   try {
     let spinner: Ora;
 
-    const { environment, keyName }: EnvVariable = await inquirer
+    spinner = ora({
+      text: `Fetching your keys...\n`,
+      color: "yellow",
+    }).start();
+
+    // Grabs projects from data, throws error if no projects are found
+    let keys;
+    const projects = await doPullEnv(client, { eventType: "pull-projects" });
+    if (!projects?.length) {
+      spinner.fail(
+        chalk.bgMagentaBright("  No secrets or env found! Add an env to get started :D  \n"),
+      );
+      throw new Error("Command failed with exit code 1");
+    } else {
+      spinner.succeed();
+    }
+
+    const env: EnvVariable = await inquirer
       .prompt([
         {
-          type: "text",
-          name: "key",
-          message: "What is the name of the variable you want to delete? (CASE SENSITIVE)",
+          type: "list",
+          name: "environment",
+          message: "Which ENVIRONMENT do you want to delete from?",
+          choices: ["dev", "prod"],
+        },
+        {
+          type: "list",
+          name: "projects",
+          message: "Which PROJECT do you want to delete from?",
+          choices: projects,
+          when: () => projects.length,
         },
         {
           type: "text",
-          name: "environment",
-          message: "Which environment?",
+          name: "keyName",
+          message: "What is the NAME of the variable you want to delete? (CASE SENSITIVE)",
         },
       ])
       .then((a) => a)
@@ -36,11 +62,11 @@ export default async function deleteEnv(client: Client) {
       });
 
     spinner = ora({
-      text: "Adding to the database...\n",
+      text: "Deleting...\n",
       color: "yellow",
     }).start();
 
-    const response = await doDeleteEnv(client, { keyName, environment });
+    const response = await doDeleteEnv(client, env);
     spinner.succeed(chalk.green("Success!"));
     return response;
   } catch (err: unknown) {

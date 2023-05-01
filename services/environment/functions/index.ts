@@ -40,7 +40,7 @@ export const functions: AWS["functions"] = {
     iamRoleStatements: [
       {
         Effect: "Allow",
-        Action: "dynamodb:PutItem",
+        Action: "dynamodb:DeleteItem",
         Resource: [
           {
             "Fn::GetAtt": ["EnvTable", "Arn"],
