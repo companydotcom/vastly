@@ -63,7 +63,7 @@ export default async function addEnv(client: Client) {
           when: () => projects?.length,
         },
       ])
-      .then((a: EnvVariable) => a)
+      .then((a: EnvVariable) => ({ ...a, projects: a.projects?.toLowerCase() }))
       .catch((error) => {
         if (error.isTtyError) {
           // Prompt couldn't be rendered in the current environment

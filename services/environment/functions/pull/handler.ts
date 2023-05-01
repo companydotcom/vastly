@@ -106,7 +106,7 @@ async function getAllProjects() {
 
 async function getKeyNames(env: string, proj: string) {
   const params = {
-    TableName: "your-table-name",
+    TableName: TABLE_NAME || "env",
     KeyConditionExpression: "projects = :project and begins_with(environment_keyName, :env)",
     ExpressionAttributeValues: {
       ":project": proj,
