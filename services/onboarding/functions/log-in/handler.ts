@@ -26,6 +26,7 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
     return {
       statusCode: 400,
       body: JSON.stringify({
+        status: "EMAIL_MISSING",
         message: "You must provide a valid email.",
       }),
     };
@@ -61,11 +62,11 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
 
     await cognitoClient.send(command);
   } catch (error) {
-    console.log("err", error);
+    console.log("ERROR: ", error);
     return {
       statusCode: 404,
       body: JSON.stringify({
-        status: "ERROR",
+        status: "USER_NOT_FOUND",
         message: "User not found",
       }),
     };
@@ -104,13 +105,11 @@ async function sendEmail(emailAddress: string, magicLink: string) {
       },
     };
 
-    console.log(emailInput);
-
     const command = new SendEmailCommand(emailInput);
 
     await sesClient.send(command);
   } catch (error) {
-    console.log("sendEmail ~ error:", error);
+    console.log("Error sending email:", error);
     return error;
   }
 }

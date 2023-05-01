@@ -31,7 +31,7 @@ export default async function login(client: Client) {
 
     if (result) {
       // write result (tokens) to config file here
-      writeToConfigFile({ token: result.access_token });
+      writeToConfigFile({ token: result.token });
     }
   } catch (err: unknown) {
     output.error(err as string);

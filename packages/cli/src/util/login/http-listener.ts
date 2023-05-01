@@ -1,20 +1,11 @@
 import * as http from "http";
 import * as url from "url";
 import { IncomingMessage, ServerResponse } from "http";
-import { Amplify, Auth } from "aws-amplify";
-import { Client } from "../client";
-
-Amplify.configure({
-  Auth: {
-    region: "us-east-1",
-    userPoolId: "us-east-1_FBBnPmKc7",
-    userPoolWebClientId: "4vr9r59ednfan4cj167sf8mrqf",
-    mandatorySignIn: true,
-  },
-});
+import { Client } from "../client.js";
+import executeVerify from "./execute-verify.js";
 
 function handleRequest(
-  resolve: (value: { access_token: string; id_token: string; refresh_token: string }) => void,
+  resolve: (value: { token: string }) => void,
   server: http.Server,
   client: Client,
 ) {
@@ -31,22 +22,19 @@ function handleRequest(
     }
 
     try {
-      const cognitoUser = await Auth.signIn(email.toString());
-      const authResponse = await Auth.sendCustomChallengeAnswer(cognitoUser, token.toString());
+      const authResponse = await executeVerify(client, email, token.toString());
 
       if (authResponse) {
         res.writeHead(200, { "Content-Type": "application/json" });
         res.end("You're logged in.  You can close the browser now.");
 
         resolve({
-          access_token: authResponse.signInUserSession?.accessToken?.jwtToken || "",
-          id_token: authResponse.signInUserSession?.idToken?.jwtToken || "",
-          refresh_token: authResponse.signInUserSession?.refreshToken?.jwtToken || "",
+          token: authResponse?.token,
         });
       }
 
       server.close(() => {
-        output.spinner.succeed("Verification Success");
+        output.spinner.succeed("Verification success");
       });
     } catch (error) {
       res.writeHead(500, { "Content-Type": "application/json" });
@@ -58,9 +46,7 @@ function handleRequest(
   };
 }
 
-export function startHttpListener(
-  client: Client,
-): Promise<{ access_token: string; id_token: string }> {
+export function startHttpListener(client: Client): Promise<{ token: string }> {
   const { output } = client;
 
   return new Promise((resolve) => {
