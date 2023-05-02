@@ -7,7 +7,9 @@
   "bin": "dist/index.js",
   "scripts": {
     "create-dxp-app": "npx ts-node --esm src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest --coverage"
   },
   "dependencies": {
     "@octokit/rest": "^19.0.7",

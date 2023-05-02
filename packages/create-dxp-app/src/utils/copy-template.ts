@@ -27,6 +27,7 @@ export const copyTemplate = async (packageManager: PackageManagerName): Promise<
     let packageManagerConfig = PACKAGE_MANAGERS[packageManager].find((packageManager) =>
       satisfies(packageManagerVersion, packageManager.semver),
     );
+
     if (!packageManagerConfig) {
       throw new Error("Unsupported package manager version.");
     }
