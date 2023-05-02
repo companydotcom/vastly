@@ -10,16 +10,13 @@ export default async function executeVerify(
   token: string,
 ): Promise<VerifyResult> {
   try {
-    return await client.fetch<VerifyResult>(
-      `https://gxmblcgqcb.execute-api.us-east-1.amazonaws.com/dev/onboarding/verify`,
-      {
-        method: "POST",
-        body: {
-          email,
-          token,
-        },
+    return await client.fetch<VerifyResult>(`${client.apiUrl}/dev/onboarding/verify`, {
+      method: "POST",
+      body: {
+        email,
+        token,
       },
-    );
+    });
   } catch (err: unknown) {
     throw new Error(`Unexpected error: ${err}`);
   }

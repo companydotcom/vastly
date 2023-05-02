@@ -51,6 +51,7 @@ export default function makeClient(opts: ClientOptions) {
     program: opts.program,
     output: opts.output,
     fetch: request,
+    apiUrl: "https://gxmblcgqcb.execute-api.us-east-1.amazonaws.com",
   };
 }
 

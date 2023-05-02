@@ -27,7 +27,6 @@ export default async function login(client: Client) {
       });
 
     const result = await doEmailLogin(client, email);
-    console.log("👾 ~ login ~ result:", result);
 
     if (result) {
       // write result (tokens) to config file here

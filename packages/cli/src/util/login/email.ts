@@ -3,7 +3,7 @@ import chalk from "chalk";
 import { Client } from "../client.js";
 import eraseLines from "../output/erase-lines.js";
 import executeLogin from "./execute-login.js";
-import { startHttpListener } from "./http-listener.js";
+import { getTokens } from "./get-tokens.js";
 
 export default async function doEmailLogin(client: Client, email: string) {
   const { output } = client;
@@ -24,7 +24,7 @@ export default async function doEmailLogin(client: Client, email: string) {
     );
 
     try {
-      const tokens = await startHttpListener(client);
+      const tokens = await getTokens(client);
       return tokens;
     } catch (err) {
       output.spinner.fail("Trouble listening to verification");
