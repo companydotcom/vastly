@@ -49,18 +49,25 @@ export default async function addEnv(client: Client) {
           choices: ["dev", "prod"],
         },
         {
+          type: "confirm",
+          name: "projectsConfirm",
+          message: "Add a new project?",
+          default: false,
+          when: () => projects?.length,
+        },
+        {
           type: "text",
           name: "projects",
           message: "What is the name of your PROJECT?",
           choices: projects,
-          when: () => !projects?.length,
+          when: (a) => !projects?.length || a.projectsConfirm,
         },
         {
           type: "list",
           name: "projects",
-          message: "Which PROJECT is this for?",
+          message: "Choose a PROJECT to add to:",
           choices: projects,
-          when: () => projects?.length,
+          when: (a) => projects?.length && !a.projectsConfirm,
         },
       ])
       .then((a: EnvVariable) => ({ ...a, projects: a.projects?.toLowerCase() }))
