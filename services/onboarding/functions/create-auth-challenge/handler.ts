@@ -1,6 +1,6 @@
 import type { CreateAuthChallengeTriggerHandler } from "aws-lambda";
 
-export const handler: CreateAuthChallengeTriggerHandler = async (event) => {
+const handler: CreateAuthChallengeTriggerHandler = async (event) => {
   event.response.publicChallengeParameters = {
     email: event.request.userAttributes.email,
   };
@@ -12,3 +12,5 @@ export const handler: CreateAuthChallengeTriggerHandler = async (event) => {
 
   return event;
 };
+
+export { handler };

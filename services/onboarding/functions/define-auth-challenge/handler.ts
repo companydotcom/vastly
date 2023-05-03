@@ -1,7 +1,7 @@
 import type { DefineAuthChallengeTriggerHandler } from "aws-lambda";
 import { isEmpty } from "@companydotcom/utils";
 
-export const handler: DefineAuthChallengeTriggerHandler = async (event) => {
+const handler: DefineAuthChallengeTriggerHandler = async (event) => {
   if (event.request.userNotFound) {
     event.response.issueTokens = false;
     event.response.failAuthentication = true;
@@ -28,3 +28,5 @@ export const handler: DefineAuthChallengeTriggerHandler = async (event) => {
 
   return event;
 };
+
+export { handler };

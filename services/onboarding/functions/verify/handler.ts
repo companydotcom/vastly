@@ -5,7 +5,7 @@ import {
   RespondToAuthChallengeCommand,
   RespondToAuthChallengeCommandInput,
 } from "@aws-sdk/client-cognito-identity-provider";
-import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
+import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import middy from "@middy/core";
 import cors from "@middy/http-cors";
 import jsonBodyParser from "@middy/http-json-body-parser";
@@ -15,7 +15,7 @@ const { AWS_REGION } = process.env;
 
 const cognitoClient = new CognitoIdentityProviderClient({ region: AWS_REGION });
 
-export const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
+async function verify(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   const { email, token } = typeof event.body === "string" ? JSON.parse(event.body) : event.body;
 
   if (!email || !token) {
@@ -58,13 +58,15 @@ export const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
       }),
     };
   } catch (err) {
-    console.log("err:", err);
     return {
       statusCode: 400,
+      body: JSON.stringify({
+        message: err,
+      }),
     };
   }
-};
+}
 
-const handler = middy(baseHandler).use(jsonBodyParser()).use(cors()).use(httpErrorHandler());
+const handler = middy(verify).use(jsonBodyParser()).use(cors()).use(httpErrorHandler());
 
 export { handler };

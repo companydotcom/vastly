@@ -48,7 +48,6 @@ const main = async () => {
 
   let config: Config;
   try {
-    // @ts-ignore
     config = readConfigFile();
   } catch (err: unknown) {
     if (isErrnoException(err) && err.code === "ENOENT") {
@@ -77,6 +76,7 @@ const main = async () => {
   const client = clientUtil.default({
     program: commander,
     output,
+    config,
   });
 
   const subcommand = program.args[1];

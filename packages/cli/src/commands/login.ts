@@ -1,6 +1,7 @@
 import inquirer from "inquirer";
+import { validate } from "email-validator";
 import { Client } from "../util/client.js";
-import doEmailLogin from "../util/login/email.js";
+import doEmailLogin, { LoginResult } from "../util/login/email.js";
 import { writeToConfigFile } from "../util/config/files.js";
 
 export default async function login(client: Client) {
@@ -26,9 +27,15 @@ export default async function login(client: Client) {
         }
       });
 
-    const result = await doEmailLogin(client, email);
+    let result: LoginResult | undefined;
 
-    if (result) {
+    if (validate(email)) {
+      result = await doEmailLogin(client, email);
+    } else {
+      throw new Error("Email invalid!");
+    }
+
+    if (result && result.success) {
       // write result (tokens) to config file here
       writeToConfigFile({ token: result.token });
     }

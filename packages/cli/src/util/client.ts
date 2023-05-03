@@ -2,6 +2,7 @@ import { Command } from "commander";
 import { JSONObject } from "@companydotcom/types";
 import fetch, { BodyInit, Headers, RequestInit } from "node-fetch";
 import { Output } from "./output/index.js";
+import { Config } from "../types/index.js";
 
 export interface FetchOptions extends Omit<RequestInit, "body"> {
   body?: BodyInit | JSONObject;
@@ -15,6 +16,7 @@ export const isJSONObject = (v: any): v is JSONObject => {
 export interface ClientOptions {
   program: Command;
   output: Output;
+  config: Config;
 }
 
 export default function makeClient(opts: ClientOptions) {
@@ -52,6 +54,7 @@ export default function makeClient(opts: ClientOptions) {
     output: opts.output,
     fetch: request,
     apiUrl: "https://gxmblcgqcb.execute-api.us-east-1.amazonaws.com",
+    config: opts.config,
   };
 }
 

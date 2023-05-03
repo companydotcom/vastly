@@ -53,6 +53,18 @@ export const functions: AWS["functions"] = {
       },
     ],
   },
+  logOut: {
+    handler: "functions/log-out/handler.handler",
+    events: [
+      {
+        http: {
+          method: "post",
+          path: "/onboarding/logout",
+          cors: true,
+        },
+      },
+    ],
+  },
   preSignUp: {
     handler: "functions/pre-sign-up/handler.handler",
   },

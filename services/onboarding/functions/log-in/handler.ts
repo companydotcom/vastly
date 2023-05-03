@@ -2,8 +2,7 @@ import {
   CognitoIdentityProviderClient,
   AdminUpdateUserAttributesCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
-import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
-import validator from "@middy/validator";
+import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
@@ -11,7 +10,6 @@ import cors from "@middy/http-cors";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import { TIMEOUT_MINS } from "../../lib/constants";
 import { encrypt } from "../../lib/encryption";
-import { eventSchema, responseSchema } from "./schema";
 
 const { SES_FROM_ADDRESS, USER_POOL_ID, BASE_URL, AWS_REGION } = process.env;
 const ONE_MIN = 60 * 1000;
@@ -19,7 +17,7 @@ const ONE_MIN = 60 * 1000;
 const cognitoClient = new CognitoIdentityProviderClient({ region: AWS_REGION });
 const sesClient = new SESClient({ region: AWS_REGION });
 
-const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
+async function logIn(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   const { email } = typeof event.body === "string" ? JSON.parse(event.body) : event.body;
 
   if (!email) {
@@ -77,7 +75,7 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
     statusCode: 202,
     body: JSON.stringify({ status: "EMAIL_SENT", message: "The email has been sent!" }),
   };
-};
+}
 
 async function sendEmail(emailAddress: string, magicLink: string) {
   try {
@@ -114,15 +112,6 @@ async function sendEmail(emailAddress: string, magicLink: string) {
   }
 }
 
-const handler = middy(baseHandler)
-  .use(jsonBodyParser())
-  .use(
-    validator({
-      eventSchema,
-      responseSchema,
-    }),
-  )
-  .use(cors())
-  .use(httpErrorHandler());
+const handler = middy(logIn).use(jsonBodyParser()).use(cors()).use(httpErrorHandler());
 
 export { handler };

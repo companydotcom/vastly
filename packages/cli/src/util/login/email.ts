@@ -5,6 +5,11 @@ import eraseLines from "../output/erase-lines.js";
 import executeLogin from "./execute-login.js";
 import { getTokens } from "./get-tokens.js";
 
+export interface LoginResult {
+  token?: string;
+  success: boolean;
+}
+
 export default async function doEmailLogin(client: Client, email: string) {
   const { output } = client;
   try {
@@ -16,6 +21,7 @@ export default async function doEmailLogin(client: Client, email: string) {
     } catch (err) {
       output.spinner.fail("Trouble sending email");
       output.error(errorToString(err));
+      return { success: false };
     }
 
     output.print(eraseLines(1));
@@ -25,13 +31,13 @@ export default async function doEmailLogin(client: Client, email: string) {
 
     try {
       const tokens = await getTokens(client);
-      return tokens;
+      return { token: tokens?.token, success: true };
     } catch (err) {
       output.spinner.fail("Trouble listening to verification");
       output.error(errorToString(err));
     }
   } catch (err: unknown) {
-    console.log("👾 ~ doEmailLogin ~ err:", err);
+    console.log("Err:", err);
     output.error(err as string);
   }
 }

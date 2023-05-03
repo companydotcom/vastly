@@ -6,8 +6,10 @@ export interface LoginResult {
 }
 
 export default async function executeLogin(client: Client, email: string): Promise<LoginResult> {
+  const { apiUrl } = client;
+
   try {
-    return await client.fetch<LoginResult>(`${client.apiUrl}/dev/onboarding/login`, {
+    return await client.fetch<LoginResult>(`${apiUrl}/dev/onboarding/login`, {
       method: "POST",
       body: {
         email,
