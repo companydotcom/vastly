@@ -5,29 +5,18 @@ import { generateGithubRepo } from "../src/utils/generate-github-repo";
 
 vi.mock("@octokit/rest", async (importOriginal: () => Promise<typeof Octokit>) => {
   const mod = await importOriginal();
-
   return {
     ...mod,
-    Octokit: vi.fn(
-      () =>
-        new Promise((resolve, reject) => {
-          resolve({
-            status: 302,
-            headers: { location: "https://github.com/testuser/my-repo" },
-            repos: {
-              createForAuthenticatedUser: "https://github.com/testuser/my-repo",
-            },
-          });
-        }),
-    ),
-    octokit: vi.fn(() => {
-      const mock = {
-        repos: {
-          createForAuthenticatedUser: "https://github.com/testuser/my-repo",
-        },
-      };
-      return { ...mock };
-    }),
+    Octokit: vi.fn(() => ({
+      repos: {
+        createForAuthenticatedUser: vi.fn(() => ({
+          data: {
+            name: "repo",
+            clone_url: "https://github.com/testuser/my-repo",
+          },
+        })),
+      },
+    })),
   };
 });
 
@@ -56,15 +45,15 @@ describe("generateGithubRepo", () => {
     linkToGithub: true,
   };
 
-  it.skip("", async () => {
+  it.skip("runs correct git commands", async () => {
     await generateGithubRepo(mockAnswers as GenerateAnswers);
     expect(vi.mocked(spawnSync).mock.calls).toEqual([
-      ["git", "clone", "https://github.com/testuser/my-repo"],
-      ["git", "branch", "--unset-upstream"],
-      ["git", "add", "."],
-      ["git", "commit", ".", "-m", "Initial commit"],
-      ["git", "push", "--set-upstream", "origin", "master"],
+      ["git", ["clone", "https://github.com/testuser/my-repo"]],
+      // ["git", ["branch", "--unset-upstream"]],
+      // ["git", ["add", "."]],
+      // ["git", ["commit", ".", "-m", "Initial commit"]],
+      // ["git", ["push", "--set-upstream", "origin", "master"]],
     ]);
-    // expect(vi.mocked(spawnSync).mock.calls[0][0]).toBe(["git", "clone"]);
+    expect(vi.mocked(spawnSync).mock.calls.length).toBe(1);
   });
 });

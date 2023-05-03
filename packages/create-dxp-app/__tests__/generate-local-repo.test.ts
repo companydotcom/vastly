@@ -3,14 +3,14 @@ import { generateLocalRepo } from "../src/utils/generate-local-repo";
 import { GenerateAnswers } from "../src/types";
 
 describe("generateLocalRepo", () => {
-  // vi.mock("child_process", async (importOriginal: () => Promise<typeof child_process>) => {
-  //   const module = await importOriginal();
+  vi.mock("child_process", async (importOriginal: () => Promise<typeof child_process>) => {
+    const mod = await importOriginal();
 
-  //   return {
-  //     ...module,
-  //     spawnSync: vi.fn(),
-  //   };
-  // });
+    return {
+      ...mod,
+      spawnSync: vi.fn(),
+    };
+  });
 
   const mockAnswers = {
     repoName: "repo",

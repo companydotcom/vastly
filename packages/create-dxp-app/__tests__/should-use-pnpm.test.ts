@@ -1,4 +1,3 @@
-import { Mocked } from "vitest";
 import { shouldUsePnpm } from "../src/utils/should-use-pnpm.js";
 import child_process, { execSync } from "child_process";
 
@@ -16,7 +15,6 @@ describe("shouldUsePnpm", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.resetModules();
     process.env = { ...OLD_ENV };
   });
 

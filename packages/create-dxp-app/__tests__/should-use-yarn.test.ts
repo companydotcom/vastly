@@ -15,7 +15,6 @@ describe("shouldUseYarn", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.resetModules();
     process.env = { ...OLD_ENV };
   });
 
