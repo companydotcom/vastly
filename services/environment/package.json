@@ -1,0 +1,34 @@
+{
+  "name": "environment-service",
+  "version": "0.1.0",
+  "description": "A TypeScript service for managing secrets",
+  "scripts": {
+    "dev": "serverless offline start",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .serverless && rm -rf .esbuild"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@serverless/typescript": "^3.29.0",
+    "@types/aws-lambda": "^8.10.114",
+    "esbuild": "^0.17.11",
+    "eslint": "^8.36.0",
+    "eslint-config-custom-server": "workspace:*",
+    "serverless": "^3.28.1",
+    "serverless-esbuild": "^1.42.0",
+    "serverless-iam-roles-per-function": "^3.2.0",
+    "serverless-offline": "^12.0.4",
+    "tsconfig": "workspace:*"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.312.0",
+    "@aws-sdk/lib-dynamodb": "^3.312.0",
+    "@aws-sdk/util-dynamodb": "^3.312.0",
+    "@companydotcom/utils": "workspace:*",
+    "@middy/core": "^4.2.7",
+    "@middy/http-cors": "^4.2.7",
+    "@middy/http-error-handler": "^4.2.7",
+    "@middy/http-json-body-parser": "^4.2.6",
+    "aws-lambda": "^1.0.7"
+  }
+}

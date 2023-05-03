@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-import { Command } from "commander";
+import { Argument, Command, Option } from "commander";
 import chalk from "chalk";
 import { mkdirp } from "fs-extra";
 import { errorToString, isErrnoException } from "@companydotcom/utils";
@@ -35,7 +35,7 @@ const main = async () => {
   program.parse(process.argv);
   // Top level command for the CLI
   const commander = program.command("vastly");
-  const options = program.opts();
+  const options = commander.opts();
   const output = outputUtil.default({ debugEnabled: options.debug });
 
   // Make sure global config dir exists
@@ -89,6 +89,7 @@ const main = async () => {
   try {
     let func: any;
     let description: string;
+    let argument: Argument | any;
 
     switch (subcommand) {
       case "login":
@@ -98,6 +99,15 @@ const main = async () => {
       case "logout":
         description = "Log out of company.com";
         func = (await import("./commands/logout.js")).default;
+        break;
+      case "secret":
+        description = "Add, delete, or pull all stored secrets";
+        func = (await import("./commands/secrets/index.js")).default;
+        argument = new Argument("<action>", "Preferred action to preform on a secret").choices([
+          "add",
+          "delete",
+          "pull",
+        ]); // This is not a permanent solution
         break;
       default:
         description = "";
@@ -113,14 +123,13 @@ const main = async () => {
     commander
       .command(subcommand)
       .description(description)
-      .action(async () => {
-        console.log("test");
-        await func(client);
+      .addArgument(argument ?? "")
+      .action(async (arg) => {
+        await func(client, arg);
       });
   } catch (err: unknown) {
     console.log(`${chalk.red("Unknown error", err)}`);
   }
-
   program.parse();
 };
 

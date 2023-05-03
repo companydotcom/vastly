@@ -5,6 +5,7 @@ import { Output } from "./output.js";
 
 export interface FetchOptions extends Omit<RequestInit, "body"> {
   body?: BodyInit | JSONObject;
+  method?: string;
 }
 
 export const isJSONObject = (v: any): v is JSONObject => {
@@ -20,6 +21,7 @@ export default function makeClient(opts: ClientOptions) {
   // A wrapper around node-fetch that handles JSON bodies and type safety
   function _fetch(_url: string, options: FetchOptions = {}) {
     const headers = new Headers(options.headers);
+    const method = options?.method;
 
     let body;
     if (isJSONObject(options.body)) {
@@ -29,7 +31,7 @@ export default function makeClient(opts: ClientOptions) {
       body = options.body;
     }
 
-    return fetch(_url, { ...opts, headers, body });
+    return fetch(_url, { ...opts, headers, body, method });
   }
 
   async function request<T>(url: string, opts?: FetchOptions): Promise<T>;
