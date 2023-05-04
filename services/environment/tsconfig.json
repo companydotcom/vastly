@@ -1,10 +1,12 @@
 {
-  "extends": "tsconfig/base.json",
+  "extends": ["tsconfig/base.json", "tsconfig/react-library.json"],
   "compilerOptions": {
     "target": "es6",
     "sourceMap": true,
     "moduleResolution": "node",
     "baseUrl": ".",
+    "types": ["vitest/globals", "@testing-library/jest-dom"],
   },
-  "include": ["src/**/*.ts", "serverless.ts"],
+  "include": ["__tests__", "serverless.ts"],
+  "exclude": ["node_modules", "coverage"],
 }

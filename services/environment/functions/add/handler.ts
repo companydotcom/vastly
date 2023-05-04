@@ -3,14 +3,11 @@ import cors from "@middy/http-cors";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import middy from "@middy/core";
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
-import { PutCommandInput } from "@aws-sdk/lib-dynamodb";
-import { dynamoDocClient, add, dynamoClient } from "../../lib/dynamodb";
+import type { PutCommandInput } from "@aws-sdk/lib-dynamodb";
+import { docClient, dynamoClient } from "../../lib/dynamodb";
 import { EnvVariable } from "../../lib/types";
 
-const db = dynamoDocClient;
-const { TABLE_NAME } = process.env;
-
-const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
+export const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   console.log("EVENT ----->", event);
   const env = event?.pathParameters?.env?.toLowerCase();
   const input = {
@@ -41,12 +38,12 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   }
 };
 
-async function addVariable(newVariable: EnvVariable) {
+export async function addVariable(newVariable: EnvVariable) {
+  const { TABLE_NAME } = process.env;
   const params: PutCommandInput = {
     TableName: TABLE_NAME || "env",
     Item: newVariable,
   };
-  console.log("Adding to database...");
   console.log("ENV Params: ", {
     ...params,
     Item: {
@@ -54,10 +51,9 @@ async function addVariable(newVariable: EnvVariable) {
       keyValue: "******",
     },
   });
-  const addCommand = new add(params);
 
   try {
-    const response = await db.send(addCommand);
+    const response = await docClient.put(params);
     return response;
   } catch (error) {
     console.log("Error adding to database:", error);

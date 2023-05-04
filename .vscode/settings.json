@@ -5,5 +5,14 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "eslint.packageManager": "pnpm",
-  "cSpell.words": ["companyql", "devx", "codegen", "typecheck", "commitlint", "tsup", "preinstall"]
+  "cSpell.words": [
+    "codegen",
+    "commitlint",
+    "companyql",
+    "devx",
+    "preinstall",
+    "tsup",
+    "typecheck",
+    "unmock"
+  ]
 }

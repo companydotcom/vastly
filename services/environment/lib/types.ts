@@ -1,7 +1,6 @@
 export interface EnvVariable {
-  environment?: string;
-  key?: string;
-  value?: string;
+  keyName?: string;
+  keyValue?: string;
   projects?: string;
-  project_environment?: string;
+  environment_keyName?: string;
 }
