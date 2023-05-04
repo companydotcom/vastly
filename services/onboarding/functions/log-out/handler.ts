@@ -12,7 +12,7 @@ const { AWS_REGION } = process.env;
 
 const cognitoClient = new CognitoIdentityProviderClient({ region: AWS_REGION });
 
-async function logOut(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
+const logOut = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const { token } = typeof event.body === "string" ? JSON.parse(event.body) : event.body;
 
   if (!token) {
@@ -46,7 +46,7 @@ async function logOut(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResul
       }),
     };
   }
-}
+};
 
 const handler = middy(logOut).use(cors()).use(httpErrorHandler());
 

@@ -17,7 +17,7 @@ const ONE_MIN = 60 * 1000;
 const cognitoClient = new CognitoIdentityProviderClient({ region: AWS_REGION });
 const sesClient = new SESClient({ region: AWS_REGION });
 
-async function logIn(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
+const logIn = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const { email } = typeof event.body === "string" ? JSON.parse(event.body) : event.body;
 
   if (!email) {
@@ -75,7 +75,7 @@ async function logIn(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult
     statusCode: 202,
     body: JSON.stringify({ status: "EMAIL_SENT", message: "The email has been sent!" }),
   };
-}
+};
 
 async function sendEmail(emailAddress: string, magicLink: string) {
   try {

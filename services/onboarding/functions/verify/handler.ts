@@ -15,7 +15,7 @@ const { AWS_REGION } = process.env;
 
 const cognitoClient = new CognitoIdentityProviderClient({ region: AWS_REGION });
 
-async function verify(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
+const verify = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const { email, token } = typeof event.body === "string" ? JSON.parse(event.body) : event.body;
 
   if (!email || !token) {
@@ -65,7 +65,7 @@ async function verify(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResul
       }),
     };
   }
-}
+};
 
 const handler = middy(verify).use(jsonBodyParser()).use(cors()).use(httpErrorHandler());
 
