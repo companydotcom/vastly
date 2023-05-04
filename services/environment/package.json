@@ -1,5 +1,5 @@
 {
-    "name": "environment-service",
+    "name": "environment",
     "version": "0.1.0",
     "description": "A TypeScript service for managing secrets",
     "scripts": {
