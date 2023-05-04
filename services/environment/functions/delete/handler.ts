@@ -3,10 +3,10 @@ import cors from "@middy/http-cors";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import middy from "@middy/core";
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
-import { DeleteCommandInput } from "@aws-sdk/lib-dynamodb";
-import { dynamoDocClient, dynamoClient, remove } from "../../lib/dynamodb";
+import type { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import type { DeleteCommandInput, DynamoDBDocument } from "@aws-sdk/lib-dynamodb";
+import { docClient, dynamoClient } from "../../lib/dynamodb";
 
-const db = dynamoDocClient;
 const { TABLE_NAME } = process.env;
 
 const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
@@ -22,7 +22,7 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   }
 
   try {
-    const response = await deleteVariable(keyName, env, project);
+    const response = await deleteVariable(keyName, env, project, docClient, dynamoClient);
     console.log("Deleting...");
     return {
       statusCode: 200,
@@ -36,7 +36,13 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   }
 };
 
-async function deleteVariable(key: string, env: string, projects: string) {
+async function deleteVariable(
+  key: string,
+  env: string,
+  projects: string,
+  dynamoDoc: DynamoDBDocument,
+  dynamo: DynamoDBClient,
+) {
   const params: DeleteCommandInput = {
     TableName: TABLE_NAME || "env",
     Key: {
@@ -44,17 +50,15 @@ async function deleteVariable(key: string, env: string, projects: string) {
       projects,
     },
   };
-  console.log("Removing variable from database...");
   console.log(`EnvKey: ${params.Key}`);
-  const deleteCommand = new remove(params);
 
   try {
-    const response = await db.send(deleteCommand);
+    const response = await dynamoDoc.delete(params);
     return response;
   } catch (error) {
     console.log("Error deleting from database:", error);
   } finally {
-    dynamoClient.destroy();
+    dynamo.destroy();
   }
 }
 
