@@ -27,7 +27,7 @@ export function getConfigFilePath() {
 // reads "config" file atomically
 export const readConfigFile = () => {
   const config = loadJsonFileSync(CONFIG_FILE_PATH);
-  return config;
+  return config as Config;
 };
 
 export const writeToConfigFile = (authConfig: Config) => {
