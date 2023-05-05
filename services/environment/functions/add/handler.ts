@@ -2,13 +2,13 @@ import httpErrorHandler from "@middy/http-error-handler";
 import cors from "@middy/http-cors";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import middy from "@middy/core";
-import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
+import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import type { DynamoDBDocument, PutCommandInput } from "@aws-sdk/lib-dynamodb";
 import { docClient, dynamoClient } from "../../lib/dynamodb";
 import { EnvVariable } from "../../lib/types";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 
-export const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
+export const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   console.log("EVENT ----->", event);
   const env = event?.pathParameters?.env?.toLowerCase();
   const input = {

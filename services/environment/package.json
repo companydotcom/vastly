@@ -12,6 +12,7 @@
     "author": "",
     "license": "MIT",
     "devDependencies": {
+        "@serverless/event-mocks": "^1.1.1",
         "@serverless/typescript": "^3.29.0",
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.4.0",
