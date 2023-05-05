@@ -20,8 +20,9 @@
     "switch:dev": "tsx scripts/switch-env.ts dev",
     "publish-packages": "turbo run build lint test && changeset publish",
     "preinstall": "npx only-allow pnpm",
-    "test": "turbo run test --filter=!./services/*",
+    "test": "turbo run test",
     "postinstall": "pnpm run build:packages",
+    "test:watch": "turbo run test:watch",
     "dev:components": "turbo run dev --filter=@companydotcom/ui --filter=@companydotcom/forms --filter=@companydotcom/utils --no-cache --continue"
   },
   "devDependencies": {
