@@ -1,15 +1,13 @@
-import ora, { Ora } from "ora";
-import chalk from "chalk";
 import inquirer from "inquirer";
+import { validate } from "email-validator";
 import { Client } from "../util/client.js";
-import doEmailLogin from "../util/login/email.js";
+import doEmailLogin, { LoginResult } from "../util/login/email.js";
+import { writeToConfigFile } from "../util/config/files.js";
 
 export default async function login(client: Client) {
   const { output } = client;
 
   try {
-    let spinner: Ora;
-
     const email: string = await inquirer
       .prompt([
         {
@@ -29,14 +27,18 @@ export default async function login(client: Client) {
         }
       });
 
-    const test = await doEmailLogin(client, email);
+    let result: LoginResult | undefined;
 
-    spinner = ora({
-      text: "Sending you an email...\n",
-      color: "yellow",
-    }).start();
+    if (validate(email)) {
+      result = await doEmailLogin(client, email);
+    } else {
+      throw new Error("Email invalid!");
+    }
 
-    spinner.succeed(chalk.green("logged in successfully"));
+    if (result && result.success) {
+      // write result (tokens) to config file here
+      writeToConfigFile({ token: result.token });
+    }
   } catch (err: unknown) {
     output.error(err as string);
   }
