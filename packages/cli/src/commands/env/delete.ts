@@ -18,7 +18,6 @@ export default async function deleteEnv(client: Client) {
     }).start();
 
     // Grabs projects from data, throws error if no projects are found
-    let keys;
     const projects = await doPullEnv(client, { eventType: "pull-projects" });
     if (!projects?.length) {
       spinner.fail(

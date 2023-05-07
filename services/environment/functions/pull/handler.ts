@@ -2,14 +2,17 @@ import httpErrorHandler from "@middy/http-error-handler";
 import cors from "@middy/http-cors";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import middy from "@middy/core";
-import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
+import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import type { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import type { DynamoDBDocument, QueryCommandInput, ScanCommandInput } from "@aws-sdk/lib-dynamodb";
 import { dynamoClient, docClient } from "../../lib/dynamodb";
 
 const { TABLE_NAME } = process.env;
 
-const baseHandler: APIGatewayProxyHandlerV2 = async ({ pathParameters, queryStringParameters }) => {
+const baseHandler = async ({
+  pathParameters,
+  queryStringParameters,
+}: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const env = pathParameters?.env?.toLowerCase();
   const eventType = queryStringParameters?.["event"];
   const project = queryStringParameters?.["p"] || "";
@@ -28,11 +31,13 @@ const baseHandler: APIGatewayProxyHandlerV2 = async ({ pathParameters, queryStri
         response = await getAllProjects(docClient, dynamoClient);
         break;
       case "pull-env":
-        response = await getAllEnv(env, project, docClient, dynamoClient);
+        response = await getAllEnv({ env, project }, docClient, dynamoClient);
         break;
       case "pull-keys":
-        response = await getKeyNames(env, project, docClient, dynamoClient);
+        response = await getKeyNames({ env, project }, docClient, dynamoClient);
         break;
+      case "":
+        throw new Error("Please provide an EventType");
       default:
         break;
     }
@@ -50,8 +55,7 @@ const baseHandler: APIGatewayProxyHandlerV2 = async ({ pathParameters, queryStri
 };
 
 async function getAllEnv(
-  env: string,
-  proj: string,
+  { env, project }: { env: string; project: string },
   dynamoDoc: DynamoDBDocument,
   dynamo: DynamoDBClient,
 ) {
@@ -61,7 +65,7 @@ async function getAllEnv(
     TableName: TABLE_NAME || "env",
     KeyConditionExpression: "projects = :project and begins_with(environment_keyName, :env)",
     ExpressionAttributeValues: {
-      ":project": proj,
+      ":project": project,
       ":env": `${env}:`,
     },
     ProjectionExpression: "environment_keyName, keyValue",
@@ -106,8 +110,7 @@ async function getAllProjects(dynamoDoc: DynamoDBDocument, dynamo: DynamoDBClien
 }
 
 async function getKeyNames(
-  env: string,
-  proj: string,
+  { env, project }: { env: string; project: string },
   dynamoDoc: DynamoDBDocument,
   dynamo: DynamoDBClient,
 ) {
@@ -115,7 +118,7 @@ async function getKeyNames(
     TableName: TABLE_NAME || "env",
     KeyConditionExpression: "projects = :project and begins_with(environment_keyName, :env)",
     ExpressionAttributeValues: {
-      ":project": proj,
+      ":project": project,
       ":env": `${env}:`,
     },
     ProjectionExpression: "environment_keyName",

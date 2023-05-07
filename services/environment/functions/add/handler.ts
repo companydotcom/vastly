@@ -8,14 +8,17 @@ import { docClient, dynamoClient } from "../../lib/dynamodb";
 import { EnvVariable } from "../../lib/types";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 
-export const baseHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+export const baseHandler = async ({
+  pathParameters,
+  body,
+}: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   console.log("EVENT ----->", event);
-  const env = event?.pathParameters?.env?.toLowerCase();
+  const env = pathParameters?.env?.toLowerCase();
   const input = {
-    keyName: event?.body?.["keyName"],
-    keyValue: event?.body?.["keyValue"],
-    environment_keyName: `${env}:${event?.body?.["keyName"]}`,
-    projects: event?.body?.["projects"],
+    keyName: body?.["keyName"],
+    keyValue: body?.["keyValue"],
+    environment_keyName: `${env}:${body?.["keyName"]}`,
+    projects: body?.["projects"],
   };
 
   if (!env) {

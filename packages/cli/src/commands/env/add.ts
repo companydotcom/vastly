@@ -29,7 +29,7 @@ export default async function addEnv(client: Client) {
       spinner.succeed();
     }
 
-    const input: any = await inquirer
+    const input = await inquirer
       .prompt([
         {
           type: "text",
@@ -70,7 +70,7 @@ export default async function addEnv(client: Client) {
           when: (a) => projects?.length && !a.projectsConfirm,
         },
       ])
-      .then((a: EnvVariable) => ({ ...a, projects: a.projects?.toLowerCase() }))
+      .then((a) => a)
       .catch((error) => {
         if (error.isTtyError) {
           // Prompt couldn't be rendered in the current environment

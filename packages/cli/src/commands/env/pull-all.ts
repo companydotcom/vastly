@@ -54,13 +54,10 @@ export default async function pullAllEnv(client: Client) {
           type: "checkbox",
           name: "directory",
           message: "Which directory do you want to write to?",
-          default: ["root"],
           choices: ["root", ...allDirs],
         },
       ])
-      .then((a) => {
-        return a;
-      })
+      .then((a) => a)
       .catch((error) => {
         if (error.isTtyError) {
           // Prompt couldn't be rendered in the current environment

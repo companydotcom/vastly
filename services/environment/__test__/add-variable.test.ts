@@ -78,7 +78,7 @@ describe("addEnv Unit Tests", () => {
     });
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore: types not present for aws-event-mocks
+    // @ts-ignore: types not present for @serverless/event-mocks
     const mockEvent = createEvent({ template: "aws:apiGateway" });
 
     test("should return 404 if environment is missing", async () => {
