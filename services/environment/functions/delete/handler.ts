@@ -21,7 +21,9 @@ const baseHandler = async ({
   if (!env) {
     return {
       statusCode: 404,
-      body: "Please check your inputs. Do you have the right environment? EX: dev, prod",
+      body: JSON.stringify({
+        message: "Missing env parameter",
+      }),
     };
   }
 

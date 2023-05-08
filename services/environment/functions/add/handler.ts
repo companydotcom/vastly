@@ -4,27 +4,31 @@ import jsonBodyParser from "@middy/http-json-body-parser";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import type { DynamoDBDocument, PutCommandInput } from "@aws-sdk/lib-dynamodb";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { docClient, dynamoClient } from "../../lib/dynamodb";
 import { EnvVariable } from "../../lib/types";
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 
-export const baseHandler = async ({
+const baseHandler = async ({
   pathParameters,
   body,
 }: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  console.log("EVENT ----->", event);
+  console.log("EVENT ----->", { body, pathParameters });
+  const parsedBody = typeof body === "string" ? JSON.parse(body ?? "") : body;
+
   const env = pathParameters?.env?.toLowerCase();
-  const input = {
-    keyName: body?.["keyName"],
-    keyValue: body?.["keyValue"],
-    environment_keyName: `${env}:${body?.["keyName"]}`,
-    projects: body?.["projects"],
+  const input: EnvVariable = {
+    keyName: parsedBody?.["keyName"],
+    keyValue: parsedBody?.["keyValue"],
+    environment_keyName: `${env}:${parsedBody?.["keyName"]}`,
+    projects: parsedBody?.["projects"] ?? "",
   };
 
   if (!env) {
     return {
       statusCode: 404,
-      body: "Please check your inputs. Do you have the right environment? EX: dev, prod",
+      body: JSON.stringify({
+        message: "Missing env parameter",
+      }),
     };
   }
 
@@ -36,13 +40,13 @@ export const baseHandler = async ({
     };
   } catch (error) {
     return {
-      statusCode: error.statusCode || 501,
+      statusCode: 501,
       body: JSON.stringify({ message: `Error adding variable ---> ${error}` }),
     };
   }
 };
 
-export async function addVariable(
+async function addVariable(
   newVariable: EnvVariable,
   dynamoDoc: DynamoDBDocument,
   dynamo: DynamoDBClient,
@@ -64,4 +68,4 @@ export async function addVariable(
 }
 
 const addEnvHandler = middy(baseHandler).use(jsonBodyParser()).use(cors()).use(httpErrorHandler());
-export { addEnvHandler };
+export { addEnvHandler, baseHandler, addVariable };

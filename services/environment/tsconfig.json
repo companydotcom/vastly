@@ -5,7 +5,7 @@
     "sourceMap": true,
     "moduleResolution": "node",
     "baseUrl": ".",
-    "types": ["vitest/globals", "@testing-library/jest-dom"],
+    "types": ["vitest/globals"],
   },
   "include": ["__tests__", "serverless.ts"],
   "exclude": ["node_modules", "coverage"],

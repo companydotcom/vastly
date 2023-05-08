@@ -20,7 +20,9 @@ const baseHandler = async ({
   if (!env) {
     return {
       statusCode: 404,
-      body: "You must provide a valid environment name.",
+      body: JSON.stringify({
+        message: "Missing env parameter",
+      }),
     };
   }
 

@@ -1,16 +1,17 @@
-import ora, { Ora } from "ora";
+import ora from "ora";
 import chalk from "chalk";
 import inquirer from "inquirer";
 import { Client } from "../../util/client.js";
 import doAddEnv from "../../util/env/add.js";
 import { EnvVariable } from "../../types/index.js";
 import { doPullEnv } from "../../util/env/pull-all.js";
+import { errorToString } from "@companydotcom/utils";
 
 export default async function addEnv(client: Client) {
   const { output } = client;
 
   try {
-    let spinner: Ora;
+    let spinner = output.spinner;
 
     spinner = ora({
       text: `Fetching your projects...\n`,
@@ -91,6 +92,6 @@ export default async function addEnv(client: Client) {
     spinner.succeed(chalk.green("Success!"));
     return response;
   } catch (err: unknown) {
-    output.error(err as string);
+    output.error(errorToString(err));
   }
 }

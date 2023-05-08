@@ -1,5 +1,5 @@
 import fastGlob from "fast-glob";
-import ora, { Ora } from "ora";
+import ora from "ora";
 import chalk from "chalk";
 import inquirer from "inquirer";
 import { findUp } from "find-up";
@@ -7,6 +7,7 @@ import path from "node:path";
 import { Client } from "../../util/client.js";
 import { doPullEnv } from "../../util/env/pull-all.js";
 import writeToFile from "../../util/write-env-files.js";
+import { errorToString } from "@companydotcom/utils";
 
 export default async function pullAllEnv(client: Client) {
   const rootDir = path.dirname((await findUp(["apps", "services", "pnpm-workspace.yaml"])) || ".");
@@ -19,7 +20,7 @@ export default async function pullAllEnv(client: Client) {
   const { output } = client;
 
   try {
-    let spinner: Ora;
+    let spinner = output.spinner;
 
     spinner = ora({
       text: `Fetching your projects...\n`,
@@ -94,6 +95,6 @@ export default async function pullAllEnv(client: Client) {
     }
     return response;
   } catch (err: unknown) {
-    output.error(err as string);
+    output.error(errorToString(err));
   }
 }
