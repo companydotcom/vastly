@@ -10,7 +10,15 @@ export function setupPutMock(mock: DynamoDBDocument) {
       totalRetryDelay: 0,
     },
   }));
+  const deleteMock = vi.fn().mockImplementation(() => ({
+    $metadata: {
+      httpStatusCode: 200,
+      attempts: 1,
+      totalRetryDelay: 0,
+    },
+  }));
   mock.put = putMock;
+  mock.delete = deleteMock;
 }
 
 export const mockDynamoDBDocument = {} as DynamoDBDocument;

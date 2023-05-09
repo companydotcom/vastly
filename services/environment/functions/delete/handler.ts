@@ -15,6 +15,7 @@ const baseHandler = async ({
   queryStringParameters,
 }: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const env = pathParameters?.env?.toLowerCase();
+  console.log("🚀 ~ file: handler.ts:18 ~ env:", env);
   const projects = queryStringParameters?.["p"] || "";
   const keyName = body as string;
 
@@ -36,7 +37,7 @@ const baseHandler = async ({
     };
   } catch (error) {
     return {
-      statusCode: error.statusCode || 501,
+      statusCode: 501,
       body: JSON.stringify({ message: `Error deleting variable ---> ${error}` }),
     };
   }
@@ -60,7 +61,7 @@ async function deleteVariable(
     const response = await dynamoDoc.delete(params);
     return response;
   } catch (error) {
-    console.log("Error deleting from database:", error);
+    throw Error("Error deleting from database");
   } finally {
     dynamo.destroy();
   }
@@ -70,4 +71,4 @@ const deleteEnvHandler = middy(baseHandler)
   .use(jsonBodyParser())
   .use(cors())
   .use(httpErrorHandler());
-export { deleteEnvHandler };
+export { deleteEnvHandler, baseHandler, deleteVariable };
