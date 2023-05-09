@@ -39,11 +39,15 @@ export default function makeClient(opts: ClientOptions) {
   async function request<T>(url: string, opts?: FetchOptions): Promise<T>;
   async function request(url: string, opts: FetchOptions = {}) {
     const res = await _fetch(url, opts);
-
     const contentType = res.headers.get("content-type");
 
     if (!contentType) {
       return null;
+    }
+
+    if (contentType.includes("text/plain")) {
+      const text = await res.text();
+      return JSON.parse(text);
     }
 
     return contentType.includes("application/json") ? res.json() : res;
