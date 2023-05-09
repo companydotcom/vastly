@@ -1,12 +1,10 @@
-import { addVariable, baseHandler } from "../functions/add/handler";
-import { EnvVariable } from "../lib/types";
+import { deleteVariable, baseHandler } from "../functions/delete/handler";
 import { mockDynamoDBDocument, mockDynamoDBClient, setupDynamoMock } from "../__mocks__/dynamoMock";
 import createEvent from "@serverless/event-mocks";
 
-const mockNewVariable: EnvVariable = {
+const mockNewVariable = {
   keyName: "mockKeyName",
-  keyValue: "mockKeyValue",
-  environment_keyName: "mockEnv:mockKeyName",
+  env: "dev",
   projects: "mockProject1234",
 };
 
@@ -18,7 +16,7 @@ vi.mock("@aws-sdk/client-dynamodb", () => ({
   DynamoDBClient: vi.fn().mockImplementation(() => mockDynamoDBClient),
 }));
 
-describe("Add Env", () => {
+describe("Delete Env", () => {
   afterEach(() => {
     vi.resetAllMocks();
   });
@@ -28,30 +26,33 @@ describe("Add Env", () => {
     mockDynamoDBClient.destroy = vi.fn();
   });
 
-  test("should call addVariable with the correct params", async () => {
+  test("should call deleteVariable with the correct params", async () => {
     const expectedParams = {
       TableName: "env",
-      Item: mockNewVariable,
+      Key: {
+        environment_keyName: "dev:mockKeyName",
+        projects: "mockProject1234",
+      },
     };
 
-    await addVariable(mockNewVariable, mockDynamoDBDocument, mockDynamoDBClient);
+    await deleteVariable(mockNewVariable, mockDynamoDBDocument, mockDynamoDBClient);
 
-    expect(mockDynamoDBDocument.put).toHaveBeenCalledWith(expectedParams);
+    expect(mockDynamoDBDocument.delete).toHaveBeenCalledWith(expectedParams);
   });
 
-  test("should return the response from addVariable", async () => {
-    const result = await addVariable(mockNewVariable, mockDynamoDBDocument, mockDynamoDBClient);
+  test("should return the response from deleteVariable", async () => {
+    const result = await deleteVariable(mockNewVariable, mockDynamoDBDocument, mockDynamoDBClient);
 
-    expect(result).toHaveProperty("$metadata.httpStatusCode");
+    expect(result).toHaveProperty("$metadata");
     expect(result.$metadata.httpStatusCode).toEqual(200);
   });
 
   test("should throw an proper error", async () => {
-    const mockError = "Error adding to database";
-    mockDynamoDBDocument.put = vi.fn().mockRejectedValue(mockError);
+    const mockError = "Error deleting from database";
+    mockDynamoDBDocument.delete = vi.fn().mockRejectedValue(mockError);
 
     await expect(
-      addVariable(mockNewVariable, mockDynamoDBDocument, mockDynamoDBClient),
+      deleteVariable(mockNewVariable, mockDynamoDBDocument, mockDynamoDBClient),
     ).rejects.toThrowError(mockError);
   });
 
@@ -63,7 +64,7 @@ describe("Add Env", () => {
 
     const addVariable = vi.fn();
 
-    expect(response["statusCode"]).toBe(404);
+    expect(response.statusCode).toBe(404);
     expect(JSON.parse(response.body).message).toContain("Missing env parameter");
     expect(addVariable).not.toHaveBeenCalled();
   });

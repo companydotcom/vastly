@@ -50,7 +50,7 @@ const baseHandler = async ({
     };
   } catch (error) {
     return {
-      statusCode: error.statusCode || 501,
+      statusCode: 501,
       body: JSON.stringify(error),
     };
   }
@@ -77,7 +77,7 @@ async function getAllEnv(
     const { Items } = await dynamoDoc.query(input);
     return Items;
   } catch (error) {
-    console.log("Error fetching variables: ", error);
+    throw Error("Error fetching variables");
   } finally {
     dynamo.destroy();
   }
@@ -105,7 +105,7 @@ async function getAllProjects(dynamoDoc: DynamoDBDocument, dynamo: DynamoDBClien
     console.log([...projects]);
     return [...projects];
   } catch (error) {
-    console.log("Error fetching variables: ", error);
+    throw Error("Error fetching projects");
   } finally {
     dynamo.destroy();
   }
@@ -128,10 +128,10 @@ async function getKeyNames(
 
   try {
     const { Items } = await dynamoDoc.query(params);
-    const keyNames = Items?.map((item) => item.environment_keyName.S.split(":")[1]);
-    return keyNames;
+    const keyNames = Items?.map((item) => item.environment_keyName.split(":")[1]);
+    return keyNames ?? [];
   } catch (err) {
-    console.error(err);
+    throw Error("Error fetching keys");
   } finally {
     dynamo.destroy();
   }
@@ -142,4 +142,4 @@ const getAllEnvHandler = middy(baseHandler)
   .use(cors())
   .use(httpErrorHandler());
 
-export { getAllEnvHandler };
+export { getAllEnvHandler, baseHandler, getAllEnv, getAllProjects, getKeyNames };

@@ -3,7 +3,6 @@ import chalk from "chalk";
 import inquirer from "inquirer";
 import { Client } from "../../util/client.js";
 import doAddEnv from "../../util/env/add.js";
-import { EnvVariable } from "../../types/index.js";
 import { doPullEnv } from "../../util/env/pull-all.js";
 import { errorToString } from "@companydotcom/utils";
 
