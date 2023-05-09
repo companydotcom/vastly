@@ -38,28 +38,28 @@ const serverlessConfiguration: AWS = {
   },
   resources: {
     Resources: {
-      SecretsTable: {
+      EnvTable: {
         Type: "AWS::DynamoDB::Table",
         Properties: {
-          TableName: "secrets",
-          AttributeDefinitions: [
-            {
-              AttributeName: "environment",
-              AttributeType: "S",
-            },
-            {
-              AttributeName: "secretKey",
-              AttributeType: "S",
-            },
-          ],
+          TableName: "env",
           KeySchema: [
             {
-              AttributeName: "environment",
+              AttributeName: "projects",
               KeyType: "HASH",
             },
             {
-              AttributeName: "secretKey",
+              AttributeName: "environment_keyName",
               KeyType: "RANGE",
+            },
+          ],
+          AttributeDefinitions: [
+            {
+              AttributeName: "projects",
+              AttributeType: "S",
+            },
+            {
+              AttributeName: "environment_keyName",
+              AttributeType: "S",
             },
           ],
           ProvisionedThroughput: {
@@ -71,11 +71,11 @@ const serverlessConfiguration: AWS = {
     },
     // The "Outputs" that your AWS CloudFormation Stack should produce.
     Outputs: {
-      SecretsTableArn: {
-        Description: "The ARN for the Secrets Table",
-        Value: { "Fn::GetAtt": ["SecretsTable", "Arn"] },
+      EnvTableArn: {
+        Description: "The ARN for the Env Table",
+        Value: { "Fn::GetAtt": ["EnvTable", "Arn"] },
         Export: {
-          Name: "${self:service}:${sls:stage}:SecretsTableArn",
+          Name: "${self:service}:${sls:stage}:EnvTableArn",
         },
       },
     },
