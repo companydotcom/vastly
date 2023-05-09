@@ -28,16 +28,16 @@ const baseHandler = async ({
   }
 
   try {
-    const response = await deleteVariable({ keyName, env, projects }, docClient, dynamoClient);
+    await deleteVariable({ keyName, env, projects }, docClient, dynamoClient);
     console.log("Deleting...");
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: `Variable deleted successfully ---> ${response}` }),
+      body: JSON.stringify({ message: "Variable deleted successfully" }),
     };
   } catch (error) {
     return {
-      statusCode: error.statusCode || 501,
-      body: JSON.stringify({ message: `Error deleting variable ---> ${error}` }),
+      statusCode: 501,
+      body: JSON.stringify({ message: "Error deleting variable" }),
     };
   }
 };
@@ -54,13 +54,13 @@ async function deleteVariable(
       projects,
     },
   };
-  console.log(`EnvKey: ${params.Key}`);
+  console.log("EnvKey: ", params.Key);
 
   try {
     const response = await dynamoDoc.delete(params);
     return response;
   } catch (error) {
-    console.log("Error deleting from database:", error);
+    throw Error("Error deleting from database");
   } finally {
     dynamo.destroy();
   }
@@ -70,4 +70,4 @@ const deleteEnvHandler = middy(baseHandler)
   .use(jsonBodyParser())
   .use(cors())
   .use(httpErrorHandler());
-export { deleteEnvHandler };
+export { deleteEnvHandler, baseHandler, deleteVariable };
