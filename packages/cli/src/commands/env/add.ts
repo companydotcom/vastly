@@ -88,7 +88,10 @@ export default async function addEnv(client: Client) {
     }).start();
 
     const response = await doAddEnv(client, input);
-
+    if (response?.message.includes("Error")) {
+      spinner.stop();
+      throw Error(response.message);
+    }
     spinner.succeed(chalk.green("Success!"));
     return response;
   } catch (err: unknown) {

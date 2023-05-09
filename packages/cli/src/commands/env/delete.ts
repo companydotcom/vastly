@@ -67,6 +67,10 @@ export default async function deleteEnv(client: Client) {
     }).start();
 
     const response = await doDeleteEnv(client, env);
+    if (response?.message.includes("Error")) {
+      spinner.stop();
+      throw Error(response.message);
+    }
     spinner.succeed(chalk.green("Success!"));
     return response;
   } catch (err: unknown) {
