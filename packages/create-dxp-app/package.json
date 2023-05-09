@@ -7,7 +7,7 @@
   "bin": "dist/index.js",
   "scripts": {
     "create-dxp-app": "npx ts-node --esm src/index.ts",
-    "build": "tsc",
+    "build": "tsup src/index.ts --dts",
     "test": "vitest run --coverage",
     "test:watch": "vitest --coverage"
   },

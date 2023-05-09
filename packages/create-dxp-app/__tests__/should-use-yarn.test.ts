@@ -28,20 +28,17 @@ describe("shouldUseYarn", () => {
   });
 
   it("returns true when using yarn", () => {
-    // eslint-disable-next-line turbo/no-undeclared-env-vars
-    process.env.npm_config_user_agent = "yarn";
+    process.env["npm_config_user_agent"] = "yarn";
     expect(shouldUseYarn()).toBe(true);
   });
 
   it("returns false when not using yarn and yarn is not installed", () => {
-    // eslint-disable-next-line turbo/no-undeclared-env-vars
-    delete process.env.npm_config_user_agent;
+    delete process.env["npm_config_user_agent"];
     expect(shouldUseYarn()).toBe(false);
   });
 
   it("returns false when an error is thrown", () => {
-    // eslint-disable-next-line turbo/no-undeclared-env-vars
-    process.env.npm_config_user_agent = "yarn";
+    process.env["npm_config_user_agent"] = "yarn";
 
     vi.mocked(execSync).mockImplementationOnce(() => {
       throw Error;

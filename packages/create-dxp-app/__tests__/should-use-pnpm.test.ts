@@ -28,20 +28,17 @@ describe("shouldUsePnpm", () => {
   });
 
   it("returns true when using pnpm", () => {
-    // eslint-disable-next-line turbo/no-undeclared-env-vars
-    process.env.npm_config_user_agent = "pnpm";
+    process.env["npm_config_user_agent"] = "pnpm";
     expect(shouldUsePnpm()).toBe(true);
   });
 
   it("returns false when not using pnpm and pnpm is not installed", () => {
-    // eslint-disable-next-line turbo/no-undeclared-env-vars
-    delete process.env.npm_config_user_agent;
+    delete process.env["npm_config_user_agent"];
     expect(shouldUsePnpm()).toBe(false);
   });
 
   it("returns false when an error is thrown", () => {
-    // eslint-disable-next-line turbo/no-undeclared-env-vars
-    process.env.npm_config_user_agent = "pnpm";
+    process.env["npm_config_user_agent"] = "pnpm";
 
     vi.mocked(execSync).mockImplementationOnce(() => {
       throw Error;

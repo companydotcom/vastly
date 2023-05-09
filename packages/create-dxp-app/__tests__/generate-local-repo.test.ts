@@ -27,5 +27,3 @@ describe("generateLocalRepo", () => {
     await generateLocalRepo(mockAnswers as GenerateAnswers);
   });
 });
-
-// https://github.com/vitest-dev/vitest/pull/2772

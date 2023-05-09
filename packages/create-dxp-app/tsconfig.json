@@ -1,7 +1,7 @@
 {
 	"extends": "tsconfig/react-library.json",
 	"compilerOptions": {
-    "target": "es2017",
+    "target": "esnext",
 		"module": "ESNext",
 		"moduleResolution": "node",
 		"esModuleInterop": true,

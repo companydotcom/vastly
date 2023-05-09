@@ -49,10 +49,6 @@ describe("generateGithubRepo", () => {
     await generateGithubRepo(mockAnswers as GenerateAnswers);
     expect(vi.mocked(spawnSync).mock.calls).toEqual([
       ["git", ["clone", "https://github.com/testuser/my-repo"]],
-      // ["git", ["branch", "--unset-upstream"]],
-      // ["git", ["add", "."]],
-      // ["git", ["commit", ".", "-m", "Initial commit"]],
-      // ["git", ["push", "--set-upstream", "origin", "master"]],
     ]);
     expect(vi.mocked(spawnSync).mock.calls.length).toBe(1);
   });
