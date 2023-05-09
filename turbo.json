@@ -51,7 +51,8 @@
       ]
     },
     "test:watch": {
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
     "@companydotcom/micro-service-core#test": {
       "env": [

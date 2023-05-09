@@ -19,7 +19,8 @@
     "serverless-iam-roles-per-function": "^3.2.0",
     "serverless-offline": "^12.0.4",
     "serverless-offline-kms": "^2.0.0",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "vitest": "*"
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.298.0",

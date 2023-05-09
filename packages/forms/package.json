@@ -14,19 +14,18 @@
     "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
-    "test": "vitest run --coverage",
-    "test:watch": "vitest --coverage",
-    "test:ui": "vitest --coverage --ui"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/react": "^18.0.17",
     "@types/react-datepicker": "^4.8.0",
     "@types/react-dom": "^18.0.6",
     "@types/testing-library__jest-dom": "^5.14.5",
-    "@vitest/coverage-c8": "^0.28.4",
-    "@vitest/ui": "^0.28.4",
     "eslint": "^7.32.0",
     "eslint-config-custom": "workspace:*",
     "jsdom": "^21.1.0",
@@ -34,7 +33,7 @@
     "ts-node": "^10.9.1",
     "tsconfig": "workspace:*",
     "typescript": "^4.9.5",
-    "vitest": "^0.28.4"
+    "vitest": "*"
   },
   "peerDependencies": {
     "react": ">=18.0.0",

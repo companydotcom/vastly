@@ -1,7 +1,7 @@
+import createEvent from "@serverless/event-mocks";
 import { addVariable, baseHandler } from "../functions/add/handler";
 import { EnvVariable } from "../lib/types";
 import { mockDynamoDBDocument, mockDynamoDBClient, setupDynamoMock } from "../__mocks__/dynamoMock";
-import createEvent from "@serverless/event-mocks";
 
 const mockNewVariable: EnvVariable = {
   keyName: "mockKeyName",

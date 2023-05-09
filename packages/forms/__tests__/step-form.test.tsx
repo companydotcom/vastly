@@ -1,4 +1,5 @@
-import { render, fireEvent } from "@testing-library/react";
+import { render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import {
   StepForm,
   FormStepper,
@@ -19,6 +20,8 @@ describe("StepForm", () => {
   });
 
   it("should call onSubmit when the form is submitted", async () => {
+    const user = userEvent.setup();
+
     const mock = {
       onSubmit: vitest.fn(),
     };
@@ -33,12 +36,13 @@ describe("StepForm", () => {
     );
 
     const submitButton = getByText(/submit/i);
-    fireEvent.submit(submitButton);
+    user.click(submitButton);
 
     expect(submitSpy).toHaveBeenCalled();
   });
 
   test("should go to the next step", async () => {
+    const user = userEvent.setup();
     const mock = {
       onSubmit: vitest.fn(),
     };
@@ -60,23 +64,23 @@ describe("StepForm", () => {
 
     const name = getByLabelText("Name");
 
-    fireEvent.change(name, { target: { value: "Test" } });
+    user.type(name, "Test");
 
     const email = getByLabelText("Email");
 
-    fireEvent.change(email, { target: { value: "blahblah@vastly.com" } });
+    user.type(email, "blahblah@vastly.com");
 
     const next = getByTestId("next-button");
 
-    fireEvent.click(next);
+    user.click(next);
 
     const password = getByLabelText("Password");
 
-    fireEvent.change(password, { target: { value: "Test12345" } });
+    user.type(password, "Test12345");
 
     const complete = getByText("Complete");
 
-    fireEvent.click(complete);
+    user.click(complete);
 
     expect(submitSpy).toBeCalled();
   });
