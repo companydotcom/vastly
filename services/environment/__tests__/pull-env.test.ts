@@ -1,5 +1,5 @@
 import { baseHandler, getAllEnv, getAllProjects, getKeyNames } from "../functions/pull/handler";
-import { mockDynamoDBDocument, mockDynamoDBClient, setupPutMock } from "../__mocks__/dynamoMock";
+import { mockDynamoDBDocument, mockDynamoDBClient, setupDynamoMock } from "../__mocks__/dynamoMock";
 import createEvent from "@serverless/event-mocks";
 
 const mockNewVariable = {
@@ -21,7 +21,7 @@ describe("Pull Env", () => {
   });
 
   beforeEach(() => {
-    setupPutMock(mockDynamoDBDocument);
+    setupDynamoMock(mockDynamoDBDocument);
     mockDynamoDBClient.destroy = vi.fn();
   });
 

@@ -1,6 +1,6 @@
 import { addVariable, baseHandler } from "../functions/add/handler";
 import { EnvVariable } from "../lib/types";
-import { mockDynamoDBDocument, mockDynamoDBClient, setupPutMock } from "../__mocks__/dynamoMock";
+import { mockDynamoDBDocument, mockDynamoDBClient, setupDynamoMock } from "../__mocks__/dynamoMock";
 import createEvent from "@serverless/event-mocks";
 
 const mockNewVariable: EnvVariable = {
@@ -24,7 +24,7 @@ describe("Add Env", () => {
   });
 
   beforeEach(() => {
-    setupPutMock(mockDynamoDBDocument);
+    setupDynamoMock(mockDynamoDBDocument);
     mockDynamoDBClient.destroy = vi.fn();
   });
 
