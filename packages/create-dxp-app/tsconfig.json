@@ -1,12 +1,15 @@
 {
+	"extends": "tsconfig/react-library.json",
 	"compilerOptions": {
-		"target": "es2020",
+    "target": "esnext",
 		"module": "ESNext",
 		"moduleResolution": "node",
 		"esModuleInterop": true,
 		"outDir": "dist",
-		"jsx": "preserve"
+		"jsx": "preserve",
+		"types": ["vitest/globals", "@testing-library/jest-dom"],
+
 	},
-	"exclude": ["node_modules"],
-  	"include": ["src"]
+  "include": ["src", "__tests__"],
+  "exclude": ["dist", "build", "node_modules", "coverage"],
 }

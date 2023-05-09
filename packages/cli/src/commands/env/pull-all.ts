@@ -89,9 +89,10 @@ export default async function pullAllEnv(client: Client) {
     } else {
       spinner.fail(
         chalk.bgYellowBright(
-          `No variables or secrets stored for the ${answers.environment} environment found!`,
+          `No variables or secrets for the ${answers.environment} environment found!`,
         ),
       );
+      throw Error();
     }
     return response;
   } catch (err: unknown) {

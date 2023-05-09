@@ -3,7 +3,6 @@ import chalk from "chalk";
 import inquirer from "inquirer";
 import { Client } from "../../util/client.js";
 import doAddEnv from "../../util/env/add.js";
-import { EnvVariable } from "../../types/index.js";
 import { doPullEnv } from "../../util/env/pull-all.js";
 import { errorToString } from "@companydotcom/utils";
 
@@ -88,7 +87,10 @@ export default async function addEnv(client: Client) {
     }).start();
 
     const response = await doAddEnv(client, input);
-
+    if (response?.message.includes("Error")) {
+      spinner.stop();
+      throw Error(response.message);
+    }
     spinner.succeed(chalk.green("Success!"));
     return response;
   } catch (err: unknown) {
