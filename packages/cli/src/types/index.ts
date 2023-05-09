@@ -2,12 +2,13 @@ export interface Config {
   token?: string;
 }
 
-export interface SecretResult {
+export interface EnvResult {
   message: string;
 }
-export interface Secret {
+export interface EnvVariable {
   environment?: string;
-  secretKey?: string;
-  secretValue?: string;
-  workspace?: string;
+  keyName?: string;
+  keyValue?: string;
+  projects?: string;
+  environment_keyName?: string;
 }

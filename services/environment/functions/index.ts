@@ -1,14 +1,14 @@
 import type { AWS } from "@serverless/typescript";
 
 export const functions: AWS["functions"] = {
-  addSecret: {
-    handler: "functions/add-secret/handler.addSecretHandler",
-    description: "Add a secret",
+  addEnv: {
+    handler: "functions/add/handler.addEnvHandler",
+    description: "Add a secret or environment variable",
     events: [
       {
         httpApi: {
           method: "POST",
-          path: "/{env}/secrets",
+          path: "/env/{env}",
         },
       },
     ],
@@ -19,20 +19,20 @@ export const functions: AWS["functions"] = {
         Action: "dynamodb:PutItem",
         Resource: [
           {
-            "Fn::GetAtt": ["SecretsTable", "Arn"],
+            "Fn::GetAtt": ["EnvTable", "Arn"],
           },
         ],
       },
     ],
   },
-  deleteSecret: {
-    handler: "functions/delete-secret/handler.deleteSecretHandler",
-    description: "Delete a secret",
+  deleteEnv: {
+    handler: "functions/delete/handler.deleteEnvHandler",
+    description: "Delete a secret or environment variable",
     events: [
       {
         httpApi: {
           method: "DELETE",
-          path: "/{env}/secrets",
+          path: "/env/{env}",
         },
       },
     ],
@@ -40,23 +40,23 @@ export const functions: AWS["functions"] = {
     iamRoleStatements: [
       {
         Effect: "Allow",
-        Action: "dynamodb:PutItem",
+        Action: "dynamodb:DeleteItem",
         Resource: [
           {
-            "Fn::GetAtt": ["SecretsTable", "Arn"],
+            "Fn::GetAtt": ["EnvTable", "Arn"],
           },
         ],
       },
     ],
   },
-  getAllSecrets: {
-    handler: "functions/get-secrets/handler.getAllSecretsHandler",
-    description: "Fetch all secrets per environment",
+  getAllEnv: {
+    handler: "functions/pull/handler.getAllEnvHandler",
+    description: "Fetch all secrets and variables per environment and project",
     events: [
       {
         httpApi: {
           method: "GET",
-          path: "/{env}/secrets",
+          path: "/env/{env}",
         },
       },
     ],
@@ -64,10 +64,19 @@ export const functions: AWS["functions"] = {
     iamRoleStatements: [
       {
         Effect: "Allow",
-        Action: "dynamodb:PutItem",
+        Action: "dynamodb:Query",
         Resource: [
           {
-            "Fn::GetAtt": ["SecretsTable", "Arn"],
+            "Fn::GetAtt": ["EnvTable", "Arn"],
+          },
+        ],
+      },
+      {
+        Effect: "Allow",
+        Action: "dynamodb:Scan",
+        Resource: [
+          {
+            "Fn::GetAtt": ["EnvTable", "Arn"],
           },
         ],
       },

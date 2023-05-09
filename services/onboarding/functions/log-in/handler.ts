@@ -2,8 +2,7 @@ import {
   CognitoIdentityProviderClient,
   AdminUpdateUserAttributesCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
-import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
-import validator from "@middy/validator";
+import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
@@ -11,7 +10,6 @@ import cors from "@middy/http-cors";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import { TIMEOUT_MINS } from "../../lib/constants";
 import { encrypt } from "../../lib/encryption";
-import { eventSchema, responseSchema } from "./schema";
 
 const { SES_FROM_ADDRESS, USER_POOL_ID, BASE_URL, AWS_REGION } = process.env;
 const ONE_MIN = 60 * 1000;
@@ -19,12 +17,14 @@ const ONE_MIN = 60 * 1000;
 const cognitoClient = new CognitoIdentityProviderClient({ region: AWS_REGION });
 const sesClient = new SESClient({ region: AWS_REGION });
 
-const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
+const logIn = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const { email } = typeof event.body === "string" ? JSON.parse(event.body) : event.body;
+
   if (!email) {
     return {
       statusCode: 400,
       body: JSON.stringify({
+        status: "EMAIL_MISSING",
         message: "You must provide a valid email.",
       }),
     };
@@ -39,9 +39,8 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   };
 
   const tokenRaw = await encrypt(JSON.stringify(payload));
-  const tokenB64 = tokenRaw ? Buffer.from(tokenRaw).toString("base64") : "";
-  const token = new URLSearchParams({ "": tokenB64 }).toString().slice(1);
-  const magicLink = `https://${BASE_URL}/magic-link?email=${email}&token=${token}`;
+  const token = new URLSearchParams({ "": tokenRaw || "" }).toString().slice(1);
+  const magicLink = `http://${BASE_URL}?email=${email}&token=${token}`;
 
   try {
     // the decision to use Cognito’s user attributes has an impact on the number of users
@@ -54,17 +53,18 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
       UserAttributes: [
         {
           Name: "custom:authChallenge",
-          Value: tokenB64,
+          Value: tokenRaw,
         },
       ],
     });
 
     await cognitoClient.send(command);
   } catch (error) {
-    console.log("err", error);
+    console.log("ERROR: ", error);
     return {
       statusCode: 404,
       body: JSON.stringify({
+        status: "USER_NOT_FOUND",
         message: "User not found",
       }),
     };
@@ -73,13 +73,13 @@ const baseHandler: APIGatewayProxyHandlerV2 = async (event) => {
   await sendEmail(email, magicLink);
   return {
     statusCode: 202,
-    body: JSON.stringify({ message: "accepted" }),
+    body: JSON.stringify({ status: "EMAIL_SENT", message: "The email has been sent!" }),
   };
 };
 
 async function sendEmail(emailAddress: string, magicLink: string) {
   try {
-    const command = new SendEmailCommand({
+    const emailInput = {
       Destination: {
         ToAddresses: [emailAddress],
       },
@@ -101,24 +101,17 @@ async function sendEmail(emailAddress: string, magicLink: string) {
           },
         },
       },
-    });
+    };
+
+    const command = new SendEmailCommand(emailInput);
 
     await sesClient.send(command);
   } catch (error) {
-    console.log("sendEmail ~ error:", error);
+    console.log("Error sending email:", error);
     return error;
   }
 }
 
-const handler = middy(baseHandler)
-  .use(jsonBodyParser())
-  .use(
-    validator({
-      eventSchema,
-      responseSchema,
-    }),
-  )
-  .use(cors())
-  .use(httpErrorHandler());
+const handler = middy(logIn).use(jsonBodyParser()).use(cors()).use(httpErrorHandler());
 
 export { handler };

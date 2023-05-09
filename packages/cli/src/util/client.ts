@@ -1,7 +1,8 @@
 import { Command } from "commander";
 import { JSONObject } from "@companydotcom/types";
 import fetch, { BodyInit, Headers, RequestInit } from "node-fetch";
-import { Output } from "./output.js";
+import { Output } from "./output/index.js";
+import { Config } from "../types/index.js";
 
 export interface FetchOptions extends Omit<RequestInit, "body"> {
   body?: BodyInit | JSONObject;
@@ -15,6 +16,7 @@ export const isJSONObject = (v: any): v is JSONObject => {
 export interface ClientOptions {
   program: Command;
   output: Output;
+  config: Config;
 }
 
 export default function makeClient(opts: ClientOptions) {
@@ -37,11 +39,15 @@ export default function makeClient(opts: ClientOptions) {
   async function request<T>(url: string, opts?: FetchOptions): Promise<T>;
   async function request(url: string, opts: FetchOptions = {}) {
     const res = await _fetch(url, opts);
-
     const contentType = res.headers.get("content-type");
 
     if (!contentType) {
       return null;
+    }
+
+    if (contentType.includes("text/plain")) {
+      const text = await res.text();
+      return JSON.parse(text);
     }
 
     return contentType.includes("application/json") ? res.json() : res;
@@ -51,6 +57,8 @@ export default function makeClient(opts: ClientOptions) {
     program: opts.program,
     output: opts.output,
     fetch: request,
+    apiUrl: "https://gxmblcgqcb.execute-api.us-east-1.amazonaws.com",
+    config: opts.config,
   };
 }
 

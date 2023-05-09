@@ -1,28 +1,40 @@
 {
-  "name": "environment-service",
+  "name": "environment",
   "version": "0.1.0",
   "description": "A TypeScript service for managing secrets",
   "scripts": {
     "dev": "serverless offline start",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .serverless && rm -rf .esbuild"
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .serverless && rm -rf .esbuild",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest --coverage",
+    "test:ui": "vitest --coverage --ui"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@serverless/event-mocks": "^1.1.1",
     "@serverless/typescript": "^3.29.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
     "@types/aws-lambda": "^8.10.114",
+    "@types/testing-library__jest-dom": "^5.14.5",
+    "@vitest/coverage-c8": "^0.28.4",
+    "@vitest/ui": "^0.28.4",
+    "aws-sdk": "^2.1146.0",
     "esbuild": "^0.17.11",
     "eslint": "^8.36.0",
     "eslint-config-custom-server": "workspace:*",
+    "jsdom": "^21.1.0",
     "serverless": "^3.28.1",
     "serverless-esbuild": "^1.42.0",
     "serverless-iam-roles-per-function": "^3.2.0",
     "serverless-offline": "^12.0.4",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "vitest": "^0.28.4"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.312.0",
-    "@aws-sdk/lib-dynamodb": "^3.312.0",
+    "@aws-sdk/lib-dynamodb": "^3.325.0",
     "@aws-sdk/util-dynamodb": "^3.312.0",
     "@companydotcom/utils": "workspace:*",
     "@middy/core": "^4.2.7",

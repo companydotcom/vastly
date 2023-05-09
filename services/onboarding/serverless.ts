@@ -27,6 +27,7 @@ const serverlessConfiguration: AWS = {
     domain: "ses.companydev.com",
     "serverless-offline": {
       httpPort: 4000,
+      useChildProcesses: true,
     },
     esbuild: {
       bundle: true,
@@ -185,6 +186,38 @@ const serverlessConfiguration: AWS = {
               },
             ],
           },
+        },
+      },
+      SesSendingRole: {
+        Type: "AWS::IAM::Role",
+        Properties: {
+          AssumeRolePolicyDocument: {
+            Version: "2012-10-17",
+            Statement: [
+              {
+                Effect: "Allow",
+                Principal: {
+                  Service: "lambda.amazonaws.com",
+                },
+                Action: "sts:AssumeRole",
+              },
+            ],
+          },
+          Policies: [
+            {
+              PolicyName: "SesSendingPolicy",
+              PolicyDocument: {
+                Version: "2012-10-17",
+                Statement: [
+                  {
+                    Effect: "Allow",
+                    Action: "ses:SendEmail",
+                    Resource: "*",
+                  },
+                ],
+              },
+            },
+          ],
         },
       },
     },

@@ -1,5 +1,6 @@
-export interface Secret {
-  environment?: string;
-  name?: string;
-  value?: string;
+export interface EnvVariable {
+  keyName?: string;
+  keyValue?: string;
+  projects?: string;
+  environment_keyName?: string;
 }

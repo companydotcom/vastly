@@ -1,14 +1,15 @@
 import fastGlob from "fast-glob";
-import ora, { Ora } from "ora";
+import ora from "ora";
 import chalk from "chalk";
 import inquirer from "inquirer";
 import { findUp } from "find-up";
 import path from "node:path";
 import { Client } from "../../util/client.js";
-import doGetAllSecrets from "../../util/secrets/get-all-secrets.js";
+import { doPullEnv } from "../../util/env/pull-all.js";
 import writeToFile from "../../util/write-env-files.js";
+import { errorToString } from "@companydotcom/utils";
 
-export default async function getAllSecrets(client: Client) {
+export default async function pullAllEnv(client: Client) {
   const rootDir = path.dirname((await findUp(["apps", "services", "pnpm-workspace.yaml"])) || ".");
   const allDirs = await fastGlob(["apps/*/", "services/*/"], {
     cwd: rootDir,
@@ -19,28 +20,45 @@ export default async function getAllSecrets(client: Client) {
   const { output } = client;
 
   try {
-    let spinner: Ora;
+    let spinner = output.spinner;
 
-    const answers: { environment: string; directory: string[] } = await inquirer
+    spinner = ora({
+      text: `Fetching your projects...\n`,
+      color: "yellow",
+    }).start();
+
+    // Grabs projects from data, throws error if no projects are found
+    const projects = await doPullEnv(client, { eventType: "pull-projects" });
+    if (!projects?.length) {
+      spinner.fail(chalk.bgMagentaBright("  No projects found! Add an env to get started :D  \n"));
+      throw new Error("Command failed with exit code 1");
+    } else {
+      spinner.succeed();
+    }
+
+    const answers = await inquirer
       .prompt([
         {
           type: "list",
           name: "environment",
-          message: "Which environment do you want to pull from?",
+          message: "Which ENVIRONMENT do you want to pull from?",
           choices: ["dev", "production"],
+        },
+        {
+          type: "list",
+          name: "projects",
+          message: "Which PROJECT do you want to pull from?",
+          choices: projects,
+          when: () => projects?.length,
         },
         {
           type: "checkbox",
           name: "directory",
           message: "Which directory do you want to write to?",
-          default: "root",
           choices: ["root", ...allDirs],
         },
       ])
-      .then((a) => {
-        console.log(a.directory);
-        return a;
-      })
+      .then((a) => a)
       .catch((error) => {
         if (error.isTtyError) {
           // Prompt couldn't be rendered in the current environment
@@ -52,13 +70,13 @@ export default async function getAllSecrets(client: Client) {
       });
 
     spinner = ora({
-      text: `Fetching your secrets for ${answers.environment}...\n`,
+      text: `Fetching your variables for ${answers.projects}#${answers.environment}...\n`,
       color: "yellow",
     }).start();
 
-    const response = await doGetAllSecrets(client, answers);
+    const response = await doPullEnv(client, { eventType: "pull-env", ...answers });
     if (response?.length) {
-      spinner.succeed(chalk.green(`Secrets for ${answers.environment} successfully fetched!`));
+      spinner.succeed(chalk.green(`Variables for ${answers.environment} successfully fetched!`));
 
       spinner = ora({
         text: "Creating .env file...\n",
@@ -77,6 +95,6 @@ export default async function getAllSecrets(client: Client) {
     }
     return response;
   } catch (err: unknown) {
-    output.error(err as string);
+    output.error(errorToString(err));
   }
 }

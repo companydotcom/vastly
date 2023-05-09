@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-import { Argument, Command, Option } from "commander";
+import { Argument, Command } from "commander";
 import chalk from "chalk";
 import { mkdirp } from "fs-extra";
 import { errorToString, isErrnoException } from "@companydotcom/utils";
@@ -23,7 +23,7 @@ const VASTLY_CONFIG_PATH = getConfigFilePath();
 
 const main = async () => {
   const clientUtil = await import("./util/client.js");
-  const outputUtil = await import("./util/output.js");
+  const outputUtil = await import("./util/output/create-output.js");
   const program = new Command();
 
   program
@@ -36,7 +36,7 @@ const main = async () => {
   // Top level command for the CLI
   const commander = program.command("vastly");
   const options = commander.opts();
-  const output = outputUtil.default({ debugEnabled: options.debug });
+  const output = outputUtil.default({ stream: process.stderr, debugEnabled: options.debug });
 
   // Make sure global config dir exists
   try {
@@ -48,7 +48,6 @@ const main = async () => {
 
   let config: Config;
   try {
-    // @ts-ignore
     config = readConfigFile();
   } catch (err: unknown) {
     if (isErrnoException(err) && err.code === "ENOENT") {
@@ -73,9 +72,11 @@ const main = async () => {
     }
   }
 
+  // Shared client instance for all subcommands to use
   const client = clientUtil.default({
     program: commander,
     output,
+    config,
   });
 
   const subcommand = program.args[1];
@@ -100,10 +101,10 @@ const main = async () => {
         description = "Log out of company.com";
         func = (await import("./commands/logout.js")).default;
         break;
-      case "secret":
-        description = "Add, delete, or pull all stored secrets";
-        func = (await import("./commands/secrets/index.js")).default;
-        argument = new Argument("<action>", "Preferred action to preform on a secret").choices([
+      case "env":
+        description = "Add, delete, or pull all stored env variables";
+        func = (await import("./commands/env/index.js")).default;
+        argument = new Argument("<action>", "Preferred action to preform on a variable").choices([
           "add",
           "delete",
           "pull",

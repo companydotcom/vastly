@@ -5,6 +5,8 @@
     "sourceMap": true,
     "moduleResolution": "node",
     "baseUrl": ".",
+    "types": ["vitest/globals"],
   },
-  "include": ["src/**/*.ts", "serverless.ts"],
+  "include": ["__tests__", "serverless.ts"],
+  "exclude": ["node_modules", "coverage"],
 }
