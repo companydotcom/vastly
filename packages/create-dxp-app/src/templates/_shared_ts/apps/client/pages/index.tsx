@@ -1,7 +1,6 @@
 export default function App() {
-  return (
-    <div>
-      <h1>Hello Creator, Welcome to your DXP!</h1>
-    </div>
-  );
+  return "Hello Creator, Welcome to your DXP!";
+  // <div>
+  //   <h1>H</h1>
+  // </div>
 }

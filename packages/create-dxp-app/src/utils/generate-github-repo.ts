@@ -9,6 +9,7 @@ export const generateGithubRepo = async (answers: GenerateAnswers) => {
   const octokit = new Octokit({
     auth: answers.token,
   });
+
   try {
     const spinner = ora({
       text: "Creating repository...",
@@ -27,6 +28,7 @@ export const generateGithubRepo = async (answers: GenerateAnswers) => {
         name: repoName,
         description: repoDescription,
       });
+
       spinner.succeed(chalk.green(`Repository ${chalk.bold(repoData.name)} created successfully`));
 
       // clone github repository

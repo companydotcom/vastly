@@ -5,10 +5,10 @@ export function shouldUsePnpm(): boolean {
     // eslint-disable-next-line turbo/no-undeclared-env-vars
     const userAgent = process.env.npm_config_user_agent;
     if (userAgent && userAgent.startsWith("pnpm")) {
+      execSync("pnpm --version", { stdio: "ignore" });
       return true;
     }
-    execSync("pnpm --version", { stdio: "ignore" });
-    return true;
+    return false;
   } catch (e) {
     return false;
   }
