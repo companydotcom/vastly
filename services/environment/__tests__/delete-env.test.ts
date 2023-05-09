@@ -40,12 +40,11 @@ describe("Delete Env", () => {
     expect(mockDynamoDBDocument.delete).toHaveBeenCalledWith(expectedParams);
   });
 
-  test("should return the response from addVariable", async () => {
+  test("should return the response from deleteVariable", async () => {
     const result = await deleteVariable(mockNewVariable, mockDynamoDBDocument, mockDynamoDBClient);
-    console.log("🚀 ~ file: delete-env.test.ts:46 ~ test ~ result:", result);
 
-    expect(result).toHaveProperty("$metadata.httpStatusCode");
-    expect(result?.$metadata.httpStatusCode).toEqual(200);
+    expect(result).toHaveProperty("$metadata");
+    expect(result.$metadata.httpStatusCode).toEqual(200);
   });
 
   test("should throw an proper error", async () => {

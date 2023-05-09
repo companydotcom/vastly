@@ -17,8 +17,42 @@ export function setupPutMock(mock: DynamoDBDocument) {
       totalRetryDelay: 0,
     },
   }));
+  const pullMock = vi.fn().mockImplementation(() => ({
+    Items: [
+      {
+        keyValue: "12345",
+        environment_keyName: "dev:MY_MOCK1",
+      },
+      {
+        keyValue: "54431",
+        environment_keyName: "dev:MY_MOCK2",
+      },
+      {
+        keyValue: "23464",
+        environment_keyName: "dev:MY_MOCK#",
+      },
+    ],
+  }));
+  const scanMock = vi.fn().mockImplementation(() => ({
+    Items: [
+      {
+        projects: "mockProject1",
+      },
+      {
+        projects: "mockProject1",
+      },
+      {
+        projects: "mockProject2",
+      },
+      {
+        projects: "mockProject3",
+      },
+    ],
+  }));
   mock.put = putMock;
   mock.delete = deleteMock;
+  mock.query = pullMock;
+  mock.scan = scanMock;
 }
 
 export const mockDynamoDBDocument = {} as DynamoDBDocument;

@@ -15,7 +15,6 @@ const baseHandler = async ({
   queryStringParameters,
 }: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const env = pathParameters?.env?.toLowerCase();
-  console.log("🚀 ~ file: handler.ts:18 ~ env:", env);
   const projects = queryStringParameters?.["p"] || "";
   const keyName = body as string;
 
@@ -29,16 +28,16 @@ const baseHandler = async ({
   }
 
   try {
-    const response = await deleteVariable({ keyName, env, projects }, docClient, dynamoClient);
+    await deleteVariable({ keyName, env, projects }, docClient, dynamoClient);
     console.log("Deleting...");
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: `Variable deleted successfully ---> ${response}` }),
+      body: JSON.stringify({ message: "Variable deleted successfully" }),
     };
   } catch (error) {
     return {
       statusCode: 501,
-      body: JSON.stringify({ message: `Error deleting variable ---> ${error}` }),
+      body: JSON.stringify({ message: "Error deleting variable" }),
     };
   }
 };
@@ -55,7 +54,7 @@ async function deleteVariable(
       projects,
     },
   };
-  console.log(`EnvKey: ${params.Key}`);
+  console.log("EnvKey: ", params.Key);
 
   try {
     const response = await dynamoDoc.delete(params);
