@@ -27,7 +27,6 @@
     "build": "tsup",
     "dev": "ts-node --esm ./src/index.ts",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
-    "test": "vitest run",
     "test:watch": "vitest watch"
   },
   "sideEffects": [
