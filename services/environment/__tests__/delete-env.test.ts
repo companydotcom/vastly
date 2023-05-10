@@ -8,11 +8,11 @@ const mockNewVariable = {
   projects: "mockProject1234",
 };
 
-vi.mock("@aws-sdk/lib-dynamodb", () => ({
+vi.doMock("@aws-sdk/lib-dynamodb", () => ({
   DynamoDBDocument: vi.fn().mockImplementation(() => mockDynamoDBDocument),
 }));
 
-vi.mock("@aws-sdk/client-dynamodb", () => ({
+vi.doMock("@aws-sdk/client-dynamodb", () => ({
   DynamoDBClient: vi.fn().mockImplementation(() => mockDynamoDBClient),
 }));
 

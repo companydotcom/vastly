@@ -44,8 +44,8 @@ importers:
         specifier: latest
         version: 1.9.3
       vitest:
-        specifier: ^0.28.4
-        version: 0.28.4(@vitest/ui@0.28.4)(jsdom@21.1.0)
+        specifier: 0.31.0
+        version: 0.31.0(@vitest/ui@0.28.4)(jsdom@21.1.0)
 
   apps/docs:
     dependencies:
@@ -294,8 +294,8 @@ importers:
         specifier: ^4.9.5
         version: 4.9.5
       vitest:
-        specifier: '*'
-        version: 0.28.4(@vitest/ui@0.28.4)(jsdom@21.1.0)
+        specifier: 0.31.0
+        version: 0.31.0(@vitest/ui@0.28.4)(jsdom@21.1.0)
 
   packages/client:
     devDependencies:
@@ -510,8 +510,8 @@ importers:
         specifier: ^4.9.5
         version: 4.9.5
       vitest:
-        specifier: '*'
-        version: 0.28.4(@vitest/ui@0.28.4)(jsdom@21.1.0)
+        specifier: 0.31.0
+        version: 0.31.0(@vitest/ui@0.28.4)(jsdom@21.1.0)
 
   packages/micro-service-core:
     dependencies:
@@ -778,8 +778,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/tsconfig
       vitest:
-        specifier: '*'
-        version: 0.28.4(@vitest/ui@0.28.4)(jsdom@21.1.0)
+        specifier: 0.31.0
+        version: 0.31.0(@vitest/ui@0.28.4)(jsdom@21.1.0)
 
   services/onboarding:
     dependencies:
@@ -848,8 +848,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/tsconfig
       vitest:
-        specifier: '*'
-        version: 0.28.4(@vitest/ui@0.28.4)(jsdom@21.1.0)
+        specifier: 0.31.0
+        version: 0.31.0(@vitest/ui@0.28.4)(jsdom@21.1.0)
 
 packages:
 

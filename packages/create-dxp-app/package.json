@@ -10,7 +10,7 @@
     "create-dxp-app": "npx ts-node --esm src/index.ts",
     "build": "tsup src/index.ts --dts",
     "test": "vitest run",
-    "test:watch": "vitest watch --coverage"
+    "test:watch": "vitest watch"
   },
   "dependencies": {
     "@octokit/rest": "^19.0.7",
