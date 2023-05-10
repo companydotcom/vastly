@@ -12,7 +12,8 @@
 		"resolveJsonModule": true,
 		"sourceMap": true,
 		"outDir": "./dist",
+		"types": ["vitest/globals"],
 	},
-	"exclude": ["dist", "node_modules"],
-	"include": ["src"],
+	"exclude": ["dist", "node_modules","coverage"],
+	"include": ["__tests__","src"],
 }

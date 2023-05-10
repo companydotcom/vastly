@@ -29,13 +29,13 @@
     "react-dom": ">=18.0.0"
   },
   "dependencies": {
-    "@companydotcom/utils": "workspace:*",
-    "@chakra-ui/react": "^2.5.5",
-    "@chakra-ui/styled-system": "^2.8.0",
+    "@chakra-ui/react": "^2.6.1",
+    "@chakra-ui/styled-system": "^2.9.0",
     "@chakra-ui/theme-tools": "^2.0.16",
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
-    "framer-motion": "^8.5.0",
+    "@companydotcom/utils": "workspace:*",
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
+    "framer-motion": "^8.5.5",
     "react-datepicker": "^4.10.0"
   }
 }

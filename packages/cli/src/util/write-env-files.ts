@@ -7,9 +7,9 @@ import { EnvVariable } from "../types";
 // Cache directory config and find root
 const { writeFile } = pkg;
 const config = ["apps", "services", "pnpm-workspace.yaml"];
-const rootDir = path.dirname((await findUp(config, { type: "directory" })) || ".");
 
 export default async function writeToFile(data: EnvVariable[], directory: string[] | ["root"]) {
+  const rootDir = path.dirname((await findUp(config, { type: "directory" })) || ".");
   const content = convertJSONToEnv(data);
   // const contentYAML = yaml.dump(data);
 
