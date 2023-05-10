@@ -4,14 +4,15 @@
   "description": "Company.com create-dxp-app",
   "author": "Company.com",
   "license": "MIT",
+  "type": "module",
   "bin": "dist/index.js",
   "scripts": {
     "create-dxp-app": "npx ts-node --esm src/index.ts",
     "build": "tsup src/index.ts --dts",
-    "test:watch": "vitest"
+    "test": "vitest run",
+    "test:watch": "vitest watch --coverage"
   },
   "dependencies": {
-    "@latest": "link:vitest/@latest",
     "@octokit/rest": "^19.0.7",
     "chalk": "^4.1.2",
     "commander": "^10.0.0",
@@ -20,7 +21,6 @@
     "ora": "^3.2.0",
     "semver": "^7.3.8"
   },
-  "type": "module",
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -36,6 +36,6 @@
     "ts-node": "^10.9.1",
     "tsconfig": "workspace:*",
     "typescript": "^4.9.5",
-    "vitest": "*"
+    "vitest": "0.31.0"
   }
 }

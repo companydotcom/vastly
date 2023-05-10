@@ -45,14 +45,9 @@
         "@companydotcom/forms#dev"
       ]
     },
-    "test": {
-      "outputs": [
-        "coverage/**"
-      ]
-    },
+    "test": {},
     "test:watch": {
-      "cache": false,
-      "persistent": true
+      "cache": false
     },
     "@companydotcom/micro-service-core#test": {
       "env": [

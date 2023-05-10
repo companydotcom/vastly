@@ -20,7 +20,7 @@
     "serverless-offline": "^12.0.4",
     "serverless-offline-kms": "^2.0.0",
     "tsconfig": "workspace:*",
-    "vitest": "*"
+    "vitest": "0.31.0"
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.298.0",

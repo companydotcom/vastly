@@ -14,7 +14,7 @@
     "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\"",
-    "test": "vitest run",
+    "test": "vitest run --config vitest.config.ts",
     "test:watch": "vitest",
     "test:ui": "vitest --ui"
   },
@@ -33,7 +33,7 @@
     "ts-node": "^10.9.1",
     "tsconfig": "workspace:*",
     "typescript": "^4.9.5",
-    "vitest": "*"
+    "vitest": "0.31.0"
   },
   "peerDependencies": {
     "react": ">=18.0.0",
