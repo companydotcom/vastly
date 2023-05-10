@@ -114,4 +114,4 @@ async function sendEmail(emailAddress: string, magicLink: string) {
 
 const handler = middy(logIn).use(jsonBodyParser()).use(cors()).use(httpErrorHandler());
 
-export { handler };
+export { handler, sendEmail };
