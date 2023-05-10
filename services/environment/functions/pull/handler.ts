@@ -77,6 +77,7 @@ async function getAllEnv(
     const { Items } = await dynamoDoc.query(input);
     return Items;
   } catch (error) {
+    console.log(error);
     throw Error("Error fetching variables");
   } finally {
     dynamo.destroy();
@@ -105,6 +106,7 @@ async function getAllProjects(dynamoDoc: DynamoDBDocument, dynamo: DynamoDBClien
     console.log([...projects]);
     return [...projects];
   } catch (error) {
+    console.log(error);
     throw Error("Error fetching projects");
   } finally {
     dynamo.destroy();
@@ -130,7 +132,8 @@ async function getKeyNames(
     const { Items } = await dynamoDoc.query(params);
     const keyNames = Items?.map((item) => item.environment_keyName.split(":")[1]);
     return keyNames ?? [];
-  } catch (err) {
+  } catch (error) {
+    console.log(error);
     throw Error("Error fetching keys");
   } finally {
     dynamo.destroy();
