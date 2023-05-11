@@ -27,15 +27,20 @@ describe("copyTemplate", () => {
   });
 
   it("throws an error when packageManagerConfig does not exist", async () => {
-    const consoleSpy = vi.spyOn(console, "error");
-    vi.mocked(console.error).mockImplementationOnce(() => void 0);
+    const actual = await copyTemplate("pnpm", {
+      repoName: "testRepo",
+      repoDescription: "testRepoDescription",
+    });
+    const mockError = {
+      success: false,
+      message: "Something went wrong: Error: Unsupported package manager version.",
+    };
 
-    await copyTemplate("pnpm");
-
-    expect(consoleSpy).toBeCalledWith(new Error("Unsupported package manager version."));
+    expect(actual).toEqual(mockError);
   });
 
   it("does not throw error when package manager version is supported", async () => {
-    expect(copyTemplate("npm")).not.toThrowError;
+    expect(copyTemplate("npm", { repoName: "testRepo", repoDescription: "testRepoDescription" }))
+      .not.toThrowError;
   });
 });

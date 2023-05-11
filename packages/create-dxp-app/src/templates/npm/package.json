@@ -1,5 +1,5 @@
 {
-  "name": "dxp-npm",
+  "name": "<%= appName %>",
   "description": "<%= description %>",
   "version": "1.0.0",
   "scripts": {

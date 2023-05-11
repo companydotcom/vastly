@@ -15,9 +15,9 @@ describe("generateLocalRepo", () => {
   const mockAnswers = {
     repoName: "repo",
     repoDescription: "description",
-    email: "test@test.com",
-    username: "username",
-    token: "token",
+    userEmail: "test@test.com",
+    userName: "username",
+    userAccessToken: "token",
     generate: true,
     packageManager: "npm",
     linkToGithub: true,

@@ -1,5 +1,5 @@
 {
-  "name": "dxp-yarn",
+  "name": "<%= appName %>",
   "description": "<%= description %>",
   "version": "1.0.0",
   "workspaces": [

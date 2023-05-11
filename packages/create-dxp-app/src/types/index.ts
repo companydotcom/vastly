@@ -73,3 +73,8 @@ export const PACKAGE_MANAGERS: Record<PackageManagerName, PackageManager[]> = {
     },
   ],
 };
+
+export interface GeneratorResponse {
+  success: boolean;
+  message?: string;
+}
