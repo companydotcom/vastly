@@ -464,6 +464,9 @@ importers:
         specifier: ^5.7.0
         version: 5.7.0(@types/react@18.0.22)(react-dom@18.2.0)(react@18.2.0)
     devDependencies:
+      '@companydotcom/test-utils':
+        specifier: workspace:*
+        version: link:../test-utils
       '@testing-library/jest-dom':
         specifier: ^5.16.5
         version: 5.16.5
@@ -567,6 +570,9 @@ importers:
 
   packages/test-utils:
     dependencies:
+      '@chakra-ui/utils':
+        specifier: ^2.0.14
+        version: 2.0.14
       '@companydotcom/ui':
         specifier: workspace:*
         version: link:../ui
@@ -580,6 +586,9 @@ importers:
       '@testing-library/react':
         specifier: ^13.4.0
         version: 13.4.0(react-dom@18.2.0)(react@18.2.0)
+      '@testing-library/user-event':
+        specifier: ^14.4.3
+        version: 14.4.3(@testing-library/dom@9.2.0)
       '@types/react':
         specifier: ^18.0.17
         version: 18.0.22
@@ -673,12 +682,6 @@ importers:
 
   packages/utilities:
     dependencies:
-      '@middy/core':
-        specifier: ^4.2.6
-        version: 4.2.7
-      '@middy/http-json-body-parser':
-        specifier: ^4.2.6
-        version: 4.2.6
       react:
         specifier: '>=18.0.0'
         version: 18.2.0
@@ -8046,6 +8049,15 @@ packages:
       react: 18.2.0
     dev: false
 
+  /@chakra-ui/utils@2.0.14:
+    resolution: {integrity: sha512-vYxtAUPY09Ex2Ae2ZvQKA1d2+lMKq/wUaRiqpwmeLfutEQuPQZc3qzQcAIMRQx3wLgXr9BUFDtHgBoOz0XKtZw==}
+    dependencies:
+      '@types/lodash.mergewith': 4.6.6
+      css-box-model: 1.2.1
+      framesync: 6.1.2
+      lodash.mergewith: 4.6.2
+    dev: false
+
   /@chakra-ui/utils@2.0.15:
     resolution: {integrity: sha512-El4+jL0WSaYYs+rJbuYFDbjmfCcfGDmRY95GO4xwzit6YAPZBLcR65rOEwLps+XWluZTy1xdMrusg/hW0c1aAA==}
     dependencies:
@@ -11950,6 +11962,12 @@ packages:
     dependencies:
       load-json-file: 7.0.1
     dev: true
+
+  /@types/lodash.mergewith@4.6.6:
+    resolution: {integrity: sha512-RY/8IaVENjG19rxTZu9Nukqh0W2UrYgmBj5sdns4hWRZaV8PqR7wIKHFKzvOTjo4zVRV7sVI+yFhAJql12Kfqg==}
+    dependencies:
+      '@types/lodash': 4.14.182
+    dev: false
 
   /@types/lodash.mergewith@4.6.7:
     resolution: {integrity: sha512-3m+lkO5CLRRYU0fhGRp7zbsGi6+BZj0uTVSwvcKU+nSlhjA9/QRNfuSGnD2mX6hQA7ZbmcCkzk5h4ZYGOtk14A==}

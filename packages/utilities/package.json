@@ -15,10 +15,7 @@
     "dev": "tsc -w",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\""
   },
-  "dependencies": {
-    "@middy/core": "^4.2.6",
-    "@middy/http-json-body-parser": "^4.2.6"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/aws-lambda": "^8.10.111",
     "@types/react": "^18.0.17",
