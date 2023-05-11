@@ -3,8 +3,8 @@ import child_process from "child_process";
 
 vi.mock("fs-extra", () => {
   const mock = {
-    copySync: vi.fn(() => void 0),
-    existsSync: vi.fn(() => true),
+    copy: vi.fn(() => void 0),
+    exists: vi.fn(() => true),
   };
   return {
     ...mock,

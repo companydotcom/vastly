@@ -1,5 +1,5 @@
 {
-	"extends": "tsconfig/react-library.json",
+	"extends": "tsconfig/base.json",
 	"compilerOptions": {
     "target": "esnext",
 		"module": "ESNext",
@@ -7,7 +7,7 @@
 		"esModuleInterop": true,
 		"outDir": "dist",
 		"jsx": "preserve",
-		"types": ["vitest/globals", "@testing-library/jest-dom"],
+		"types": ["vitest/globals"],
 
 	},
   "include": ["src", "__tests__"],

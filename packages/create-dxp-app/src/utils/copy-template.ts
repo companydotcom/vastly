@@ -3,7 +3,7 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import ora from "ora";
 import chalk from "chalk";
-import fse from "fs-extra";
+import { copy, exists } from "fs-extra";
 import { satisfies } from "semver";
 import { PackageManagerName, PACKAGE_MANAGERS } from "../types/index.js";
 import { getPackageManagerVersion } from "./get-package-manager-version.js";
@@ -13,14 +13,15 @@ export const copyTemplate = async (packageManager: PackageManagerName): Promise<
   const __dirname = dirname(__filename);
 
   try {
+    // TODO: rename
     const generateSpinner = ora({
       text: "Generating files with dxp-app generator...",
       color: "yellow",
     }).start();
 
     //copy template
-    let sharedTemplate = path.resolve(__dirname, "../../src/templates", `_shared_ts`);
-    fse.copySync(sharedTemplate, "./");
+    let sharedTemplate = path.resolve(__dirname, "../../src/templates", "_shared_ts");
+    await copy(sharedTemplate, "./");
 
     //check package manager version is supported
     let packageManagerVersion = getPackageManagerVersion(packageManager);
@@ -38,8 +39,8 @@ export const copyTemplate = async (packageManager: PackageManagerName): Promise<
       "../../src/templates",
       packageManagerConfig.template,
     );
-    if (fse.existsSync(packageManagerTemplate)) {
-      fse.copySync(packageManagerTemplate, "./", {
+    if (await exists(packageManagerTemplate)) {
+      await copy(packageManagerTemplate, "./", {
         overwrite: true,
       });
     }

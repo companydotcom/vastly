@@ -33,6 +33,7 @@ describe("Delete Env", () => {
         environment_keyName: "dev:mockKeyName",
         projects: "mockProject1234",
       },
+      ConditionExpression: "attribute_exists(keyName)",
     };
 
     await deleteVariable(mockNewVariable, mockDynamoDBDocument, mockDynamoDBClient);

@@ -2,9 +2,9 @@ export type PackageManagerName = "yarn" | "pnpm" | "npm";
 export interface GenerateAnswers {
   repoName: string;
   repoDescription: string;
-  email: string;
-  username: string;
-  token: string;
+  userEmail: string;
+  userName: string;
+  userAccessToken: string;
   generate: boolean;
   packageManager: PackageManagerName;
   linkToGithub: boolean;

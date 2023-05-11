@@ -3,8 +3,8 @@ import { spawnSync } from "child_process";
 import { copyTemplate } from "./copy-template.js";
 import { GenerateAnswers } from "../types";
 
-export const generateLocalRepo = async (answers: GenerateAnswers) => {
-  spawnSync("mkdir", [path.join(process.cwd(), answers.repoName)]);
-  process.chdir(answers.repoName);
-  copyTemplate(answers.packageManager);
+export const generateLocalRepo = async ({ repoName, packageManager }: GenerateAnswers) => {
+  spawnSync("mkdir", [path.join(process.cwd(), repoName)]);
+  process.chdir(repoName);
+  copyTemplate(packageManager);
 };

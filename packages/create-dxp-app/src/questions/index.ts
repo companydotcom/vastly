@@ -25,15 +25,11 @@ export const generateQuestions = [
   },
   {
     name: "linkToGithub",
-    type: "list",
+    type: "confirm",
     message: "Would you like to link your project to GitHub?",
-    choices: [
-      { name: "Yes", value: true },
-      { name: "No", value: false },
-    ],
   },
   {
-    name: "email",
+    name: "userEmail",
     type: "text",
     message: "What is your GitHub email?",
     validate: (email: string) => {
@@ -46,7 +42,7 @@ export const generateQuestions = [
     when: (answers: GenerateAnswers) => answers.linkToGithub,
   },
   {
-    name: "username",
+    name: "userName",
     type: "text",
     message: "What is your GitHub username?",
     validate: (answer: string) => {
@@ -58,7 +54,7 @@ export const generateQuestions = [
     when: (answers: GenerateAnswers) => answers.linkToGithub,
   },
   {
-    name: "token",
+    name: "userAccessToken",
     type: "password",
     message: "What is your GitHub token?",
     validate: (answer: string) => {
@@ -88,12 +84,8 @@ export const generateQuestions = [
     ],
   },
   {
-    type: "list",
+    type: "confirm",
     name: "generate",
     message: "Generate?",
-    choices: [
-      { name: "Yes", value: true },
-      { name: "No", value: false },
-    ],
   },
 ];
