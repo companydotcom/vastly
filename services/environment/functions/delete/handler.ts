@@ -53,6 +53,7 @@ async function deleteVariable(
       environment_keyName: `${env}:${keyName}`,
       projects,
     },
+    ConditionExpression: `attribute_exists(keyName)`,
   };
   console.log("EnvKey: ", params.Key);
 
@@ -60,6 +61,7 @@ async function deleteVariable(
     const response = await dynamoDoc.delete(params);
     return response;
   } catch (error) {
+    console.log(error);
     throw Error("Error deleting from database");
   } finally {
     dynamo.destroy();

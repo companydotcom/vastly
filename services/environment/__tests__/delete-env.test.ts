@@ -28,16 +28,18 @@ describe("Delete Env", () => {
 
   test("should call deleteVariable with the correct params", async () => {
     const expectedParams = {
+      ConditionExpression: "attribute_exists(keyName)",
       TableName: "env",
       Key: {
         environment_keyName: "dev:mockKeyName",
         projects: "mockProject1234",
       },
     };
+    const spy = vi.spyOn(mockDynamoDBDocument, "delete");
 
     await deleteVariable(mockNewVariable, mockDynamoDBDocument, mockDynamoDBClient);
 
-    expect(mockDynamoDBDocument.delete).toHaveBeenCalledWith(expectedParams);
+    expect(spy).toHaveBeenCalledWith(expectedParams);
   });
 
   test("should return the response from deleteVariable", async () => {

@@ -61,6 +61,7 @@ async function addVariable(
     const response = await dynamoDoc.put(params);
     return response;
   } catch (error) {
+    console.log(error);
     throw new Error("Error adding to database");
   } finally {
     dynamo.destroy();
