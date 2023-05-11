@@ -8,7 +8,8 @@ export const generateLocalRepo = async ({
   packageManager,
   repoDescription,
 }: GenerateAnswers) => {
-  spawnSync("mkdir", [path.join(process.cwd(), repoName)]);
-  process.chdir(repoName);
+  const localRepoName = repoName.toLowerCase().replace(/\s+/g, "-");
+  spawnSync("mkdir", [path.join(process.cwd(), localRepoName)]);
+  process.chdir(localRepoName);
   copyTemplate(packageManager, { repoName, repoDescription });
 };

@@ -44,18 +44,16 @@ export const copyTemplate = async (
     );
 
     if (await exists(packageManagerTemplatePath)) {
+      await copy(packageManagerTemplatePath, "./");
       const templateContents = await readFile(
         `${packageManagerTemplatePath}/package.json`,
         "utf-8",
       );
 
       const modifiedTemplateContents = templateContents
-        .replace("<%= appName %>", repoName)
+        .replace("<%= appName %>", repoName.toLowerCase().replace(/\s+/g, "-"))
         .replace("<%= description %>", repoDescription);
-      await writeFile(`${packageManagerTemplatePath}/package.json`, modifiedTemplateContents);
-      await copy(packageManagerTemplatePath, "./", {
-        overwrite: true,
-      });
+      await writeFile(`./package.json`, modifiedTemplateContents);
     }
 
     spinner.succeed(chalk.green("dxp-app generator completed successfully"));
