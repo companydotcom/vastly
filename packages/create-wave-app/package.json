@@ -1,13 +1,13 @@
 {
-  "name": "@companydotcom/create-dxp-app",
+  "name": "create-wave-app",
   "version": "0.2.5",
-  "description": "Company.com create-dxp-app",
-  "author": "Company.com",
+  "description": "create-wave-app from Vastly",
+  "author": "Vastly",
   "license": "MIT",
   "type": "module",
   "bin": "dist/index.js",
   "scripts": {
-    "create-dxp-app": "npx ts-node --esm src/index.ts",
+    "create-wave-app": "npx ts-node --esm src/index.ts",
     "build": "tsup src/index.ts --dts",
     "test": "vitest run",
     "test:watch": "vitest watch"

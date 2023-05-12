@@ -18,7 +18,7 @@ export const copyTemplate = async (
 
   let spinner: Ora;
   spinner = ora({
-    text: "Generating files with dxp-app generator...",
+    text: "Generating files with wave-app generator...",
     color: "yellow",
   }).start();
   try {
@@ -56,7 +56,7 @@ export const copyTemplate = async (
       await writeFile(`./package.json`, modifiedTemplateContents);
     }
 
-    spinner.succeed(chalk.green("dxp-app generator completed successfully"));
+    spinner.succeed(chalk.green("wave-app generator completed successfully"));
     return { success: true };
   } catch (error) {
     spinner.fail("Something went wrong!");

@@ -3,7 +3,7 @@ import ora, { Ora } from "ora";
 import chalk from "chalk";
 import { Octokit } from "@octokit/rest";
 import { copyTemplate } from "./copy-template.js";
-import { GenerateAnswers, GeneratorResponse } from "../types";
+import { GenerateAnswers, GeneratorResponse } from "../types/index.js";
 
 export const generateGithubRepo = async ({
   repoName,

@@ -4,14 +4,14 @@ import chalk from "chalk";
 import { generateQuestions } from "./questions/index.js";
 import { generateGithubRepo } from "./utils/generate-github-repo.js";
 import { generateLocalRepo } from "./utils/generate-local-repo.js";
-import { GenerateAnswers } from "../src/types";
+import { GenerateAnswers } from "./types/index.js";
 
 const program = new Command();
 // TODO: rename
-program.description("Company.com create-dxp-app").parse(process.argv);
+program.description("Vastly create-wave-app").parse(process.argv);
 
-console.log(chalk.yellow.bold(">>> COMPANY.COM dxp"));
-console.log(chalk.cyan(">>> Welcome to Company.com! Let's get you set up with a new dxp."));
+console.log(chalk.yellow.bold(">>> Vastly Wave"));
+console.log(chalk.cyan(">>> Welcome to Vastly's Wave! Let's get you set up with a new project."));
 console.log();
 
 inquirer.prompt(generateQuestions).then(async (answers: GenerateAnswers) => {
