@@ -1,6 +1,7 @@
 import createEvent from "@serverless/event-mocks";
 import { baseHandler, getAllEnv, getAllProjects, getKeyNames } from "../functions/pull/handler";
 import { mockDynamoDBDocument, mockDynamoDBClient, setupDynamoMock } from "../__mocks__/dynamoMock";
+import { QueryCommandInput } from "@aws-sdk/lib-dynamodb";
 
 const mockNewVariable = {
   env: "dev",
@@ -40,7 +41,7 @@ describe("Pull Env", () => {
 
   describe("getAllEnv", () => {
     test("should call getAllEnv with the correct params", async () => {
-      const expectedParams = {
+      const expectedParams: QueryCommandInput = {
         TableName: "env",
         KeyConditionExpression: "projects = :project and begins_with(environment_keyName, :env)",
         ExpressionAttributeValues: { ":project": "mockProject1234", ":env": "dev:" },
@@ -71,7 +72,7 @@ describe("Pull Env", () => {
 
   describe("getAllProjects", () => {
     test("should call getAllProjects with the correct params", async () => {
-      const expectedParams = {
+      const expectedParams: QueryCommandInput = {
         TableName: "env",
         ProjectionExpression: "projects",
         Select: "SPECIFIC_ATTRIBUTES",

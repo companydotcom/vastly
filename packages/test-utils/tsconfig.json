@@ -1,11 +1,10 @@
 {
+  "extends": "tsconfig/react-library.json",
   "compilerOptions": {
-    "lib": ["ES2015"],
-    "module": "CommonJS",
-    "outDir": "./dist",
-    "rootDir": "./src"
-  },
-  "exclude": ["node_modules"],
-  "extends": "tsconfig/base.json",
-  "include": ["src"]
+		"moduleResolution": "node",
+		"outDir": "dist",
+		"types": ["vitest/globals", "@testing-library/jest-dom"],
+	},
+  "include": ["src", "__tests__"],
+  "exclude": ["dist", "build", "node_modules", "coverage"],
 }

@@ -4,7 +4,9 @@ import { NumberFormatBase, PatternFormatProps, usePatternFormat } from "react-nu
 // https://github.com/microsoft/TypeScript/issues/48212
 import type { ComponentWithAs } from "@chakra-ui/react";
 
-export interface CardExpiryInputProps extends PatternFormatProps<ChakraInputProps> {}
+export interface CardExpiryInputProps extends Omit<PatternFormatProps<ChakraInputProps>, "format"> {
+  format?: string;
+}
 
 export const CardExpiryInput = forwardRef<CardExpiryInputProps, "div">((props, ref) => {
   /**
@@ -36,5 +38,13 @@ export const CardExpiryInput = forwardRef<CardExpiryInputProps, "div">((props, r
     return format(`${month}${year}`);
   };
 
-  return <NumberFormatBase getInputRef={ref} customInput={Input} format={_format} {...rest} />;
+  return (
+    <NumberFormatBase
+      getInputRef={ref}
+      customInput={Input}
+      format={_format}
+      placeholder={props.placeholder || "MM/YY"}
+      {...rest}
+    />
+  );
 });

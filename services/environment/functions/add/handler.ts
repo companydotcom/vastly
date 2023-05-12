@@ -3,7 +3,7 @@ import cors from "@middy/http-cors";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-import type { DynamoDBDocument, PutCommandInput } from "@aws-sdk/lib-dynamodb";
+import type { DynamoDBDocument, PutCommandInput, PutCommandOutput } from "@aws-sdk/lib-dynamodb";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { docClient, dynamoClient } from "../../lib/dynamodb";
 import { EnvVariable } from "../../lib/types";
@@ -50,7 +50,7 @@ async function addVariable(
   newVariable: EnvVariable,
   dynamoDoc: DynamoDBDocument,
   dynamo: DynamoDBClient,
-) {
+): Promise<PutCommandOutput> {
   const { TABLE_NAME } = process.env;
   const params: PutCommandInput = {
     TableName: TABLE_NAME || "env",
