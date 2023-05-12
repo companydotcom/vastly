@@ -1,4 +1,4 @@
-import { vi } from "vitest";
+import { MockedFunction, vi } from "vitest";
 import type { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import type {
   DeleteCommandInput,
@@ -12,19 +12,12 @@ import type {
   ScanCommandOutput,
 } from "@aws-sdk/lib-dynamodb";
 
-export function setupDynamoMock(mock: DynamoDBDocument) {
-  const putMock = vi.fn().mockImplementation((_args: PutCommandInput): PutCommandOutput => {
-    return {
-      $metadata: {
-        httpStatusCode: 200,
-        attempts: 1,
-        totalRetryDelay: 0,
-      },
-    };
-  });
-  const deleteMock = vi
+type MockFn<Input, Output> = MockedFunction<(input: Input) => Output>;
+
+export function setupDynamoMock(mock: DynamoDBDocument): DynamoDBDocument {
+  const putMock: MockFn<PutCommandInput, Promise<PutCommandOutput>> = vi
     .fn()
-    .mockImplementation((_args: DeleteCommandInput): DeleteCommandOutput => {
+    .mockImplementation((_args) => {
       return {
         $metadata: {
           httpStatusCode: 200,
@@ -33,48 +26,65 @@ export function setupDynamoMock(mock: DynamoDBDocument) {
         },
       };
     });
-  const pullMock = vi.fn().mockImplementation((_args: QueryCommandInput): QueryCommandOutput => {
-    return {
-      $metadata: {},
-      Items: [
-        {
-          keyValue: "12345",
-          environment_keyName: "dev:MY_MOCK1",
+  const deleteMock: MockFn<DeleteCommandInput, Promise<DeleteCommandOutput>> = vi
+    .fn()
+    .mockImplementation((_args) => {
+      return {
+        $metadata: {
+          httpStatusCode: 200,
+          attempts: 1,
+          totalRetryDelay: 0,
         },
-        {
-          keyValue: "54431",
-          environment_keyName: "dev:MY_MOCK2",
-        },
-        {
-          keyValue: "23464",
-          environment_keyName: "dev:MY_MOCK#",
-        },
-      ],
-    };
-  });
-  const scanMock = vi.fn().mockImplementation((_args: ScanCommandInput): ScanCommandOutput => {
-    return {
-      $metadata: {},
-      Items: [
-        {
-          projects: "mockProject1",
-        },
-        {
-          projects: "mockProject1",
-        },
-        {
-          projects: "mockProject2",
-        },
-        {
-          projects: "mockProject3",
-        },
-      ],
-    };
-  });
+      };
+    });
+  const pullMock: MockFn<QueryCommandInput, Promise<QueryCommandOutput>> = vi
+    .fn()
+    .mockImplementation((_args) => {
+      return {
+        $metadata: {},
+        Items: [
+          {
+            keyValue: "12345",
+            environment_keyName: "dev:MY_MOCK1",
+          },
+          {
+            keyValue: "54431",
+            environment_keyName: "dev:MY_MOCK2",
+          },
+          {
+            keyValue: "23464",
+            environment_keyName: "dev:MY_MOCK#",
+          },
+        ],
+      };
+    });
+  const scanMock: MockFn<ScanCommandInput, Promise<ScanCommandOutput>> = vi
+    .fn()
+    .mockImplementation((_args) => {
+      return {
+        $metadata: {},
+        Items: [
+          {
+            projects: "mockProject1",
+          },
+          {
+            projects: "mockProject1",
+          },
+          {
+            projects: "mockProject2",
+          },
+          {
+            projects: "mockProject3",
+          },
+        ],
+      };
+    });
   mock.put = putMock;
   mock.delete = deleteMock;
   mock.query = pullMock;
   mock.scan = scanMock;
+
+  return mock;
 }
 
 export const mockDynamoDBDocument = {} as DynamoDBDocument;

@@ -4,7 +4,11 @@ import jsonBodyParser from "@middy/http-json-body-parser";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import type { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import type { DeleteCommandInput, DynamoDBDocument } from "@aws-sdk/lib-dynamodb";
+import type {
+  DeleteCommandInput,
+  DeleteCommandOutput,
+  DynamoDBDocument,
+} from "@aws-sdk/lib-dynamodb";
 import { docClient, dynamoClient } from "../../lib/dynamodb";
 
 const { TABLE_NAME } = process.env;
@@ -46,7 +50,7 @@ async function deleteVariable(
   { keyName, env, projects }: { keyName: string; env: string; projects: string },
   dynamoDoc: DynamoDBDocument,
   dynamo: DynamoDBClient,
-) {
+): Promise<DeleteCommandOutput> {
   const params: DeleteCommandInput = {
     TableName: TABLE_NAME || "env",
     Key: {
