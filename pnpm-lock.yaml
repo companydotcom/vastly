@@ -321,7 +321,7 @@ importers:
         specifier: ^4.9.5
         version: 4.9.5
 
-  packages/create-dxp-app:
+  packages/create-wave-app:
     dependencies:
       '@octokit/rest':
         specifier: ^19.0.7
