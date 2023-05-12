@@ -17,6 +17,7 @@ export interface ClientOptions {
   program: Command;
   output: Output;
   config: Config;
+  apiUrl: string;
 }
 
 export default function makeClient(opts: ClientOptions) {
@@ -57,7 +58,7 @@ export default function makeClient(opts: ClientOptions) {
     program: opts.program,
     output: opts.output,
     fetch: request,
-    apiUrl: "https://gxmblcgqcb.execute-api.us-east-1.amazonaws.com",
+    apiUrl: opts.apiUrl,
     config: opts.config,
   };
 }

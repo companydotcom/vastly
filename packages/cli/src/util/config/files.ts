@@ -30,9 +30,9 @@ export const readConfigFile = () => {
   return config as Config;
 };
 
-export const writeToConfigFile = (authConfig: Config) => {
+export const writeToConfigFile = (authConfig: Config, filePath?: string) => {
   try {
-    return writeJsonFileSync(CONFIG_FILE_PATH, authConfig, {
+    return writeJsonFileSync(filePath || CONFIG_FILE_PATH, authConfig, {
       indent: 2,
       mode: 0o600,
     });

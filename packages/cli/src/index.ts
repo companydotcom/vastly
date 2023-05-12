@@ -8,10 +8,9 @@ import * as Sentry from "@sentry/node";
 import getGlobalPathConfig from "./util/config/files.js";
 import { readConfigFile, writeToConfigFile, getConfigFilePath } from "./util/config/files.js";
 import { Config } from "./types/index.js";
-import { createRequire } from "node:module";
+import { getPackageInfo } from "./util/config/get-package-info.js";
 
-const require = createRequire(import.meta.url);
-const pkg = require("../package.json");
+const pkg = getPackageInfo();
 
 Sentry.init({
   dsn: "https://033b189965c244779dcf679e47a0133f@o4504997433180160.ingest.sentry.io/4505013895954432",
@@ -77,6 +76,7 @@ const main = async () => {
     program: commander,
     output,
     config,
+    apiUrl: "https://gxmblcgqcb.execute-api.us-east-1.amazonaws.com",
   });
 
   const subcommand = program.args[1];
@@ -88,46 +88,42 @@ const main = async () => {
   }
 
   try {
-    let func: any;
-    let description: string;
-    let argument: Argument | any;
-
     switch (subcommand) {
       case "login":
-        description = "Log into company.com";
-        func = (await import("./commands/login.js")).default;
+        commander
+          .command(subcommand)
+          .description("Log into company.com")
+          .action(async () => {
+            const func = (await import("./commands/login.js")).default;
+            await func(client);
+          });
         break;
       case "logout":
-        description = "Log out of company.com";
-        func = (await import("./commands/logout.js")).default;
+        commander
+          .command(subcommand)
+          .description("Log out of company.com")
+          .action(async () => {
+            const func = (await import("./commands/logout.js")).default;
+            await func(client);
+          });
         break;
       case "env":
-        description = "Add, delete, or pull all stored env variables";
-        func = (await import("./commands/env/index.js")).default;
-        argument = new Argument("<action>", "Preferred action to preform on a variable").choices([
-          "add",
-          "delete",
-          "pull",
-        ]); // This is not a permanent solution
+        commander
+          .command(subcommand)
+          .description("Log out of company.com")
+          .addArgument(
+            new Argument("<action>", "drink cup size").choices(["add", "delete", "pull"]),
+          )
+          .action(async (arg) => {
+            const func = (await import("./commands/env/index.js")).default;
+            await func(client, arg);
+          });
+
         break;
       default:
-        description = "";
-        func = null;
-        break;
+        console.log(`${chalk.red("That subcommand does not exist!")}`);
+        return 1;
     }
-
-    if (!func || !subcommand) {
-      console.log(`${chalk.red("That subcommand does not exist!")}`);
-      return 1;
-    }
-
-    commander
-      .command(subcommand)
-      .description(description)
-      .addArgument(argument ?? "")
-      .action(async (arg) => {
-        await func(client, arg);
-      });
   } catch (err: unknown) {
     console.log(`${chalk.red("Unknown error", err)}`);
   }
@@ -135,5 +131,7 @@ const main = async () => {
 };
 
 main().catch((err: Error) => {
+  // Recommended practice for node is set exitcode not force exit
   console.error(`An unexpected error occurred!\n${err.stack}`);
+  process.exitCode = 1;
 });
