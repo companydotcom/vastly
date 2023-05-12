@@ -1,14 +1,11 @@
-import { configDefaults, defineConfig } from "vitest/config";
+import { configDefaults, defineProject } from "vitest/config";
 
-export default defineConfig({
+export default defineProject({
   test: {
     exclude: [...configDefaults.exclude],
     globals: true,
     environment: "jsdom",
     setupFiles: ["./setup.ts"],
     css: true,
-    coverage: {
-      reporter: ["text", "json", "html"],
-    },
   },
 });

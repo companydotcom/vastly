@@ -4,7 +4,9 @@
   "description": "A TypeScript starter for Serverless Framework",
   "scripts": {
     "dev": "serverless offline start",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .serverless && rm -rf .esbuild"
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .serverless && rm -rf .esbuild",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "author": "",
   "license": "MIT",
@@ -19,7 +21,8 @@
     "serverless-iam-roles-per-function": "^3.2.0",
     "serverless-offline": "^12.0.4",
     "serverless-offline-kms": "^2.0.0",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "vitest": "0.31.0"
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.298.0",

@@ -1,4 +1,5 @@
 module.exports = {
+  plugins: ["testing-library"],
   extends: ["next", "turbo", "prettier"],
   settings: {
     react: {

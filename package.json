@@ -20,7 +20,9 @@
     "switch:dev": "tsx scripts/switch-env.ts dev",
     "publish-packages": "turbo run build lint test && changeset publish",
     "preinstall": "npx only-allow pnpm",
-    "test": "turbo run test --filter=!./services/*",
+    "test": "turbo run test",
+    "test:coverage": "turbo run test -- --coverage",
+    "test:watch": "turbo run test:watch",
     "postinstall": "pnpm run build:packages",
     "dev:components": "turbo run dev --filter=@companydotcom/ui --filter=@companydotcom/forms --filter=@companydotcom/utils --no-cache --continue"
   },
@@ -28,6 +30,8 @@
     "@changesets/cli": "^2.26.0",
     "@commitlint/cli": "^17.4.2",
     "@types/node": "18.11.10",
+    "@vitest/coverage-c8": "^0.31.0",
+    "@vitest/ui": "^0.28.4",
     "eslint": "^7.32.0",
     "eslint-config-custom": "workspace:*",
     "husky": "^8.0.3",
@@ -35,7 +39,8 @@
     "prettier": "latest",
     "tsup": "^6.5.0",
     "tsx": "^3.12.2",
-    "turbo": "latest"
+    "turbo": "latest",
+    "vitest": "0.31.0"
   },
   "commitlint": {
     "rules": {

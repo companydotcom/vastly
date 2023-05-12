@@ -1,6 +1,6 @@
+import createEvent from "@serverless/event-mocks";
 import { deleteVariable, baseHandler } from "../functions/delete/handler";
 import { mockDynamoDBDocument, mockDynamoDBClient, setupDynamoMock } from "../__mocks__/dynamoMock";
-import createEvent from "@serverless/event-mocks";
 
 const mockNewVariable = {
   keyName: "mockKeyName",
@@ -8,11 +8,11 @@ const mockNewVariable = {
   projects: "mockProject1234",
 };
 
-vi.mock("@aws-sdk/lib-dynamodb", () => ({
+vi.doMock("@aws-sdk/lib-dynamodb", () => ({
   DynamoDBDocument: vi.fn().mockImplementation(() => mockDynamoDBDocument),
 }));
 
-vi.mock("@aws-sdk/client-dynamodb", () => ({
+vi.doMock("@aws-sdk/client-dynamodb", () => ({
   DynamoDBClient: vi.fn().mockImplementation(() => mockDynamoDBClient),
 }));
 
@@ -28,16 +28,18 @@ describe("Delete Env", () => {
 
   test("should call deleteVariable with the correct params", async () => {
     const expectedParams = {
+      ConditionExpression: "attribute_exists(keyName)",
       TableName: "env",
       Key: {
         environment_keyName: "dev:mockKeyName",
         projects: "mockProject1234",
       },
     };
+    const spy = vi.spyOn(mockDynamoDBDocument, "delete");
 
     await deleteVariable(mockNewVariable, mockDynamoDBDocument, mockDynamoDBClient);
 
-    expect(mockDynamoDBDocument.delete).toHaveBeenCalledWith(expectedParams);
+    expect(spy).toHaveBeenCalledWith(expectedParams);
   });
 
   test("should return the response from deleteVariable", async () => {

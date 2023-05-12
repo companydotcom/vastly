@@ -1,17 +1,17 @@
+import createEvent from "@serverless/event-mocks";
 import { baseHandler, getAllEnv, getAllProjects, getKeyNames } from "../functions/pull/handler";
 import { mockDynamoDBDocument, mockDynamoDBClient, setupDynamoMock } from "../__mocks__/dynamoMock";
-import createEvent from "@serverless/event-mocks";
 
 const mockNewVariable = {
   env: "dev",
   project: "mockProject1234",
 };
 
-vi.mock("@aws-sdk/lib-dynamodb", () => ({
+vi.doMock("@aws-sdk/lib-dynamodb", () => ({
   DynamoDBDocument: vi.fn().mockImplementation(() => mockDynamoDBDocument),
 }));
 
-vi.mock("@aws-sdk/client-dynamodb", () => ({
+vi.doMock("@aws-sdk/client-dynamodb", () => ({
   DynamoDBClient: vi.fn().mockImplementation(() => mockDynamoDBClient),
 }));
 
