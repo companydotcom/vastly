@@ -1,6 +1,5 @@
 import ora from "ora";
 import chalk from "chalk";
-import inquirer from "inquirer";
 import { Client } from "../../util/client.js";
 import doDeleteEnv from "../../util/env/delete.js";
 import { EnvVariable } from "../../types/index.js";
@@ -29,7 +28,7 @@ export default async function deleteEnv(client: Client) {
       spinner.succeed();
     }
 
-    const env: EnvVariable = await inquirer
+    const env: EnvVariable = await client
       .prompt([
         {
           type: "list",

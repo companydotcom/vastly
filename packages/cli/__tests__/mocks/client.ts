@@ -1,6 +1,7 @@
-import { PassThrough } from "stream";
 import chalk from "chalk";
 import { Command } from "commander";
+import { PassThrough } from "stream";
+import { makeProgram } from "../../src/command";
 
 // Disable colors in `chalk` so that tests don't need
 // to worry about ANSI codes
@@ -24,27 +25,30 @@ export function makeMockClient() {
     stderr.pause();
   }
 
-  function setArgv(...argv: string[]) {
-    // const program = new Command();
-
-    argv = [process.execPath, "cli.js", ...argv];
-    // this.output = new Output(this.stderr, {
-    //   debug: argv.includes('--debug') || argv.includes('-d'),
-    //   noColor: argv.includes('--no-color'),
-    // });
-  }
-
   return {
     stdin,
     stdout,
     stderr,
     reset,
-    setArgv,
   };
 }
 
 export const mockClient = makeMockClient();
 
+export type MockClient = ReturnType<typeof makeMockClient>;
+
 beforeEach(() => {
   mockClient.reset();
 });
+
+const program = new Command();
+
+export async function wave(args: string[], client?: MockClient) {
+  const command = await makeProgram(program, client);
+
+  if (typeof command === "number") {
+    process.exitCode = command;
+  } else {
+    command.parse(args, { from: "user" });
+  }
+}

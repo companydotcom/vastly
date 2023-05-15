@@ -1,13 +1,21 @@
 import createFetchMock from "vitest-fetch-mock";
 import { vi } from "vitest";
-import inquirer from "inquirer";
 import login from "../src/commands/login";
-import { mockClient } from "./mocks/client";
+import { mockClient, wave } from "./mocks/client";
+import makeClient from "../src/util/client";
+import { PassThrough } from "stream";
+import { write } from "fs";
+import inquirer from "inquirer";
 
-describe("login", () => {
+vi.mock("inquirer");
+
+describe("login", async () => {
   it("should be called", async () => {
-    const t = mockClient.setArgv("login");
-    console.log("👾 ~ it ~ t:", t);
+    wave(["login"], mockClient);
+
+    mockClient.stdout.on("data", (data) => {
+      expect(JSON.parse(data.toString())).toBe("What is our email address?");
+    });
   });
 });
 
@@ -17,6 +25,7 @@ describe("login", () => {
 // vi.mock("inquirer");
 
 // describe("login", () => {
+
 //   const mockOutput = {
 //     error: vi.fn(),
 //     log: vi.fn(),

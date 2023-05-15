@@ -8,7 +8,7 @@ export default async function login(client: Client) {
   const { output } = client;
 
   try {
-    const email: string = await inquirer
+    const email: string = await client
       .prompt([
         {
           type: "text",
@@ -27,18 +27,21 @@ export default async function login(client: Client) {
         }
       });
 
-    let result: LoginResult | undefined;
+    let result: LoginResult = 1;
 
     if (validate(email)) {
       result = await doEmailLogin(client, email);
     } else {
+      result = 1;
       throw new Error("Email invalid!");
     }
 
-    if (result && result.success) {
+    if (typeof result !== "number" && "success" in result) {
       // write result (tokens) to config file here
       writeToConfigFile({ token: result.token });
     }
+
+    return 0;
   } catch (err: unknown) {
     output.error(err as string);
   }
