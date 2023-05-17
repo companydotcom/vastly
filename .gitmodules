@@ -1,0 +1,3 @@
+[submodule "apps/docs/pages"]
+	path = apps/docs/pages
+	url = https://github.com/companydotcom/pages.git
