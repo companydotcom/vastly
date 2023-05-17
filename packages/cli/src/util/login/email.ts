@@ -5,7 +5,7 @@ import eraseLines from "../output/erase-lines.js";
 import executeLogin from "./execute-login.js";
 import { getTokens } from "./get-tokens.js";
 
-interface LoginResultSuccess {
+export interface LoginResultSuccess {
   token?: string;
   success: boolean;
 }

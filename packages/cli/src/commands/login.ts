@@ -1,4 +1,3 @@
-import inquirer from "inquirer";
 import { validate } from "email-validator";
 import { Client } from "../util/client.js";
 import doEmailLogin, { LoginResult } from "../util/login/email.js";

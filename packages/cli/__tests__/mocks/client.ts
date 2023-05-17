@@ -1,28 +1,35 @@
 import chalk from "chalk";
-import { Command } from "commander";
-import { PassThrough } from "stream";
-import { makeProgram } from "../../src/command";
+import createFetchMock from "vitest-fetch-mock";
+import { defaultConfig } from "../../src/util/config/defaults";
+
+const fetchMocker = createFetchMock(vi);
+fetchMocker.enableMocks();
 
 // Disable colors in `chalk` so that tests don't need
 // to worry about ANSI codes
 chalk.level = 0;
 
 export function makeMockClient() {
-  let stdin = new PassThrough();
-  let stdout = new PassThrough();
-  let stderr = new PassThrough();
+  const stdin = vi.fn();
+  const stdout = vi.fn();
+  const stderr = vi.fn();
+  const fetch = fetchMocker;
+  const apiUrl = "https://my.api.com";
+  const config = defaultConfig;
+  const output = {
+    spinner: {
+      color: "",
+      start: vi.fn(),
+      fail: vi.fn(),
+    },
+    print: vi.fn(),
+    debug: vi.fn(),
+    error: vi.fn(),
+  };
 
   function reset() {
-    stdin = new PassThrough();
-    stdout = new PassThrough();
-    stdout.setEncoding("utf8");
-    stdout.end = () => stdout;
-    stdout.pause();
-
-    stderr = new PassThrough();
-    stderr.setEncoding("utf8");
-    stderr.end = () => stderr;
-    stderr.pause();
+    vi.resetAllMocks();
+    fetchMocker.doMock();
   }
 
   return {
@@ -30,6 +37,11 @@ export function makeMockClient() {
     stdout,
     stderr,
     reset,
+    fetch,
+    config,
+    apiUrl,
+    output,
+    prompt: vi.fn(),
   };
 }
 
@@ -40,15 +52,3 @@ export type MockClient = ReturnType<typeof makeMockClient>;
 beforeEach(() => {
   mockClient.reset();
 });
-
-const program = new Command();
-
-export async function wave(args: string[], client?: MockClient) {
-  const command = await makeProgram(program, client);
-
-  if (typeof command === "number") {
-    process.exitCode = command;
-  } else {
-    command.parse(args, { from: "user" });
-  }
-}
