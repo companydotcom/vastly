@@ -1,8 +1,0 @@
-{
-  "index": "Introduction",
-  "another": "Another Page",
-  "---": {
-    "type": "separator"
-  },
-  "ui": "@companydotcom/ui"
-}
