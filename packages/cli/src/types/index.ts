@@ -1,6 +1,8 @@
-export interface Config {
+interface ConfigContent {
   token?: string;
 }
+
+export type Config = ConfigContent | Record<string, any>;
 
 export interface EnvResult {
   message: string;

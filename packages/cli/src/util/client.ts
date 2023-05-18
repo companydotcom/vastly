@@ -1,8 +1,9 @@
-import { Command } from "commander";
+import inquirer from "inquirer";
 import { JSONObject } from "@companydotcom/types";
 import fetch, { BodyInit, Headers, RequestInit } from "node-fetch";
 import { Output } from "./output/index.js";
 import { Config } from "../types/index.js";
+import { PassThrough } from "stream";
 
 export interface FetchOptions extends Omit<RequestInit, "body"> {
   body?: BodyInit | JSONObject;
@@ -14,9 +15,12 @@ export const isJSONObject = (v: any): v is JSONObject => {
 };
 
 export interface ClientOptions {
-  program: Command;
+  stdin: NodeJS.Process["stdin"];
+  stdout: NodeJS.Process["stdout"];
+  stderr: NodeJS.Process["stderr"];
   output: Output;
   config: Config;
+  apiUrl: string;
 }
 
 export default function makeClient(opts: ClientOptions) {
@@ -53,12 +57,20 @@ export default function makeClient(opts: ClientOptions) {
     return contentType.includes("application/json") ? res.json() : res;
   }
 
+  const prompt = inquirer.createPromptModule({
+    input: opts.stdin,
+    output: opts.stderr,
+  });
+
   return {
-    program: opts.program,
+    stdin: opts.stdin,
+    stdout: opts.stdout,
+    stderr: opts.stderr,
     output: opts.output,
     fetch: request,
-    apiUrl: "https://gxmblcgqcb.execute-api.us-east-1.amazonaws.com",
+    apiUrl: opts.apiUrl,
     config: opts.config,
+    prompt,
   };
 }
 

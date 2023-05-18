@@ -1,6 +1,5 @@
 import ora from "ora";
 import chalk from "chalk";
-import inquirer from "inquirer";
 import { Client } from "../../util/client.js";
 import doAddEnv from "../../util/env/add.js";
 import { doPullEnv } from "../../util/env/pull-all.js";
@@ -29,7 +28,7 @@ export default async function addEnv(client: Client) {
       spinner.succeed();
     }
 
-    const input = await inquirer
+    const input = await client
       .prompt([
         {
           type: "text",
