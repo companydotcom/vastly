@@ -1,0 +1,38 @@
+{
+  "name": "create-wave-app",
+  "version": "0.2.5",
+  "description": "create-wave-app from Vastly",
+  "author": "Vastly",
+  "license": "MIT",
+  "type": "module",
+  "bin": "dist/index.js",
+  "scripts": {
+    "create-wave-app": "npx ts-node --esm src/index.ts",
+    "build": "tsup src/index.ts --dts",
+    "test": "vitest run",
+    "test:watch": "vitest watch"
+  },
+  "dependencies": {
+    "@octokit/rest": "^19.0.7",
+    "chalk": "^4.1.2",
+    "commander": "^10.0.0",
+    "fs-extra": "^11.1.0",
+    "inquirer": "^8.0.0",
+    "ora": "^3.2.0",
+    "semver": "^7.3.8"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/inquirer": "^9.0.3",
+    "@types/semver": "^7.3.13",
+    "@vitest/coverage-c8": "^0.28.4",
+    "@vitest/ui": "^0.28.4",
+    "eslint": "^7.32.0",
+    "eslint-config-custom": "workspace:*",
+    "jsdom": "^21.1.0",
+    "ts-node": "^10.9.1",
+    "tsconfig": "workspace:*",
+    "typescript": "^4.9.5",
+    "vitest": "0.31.0"
+  }
+}

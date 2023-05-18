@@ -3,6 +3,7 @@ import cors from "@middy/http-cors";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import type { NativeAttributeValue } from "@aws-sdk/util-dynamodb";
 import type { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import type { DynamoDBDocument, QueryCommandInput, ScanCommandInput } from "@aws-sdk/lib-dynamodb";
 import { dynamoClient, docClient } from "../../lib/dynamodb";
@@ -60,7 +61,7 @@ async function getAllEnv(
   { env, project }: { env: string; project: string },
   dynamoDoc: DynamoDBDocument,
   dynamo: DynamoDBClient,
-) {
+): Promise<Record<string, NativeAttributeValue>[] | undefined> {
   console.log(`Fetching variables for ${env}...`);
 
   const input: QueryCommandInput = {
@@ -84,7 +85,10 @@ async function getAllEnv(
   }
 }
 
-async function getAllProjects(dynamoDoc: DynamoDBDocument, dynamo: DynamoDBClient) {
+async function getAllProjects(
+  dynamoDoc: DynamoDBDocument,
+  dynamo: DynamoDBClient,
+): Promise<string[] | []> {
   console.log(`Fetching projects...`);
   const input: ScanCommandInput = {
     TableName: TABLE_NAME || "env",
@@ -117,7 +121,7 @@ async function getKeyNames(
   { env, project }: { env: string; project: string },
   dynamoDoc: DynamoDBDocument,
   dynamo: DynamoDBClient,
-) {
+): Promise<string[] | []> {
   const params = {
     TableName: TABLE_NAME || "env",
     KeyConditionExpression: "projects = :project and begins_with(environment_keyName, :env)",
