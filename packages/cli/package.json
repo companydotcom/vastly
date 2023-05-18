@@ -1,8 +1,8 @@
 {
-  "name": "cli",
-  "version": "0.0.1",
-  "description": "Company.com CLI",
-  "author": "Company.com",
+  "name": "vastly",
+  "version": "0.0.2",
+  "description": "Vastly CLI",
+  "author": "Vastly",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",

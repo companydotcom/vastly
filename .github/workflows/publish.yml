@@ -1,9 +1,10 @@
-name: Publish
+name: Publishes all public packages to NPM when they are updated.
+
 on:
   push:
     branches:
-      - "ATX-2363"
-#
+      - ATX-2495
+
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
@@ -12,30 +13,30 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
+
       - name: Setup PNPM
         uses: pnpm/action-setup@v2
         with:
           version: 7
-      - name: Setup Node v16.x
+
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.x
-          registry-url: https://registry.npmjs.org/
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
           cache: "pnpm"
 
-      - run: pnpm install --frozen-lockfile
-      - name: Create Release Pull Request or Publish
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Packages
+          run: pnpm build
+
+      - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
-          version: pnpm changeset version
-          title: "${{ github.ref_name }} | Update Versions"
-          commit: "chore: ${{ github.ref_name }} | Update Versions"
-          publish: pnpm run publish-packages
+          version: pnpm version:prepare
+          publish: pnpm release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-          # test npm registry
-          # figure out how to switch target branches before PR
-          # what is the slack-bot notification
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
