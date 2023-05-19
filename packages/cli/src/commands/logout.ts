@@ -1,8 +1,9 @@
 import { errorToString } from "@companydotcom/utils";
 import { Client } from "../util/client.js";
 import { writeToConfigFile } from "../util/config/files.js";
+import { MockClient } from "../../__tests__/mocks/client.js";
 
-export default async function logout(client: Client) {
+export default async function logout(client: Client | MockClient) {
   const { output, apiUrl, config } = client;
 
   if (!config.token) {

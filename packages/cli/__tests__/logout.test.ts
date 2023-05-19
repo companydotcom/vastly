@@ -10,7 +10,6 @@ describe("logout", () => {
       config: {},
     };
 
-    // @ts-ignore
     const returnValue = await logout(clientWithoutToken);
 
     expect(returnValue).toBe(0);
@@ -25,7 +24,6 @@ describe("logout", () => {
     const spy = vi.spyOn(clientWithToken.output, "debug");
     expect(clientWithToken.config.token).toBe("abc123");
 
-    // @ts-ignore
     await logout(clientWithToken);
 
     expect(clientWithToken.config.token).toBe(undefined);

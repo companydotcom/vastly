@@ -1,9 +1,9 @@
 import ora from "ora";
 import chalk from "chalk";
+import { errorToString } from "@companydotcom/utils";
 import { Client } from "../../util/client.js";
 import doAddEnv from "../../util/env/add.js";
 import { doPullEnv } from "../../util/env/pull-all.js";
-import { errorToString } from "@companydotcom/utils";
 
 export default async function addEnv(client: Client) {
   const { output } = client;
