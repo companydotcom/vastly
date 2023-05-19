@@ -37,5 +37,8 @@
     "@emotion/styled": "^11.10.8",
     "framer-motion": "^8.5.5",
     "react-datepicker": "^4.10.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
