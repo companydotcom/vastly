@@ -1,8 +1,8 @@
 {
   "name": "cli",
   "version": "0.0.1",
-  "description": "Company.com CLI",
-  "author": "Company.com",
+  "description": "Vastly Wave CLI",
+  "author": "Vastly",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -18,7 +18,7 @@
     "node": ">=14.16"
   },
   "bin": {
-    "vastly": "./dist/index.js"
+    "wave": "./dist/index.js"
   },
   "files": [
     "dist"
