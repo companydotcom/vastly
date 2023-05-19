@@ -25,5 +25,6 @@
         "@middy/core": "^4.2.6",
         "@middy/http-json-body-parser": "^4.2.6",
         "aws-lambda": "^1.0.7"
-    }
+    },
+    "private": true
 }

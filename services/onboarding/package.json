@@ -35,5 +35,6 @@
     "@middy/http-error-handler": "^4.2.7",
     "@middy/http-json-body-parser": "^4.2.6",
     "aws-lambda": "^1.0.7"
-  }
+  },
+  "private": true
 }

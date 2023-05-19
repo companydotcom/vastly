@@ -7,15 +7,5 @@
   "access": "restricted",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": [
-    "@companydotcom/utils",
-    "@companydotcom/test-utils",
-    "@companydotcom/generator-dxp-service",
-    "onboarding-service",
-    "@companydotcom/micro-service-core",
-    "docs",
-    "workshop",
-    "environment",
-    "tsconfig"
-  ]
+  "ignore": []
 }

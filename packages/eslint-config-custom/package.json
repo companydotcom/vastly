@@ -9,5 +9,8 @@
     "eslint-config-turbo": "latest",
     "eslint-plugin-react": "7.28.0",
     "eslint-plugin-testing-library": "^5.10.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
