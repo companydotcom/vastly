@@ -3,7 +3,6 @@ import { JSONObject } from "@companydotcom/types";
 import fetch, { BodyInit, Headers, RequestInit } from "node-fetch";
 import { Output } from "./output/index.js";
 import { Config } from "../types/index.js";
-import { PassThrough } from "stream";
 
 export interface FetchOptions extends Omit<RequestInit, "body"> {
   body?: BodyInit | JSONObject;
@@ -15,9 +14,9 @@ export const isJSONObject = (v: any): v is JSONObject => {
 };
 
 export interface ClientOptions {
-  stdin: NodeJS.Process["stdin"];
-  stdout: NodeJS.Process["stdout"];
-  stderr: NodeJS.Process["stderr"];
+  stdin: NodeJS.ReadStream;
+  stdout: NodeJS.WriteStream;
+  stderr: NodeJS.WriteStream;
   output: Output;
   config: Config;
   apiUrl: string;
