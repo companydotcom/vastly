@@ -1,6 +1,6 @@
-# cli
+# @companydotcom/ui
 
-## 0.2.0
+## 0.1.0
 
 ### Minor Changes
 
@@ -9,9 +9,3 @@
 ### Patch Changes
 
 - @companydotcom/utils@0.0.1
-
-## 0.1.0
-
-### Minor Changes
-
-- setting up cli ci config
