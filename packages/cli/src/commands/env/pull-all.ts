@@ -1,7 +1,6 @@
 import fastGlob from "fast-glob";
 import ora from "ora";
 import chalk from "chalk";
-import inquirer from "inquirer";
 import { findUp } from "find-up";
 import path from "node:path";
 import { Client } from "../../util/client.js";
@@ -36,7 +35,7 @@ export default async function pullAllEnv(client: Client) {
       spinner.succeed();
     }
 
-    const answers = await inquirer
+    const answers = await client
       .prompt([
         {
           type: "list",

@@ -12,7 +12,7 @@ export default defineConfig({
   skipNodeModulesBundle: true,
   entryPoints: ["src/index.ts"],
   watch: env === "development",
-  target: "es2020",
+  target: "esnext",
   outDir: "dist",
   entry: ["src/**/*.ts"], //include all files under src
 });
