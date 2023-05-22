@@ -16,9 +16,6 @@ importers:
       '@vitest/coverage-c8':
         specifier: ^0.31.0
         version: 0.31.0(vitest@0.31.0)
-      '@vitest/spy':
-        specifier: ^0.31.1
-        version: 0.31.1
       '@vitest/ui':
         specifier: ^0.28.4
         version: 0.28.4
@@ -284,9 +281,6 @@ importers:
       '@vastly/types':
         specifier: workspace:*
         version: link:../types
-      '@vitest/spy':
-        specifier: ^0.31.1
-        version: 0.31.1
       eslint:
         specifier: ^7.32.0
         version: 7.32.0
@@ -12538,12 +12532,6 @@ packages:
 
   /@vitest/spy@0.31.0:
     resolution: {integrity: sha512-IzCEQ85RN26GqjQNkYahgVLLkULOxOm5H/t364LG0JYb3Apg0PsYCHLBYGA006+SVRMWhQvHlBBCyuByAMFmkg==}
-    dependencies:
-      tinyspy: 2.1.0
-    dev: true
-
-  /@vitest/spy@0.31.1:
-    resolution: {integrity: sha512-1cTpt2m9mdo3hRLDyCG2hDQvRrePTDgEJBFQQNz1ydHHZy03EiA6EpFxY+7ODaY7vMRCie+WlFZBZ0/dQWyssQ==}
     dependencies:
       tinyspy: 2.1.0
     dev: true
