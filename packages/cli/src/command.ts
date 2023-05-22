@@ -61,7 +61,7 @@ export async function makeProgram(program: Command) {
 
   program
     .name("wave")
-    .description("CLI for Vastly Wave -- test text change")
+    .description("CLI for Vastly Wave")
     .version("0.0.1")
     .option("-d, --debug", "outputs extra debugging", false);
 

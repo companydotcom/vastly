@@ -36,7 +36,7 @@ jobs:
         run: |
           pnpm install --frozen-lockfile
           pnpm run lint && pnpm run build
-          echo ::set-output name=changes::$(pnpm changeset version 2>&1 | grep -q 'No unreleased changesets found' && echo 'false' || echo 'true')
+          echo {changes}={$(pnpm changeset version 2>&1 | grep -q 'No unreleased changesets found' && echo 'false' || echo 'true')} >> $GITHUB_OUTPUT
 
       # Push the updated package.json, and CHANGESET.md files to github, this will trigger a new build
       # the || echo 'No changes' is to ignore errors from git when trying to commit and there are no changes
