@@ -1,4 +1,4 @@
-# @companydotcom/ui
+# @vastly/ui
 
 ## 0.1.0
 
@@ -8,4 +8,4 @@
 
 ### Patch Changes
 
-- @companydotcom/utils@0.0.1
+- @vastly/utils@0.0.1

@@ -1,6 +1,6 @@
 import { Argument, Command } from "commander";
 import { mkdirp } from "fs-extra";
-import { errorToString, isErrnoException } from "@companydotcom/utils";
+import { errorToString, isErrnoException } from "@vastly/utils";
 import { readConfigFile, writeToConfigFile, getConfigFilePath } from "./util/config/files.js";
 import { Config } from "./types/index.js";
 import getGlobalPathConfig from "./util/config/files.js";

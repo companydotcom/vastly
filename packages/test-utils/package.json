@@ -1,5 +1,5 @@
 {
-  "name": "@companydotcom/test-utils",
+  "name": "@vastly/test-utils",
   "version": "0.0.2",
   "main": "./dist/index.js",
   "source": "./src/index.ts",
@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@chakra-ui/utils": "^2.0.14",
-    "@companydotcom/ui": "workspace:*"
+    "@vastly/ui": "workspace:*"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",

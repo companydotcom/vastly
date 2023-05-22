@@ -1,5 +1,5 @@
 {
-  "name": "@companydotcom/micro-service-core",
+  "name": "@vastly/micro-service-core",
   "version": "0.0.1",
   "description": "Company.com MicroApp core library",
   "main": "./dist/index.js",

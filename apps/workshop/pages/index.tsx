@@ -1,5 +1,5 @@
-import { Button } from "@companydotcom/ui";
-import { Form, Field } from "@companydotcom/forms";
+import { Button } from "@vastly/ui";
+import { Form, Field } from "@vastly/forms";
 
 export default function Web() {
   return (

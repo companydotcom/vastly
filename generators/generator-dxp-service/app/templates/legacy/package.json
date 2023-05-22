@@ -36,7 +36,7 @@
     "aws-sdk": "^2.167.0",
     "aws-xray-sdk": "^3.3.4",
     "company-core": "^1.5.0",
-    "@companydotcom/micro-application-core": "^2.0.7",
+    "@vastly/micro-application-core": "^2.0.7",
     "s": "^1.0.0",
     "source-map-support": "^0.5.12"
   }

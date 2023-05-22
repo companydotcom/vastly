@@ -1,4 +1,4 @@
-import { UiProvider } from "@companydotcom/ui";
+import { UiProvider } from "@vastly/ui";
 import "@testing-library/jest-dom/extend-expect";
 import { render as rtlRender, RenderOptions } from "@testing-library/react";
 import * as React from "react";

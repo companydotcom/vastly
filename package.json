@@ -1,5 +1,5 @@
 {
-  "name": "dxp",
+  "name": "wave",
   "version": "0.0.1",
   "private": true,
   "workspaces": [
@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "build:packages": "turbo run build --filter=@companydotcom/*",
+    "build:packages": "turbo run build --filter=@vastly/*",
     "clean": "turbo run clean && rm -rf node_modules",
     "dev": "turbo run dev --no-cache --continue",
     "lint": "turbo run lint",
@@ -24,7 +24,7 @@
     "test:coverage": "turbo run test -- --coverage",
     "test:watch": "turbo run test:watch",
     "postinstall": "pnpm run build:packages",
-    "dev:components": "turbo run dev --filter=@companydotcom/ui --filter=@companydotcom/forms --filter=@companydotcom/utils --no-cache --continue"
+    "dev:components": "turbo run dev --filter=@vastly/ui --filter=@vastly/forms --filter=@vastly/utils --no-cache --continue"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.0",

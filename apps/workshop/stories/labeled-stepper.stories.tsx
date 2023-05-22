@@ -12,7 +12,7 @@ import {
   ButtonProps,
   Stack,
   ButtonGroup,
-} from "@companydotcom/ui";
+} from "@vastly/ui";
 
 const meta: Meta<typeof LabeledStepper> = {
   component: LabeledStepper,

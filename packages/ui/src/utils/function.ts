@@ -1,4 +1,4 @@
-import { __DEV__, __TEST__ } from "@companydotcom/utils";
+import { __DEV__, __TEST__ } from "@vastly/utils";
 import { AnyFunction } from "./types";
 
 export function once<T extends AnyFunction>(fn?: T | null) {

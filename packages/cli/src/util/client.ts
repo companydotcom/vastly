@@ -1,5 +1,5 @@
 import inquirer from "inquirer";
-import { JSONObject } from "@companydotcom/types";
+import { JSONObject } from "@vastly/types";
 import fetch, { BodyInit, Headers, RequestInit } from "node-fetch";
 import { Output } from "./output/index.js";
 import { Config } from "../types/index.js";

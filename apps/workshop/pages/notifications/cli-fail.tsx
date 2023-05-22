@@ -1,4 +1,4 @@
-import { Box, Heading, Text } from "@companydotcom/ui";
+import { Box, Heading, Text } from "@vastly/ui";
 
 export default function CLIFail() {
   return (

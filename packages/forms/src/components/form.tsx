@@ -1,6 +1,6 @@
 import * as React from "react";
 import { chakra, HTMLChakraProps, forwardRef } from "@chakra-ui/react";
-import { cx, runIfFn } from "@companydotcom/utils";
+import { cx, runIfFn } from "@vastly/utils";
 
 import {
   useForm,

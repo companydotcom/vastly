@@ -9,8 +9,8 @@
 ### Patch Changes
 
 - Updated dependencies [1ccfdc7]
-  - @companydotcom/ui@0.1.0
-  - @companydotcom/utils@0.0.1
+  - @vastly/ui@0.1.0
+  - @vastly/utils@0.0.1
 
 ## 0.1.0
 

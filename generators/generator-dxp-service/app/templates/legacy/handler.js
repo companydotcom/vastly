@@ -1,7 +1,7 @@
 const AWSXRay = require('aws-xray-sdk-core');
 const AWS = AWSXRay.captureAWS(require('aws-sdk'));
 
-import { setupDatabase as sDb, httpReqHandler, useMicroApp } from '@companydotcom/micro-application-core';
+import { setupDatabase as sDb, httpReqHandler, useMicroApp } from '@vastly/micro-application-core';
 import fMsgHandler from './workers/fetch-worker';
 import tMsgHandler from './workers/transition-worker';
 // import webhookWorker from './workers/webhook-worker';

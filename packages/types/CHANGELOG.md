@@ -1,4 +1,4 @@
-# @companydotcom/types
+# @vastly/types
 
 ## 2.1.0
 

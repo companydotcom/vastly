@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Form, Field, SubmitButton, FormLayout } from "@companydotcom/forms";
+import { Form, Field, SubmitButton, FormLayout } from "@vastly/forms";
 
 const meta: Meta<typeof Form> = {
   component: Form,

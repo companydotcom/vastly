@@ -80,10 +80,10 @@ importers:
 
   apps/workshop:
     dependencies:
-      '@companydotcom/forms':
+      '@vastly/forms':
         specifier: workspace:*
         version: link:../../packages/forms
-      '@companydotcom/ui':
+      '@vastly/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       aws-amplify:
@@ -208,7 +208,7 @@ importers:
       '@aws-sdk/types':
         specifier: ^3.310.0
         version: 3.310.0
-      '@companydotcom/utils':
+      '@vastly/utils':
         specifier: workspace:*
         version: link:../utilities
       '@sentry/node':
@@ -260,7 +260,7 @@ importers:
         specifier: ^8.3.0
         version: 8.3.0
     devDependencies:
-      '@companydotcom/types':
+      '@vastly/types':
         specifier: workspace:*
         version: link:../types
       '@types/fs-extra':
@@ -421,10 +421,10 @@ importers:
       '@chakra-ui/react':
         specifier: ^2.6.1
         version: 2.6.1(@emotion/react@11.10.8)(@emotion/styled@11.10.8)(@types/react@18.0.22)(framer-motion@8.5.5)(react-dom@18.2.0)(react@18.2.0)
-      '@companydotcom/ui':
+      '@vastly/ui':
         specifier: workspace:*
         version: link:../ui
-      '@companydotcom/utils':
+      '@vastly/utils':
         specifier: workspace:*
         version: link:../utilities
       '@emotion/react':
@@ -461,7 +461,7 @@ importers:
         specifier: ^5.7.0
         version: 5.7.0(@types/react@18.0.22)(react-dom@18.2.0)(react@18.2.0)
     devDependencies:
-      '@companydotcom/test-utils':
+      '@vastly/test-utils':
         specifier: workspace:*
         version: link:../test-utils
       '@testing-library/jest-dom':
@@ -570,7 +570,7 @@ importers:
       '@chakra-ui/utils':
         specifier: ^2.0.14
         version: 2.0.14
-      '@companydotcom/ui':
+      '@vastly/ui':
         specifier: workspace:*
         version: link:../ui
       react-dom:
@@ -633,7 +633,7 @@ importers:
       '@chakra-ui/theme-tools':
         specifier: ^2.0.16
         version: 2.0.16(@chakra-ui/styled-system@2.9.0)
-      '@companydotcom/utils':
+      '@vastly/utils':
         specifier: workspace:*
         version: link:../utilities
       '@emotion/react':
@@ -722,7 +722,7 @@ importers:
       '@aws-sdk/util-dynamodb':
         specifier: ^3.312.0
         version: 3.312.0
-      '@companydotcom/utils':
+      '@vastly/utils':
         specifier: workspace:*
         version: link:../../packages/utilities
       '@middy/core':
@@ -792,7 +792,7 @@ importers:
       '@aws-sdk/util-base64':
         specifier: ^3.310.0
         version: 3.310.0
-      '@companydotcom/utils':
+      '@vastly/utils':
         specifier: workspace:*
         version: link:../../packages/utilities
       '@middy/core':

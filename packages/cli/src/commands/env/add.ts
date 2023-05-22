@@ -1,6 +1,6 @@
 import ora from "ora";
 import chalk from "chalk";
-import { errorToString } from "@companydotcom/utils";
+import { errorToString } from "@vastly/utils";
 import { Client } from "../../util/client.js";
 import doAddEnv from "../../util/env/add.js";
 import { doPullEnv } from "../../util/env/pull-all.js";

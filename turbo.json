@@ -25,8 +25,8 @@
         "storybook-static/**"
       ],
       "dependsOn": [
-        "@companydotcom/ui#build",
-        "@companydotcom/forms#build"
+        "@vastly/ui#build",
+        "@vastly/forms#build"
       ]
     },
     "lint": {
@@ -41,15 +41,15 @@
     },
     "workshop#storybook": {
       "dependsOn": [
-        "@companydotcom/ui#dev",
-        "@companydotcom/forms#dev"
+        "@vastly/ui#dev",
+        "@vastly/forms#dev"
       ]
     },
     "test": {},
     "test:watch": {
       "cache": false
     },
-    "@companydotcom/micro-service-core#test": {
+    "@vastly/micro-service-core#test": {
       "env": [
         "region",
         "service",

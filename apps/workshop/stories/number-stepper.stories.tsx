@@ -13,7 +13,7 @@ import {
   Stack,
   ButtonGroup,
   Spacer,
-} from "@companydotcom/ui";
+} from "@vastly/ui";
 
 const meta: Meta<typeof NumberStepper> = {
   component: NumberStepper,

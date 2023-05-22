@@ -1,5 +1,5 @@
 {
-  "name": "@companydotcom/forms",
+  "name": "@vastly/forms",
   "version": "0.1.0",
   "license": "MIT",
   "sideEffects": false,
@@ -19,7 +19,7 @@
     "test:ui": "vitest --ui"
   },
   "devDependencies": {
-    "@companydotcom/test-utils": "workspace:*",
+    "@vastly/test-utils": "workspace:*",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
@@ -42,8 +42,8 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.6.1",
-    "@companydotcom/ui": "workspace:*",
-    "@companydotcom/utils": "workspace:*",
+    "@vastly/ui": "workspace:*",
+    "@vastly/utils": "workspace:*",
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
     "card-validator": "^8.1.1",

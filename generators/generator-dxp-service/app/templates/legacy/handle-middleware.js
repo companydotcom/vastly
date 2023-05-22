@@ -1,4 +1,4 @@
-const { middleware } = require('@companydotcom/micro-application-core');
+const { middleware } = require('@vastly/micro-application-core');
 
 module.exports.getAvailableMiddleware = () => {
   const middlewareNames = Object.keys(middleware);
@@ -14,7 +14,7 @@ module.exports.generateMiddlewareIndex = (customMiddlewareNames, microAppMiddlew
   let imports = ``;
   let exports = '';
   if (microAppMiddlewareInUse.length) {
-    imports = imports.concat(`import { middleware } from '@companydotcom/micro-application-core'\n`);
+    imports = imports.concat(`import { middleware } from '@vastly/micro-application-core'\n`);
   }
 
   microAppMiddlewareInUse.forEach((name) => {
