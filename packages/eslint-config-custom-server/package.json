@@ -1,7 +1,6 @@
 {
   "name": "@vastly/eslint-config-custom-server",
   "version": "0.2.0",
-  "private": true,
   "license": "MIT",
   "main": "index.js",
   "dependencies": {
