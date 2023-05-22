@@ -1,8 +1,8 @@
 # Vastly's Wave
 
 <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/7347426/214703303-20da9ba8-be98-4daf-b3ec-146ae146131f.jpg">
-  <img src="https://user-images.githubusercontent.com/7347426/214703303-20da9ba8-be98-4daf-b3ec-146ae146131f.jpg" height="420">
+      <source media="(prefers-color-scheme: dark)" srcset="https://u.photofunia.com/1/results/m/D/mDRuOKsodBeZRZJbzxWwFA_r.jpg">
+  <img src="https://u.photofunia.com/1/results/m/D/mDRuOKsodBeZRZJbzxWwFA_r.jpg" height="420">
 </picture>
 
 This is Vastly's monorepo to power the Wave platform.
