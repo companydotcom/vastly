@@ -1,22 +1,93 @@
-# This action runs on every push to make sure all changes to our code are non-breaking
-name: CI
+name: Build, Test and Release
+
+# Limit main to one build at a time to prevent any race conditions
+concurrency: |
+  ${{ github.workflow }}-${{ github.ref }}
+  main
+
 on:
   push:
     branches:
-      - "**"
+      - ATX-2495
 
 jobs:
-  build:
+  version:
     runs-on: ubuntu-latest
+    outputs:
+      changes: ${{ steps.version.outputs.changes }} # map step output to job output
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
         with:
           version: 7
-      - uses: actions/setup-node@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: "16.x"
           cache: "pnpm"
 
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run lint && pnpm run build
+      # This step will run changeset version, setting the step output to if there were changesets found
+      - name: Version Command
+        id: version
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run lint && pnpm run build
+          echo ::set-output name=changes::$(pnpm changeset version 2>&1 | grep -q 'No unreleased changesets found' && echo 'false' || echo 'true')
+
+      # Push the updated package.json, and CHANGESET.md files to github, this will trigger a new build
+      # the || echo 'No changes' is to ignore errors from git when trying to commit and there are no changes
+      - name: Push changes
+        if: steps.version.outputs.changes == 'true'
+        run: |
+          git config user.email "<email>"
+          git config user.name "<name>"
+          git add -A
+          git commit -m "Version packages" || echo "No changes to commit"
+          git push
+
+  build:
+    runs-on: ubuntu-latest
+    needs: version
+    # This will only run if there were no changesets.
+    ## the next triggered build from the push will then pass this step and continue with the release
+    if: always() && needs.version.outputs.changes == 'false'
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
+          cache: "pnpm"
+
+      - name: Publish
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: pnpm publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Send custom JSON data to Slack workflow
+        if: steps.changesets.outputs.published == 'true'
+        id: slack
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            { "key": "packages",
+              "value": steps.changesets.outputs.publishedPackages
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
