@@ -42,8 +42,11 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Send a Slack notification if a publish happens
-      #   if: steps.changesets.outputs.published == 'true'
-      #   run:
-      #     my-slack-bot send-notification --message "A new version of ${GITHUB_REPOSITORY} was
-      #     published!"
+      - name: Send custom JSON data to Slack workflow
+        if: steps.changesets.outputs.published == 'true'
+        run:
+          id: slack
+          uses: slackapi/slack-github-action@v1.24.0
+          payload: { "key": "packages", "value": steps.changesets.outputs.publishedPackages }
+          env:
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
