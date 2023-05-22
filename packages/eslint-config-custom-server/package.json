@@ -1,5 +1,5 @@
 {
-  "name": "eslint-config-custom-server",
+  "name": "@vastly/eslint-config-custom-server",
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
