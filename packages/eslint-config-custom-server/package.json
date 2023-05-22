@@ -3,14 +3,12 @@
   "version": "0.2.0",
   "license": "MIT",
   "main": "index.js",
+  "private": true,
   "dependencies": {
     "eslint-config-turbo": "latest"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

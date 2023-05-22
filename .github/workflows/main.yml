@@ -36,7 +36,7 @@ jobs:
         run: |
           pnpm install --frozen-lockfile
           pnpm run lint && pnpm run build
-          echo {changes}={$(pnpm changeset version 2>&1 | grep -q 'No unreleased changesets found' && echo 'false' || echo 'true')} >> $GITHUB_OUTPUT
+          echo "changes=$(pnpm changeset version | grep -q 'No unreleased changesets found' && echo 'false' || echo 'true')" >> $GITHUB_OUTPUT
 
       # Push the updated package.json, and CHANGESET.md files to github, this will trigger a new build
       # the || echo 'No changes' is to ignore errors from git when trying to commit and there are no changes
@@ -46,7 +46,7 @@ jobs:
           git config user.email "<email>"
           git config user.name "<name>"
           git add -A
-          git commit -m "Version packages" || echo "No changes to commit"
+          git commit -m "ATX-000 | changeset bump" || echo "No changes to commit"
           git push
 
   build:
@@ -86,7 +86,8 @@ jobs:
         uses: slackapi/slack-github-action@v1.24.0
         with:
           payload: |
-            { "key": "packages",
+            {
+              "key": "packages",
               "value": steps.changesets.outputs.publishedPackages
             }
         env:
