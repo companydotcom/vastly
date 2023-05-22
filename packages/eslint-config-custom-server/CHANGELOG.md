@@ -1,5 +1,11 @@
 # eslint-config-custom-server
 
+## 0.3.0
+
+### Minor Changes
+
+- f0cc2d8: name change, changeset add
+
 ## 0.2.0
 
 ### Minor Changes
