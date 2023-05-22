@@ -1,5 +1,5 @@
 {
-  "name": "wave-cli",
+  "name": "@vastly/wave-cli",
   "version": "0.3.0",
   "description": "Vastly Wave CLI",
   "author": "Vastly",
