@@ -1,5 +1,13 @@
 # cli
 
+## 0.4.0
+
+### Minor Changes
+
+- f0cc2d8: name change, changeset add
+- 1e3d6df: test bump
+- f3f82bb: test bump
+
 ## 0.3.0
 
 ### Minor Changes

@@ -1,9 +1,6 @@
-name: Build, Test and Release
+name: Build and Release
 
-# Limit main to one build at a time to prevent any race conditions
-concurrency: |
-  ${{ github.workflow }}-${{ github.ref }}
-  main
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 on:
   push:
@@ -11,50 +8,8 @@ on:
       - ATX-2495
 
 jobs:
-  version:
+  release:
     runs-on: ubuntu-latest
-    outputs:
-      changes: ${{ steps.version.outputs.changes }} # map step output to job output
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
-
-      - name: Setup PNPM
-        uses: pnpm/action-setup@v2
-        with:
-          version: 7
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16.x"
-          cache: "pnpm"
-
-      # This step will run changeset version, setting the step output to if there were changesets found
-      - name: Version Command
-        id: version
-        run: |
-          pnpm install --frozen-lockfile
-          pnpm run lint && pnpm run build
-          echo "changes=$(pnpm changeset version | grep -q 'No unreleased changesets found' && echo 'false' || echo 'true')" >> $GITHUB_OUTPUT
-
-      # Push the updated package.json, and CHANGESET.md files to github, this will trigger a new build
-      # the || echo 'No changes' is to ignore errors from git when trying to commit and there are no changes
-      - name: Push changes
-        if: steps.version.outputs.changes == 'true'
-        run: |
-          git config user.email "<email>"
-          git config user.name "<name>"
-          git add -A
-          git commit -m "ATX-000 | changeset bump" || echo "No changes to commit"
-          git push
-
-  build:
-    runs-on: ubuntu-latest
-    needs: version
-    # This will only run if there were no changesets.
-    ## the next triggered build from the push will then pass this step and continue with the release
-    if: always() && needs.version.outputs.changes == 'false'
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
@@ -71,11 +26,16 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           cache: "pnpm"
 
+      - name: Install Deps and Build
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run lint && pnpm run build
+
       - name: Publish
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: pnpm publish
+          publish: pnpm changeset publish
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
