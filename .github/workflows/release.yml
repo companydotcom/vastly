@@ -30,6 +30,9 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           cache: "pnpm"
 
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Build Packages
         run: pnpm build
 
@@ -37,8 +40,8 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          version: pnpm version:prepare
-          publish: pnpm release
+          version: pnpm changeset version
+          publish: pnpm changeset publish
         env:
           NPM_CONFIG_PROVENANCE: "true"
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
