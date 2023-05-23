@@ -1,5 +1,11 @@
 # @vastly/utils
 
+## 0.3.0
+
+### Minor Changes
+
+- bumping version after fixing install and build script for npm release action
+
 ## 0.2.0
 
 ### Minor Changes

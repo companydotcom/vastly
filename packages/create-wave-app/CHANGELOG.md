@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.8.0
+
+### Minor Changes
+
+- bumping version after fixing install and build script for npm release action
+
 ## 0.7.0
 
 ### Minor Changes

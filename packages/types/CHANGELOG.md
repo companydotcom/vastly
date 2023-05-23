@@ -1,5 +1,11 @@
 # @vastly/types
 
+## 2.4.0
+
+### Minor Changes
+
+- bumping version after fixing install and build script for npm release action
+
 ## 2.3.0
 
 ### Minor Changes

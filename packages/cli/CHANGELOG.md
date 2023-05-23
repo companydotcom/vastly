@@ -1,5 +1,16 @@
 # cli
 
+## 0.7.0
+
+### Minor Changes
+
+- bumping version after fixing install and build script for npm release action
+
+### Patch Changes
+
+- Updated dependencies
+  - @vastly/utils@0.3.0
+
 ## 0.6.0
 
 ### Minor Changes

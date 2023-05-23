@@ -27,7 +27,7 @@
     "test:watch": "turbo run test:watch",
     "postinstall": "pnpm run build:packages",
     "dev:components": "turbo run dev --filter=@vastly/ui --filter=@vastly/forms --filter=@vastly/utils --no-cache --continue",
-    "release": "pnpm changeset publish"
+    "release": "pnpm install --frozen-lockfile && pnpm build && pnpm changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
