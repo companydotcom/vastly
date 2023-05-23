@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.6.0
+
+### Minor Changes
+
+- testing npm provenance
+
 ## 0.5.0
 
 ### Minor Changes
