@@ -24,7 +24,6 @@
     "test:watch": "turbo run test:watch",
     "postinstall": "pnpm run build:packages",
     "dev:components": "turbo run dev --filter=@vastly/ui --filter=@vastly/forms --filter=@vastly/utils --no-cache --continue",
-    "version": "pnpm changeset version",
     "release": "pnpm changeset publish"
   },
   "devDependencies": {
