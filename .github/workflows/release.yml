@@ -44,8 +44,8 @@ jobs:
         with:
           commit: "DVOPS-000 | GH action -- changeset version change"
           title: "DVOPS-000 | GH action -- changeset version change"
-          version: pnpm changeset version
-          publish: pnpm changeset publish
+          version: pnpm version
+          publish: pnpm release
         env:
           NPM_CONFIG_PROVENANCE: "true"
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
