@@ -59,6 +59,6 @@
     "access": "public"
   },
   "repository": {
-    "url": "git+https://github.com/companydotcom/wave/packages/forms"
+    "url": "git+https://github.com/companydotcom/wave"
   }
 }

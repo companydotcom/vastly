@@ -39,6 +39,6 @@
     "access": "public"
   },
   "repository": {
-    "url": "git+https://github.com/companydotcom/wave/packages/create-wave-app"
+    "url": "git+https://github.com/companydotcom/wave"
   }
 }

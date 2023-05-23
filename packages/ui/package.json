@@ -42,6 +42,6 @@
     "access": "public"
   },
   "repository": {
-    "url": "git+https://github.com/companydotcom/wave/packages/ui"
+    "url": "git+https://github.com/companydotcom/wave"
   }
 }

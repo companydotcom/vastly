@@ -20,6 +20,6 @@
     "access": "public"
   },
   "repository": {
-    "url": "git+https://github.com/companydotcom/wave/packages/types"
+    "url": "git+https://github.com/companydotcom/wave"
   }
 }

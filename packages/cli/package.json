@@ -12,7 +12,7 @@
     "access": "public"
   },
   "repository": {
-    "url": "git+https://github.com/companydotcom/wave/packages/cli"
+    "url": "git+https://github.com/companydotcom/wave"
   },
   "exports": {
     ".": {
