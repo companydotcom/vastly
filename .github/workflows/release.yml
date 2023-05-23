@@ -53,7 +53,7 @@ jobs:
           payload: |
             {
               "key": "packages",
-              "value": steps.changesets.outputs.publishedPackages
+              "value": ${{ toJSON(steps.changesets.outputs.publishedPackages) }}
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
