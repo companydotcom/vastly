@@ -1,6 +1,6 @@
 {
   "name": "@vastly/utils",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "./dist/index.js",
   "source": "./src/index.ts",
   "types": "./dist/index.d.ts",
@@ -30,5 +30,10 @@
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   },
-  "private": true
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "url": "git+https://github.com/companydotcom/wave"
+  }
 }

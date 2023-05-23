@@ -1,5 +1,16 @@
 # @vastly/ui
 
+## 0.3.0
+
+### Minor Changes
+
+- add npm provenance
+
+### Patch Changes
+
+- Updated dependencies
+  - @vastly/utils@0.2.0
+
 ## 0.2.0
 
 ### Minor Changes

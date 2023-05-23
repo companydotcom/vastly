@@ -1,5 +1,16 @@
 # cli
 
+## 0.5.0
+
+### Minor Changes
+
+- add npm provenance
+
+### Patch Changes
+
+- Updated dependencies
+  - @vastly/utils@0.2.0
+
 ## 0.4.0
 
 ### Minor Changes

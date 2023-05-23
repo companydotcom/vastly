@@ -1,5 +1,11 @@
 # eslint-config-custom-server
 
+## 0.4.0
+
+### Minor Changes
+
+- add npm provenance
+
 ## 0.3.0
 
 ### Minor Changes
