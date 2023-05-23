@@ -1,6 +1,7 @@
 {
   "name": "create-wave-app",
-  "version": "0.6.0",
+  "version": "0.7.0",
+  "preferGlobal": true,
   "description": "create-wave-app from Vastly",
   "author": "Vastly",
   "license": "MIT",
@@ -39,6 +40,8 @@
     "access": "public"
   },
   "repository": {
-    "url": "git+https://github.com/companydotcom/wave"
+    "type": "git",
+    "url": "git+https://github.com/companydotcom/wave",
+    "directory": "packages/create-wave-app"
   }
 }

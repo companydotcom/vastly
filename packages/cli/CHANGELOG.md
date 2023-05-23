@@ -1,5 +1,11 @@
 # cli
 
+## 0.6.0
+
+### Minor Changes
+
+- debugging global install issue
+
 ## 0.5.0
 
 ### Minor Changes

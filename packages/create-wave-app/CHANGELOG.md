@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.7.0
+
+### Minor Changes
+
+- update package.json
+
 ## 0.6.0
 
 ### Minor Changes
