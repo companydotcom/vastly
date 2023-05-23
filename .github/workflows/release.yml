@@ -22,9 +22,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "16.x"
-
-      - name: install npm@9
-        run: npm i -g npm@9
+          registry-url: "https://registry.npmjs.org"
 
       - name: install pnpm@8.3.1
         run: npm i -g pnpm@8.3.1

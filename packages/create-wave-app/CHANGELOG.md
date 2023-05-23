@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.5.0
+
+### Minor Changes
+
+- d4a147c: test bump
+
 ## 0.4.0
 
 ### Minor Changes
