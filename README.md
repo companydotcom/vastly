@@ -5,7 +5,7 @@
   <img src="https://u.photofunia.com/1/results/m/D/mDRuOKsodBeZRZJbzxWwFA_r.jpg" height="420">
 </picture>
 
-This is Vastly's monorepo to power the Wave platform.
+This is Vastly's monorepo to power the Wave platform
 
 ## What's inside?
 
