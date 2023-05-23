@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.9.0
+
+### Minor Changes
+
+- adds bin to create-wave-app package.json
+
 ## 0.8.0
 
 ### Minor Changes
