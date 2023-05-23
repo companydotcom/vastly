@@ -8,11 +8,14 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "preferGlobal": true,
   "publishConfig": {
     "access": "public"
   },
   "repository": {
-    "url": "git+https://github.com/companydotcom/wave"
+    "type": "git",
+    "url": "git+https://github.com/companydotcom/wave",
+    "directory": "packages/cli"
   },
   "exports": {
     ".": {
