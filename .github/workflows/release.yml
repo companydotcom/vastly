@@ -1,15 +1,19 @@
-name: Build and Release
+name: Release
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 on:
   push:
     branches:
-      - main
+      - ATX-2495
 
 jobs:
   release:
+    name: Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
@@ -26,17 +30,17 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           cache: "pnpm"
 
-      - name: Install Deps and Build
-        run: |
-          pnpm install --frozen-lockfile
-          pnpm run lint && pnpm run build
+      - name: Build Packages
+        run: pnpm build
 
       - name: Publish
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: pnpm changeset publish
+          version: pnpm version:prepare
+          publish: pnpm release
         env:
+          NPM_CONFIG_PROVENANCE: "true"
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

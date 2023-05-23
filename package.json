@@ -18,13 +18,14 @@
     "dev:docs": "turbo run dev --filter=docs --no-cache",
     "prepare": "husky install",
     "switch:dev": "tsx scripts/switch-env.ts dev",
-    "publish-packages": "turbo run build lint test && changeset publish",
     "preinstall": "npx only-allow pnpm",
     "test": "turbo run test",
     "test:coverage": "turbo run test -- --coverage",
     "test:watch": "turbo run test:watch",
     "postinstall": "pnpm run build:packages",
-    "dev:components": "turbo run dev --filter=@vastly/ui --filter=@vastly/forms --filter=@vastly/utils --no-cache --continue"
+    "dev:components": "turbo run dev --filter=@vastly/ui --filter=@vastly/forms --filter=@vastly/utils --no-cache --continue",
+    "version:prepare": "changeset version && pnpm install --no-frozen-lockfile",
+    "release": "changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
