@@ -2,6 +2,9 @@
   "name": "wave",
   "version": "0.0.1",
   "private": true,
+  "repository": {
+    "url": "git+https://github.com/companydotcom/wave"
+  },
   "workspaces": [
     "apps/*",
     "packages/*",
