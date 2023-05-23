@@ -45,7 +45,7 @@ jobs:
         env:
           NPM_CONFIG_PROVENANCE: "true"
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_PR }}
 
       - name: Send custom JSON data to Slack workflow
         if: steps.changesets.outputs.published == 'true'
