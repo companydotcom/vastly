@@ -68,9 +68,8 @@ pnpm run dev
 
 ## Publishing Packages
 
-- In order to publish public packages to NPM run `pnpm changeset` then `pnpm changeset version`.
-- Then commit your changes, and when the changes get merged into the `main` branch the packages will
-  automatically be published on NPM with the "main" GitHub action.
+- In order to publish public packages to NPM run `pnpm changeset` then commit your changes, that's
+  it. When your branch is merged into `main` it will be automatically published to NPM.
 
 ## Useful Links
 
