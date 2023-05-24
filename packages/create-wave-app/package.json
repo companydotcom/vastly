@@ -1,6 +1,6 @@
 {
   "name": "create-wave-app",
-  "version": "0.10.7",
+  "version": "0.10.8",
   "preferGlobal": true,
   "description": "create-wave-app from Vastly",
   "author": "Vastly",
@@ -30,7 +30,7 @@
     "build": "tsup && pnpm copy-files",
     "test": "vitest run",
     "test:watch": "vitest watch",
-    "copy-files": "cp -R ./src/templates/ ./dist/templates"
+    "copy-files": "cp -R ./src/templates/ ./src/templates"
   },
   "dependencies": {
     "@octokit/rest": "^19.0.7",

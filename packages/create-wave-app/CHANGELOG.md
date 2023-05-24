@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.8
+
+### Patch Changes
+
+- change copy-file script path
+
 ## 0.10.7
 
 ### Patch Changes
