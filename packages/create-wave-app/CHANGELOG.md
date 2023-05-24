@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.9
+
+### Patch Changes
+
+- update copy-template
+
 ## 0.10.8
 
 ### Patch Changes
