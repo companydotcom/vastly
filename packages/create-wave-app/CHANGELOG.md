@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.6
+
+### Patch Changes
+
+- debugging no templates published to npm
+
 ## 0.10.5
 
 ### Patch Changes
