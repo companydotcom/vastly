@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.0
+
+### Minor Changes
+
+- rebuild package-lock and dist
+
 ## 0.9.0
 
 ### Minor Changes
