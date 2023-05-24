@@ -1,32 +1,25 @@
 {
   "name": "create-wave-app",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "preferGlobal": true,
   "description": "create-wave-app from Vastly",
   "author": "Vastly",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.cjs",
   "bin": {
-    "create-wave-app": "dist/index.js",
-    "cwa": "dist/index.js"
+    "create-wave-app": "dist/index.cjs",
+    "cwa": "dist/index.cjs"
   },
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    }
-  },
   "engines": {
     "node": ">=14.16"
   },
   "scripts": {
-    "create-wave-app": "npx ts-node --esm src/index.ts",
+    "dev": "npx ts-node --esm src/index.ts",
     "build": "tsup src/index.ts --dts",
     "test": "vitest run",
     "test:watch": "vitest watch"

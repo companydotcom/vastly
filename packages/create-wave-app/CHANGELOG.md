@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.1
+
+### Patch Changes
+
+- update create-wave-app package.json
+
 ## 0.10.0
 
 ### Minor Changes
