@@ -10,9 +10,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@vastly/ui": "workspace:*",
-    "@vastly/client": "workspace:*",
-    "@vastly/forms": "workspace:*",
+    "@vastly/ui": "0.4.0",
+    "@vastly/client": "0.4.0",
+    "@vastly/forms": "0.4.0",
     "@next/font": "13.1.6",
     "@types/node": "18.13.0",
     "@types/react": "18.0.27",

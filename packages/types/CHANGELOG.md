@@ -1,5 +1,11 @@
 # @vastly/types
 
+## 2.4.1
+
+### Patch Changes
+
+- update package.json versions for shared templates
+
 ## 2.4.0
 
 ### Minor Changes

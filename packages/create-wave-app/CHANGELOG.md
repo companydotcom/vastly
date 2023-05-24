@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.10
+
+### Patch Changes
+
+- update package.json versions for shared templates
+
 ## 0.10.9
 
 ### Patch Changes
