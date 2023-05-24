@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.7
+
+### Patch Changes
+
+- adds copy-file script to cp template to dis
+
 ## 0.10.6
 
 ### Patch Changes

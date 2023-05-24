@@ -23,7 +23,7 @@ export const copyTemplate = async (
   }).start();
   try {
     //copy template
-    let sharedTemplate = path.resolve(__dirname, "../../src/copy-templates", "_shared_ts");
+    let sharedTemplate = path.resolve(__dirname, "../../src/templates", "_shared_ts");
     await copy(sharedTemplate, "./");
 
     //check package manager version is supported

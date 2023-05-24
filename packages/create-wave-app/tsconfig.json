@@ -15,5 +15,5 @@
 		"noFallthroughCasesInSwitch": true
 	},
 	"include": ["src", "__tests__"],
-	"exclude": ["dist", "build", "node_modules", "coverage"],
+	"exclude": ["dist", "build", "node_modules", "coverage", "*.md", "*.yaml"],
 }
