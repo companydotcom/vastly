@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.5
+
+### Patch Changes
+
+- add keywords, debuggin
+
 ## 0.10.4
 
 ### Patch Changes

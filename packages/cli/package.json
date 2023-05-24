@@ -1,6 +1,6 @@
 {
   "name": "@vastly/wave-cli",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Vastly Wave CLI",
   "author": "Vastly",
   "license": "MIT",
@@ -78,5 +78,10 @@
     "typescript": "^4.9.5",
     "vitest": "0.31.0",
     "vitest-fetch-mock": "^0.2.2"
-  }
+  },
+  "keywords": [
+    "vastly",
+    "wave",
+    "cli"
+  ]
 }

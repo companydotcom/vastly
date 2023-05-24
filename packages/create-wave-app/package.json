@@ -1,6 +1,6 @@
 {
   "name": "create-wave-app",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "preferGlobal": true,
   "description": "create-wave-app from Vastly",
   "author": "Vastly",
@@ -61,5 +61,10 @@
     "type": "git",
     "url": "git+https://github.com/companydotcom/wave",
     "directory": "packages/create-wave-app"
-  }
+  },
+  "keywords": [
+    "vastly",
+    "wave",
+    "create-wave-app"
+  ]
 }

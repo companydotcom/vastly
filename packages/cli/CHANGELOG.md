@@ -1,5 +1,11 @@
 # cli
 
+## 0.7.2
+
+### Patch Changes
+
+- add keywords, debuggin
+
 ## 0.7.1
 
 ### Patch Changes

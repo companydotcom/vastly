@@ -59,6 +59,7 @@ export const copyTemplate = async (
     spinner.succeed(chalk.green("wave-app generator completed successfully"));
     return { success: true };
   } catch (error) {
+    console.error(error);
     spinner.fail("Something went wrong!");
     return { success: false, message: `Something went wrong: ${error}` };
   }
