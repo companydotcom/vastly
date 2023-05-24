@@ -5,6 +5,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "devDependencies": {
+    "@vastly/wave-cli": "workspace:*",
+    "@vastly/types": "workspace:*",
+    "@vastly/eslint-config-custom": "workspace:*",
+    "@vastly/utils": "workspace:*"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC"

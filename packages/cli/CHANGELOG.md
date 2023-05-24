@@ -1,5 +1,12 @@
 # cli
 
+## 0.7.1
+
+### Patch Changes
+
+- update tsconfig
+- adds readme
+
 ## 0.7.0
 
 ### Minor Changes

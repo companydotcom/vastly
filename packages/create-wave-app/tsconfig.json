@@ -12,7 +12,6 @@
 		"jsx": "preserve",
 		"types": ["vitest/globals"],
 		"strict": true,
-		"noEmitOnError": true,
 		"noFallthroughCasesInSwitch": true
 	},
 	"include": ["src", "__tests__"],

@@ -1,5 +1,12 @@
 # create-wave-app
 
+## 0.10.4
+
+### Patch Changes
+
+- update tsconfig
+- adds readme
+
 ## 0.10.3
 
 ### Patch Changes
