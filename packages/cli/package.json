@@ -1,6 +1,6 @@
 {
-  "name": "cli",
-  "version": "0.0.1",
+  "name": "@vastly/wave-cli",
+  "version": "0.7.2",
   "description": "Vastly Wave CLI",
   "author": "Vastly",
   "license": "MIT",
@@ -8,6 +8,15 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "preferGlobal": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/companydotcom/wave",
+    "directory": "packages/cli"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -37,7 +46,7 @@
     "@aws-sdk/client-cognito-identity-provider": "^3.298.0",
     "@aws-sdk/credential-providers": "^3.321.1",
     "@aws-sdk/types": "^3.310.0",
-    "@companydotcom/utils": "workspace:*",
+    "@vastly/utils": "workspace:*",
     "@sentry/node": "^7.48.0",
     "ansi-escapes": "^6.2.0",
     "chalk": "^4.1.2",
@@ -56,7 +65,7 @@
     "xdg-app-paths": "^8.3.0"
   },
   "devDependencies": {
-    "@companydotcom/types": "workspace:*",
+    "@vastly/types": "workspace:*",
     "@types/fs-extra": "^11.0.1",
     "@types/inquirer": "^9.0.3",
     "@types/js-yaml": "^4.0.5",
@@ -64,10 +73,15 @@
     "@types/node-fetch": "^2.6.3",
     "@types/write-json-file": "^3.2.1",
     "eslint": "^7.32.0",
-    "eslint-config-custom": "workspace:*",
+    "@vastly/eslint-config-custom": "workspace:*",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5",
     "vitest": "0.31.0",
     "vitest-fetch-mock": "^0.2.2"
-  }
+  },
+  "keywords": [
+    "vastly",
+    "wave",
+    "cli"
+  ]
 }

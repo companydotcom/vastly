@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Field, Form } from "@companydotcom/forms";
-import { Container } from "@companydotcom/ui";
+import { Field, Form } from "@vastly/forms";
+import { Container } from "@vastly/ui";
 
 const meta: Meta<typeof Field> = {
   component: Field,

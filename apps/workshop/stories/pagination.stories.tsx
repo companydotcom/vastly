@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Pagination, usePagination, PaginationContainer, PaginationItem } from "@companydotcom/ui";
+import { Pagination, usePagination, PaginationContainer, PaginationItem } from "@vastly/ui";
 
 const meta: Meta<typeof Pagination> = {
   component: Pagination,

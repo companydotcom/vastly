@@ -1,6 +1,6 @@
 {
-  "name": "@companydotcom/client",
-  "version": "0.0.1",
+  "name": "@vastly/client",
+  "version": "0.4.0",
   "main": "./index.tsx",
   "types": "./index.tsx",
   "license": "MIT",
@@ -14,9 +14,15 @@
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "eslint": "^7.32.0",
-    "eslint-config-custom": "workspace:*",
+    "@vastly/eslint-config-custom": "workspace:*",
     "react": "^18.2.0",
     "tsconfig": "workspace:*",
     "typescript": "^4.9.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "url": "git+https://github.com/companydotcom/wave"
   }
 }

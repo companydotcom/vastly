@@ -1,4 +1,4 @@
-import { get } from "@companydotcom/utils";
+import { get } from "@vastly/utils";
 import { FieldProps } from "./field";
 
 export type FieldResolver = {

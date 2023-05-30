@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { DottedSpinner } from "@companydotcom/ui";
+import { DottedSpinner } from "@vastly/ui";
 
 const meta: Meta<typeof DottedSpinner> = {
   component: DottedSpinner,

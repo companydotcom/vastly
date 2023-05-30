@@ -9,7 +9,7 @@ fetchMocker.enableMocks();
 // to worry about ANSI codes
 chalk.level = 0;
 
-export function makeMockClient() {
+export const makeMockClient = (): any => {
   const stdin = vi.fn();
   const stdout = vi.fn();
   const stderr = vi.fn();
@@ -43,9 +43,9 @@ export function makeMockClient() {
     output,
     prompt: vi.fn(),
   };
-}
+};
 
-export const mockClient = makeMockClient();
+export const mockClient = makeMockClient() as any;
 
 export type MockClient = ReturnType<typeof makeMockClient>;
 

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
-import { createContext } from "@companydotcom/utils";
-import { useStepper, useStep, UseStepperProps, UseStepperReturn } from "@companydotcom/ui";
+import { createContext } from "@vastly/utils";
+import { useStepper, useStep, UseStepperProps, UseStepperReturn } from "@vastly/ui";
 import { FormProps } from "../form";
 
 export type MaybeRenderProp<P> = React.ReactNode | ((props: P) => React.ReactNode);

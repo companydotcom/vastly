@@ -1,5 +1,5 @@
 import * as React from "react";
-import { createContext } from "@companydotcom/utils";
+import { createContext } from "@vastly/utils";
 
 export const [StepperProvider, useStepperContext] = createContext<UseStepperReturn>({
   name: "StepperContext",

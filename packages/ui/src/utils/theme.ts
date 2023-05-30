@@ -1,5 +1,5 @@
 // import isEmpty from "lodash/isEmpty"
-// import { ThemeExtension, Maybe } from "@companydotcom/types"
+// import { ThemeExtension, Maybe } from "@vastly/types"
 // import {
 //   withDefaultColorScheme,
 //   withDefaultVariant,

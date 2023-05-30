@@ -1,4 +1,4 @@
-import { errorToString } from "@companydotcom/utils";
+import { errorToString } from "@vastly/utils";
 import chalk from "chalk";
 import { Client } from "../client.js";
 import eraseLines from "../output/erase-lines.js";

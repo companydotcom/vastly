@@ -1,5 +1,5 @@
 {
-  "name": "@companydotcom/micro-service-core",
+  "name": "@vastly/micro-service-core",
   "version": "0.0.1",
   "description": "Company.com MicroApp core library",
   "main": "./dist/index.js",
@@ -24,7 +24,7 @@
     "@types/lodash": "^4.14.182",
     "@types/uuid": "^8.3.4",
     "eslint": "^7.32.0",
-    "eslint-config-custom": "workspace:*",
+    "@vastly/eslint-config-custom": "workspace:*",
     "path": "^0.12.7",
     "pinst": "^3.0.0",
     "tsconfig": "workspace:*",
@@ -39,5 +39,6 @@
     "redis": "^4.1.0",
     "source-map-support": "^0.5.21",
     "uuid": "^8.3.2"
-  }
+  },
+  "private": true
 }

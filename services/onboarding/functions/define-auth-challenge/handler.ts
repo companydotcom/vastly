@@ -1,5 +1,5 @@
 import type { DefineAuthChallengeTriggerHandler } from "aws-lambda";
-import { isEmpty } from "@companydotcom/utils";
+import { isEmpty } from "@vastly/utils";
 
 const handler: DefineAuthChallengeTriggerHandler = async (event) => {
   if (event.request.userNotFound) {

@@ -4,7 +4,7 @@ import { Client } from "../../util/client.js";
 import doDeleteEnv from "../../util/env/delete.js";
 import { EnvVariable } from "../../types/index.js";
 import { doPullEnv } from "../../util/env/pull-all.js";
-import { errorToString } from "@companydotcom/utils";
+import { errorToString } from "@vastly/utils";
 
 export default async function deleteEnv(client: Client) {
   const { output } = client;

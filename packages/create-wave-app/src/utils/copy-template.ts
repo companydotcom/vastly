@@ -23,7 +23,7 @@ export const copyTemplate = async (
   }).start();
   try {
     //copy template
-    let sharedTemplate = path.resolve(__dirname, "../../src/templates", "_shared_ts");
+    let sharedTemplate = path.resolve(__dirname, "../../dist/templates", "_shared_ts");
     await copy(sharedTemplate, "./");
 
     //check package manager version is supported
@@ -39,7 +39,7 @@ export const copyTemplate = async (
     // copy the package manager template and replace temp values
     let packageManagerTemplatePath = path.resolve(
       __dirname,
-      "../../src/templates",
+      "../../dist/templates",
       packageManagerConfig.template,
     );
 
@@ -59,6 +59,7 @@ export const copyTemplate = async (
     spinner.succeed(chalk.green("wave-app generator completed successfully"));
     return { success: true };
   } catch (error) {
+    console.error(error);
     spinner.fail("Something went wrong!");
     return { success: false, message: `Something went wrong: ${error}` };
   }

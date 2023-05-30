@@ -1,4 +1,4 @@
-import { errorToString } from "@companydotcom/utils";
+import { errorToString } from "@vastly/utils";
 import { Client } from "../util/client.js";
 import { writeToConfigFile } from "../util/config/files.js";
 import { MockClient } from "../../__tests__/mocks/client.js";

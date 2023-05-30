@@ -1,4 +1,4 @@
-import { render } from "@companydotcom/test-utils";
+import { render } from "@vastly/test-utils";
 import { Field, FieldProps, Form } from "../src";
 
 const renderField = (props: FieldProps) => {

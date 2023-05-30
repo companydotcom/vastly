@@ -6,7 +6,7 @@ import path from "node:path";
 import { Client } from "../../util/client.js";
 import { doPullEnv } from "../../util/env/pull-all.js";
 import writeToFile from "../../util/write-env-files.js";
-import { errorToString } from "@companydotcom/utils";
+import { errorToString } from "@vastly/utils";
 
 export default async function pullAllEnv(client: Client) {
   const rootDir = path.dirname((await findUp(["apps", "services", "pnpm-workspace.yaml"])) || ".");

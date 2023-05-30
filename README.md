@@ -1,11 +1,11 @@
-# Company.com Custom Offering
+# Vastly's Wave
 
 <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://user-images.githubusercontent.com/7347426/214703303-20da9ba8-be98-4daf-b3ec-146ae146131f.jpg">
-  <img src="https://user-images.githubusercontent.com/7347426/214703303-20da9ba8-be98-4daf-b3ec-146ae146131f.jpg" height="420">
+      <source media="(prefers-color-scheme: dark)" srcset="https://u.photofunia.com/1/results/m/D/mDRuOKsodBeZRZJbzxWwFA_r.jpg">
+  <img src="https://u.photofunia.com/1/results/m/D/mDRuOKsodBeZRZJbzxWwFA_r.jpg" height="420">
 </picture>
 
-This is a monorepo to manage the Company.com custom offering.
+This is Vastly's monorepo to power the Wave platform
 
 ## What's inside?
 
@@ -46,7 +46,7 @@ This monorepo has some tools setup for managing our packages:
 To build all apps and packages, run the following command:
 
 ```
-cd dxp
+cd wave
 pnpm run build:all
 ```
 
@@ -55,16 +55,22 @@ pnpm run build:all
 To develop all apps and packages, run the following command:
 
 ```
-cd dxp
+cd wave
 pnpm run dev
 ```
 
 ## Development Guidelines
 
-- Keep dependecy list as small as possible
-- Document features as they are built and modified
+- Keep dependency list as small as possible.
+- Document features as they are built and modified.
 - Colocate dependencies with their packages - don't install packages in monorepo root unless
-  necessary
+  necessary.
+
+## Publishing Packages
+
+- In order to publish public packages to NPM run `pnpm changeset` then `pnpm changeset version`
+  commit your changes, that's it. When your branch is merged into `main` it will be automatically
+  published to NPM.
 
 ## Useful Links
 

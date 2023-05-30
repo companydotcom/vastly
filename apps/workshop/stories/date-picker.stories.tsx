@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { DatePicker, ReactDatePickerCustomHeaderProps } from "@companydotcom/forms";
+import { DatePicker, ReactDatePickerCustomHeaderProps } from "@vastly/forms";
 import {
   IconProps,
   VStack,
@@ -14,7 +14,7 @@ import {
   ButtonGroup,
   IconButton,
   Container,
-} from "@companydotcom/ui";
+} from "@vastly/ui";
 
 const meta: Meta<typeof DatePicker> = {
   component: DatePicker,

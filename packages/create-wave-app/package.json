@@ -1,16 +1,36 @@
 {
   "name": "create-wave-app",
-  "version": "0.2.5",
+  "version": "0.10.10",
+  "preferGlobal": true,
   "description": "create-wave-app from Vastly",
   "author": "Vastly",
   "license": "MIT",
   "type": "module",
-  "bin": "dist/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "create-wave-app": "dist/index.js",
+    "cwa": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "engines": {
+    "node": ">=14.16"
+  },
   "scripts": {
     "create-wave-app": "npx ts-node --esm src/index.ts",
-    "build": "tsup src/index.ts --dts",
+    "build": "tsup && pnpm copy-files",
     "test": "vitest run",
-    "test:watch": "vitest watch"
+    "test:watch": "vitest watch",
+    "copy-files": "cp -R ./src/templates/ ./dist/templates"
   },
   "dependencies": {
     "@octokit/rest": "^19.0.7",
@@ -28,11 +48,24 @@
     "@vitest/coverage-c8": "^0.28.4",
     "@vitest/ui": "^0.28.4",
     "eslint": "^7.32.0",
-    "eslint-config-custom": "workspace:*",
+    "@vastly/eslint-config-custom": "workspace:*",
     "jsdom": "^21.1.0",
     "ts-node": "^10.9.1",
     "tsconfig": "workspace:*",
     "typescript": "^4.9.5",
     "vitest": "0.31.0"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/companydotcom/wave",
+    "directory": "packages/create-wave-app"
+  },
+  "keywords": [
+    "vastly",
+    "wave",
+    "create-wave-app"
+  ]
 }

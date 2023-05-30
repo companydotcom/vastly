@@ -1,6 +1,6 @@
 {
-  "name": "@companydotcom/utils",
-  "version": "0.0.1",
+  "name": "@vastly/utils",
+  "version": "0.3.0",
   "main": "./dist/index.js",
   "source": "./src/index.ts",
   "types": "./dist/index.d.ts",
@@ -21,7 +21,7 @@
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "eslint": "^7.32.0",
-    "eslint-config-custom": "workspace:*",
+    "@vastly/eslint-config-custom": "workspace:*",
     "json-schema-to-ts": "^2.7.2",
     "tsconfig": "workspace:*",
     "typescript": "^4.9.5"
@@ -29,5 +29,11 @@
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "url": "git+https://github.com/companydotcom/wave"
   }
 }
