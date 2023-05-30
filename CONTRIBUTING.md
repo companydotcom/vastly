@@ -32,3 +32,9 @@ When any content from the pages submodule is merged into the `main` branch, it s
 Vercel. In the event it does not, from the root of this repo, run `vercel login` to log into your
 account if you arent already, run `vercel link` to link the project to the `wave-docs` project, then
 run `vercel deploy`
+
+## Publishing Packages
+
+In order to publish public packages to NPM run `pnpm changeset` then `pnpm changeset version`
+commit your changes, that's it. When your branch is merged into `main` it will be automatically
+published to NPM.

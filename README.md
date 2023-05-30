@@ -66,12 +66,6 @@ pnpm run dev
 - Colocate dependencies with their packages - don't install packages in monorepo root unless
   necessary.
 
-## Publishing Packages
-
-- In order to publish public packages to NPM run `pnpm changeset` then `pnpm changeset version`
-  commit your changes, that's it. When your branch is merged into `main` it will be automatically
-  published to NPM.
-
 ## Useful Links
 
 Learn more about Turborepo:
