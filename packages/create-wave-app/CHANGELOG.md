@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.13
+
+### Patch Changes
+
+- added devDeps to the correct package.json files in create-wave-app
+
 ## 0.10.12
 
 ### Patch Changes
