@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.11
+
+### Patch Changes
+
+- added deps and devDeps to root package.json
+
 ## 0.10.10
 
 ### Patch Changes
