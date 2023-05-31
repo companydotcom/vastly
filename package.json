@@ -33,16 +33,16 @@
     "@changesets/cli": "^2.26.0",
     "@commitlint/cli": "^17.4.2",
     "@types/node": "18.11.10",
+    "@vastly/eslint-config-custom": "workspace:*",
     "@vitest/coverage-c8": "^0.31.0",
     "@vitest/ui": "^0.28.4",
     "eslint": "^7.32.0",
-    "@vastly/eslint-config-custom": "workspace:*",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
     "prettier": "latest",
     "tsup": "^6.5.0",
     "tsx": "^3.12.2",
-    "turbo": "latest",
+    "turbo": "1.10.0",
     "vitest": "0.31.0"
   },
   "commitlint": {
