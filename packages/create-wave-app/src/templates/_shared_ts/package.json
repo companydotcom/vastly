@@ -5,11 +5,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+    "@vastly/utils": "0.3.0"
+  },
   "devDependencies": {
     "@vastly/wave-cli": "0.7.2",
     "@vastly/types": "2.4.0",
-    "@vastly/eslint-config-custom": "0.5.0",
-    "@vastly/utils": "0.3.0"
+    "@vastly/eslint-config-custom": "0.5.0"
   },
   "keywords": [],
   "author": "",
