@@ -1,9 +1,6 @@
 # Vastly's Wave
 
-<picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://u.photofunia.com/1/results/m/D/mDRuOKsodBeZRZJbzxWwFA_r.jpg">
-  <img src="https://u.photofunia.com/1/results/m/D/mDRuOKsodBeZRZJbzxWwFA_r.jpg" height="420">
-</picture>
+![PhotoFunia-1685554144](https://github.com/companydotcom/wave/assets/24517115/e827c537-c8ad-4852-bbac-86076167b54e)
 
 This is Vastly's monorepo to power the Wave platform
 
