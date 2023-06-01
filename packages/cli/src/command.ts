@@ -90,5 +90,14 @@ export async function makeProgram(program: Command) {
       await func(client, arg);
     });
 
+  program
+    .command("generate")
+    .description("Generate a Microservice")
+    .addArgument(new Argument("<action>", "generate options").choices(["service"]))
+    .action(async (arg) => {
+      const func = (await import("./commands/generate/index.js")).default;
+      await func(client, arg);
+    });
+
   return program;
 }
