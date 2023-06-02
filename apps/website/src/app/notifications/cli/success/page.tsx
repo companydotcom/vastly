@@ -1,3 +1,4 @@
+"use client";
 import { Container, Heading } from "@vastly/ui";
 
 export default function CLISuccess() {
