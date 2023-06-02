@@ -2,6 +2,7 @@
 import { Container, Heading } from "@vastly/ui";
 
 export default function CLIFail() {
+  console.log("test");
   return (
     <Container centerContent mt="44" maxW="container.md">
       <Heading size="md" mb="6">
