@@ -1,5 +1,11 @@
 # cli
 
+## 0.8.2
+
+### Patch Changes
+
+- Include templates in tsup build, add service description question
+
 ## 0.8.1
 
 ### Patch Changes

@@ -4,24 +4,32 @@ import { fileURLToPath } from "url";
 import pkg from "fs-extra";
 import { Client } from "../../../util/client.js";
 
-const { copy, existsSync, ensureDir, readJson, writeJson } = pkg;
+const { copy, existsSync, ensureDir, readJson, writeJson, readFile, writeFile } = pkg;
 
-export const generateRestService = async (client: Client, name: string) => {
+export const generateRestService = async (client: Client, name: string, description: string) => {
   const { output } = client;
 
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
 
   try {
-    const backendTemplate = path.resolve(__dirname, "../../../../src/templates/backend", "rest");
-    const frontendTemplate = path.resolve(__dirname, "../../../../src/templates/frontend", "rest");
+    const backendTemplate = path.resolve(__dirname, "../../../../dist/templates/backend", "rest");
+    const frontendTemplate = path.resolve(__dirname, "../../../../dist/templates/frontend", "rest");
     if (
       existsSync("./services") &&
       existsSync("./apps") &&
       existsSync("./apps/client/package.json")
     ) {
+      //backend
       await ensureDir(`./services/${name}`);
       await copy(backendTemplate, `./services/${name}`);
+      const templateContents = await readFile(`./services/${name}/package.json`, "utf-8");
+      const modifiedTemplateContents = templateContents
+        .replace("<%= appName %>", name.toLowerCase().replace(/\s+/g, "-"))
+        .replace("<%= description %>", description);
+      await writeFile(`./services/${name}/package.json`, modifiedTemplateContents);
+
+      //frontend
       await copy(frontendTemplate, "./apps");
       await writeToPackageJson("./apps/client/package.json", frontendPackageJson);
       return { success: true };
