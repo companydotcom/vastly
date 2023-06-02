@@ -1,4 +1,3 @@
-import inquirer from "inquirer";
 import { Client } from "../../../util/client.js";
 import { generateRestService } from "./rest.js";
 import { generateEdaService } from "./eda.js";
@@ -7,9 +6,9 @@ import { generateStreamingService } from "./streaming.js";
 export const generateService = async (client: Client) => {
   const { output } = client;
 
-  inquirer.prompt(serviceQuestion).then(async (answers) => {
+  client.prompt(serviceQuestions).then(async (answers) => {
     if (answers.service === "rest") {
-      await generateRestService(client);
+      await generateRestService(client, answers.name);
     } else if (answers.service === "eda") {
       await generateEdaService(client);
     } else if (answers.service === "streaming") {
@@ -18,7 +17,7 @@ export const generateService = async (client: Client) => {
   });
 };
 
-const serviceQuestion = [
+const serviceQuestions = [
   {
     name: "service",
     type: "list",
@@ -34,5 +33,10 @@ const serviceQuestion = [
         value: "streaming",
       },
     ],
+  },
+  {
+    name: "name",
+    type: "text",
+    message: "What would you like to name your service?",
   },
 ];
