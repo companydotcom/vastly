@@ -15,11 +15,15 @@ export const generateRestService = async (client: Client, name: string) => {
   try {
     const backendTemplate = path.resolve(__dirname, "../../../../src/templates/backend", "rest");
     const frontendTemplate = path.resolve(__dirname, "../../../../src/templates/frontend", "rest");
-    if (existsSync("./services") && existsSync("./apps") && existsSync("./apps/package.json")) {
+    if (
+      existsSync("./services") &&
+      existsSync("./apps") &&
+      existsSync("./apps/client/package.json")
+    ) {
       await ensureDir(`./services/${name}`);
       await copy(backendTemplate, `./services/${name}`);
       await copy(frontendTemplate, "./apps");
-      await writeToPackageJson("./apps/package.json", frontendPackageJson);
+      await writeToPackageJson("./apps/client/package.json", frontendPackageJson);
       return { success: true };
     } else {
       throw new Error("services and apps folders do not exist");
