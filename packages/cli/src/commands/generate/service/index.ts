@@ -8,7 +8,7 @@ export const generateService = async (client: Client) => {
 
   client.prompt(serviceQuestions).then(async (answers) => {
     if (answers.service === "rest") {
-      await generateRestService(client, answers.name);
+      await generateRestService(client, answers.name, answers.description);
     } else if (answers.service === "eda") {
       await generateEdaService(client);
     } else if (answers.service === "streaming") {
@@ -38,5 +38,10 @@ const serviceQuestions = [
     name: "name",
     type: "text",
     message: "What would you like to name your service?",
+  },
+  {
+    name: "description",
+    type: "text",
+    message: "Please enter a description for your service: ",
   },
 ];
