@@ -2,8 +2,9 @@ import * as path from "path";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import pkg from "fs-extra";
-const { copy, existsSync, ensureDir, readJson, writeJson } = pkg;
 import { Client } from "../../../util/client.js";
+
+const { copy, existsSync, ensureDir, readJson, writeJson } = pkg;
 
 export const generateRestService = async (client: Client, name: string) => {
   const { output } = client;
@@ -12,8 +13,8 @@ export const generateRestService = async (client: Client, name: string) => {
   const __dirname = dirname(__filename);
 
   try {
-    let backendTemplate = path.resolve(__dirname, "../../../../src/templates/backend", "rest");
-    let frontendTemplate = path.resolve(__dirname, "../../../../src/templates/frontend", "rest");
+    const backendTemplate = path.resolve(__dirname, "../../../../src/templates/backend", "rest");
+    const frontendTemplate = path.resolve(__dirname, "../../../../src/templates/frontend", "rest");
     if (existsSync("./services") && existsSync("./apps") && existsSync("./apps/package.json")) {
       await ensureDir(`./services/${name}`);
       await copy(backendTemplate, `./services/${name}`);
