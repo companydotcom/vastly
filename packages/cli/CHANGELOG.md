@@ -1,5 +1,11 @@
 # cli
 
+## 0.8.1
+
+### Patch Changes
+
+- Fix frontend package.json path
+
 ## 0.8.0
 
 ### Minor Changes
