@@ -78,7 +78,11 @@ importers:
         specifier: ^4.9.5
         version: 4.9.5
 
-  apps/website: {}
+  apps/website:
+    dependencies:
+      '@vastly/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
 
   apps/workshop:
     dependencies:
