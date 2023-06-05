@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+    "jsx": "preserve",
 		"strict": true,
 		"noFallthroughCasesInSwitch": true,
 		"noEmitOnError": true,
@@ -14,6 +15,6 @@
 		"outDir": "./dist",
 		"types": ["vitest/globals"],
 	},
-	"exclude": ["dist", "node_modules", "coverage"],
+	"exclude": ["dist", "node_modules", "coverage", "templates"],
 	"include": ["__tests__", "src"],
 }

@@ -12,7 +12,6 @@
         "noUnusedParameters": true,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": false,
-        "inlineSources": true,
         "experimentalDecorators": true,
         "strictPropertyInitialization": false
     }

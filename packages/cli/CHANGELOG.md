@@ -1,5 +1,11 @@
 # cli
 
+## 0.8.3
+
+### Patch Changes
+
+- Ignore templates in tsconfig
+
 ## 0.8.2
 
 ### Patch Changes
