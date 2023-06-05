@@ -6,3 +6,5 @@ Helpful resources:
 - Amplify CLI documentation: https://docs.amplify.aws/cli
 - More details on this folder & generated files: https://docs.amplify.aws/cli/reference/files
 - Join Amplify's community: https://amplify.aws/community/
+- https://github.com/aws-amplify/amplify-hosting/blob/main/FAQ.md#support-for-monorepo-framework
+- FAQ: https://github.com/aws-amplify/amplify-hosting/blob/main/FAQ.md#error-accessdenied-access-denied
