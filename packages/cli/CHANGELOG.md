@@ -1,5 +1,11 @@
 # cli
 
+## 0.8.4
+
+### Patch Changes
+
+- Fix tsconfig
+
 ## 0.8.3
 
 ### Patch Changes
