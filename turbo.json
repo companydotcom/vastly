@@ -29,6 +29,14 @@
         "@vastly/forms#build"
       ]
     },
+    "website#build": {
+      "outputs": [
+        ".next/**"
+      ],
+      "dependsOn": [
+        "@vastly/ui#build"
+      ]
+    },
     "lint": {
       "outputs": []
     },
