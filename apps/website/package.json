@@ -10,5 +10,8 @@
   },
   "dependencies": {
     "@vastly/ui": "workspace:*"
+  },
+  "devDependencies": {
+    "@vastly/eslint-config-custom": "workspace:*"
   }
 }

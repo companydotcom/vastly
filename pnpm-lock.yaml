@@ -83,6 +83,10 @@ importers:
       '@vastly/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+    devDependencies:
+      '@vastly/eslint-config-custom':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config-custom
 
   apps/workshop:
     dependencies:

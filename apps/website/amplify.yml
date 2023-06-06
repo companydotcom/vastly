@@ -1,0 +1,26 @@
+version: 1
+applications:
+  - backend:
+      phases:
+        build:
+          commands:
+            - "# Execute Amplify CLI with the helper script"
+            - amplifyPush --simple
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm install -g pnpm
+            - pnpm install
+        build:
+          commands:
+            - npx turbo run build --filter=website
+      artifacts:
+        baseDirectory: apps/website/.next
+        files:
+          - "**/*"
+      cache:
+        paths:
+          - node_modules/**/*
+      buildPath: /
+    appRoot: apps/website
