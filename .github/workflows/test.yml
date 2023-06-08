@@ -1,0 +1,45 @@
+name: SubMod Test
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+on:
+  push:
+    branches:
+      - ATX-2519
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: install pnpm@8.6.0
+        run: npm i -g pnpm@8.6.0
+
+      - name: Pull & update submodules recursively
+        run: |
+          git submodule update --init --recursive
+          git submodule update --recursive --remote
+          echo "${{ toJSON(github.event.inputs) }}"
+          echo "${{ toJSON(github.event) }}"
+      # - name: Commit
+      #   run: |
+      #     git config user.email "actions@github.com"
+      #     git config user.name "GitHub Actions - update submodules"
+      #     git add --all
+      #     git commit -m "Update submodules" || echo "No changes to commit"
+      #     git push
+
+
