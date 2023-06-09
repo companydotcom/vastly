@@ -12,8 +12,8 @@ jobs:
     steps:
       - name: delete branch
         run: |
-          console.log("github context: ", github)
-          console.log("context: ", context)
+          console.log(github)
+          console.log(context)
         # uses: SvanBoxel/delete-merged-branch@main
         # env:
         #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
