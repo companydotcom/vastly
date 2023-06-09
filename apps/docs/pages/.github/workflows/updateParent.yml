@@ -1,0 +1,80 @@
+---
+name: Submodule Updates
+on:
+  pull_request:
+    branches: [develop, main]
+    types:
+      - closed
+
+jobs:
+  build:
+    name: Submodule update
+    runs-on: ubuntu-latest
+    env:
+      PARENT_REPOSITORY: "wave"
+      CHECKOUT_BRANCH: "${{ github.base_ref }}"
+      PR_AGAINST_BRANCH: "${{ github.base_ref }}"
+      OWNER: "companydotcom"
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Checkout parent repository and branch
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.SUBMOD_TOKEN }}
+          repository: "${{ env.OWNER }}/${{ env.PARENT_REPOSITORY }}"
+          ref: ${{ env.PR_AGAINST_BRANCH }}
+          submodules: true
+          fetch-depth: 0
+
+      - name: Create new branch and push changes
+        shell: bash
+        run: |
+          git submodule update --init --recursive
+          git submodule update --recursive --remote
+          git config user.name "GitHub Actions - update submodules"
+          git config user.email "actions@github.com"
+          git checkout -b "ATX-${{ github.run_id }}"
+          git add --all
+          git commit -am "ATX-${{ github.run_id }} | updating submodules" || echo "No changes to commit"
+          git push --set-upstream origin ATX-${{ github.run_id }}
+
+      - name: Create pull request against target branch
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.SUBMOD_TOKEN }}
+          script: |
+            await github.rest.pulls.create({
+              owner: '${{ env.OWNER }}',
+              repo: '${{ env.PARENT_REPOSITORY }}',
+              head:'ATX-${{ github.run_id }}',
+              base: '${{ env.PR_AGAINST_BRANCH }}',
+              title: `ATX-${{ github.run_id }} | [Auto-generated] Submodule Updates`,
+              body: `[Auto-generated] Submodule Updates ${{ github.run_id }}`,
+            });
+
+      - name: Add labels and Reviewers
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.SUBMOD_TOKEN  }}
+          script: |
+            const res = await github.rest.pulls.list({
+              owner: '${{ env.OWNER }}',
+              repo: '${{ env.PARENT_REPOSITORY }}',
+            });
+            const pr = res.data.find(i => i.title.includes('${{ github.run_id }}'));
+            const prNumber = pr.number;
+            await github.rest.issues.addLabels({
+              issue_number: prNumber,
+              owner: '${{ env.OWNER }}',
+              repo: '${{ env.PARENT_REPOSITORY }}',
+              labels: ['submodule'],
+            });
+            await github.rest.pulls.requestReviewers({
+              owner: '${{ env.OWNER }}',
+              repo: '${{ env.PARENT_REPOSITORY }}',
+              pull_number: prNumber,
+              reviewers: ['jacobgranberry', 'ctbwx']
+            });
