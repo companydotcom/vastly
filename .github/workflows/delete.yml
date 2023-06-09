@@ -15,7 +15,7 @@ jobs:
         with:
           script: | 
             console.log(context)
-            console.log(github)
+            console.log(github.event)
         # uses: SvanBoxel/delete-merged-branch@main
         # env:
         #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
