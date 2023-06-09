@@ -4,8 +4,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 on:
   push:
-    branches:
-      - main
+    branches: [main, develop]
 
 jobs:
   release:
@@ -27,6 +26,7 @@ jobs:
         run: npm i -g pnpm@8.6.0
 
       - name: Publish
+        if: ${{ github.ref_name == 'main' }}
         id: changesets
         uses: changesets/action@v1
         with:
