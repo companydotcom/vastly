@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: delete branch
       - name: View context attributes
         uses: actions/github-script@v6
         with:
