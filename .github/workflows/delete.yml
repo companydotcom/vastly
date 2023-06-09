@@ -8,13 +8,15 @@ on:
 jobs:
   delete-branch:
     runs-on: ubuntu-latest
-
+    if: context.payload.head_commit.message.includes('Submodule')
     steps:
+      - name: Delete submod branch
+        uses: SvanBoxel/delete-merged-branch@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
       - name: View context attributes
         uses: actions/github-script@v6
         with:
           script: | 
             console.log(context.payload.head_commit.message)
-        # uses: SvanBoxel/delete-merged-branch@main
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
