@@ -1,6 +1,6 @@
 {
   "name": "@vastly/wave-cli",
-  "version": "0.8.4",
+  "version": "0.8.6",
   "description": "Vastly Wave CLI",
   "author": "Vastly",
   "license": "MIT",
@@ -33,11 +33,12 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && pnpm copy-files",
     "dev": "ts-node --esm ./src/index.ts",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "copy-files": "cp -R ./src/templates/ ./dist/templates"
   },
   "sideEffects": [
     "dist/*"
