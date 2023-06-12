@@ -1,15 +1,16 @@
 import type { CodegenConfig } from "@graphql-codegen/cli";
 
+const serviceName = "Service Name";
+
 const config: CodegenConfig = {
   overwrite: true,
-  schema: ["./schema.gql", "./src/graphql/aws.gql"],
+  schema: [
+    `../services/${serviceName}/prisma/generated/prisma-appsync/schema.gql`,
+    "./graphql/aws.gql",
+  ],
   generates: {
-    "src/graphql/graphql-types.ts": {
-      plugins: [
-        "typescript",
-        "typescript-resolvers",
-        "typescript-react-apollo",
-      ],
+    "./graphql/graphql-types.ts": {
+      plugins: ["typescript", "typescript-resolvers", "typescript-react-apollo"],
       documents: "src/**/*.gql",
       config: {
         scalars: {

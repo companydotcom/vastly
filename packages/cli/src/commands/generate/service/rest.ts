@@ -11,27 +11,34 @@ export const generateRestService = async (client: Client, name: string, descript
 
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
+  const serviceName = name.toLowerCase().replace(/\s+/g, "-");
 
   try {
-    const backendTemplate = path.resolve(__dirname, "../../../../dist/templates/backend", "rest");
-    const frontendTemplate = path.resolve(__dirname, "../../../../dist/templates/frontend", "rest");
+    const backendTemplate = path.resolve(__dirname, "../../../../src/templates/backend", "rest");
+    const frontendTemplate = path.resolve(__dirname, "../../../../src/templates/frontend", "rest");
     if (
       existsSync("./services") &&
       existsSync("./apps") &&
       existsSync("./apps/client/package.json")
     ) {
       //backend
-      await ensureDir(`./services/${name}`);
-      await copy(backendTemplate, `./services/${name}`);
-      const templateContents = await readFile(`./services/${name}/package.json`, "utf-8");
+      await ensureDir(`./services/${serviceName}`);
+      await copy(backendTemplate, `./services/${serviceName}`);
+      const templateContents = await readFile(`./services/${serviceName}/package.json`, "utf-8");
       const modifiedTemplateContents = templateContents
-        .replace("<%= appName %>", name.toLowerCase().replace(/\s+/g, "-"))
+        .replace("<%= appName %>", serviceName)
         .replace("<%= description %>", description);
-      await writeFile(`./services/${name}/package.json`, modifiedTemplateContents);
+      await writeFile(`./services/${serviceName}/package.json`, modifiedTemplateContents);
 
       //frontend
       await copy(frontendTemplate, "./apps");
       await writeToPackageJson("./apps/client/package.json", frontendPackageJson);
+      const codegenConfigContents = await readFile("./apps/codegen.ts", "utf-8");
+      const modifiedCodegenConfigContents = codegenConfigContents.replace(
+        "Service Name",
+        serviceName,
+      );
+      await writeFile("./apps/codegen.ts", modifiedCodegenConfigContents);
       return { success: true };
     } else {
       throw new Error("services and apps folders do not exist");
