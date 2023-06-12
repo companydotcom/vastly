@@ -5,7 +5,7 @@ const serviceName = "Service Name";
 const config: CodegenConfig = {
   overwrite: true,
   schema: [
-    `../services/${serviceName}/prisma/generated/prisma-appsync/schema.gql`,
+    `../../services/${serviceName}/prisma/generated/prisma-appsync/schema.gql`,
     "./graphql/aws.gql",
   ],
   generates: {

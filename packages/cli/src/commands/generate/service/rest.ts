@@ -4,7 +4,7 @@ import { fileURLToPath } from "url";
 import pkg from "fs-extra";
 import { Client } from "../../../util/client.js";
 
-const { copy, existsSync, ensureDir, readJson, writeJson, readFile, writeFile } = pkg;
+const { copy, existsSync, ensureDir, readJson, writeJson, readFile, writeFile, move } = pkg;
 
 export const generateRestService = async (client: Client, name: string, description: string) => {
   const { output } = client;
@@ -31,14 +31,17 @@ export const generateRestService = async (client: Client, name: string, descript
       await writeFile(`./services/${serviceName}/package.json`, modifiedTemplateContents);
 
       //frontend
-      await copy(frontendTemplate, "./apps");
+      await copy(frontendTemplate, "./apps/client");
+      await move("./apps/client/home.tsx", "./apps/client/pages/home.tsx", { overwrite: true });
+      await move("./apps/client/index.tsx", "./apps/client/pages/index.tsx", { overwrite: true });
+
       await writeToPackageJson("./apps/client/package.json", frontendPackageJson);
-      const codegenConfigContents = await readFile("./apps/codegen.ts", "utf-8");
+      const codegenConfigContents = await readFile("./apps/client/codegen.ts", "utf-8");
       const modifiedCodegenConfigContents = codegenConfigContents.replace(
         "Service Name",
         serviceName,
       );
-      await writeFile("./apps/codegen.ts", modifiedCodegenConfigContents);
+      await writeFile("./apps/client/codegen.ts", modifiedCodegenConfigContents);
       return { success: true };
     } else {
       throw new Error("services and apps folders do not exist");
