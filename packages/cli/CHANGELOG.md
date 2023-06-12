@@ -1,5 +1,11 @@
 # cli
 
+## 0.8.5
+
+### Patch Changes
+
+- Remove subscriptions gql file
+
 ## 0.8.4
 
 ### Patch Changes
