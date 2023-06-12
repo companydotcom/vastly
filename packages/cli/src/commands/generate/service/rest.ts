@@ -14,8 +14,8 @@ export const generateRestService = async (client: Client, name: string, descript
   const serviceName = name.toLowerCase().replace(/\s+/g, "-");
 
   try {
-    const backendTemplate = path.resolve(__dirname, "../../../../dist/templates/backend", "rest");
-    const frontendTemplate = path.resolve(__dirname, "../../../../dist/templates/frontend", "rest");
+    const backendTemplate = path.resolve(__dirname, "../../../../src/templates/backend", "rest");
+    const frontendTemplate = path.resolve(__dirname, "../../../../src/templates/frontend", "rest");
     if (
       existsSync("./services") &&
       existsSync("./apps") &&
