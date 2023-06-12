@@ -1,11 +1,14 @@
 # cli
 
+<<<<<<< HEAD
 ## 0.8.6
 
 ### Patch Changes
 
 - Fix graphql schema path in codgen config
 
+=======
+>>>>>>> b9d7cf772757424081395a1d43308a97d82a70de
 ## 0.8.5
 
 ### Patch Changes
