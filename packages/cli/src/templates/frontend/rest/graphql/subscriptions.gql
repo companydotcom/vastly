@@ -1,7 +1,0 @@
-subscription OnCreatedUser($id: Int, $email: AWSEmail) {
-  onCreatedUser(id: $id, email: $email) {
-    id
-    email
-    fullname
-  }
-}
