@@ -1,5 +1,11 @@
 # cli
 
+## 0.8.7
+
+### Patch Changes
+
+- 3a8b26e: Fix templates
+
 ## 0.8.6
 
 ### Patch Changes
