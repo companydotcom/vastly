@@ -11,7 +11,7 @@ const config: CodegenConfig = {
   generates: {
     "./graphql/graphql-types.ts": {
       plugins: ["typescript", "typescript-resolvers", "typescript-react-apollo"],
-      documents: "src/**/*.gql",
+      documents: "graphql/*.gql",
       config: {
         scalars: {
           AWSDateTime: "Date",

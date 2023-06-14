@@ -7,8 +7,10 @@ import { AppSyncStack } from "./appsync";
 
 const app = new App();
 
-new AppSyncStack(app, kebabCase("test1"), {
-  resourcesPrefix: "test1",
+const serviceName = "Service Name";
+
+new AppSyncStack(app, kebabCase(serviceName), {
+  resourcesPrefix: serviceName,
   schema: join(process.cwd(), "prisma/generated/prisma-appsync/schema.gql"),
   resolvers: join(process.cwd(), "prisma/generated/prisma-appsync/resolvers.yaml"),
   function: {
@@ -41,6 +43,7 @@ new AppSyncStack(app, kebabCase("test1"), {
             "rm -rf node_modules/.bin",
             "rm -rf node_modules/prisma",
             "rm -rf node_modules/prisma-appsync",
+            "rm -rf node_modules/.pnpm",
           ];
         },
       },
