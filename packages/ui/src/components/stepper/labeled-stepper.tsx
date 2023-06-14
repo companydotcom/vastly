@@ -37,7 +37,7 @@ export interface LabeledStepperProps
  * Display progress with labels in multi-step workflows.
  * Can be controlled or uncontrolled.
  *
- * TIP: `NumberStepper` and `LabelStepper` have the same props :D
+ * TIP: `NumberStepper` and `LabelStepper` have the same props
  */
 export const LabeledStepper = forwardRef<LabeledStepperProps, "div">((props, ref) => {
   const { children, ...containerProps } = props;

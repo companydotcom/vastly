@@ -1,0 +1,142 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Hooks/useTabStepper" />
+---
+# useTabStepper
+<table>
+  <tr>
+    <td><b>title</b></td>
+    <td><b>package</b></td>
+    <td><b>description</b></td>
+  </tr>
+  <tr>
+    <td>useTabStepper</td>
+    <td>@vastly/ui</td>
+    <td>React hook to manage page transitions and form transitions within the same route.</td>
+  </tr>
+</table>
+---
+<br/>
+
+`useTabStepper` is a custom hook used to provide step functionality, as well as mask step visibility.
+
+## Import
+
+```js
+import {
+  useTabStepper,
+  Tabs,
+  TabPanels,
+  TabPanel
+} from '@vastly/ui'
+```
+
+## Return value
+
+The `useTabStepper` hook returns with following props:
+
+<table>
+    <tr>
+        <td>Name</td>
+        <td>Type</td>
+        <td>Description</td>
+    </tr>
+    <tr>
+        <td>`tabIndex`</td>
+        <td>`number`</td>
+        <td>Index of the current tab</td>
+    </tr>
+    <tr>
+        <td>`handleTabsChange`</td>
+        <td>`(index: number) => void`</td>
+        <td>onChange handler</td>
+    </tr>
+    <tr>
+        <td>`nextStep`</td>
+        <td>`() => void`</td>
+        <td>Callback that adds + 1 to the `tabIndex`. If `isLastStep` is `true`, it will set the `tabIndex` back to 0</td>
+    </tr>
+    <tr>
+        <td>`previousStep`</td>
+        <td>`() => void`</td>
+        <td>Callback that subtracts 1 from the `tabIndex`. If `isFirstStep` is `true`, it will set the `tabIndex` back to the last index</td>
+    </tr>
+    <tr>
+        <td>`goToStep`</td>
+        <td>`(index: number | string) => void`</td>
+        <td>Callback that takes a slug name or index from a steps array and sets the tabIndex to that step</td>
+    </tr>
+    <tr>
+        <td>`isFirstStep`</td>
+        <td>`boolean`</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>`isLastStep`</td>
+        <td>`boolean`</td>
+        <td></td>
+    </tr>
+        <tr>
+        <td>`currentStep`</td>
+        <td>`Object`</td>
+        <td>Is the current step in the steps array. Example: `{ slug: 'step-one', label: 'StepOneLabel, component: <AComponentToRender />}`</td>
+    </tr>
+</table>
+
+
+## Parameters
+
+The `useTabStepper` hook accepts an object with the following properties:
+```js
+
+UseTabStepperProps {
+  steps: Steps[];
+  initialStep?: number | string;
+  scrollOnStepChange?: boolean;
+}
+
+Steps {
+  slug?: string;
+  label?: string;
+  component?: JSX.Element;
+  url?: string;
+}
+```
+
+## Usage
+
+```jsx
+import { useTabStepper, Tabs, TabPanels, TabPanel } from '@vastly/ui';
+import { MemberSearch, MemberPublicProfile } from 'my/components';
+
+const memberSearchSteps = [
+        {
+          slug: 'member-search',
+          component: <MemberSearch />,
+        },
+        {
+          slug: 'member-profile',
+          component: <MemberPublicProfile />,
+        },
+      ]
+
+function Example() {
+    const { tabIndex, goToStep, handleTabsChange } = useTabStepper({
+      steps: memberSearchSteps
+    });
+
+      return(
+          <Tabs index={tabIndex} onChange={handleTabsChange}>
+            <TabPanels>
+              {steps.map(step => (
+                <TabPanel key={step.slug}>
+                /** pass your callbacks to each step in order to navigate back and forth */
+                  {React.cloneElement(step.component, { goToStep })}
+                </TabPanel>
+              ))}
+            </TabPanels>
+          </Tabs>
+      )
+}
+```
+

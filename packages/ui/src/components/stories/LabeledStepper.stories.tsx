@@ -1,11 +1,11 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { Container, ButtonProps, Button, Stack, ButtonGroup, Box, Spacer } from '@chakra-ui/react';
+import { ButtonProps, Button, Stack, ButtonGroup, Box, Spacer } from '@chakra-ui/react';
 import { LabeledStepper, LabeledStepperStep, LabeledStepperCompleted, useNext, usePrev } from '../stepper';
 
 const meta: Meta<typeof LabeledStepper> = {
   component: LabeledStepper,
-  title: "Components/Steppers/Labeled Stepper",
+  title: "Components/Steppers/LabeledStepper",
   argTypes: {
   step: {
     control: "number",
