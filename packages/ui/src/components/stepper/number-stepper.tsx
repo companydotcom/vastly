@@ -24,7 +24,7 @@ import {
   useStep,
   useStepperContext,
   UseStepperProps,
-} from "./use-stepper";
+} from "../../hooks/use-stepper";
 
 const [StylesProvider, useStyles] = createStylesContext("NumberStepper");
 

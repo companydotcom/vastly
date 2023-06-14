@@ -5,7 +5,7 @@ import { NumberStepper, NumberStepperStep, NumberStepperCompleted, useNext, useP
 
 const meta: Meta<typeof NumberStepper> = {
   component: NumberStepper,
-  title: "Components/Stepper/Number Stepper",
+  title: "Components/Steppers/Number Stepper",
   argTypes: {
     step: {
       control: "number",
@@ -25,16 +25,7 @@ const meta: Meta<typeof NumberStepper> = {
 export default meta;
 type Story = StoryObj<typeof NumberStepper>;
 
-const Template = ({ steps, orientation = "horizontal", size }: any) => {
-  const [step, setStep] = React.useState(0);
-
-  const back = () => {
-    setStep(step - 1);
-  };
-
-  const next = () => {
-    setStep(step + 1);
-  };
+const Template = ({ step = 1, steps, orientation = "horizontal", size }: any) => {
   return (
     <Box>
       <NumberStepper step={step} orientation={orientation} size={size}>
@@ -44,15 +35,6 @@ const Template = ({ steps, orientation = "horizontal", size }: any) => {
 
         <NumberStepperCompleted>Completed</NumberStepperCompleted>
       </NumberStepper>
-      <ButtonGroup width="100%">
-        <Button onClick={back} isDisabled={step === 0} variant="ghost">
-          Back
-        </Button>
-        <Spacer />
-        <Button onClick={next} isDisabled={step >= 3}>
-          Next
-        </Button>
-      </ButtonGroup>
     </Box>
   );
 };
