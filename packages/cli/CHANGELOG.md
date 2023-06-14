@@ -1,5 +1,11 @@
 # cli
 
+## 0.8.10
+
+### Patch Changes
+
+- Add graphql codegen plugin, update wave cli version for create-wave-app templates
+
 ## 0.8.9
 
 ### Patch Changes

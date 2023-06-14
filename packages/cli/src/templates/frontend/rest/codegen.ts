@@ -10,7 +10,12 @@ const config: CodegenConfig = {
   ],
   generates: {
     "./graphql/graphql-types.ts": {
-      plugins: ["typescript", "typescript-resolvers", "typescript-react-apollo"],
+      plugins: [
+        "typescript",
+        "typescript-operations",
+        "typescript-resolvers",
+        "typescript-react-apollo",
+      ],
       documents: "graphql/*.gql",
       config: {
         scalars: {
