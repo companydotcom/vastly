@@ -37,6 +37,7 @@ export const generateRestService = async (client: Client, name: string, descript
       spawnSync("npm install", { stdio: "inherit" });
 
       // frontend
+      process.chdir("../../../");
       await copy(frontendTemplate, "./apps/client");
       await move("./apps/client/home.tsx", "./apps/client/pages/home.tsx", { overwrite: true });
       await move("./apps/client/index.tsx", "./apps/client/pages/index.tsx", { overwrite: true });

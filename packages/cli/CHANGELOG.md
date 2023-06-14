@@ -1,5 +1,11 @@
 # cli
 
+## 0.8.9
+
+### Patch Changes
+
+- Resolve pathing issue for frontend template
+
 ## 0.8.8
 
 ### Patch Changes
