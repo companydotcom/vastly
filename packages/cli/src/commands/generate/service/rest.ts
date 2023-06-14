@@ -33,11 +33,8 @@ export const generateRestService = async (client: Client, name: string, descript
       const cdkContents = await readFile(`./services/${serviceName}/cdk/src/index.ts`, "utf-8");
       const modifiedCdkContents = cdkContents.replace("Service Name", serviceName);
       await writeFile(`./services/${serviceName}/cdk/src/index.ts`, modifiedCdkContents);
-      process.chdir(`./services/${serviceName}/cdk`);
-      spawnSync("npm install", { stdio: "inherit" });
 
       // frontend
-      process.chdir("../../../");
       await copy(frontendTemplate, "./apps/client");
       await move("./apps/client/home.tsx", "./apps/client/pages/home.tsx", { overwrite: true });
       await move("./apps/client/index.tsx", "./apps/client/pages/index.tsx", { overwrite: true });
@@ -84,6 +81,7 @@ const frontendPackageJson = {
   },
   dependencies: {
     "@apollo/client": "^3.7.14",
+    "@graphql-codegen/typescript-operations": "^4.0.0",
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@graphql-codegen/typescript-resolvers": "^3.2.1",
     "aws-appsync-auth-link": "^3.0.7",
