@@ -37,8 +37,8 @@ export interface NumberStepperProps
 
 /**
  * Display progress with numbers in multi-step workflows.
- *
  * Can be controlled or uncontrolled.
+ *
  */
 export const NumberStepper = forwardRef<NumberStepperProps, "div">((props, ref) => {
   const { orientation, children, ...containerProps } = props;
