@@ -1,5 +1,11 @@
 # cli
 
+## 0.8.8
+
+### Patch Changes
+
+- Handle lambda size limit issue with pnpm
+
 ## 0.8.7
 
 ### Patch Changes
