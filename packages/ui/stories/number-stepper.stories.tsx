@@ -1,7 +1,7 @@
 import * as React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { ButtonProps, Button, Stack, ButtonGroup, Spacer, Box } from '@chakra-ui/react';
-import { NumberStepper, NumberStepperStep, NumberStepperCompleted, useNext, usePrev} from '../stepper';
+import { NumberStepper, NumberStepperStep, NumberStepperCompleted, useNext, usePrev } from '../src';
 
 const meta: Meta<typeof NumberStepper> = {
   component: NumberStepper,

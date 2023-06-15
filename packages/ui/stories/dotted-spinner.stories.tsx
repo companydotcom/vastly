@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { DottedSpinner } from "../dotted-spinner/index";
+import { DottedSpinner } from "../src";
 
 const meta: Meta<typeof DottedSpinner> = {
-  title: "Components/Dotted Spinner",
+  title: "Components/DottedSpinner",
   component: DottedSpinner,
   argTypes: {
     size: {

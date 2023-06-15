@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Box, Container, keyframes } from '@chakra-ui/react';
-import { MotionBox } from '../motion';
+import { MotionBox } from '../src';
 
 const meta: Meta<typeof MotionBox> = {
   title: "Components/Motion/MotionBox",

@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Pagination, PaginationContainer, PaginationItem, PaginationProps } from '../pagination';
-import { usePagination } from '../../hooks/index'
+import { Pagination, usePagination, PaginationContainer, PaginationItem } from '../src';
 
 const meta: Meta<typeof Pagination> = {
   component: Pagination,
