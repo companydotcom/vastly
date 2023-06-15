@@ -92,20 +92,8 @@ export interface FieldProps<
     "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
   >;
   /**
-   * Built-in types:
-   * - text
-   * - number
-   * - password
-   * - textarea
-   * - select
-   * - native-select
-   * - checkbox
-   * - radio
-   * - switch
-   * - pin
-   * - credit-card
    *
-   * Will default to a text field if there is no matching type.
+   * Will default to a `text` field if there is no matching type.
    */
   type?: keyof FieldTypes;
   /**
@@ -160,6 +148,8 @@ export type PropsOf<T extends As> = React.ComponentPropsWithoutRef<T> & {
 };
 
 /**
+ *The `Field` component works like your basic `input` field. It should be nested inside of a `Form` component to render properly. Will default to a text field if there is no matching type.
+ *
  * Build-in types:
  * - text
  * - number
@@ -172,7 +162,7 @@ export type PropsOf<T extends As> = React.ComponentPropsWithoutRef<T> & {
  * - switch
  * - pin
  *
- * Will default to a text field if there is no matching type.
+ *
  */
 export const Field = React.forwardRef(
   <TFieldValues extends FieldValues = FieldValues>(

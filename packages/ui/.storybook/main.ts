@@ -23,14 +23,15 @@ const config: StorybookConfig = {
   },
   refs: {
     /**
-     * TODO: uncomment and add url once `forms` storybook is deployed
+     * TODO: replace localhost with deployed `forms` url
      * */
-    // "@vastly/forms": {
-    //   title: "Forms",
-    //   url: "",
-    // },
+    "@vastly/forms": {
+      title: "@vastly/forms",
+      url: "http://localhost:9009",
+    },
     /**
-     * TODO: remove disabled prop once bug fix/package version has been completed https://github.com/chakra-ui/chakra-ui/pull/7678)
+     * TODO: remove disabled prop once bug fix/package version has been completed
+     * https://github.com/chakra-ui/chakra-ui/pull/7678)
      * */
     "@chakra-ui/react": {
       disable: true,
