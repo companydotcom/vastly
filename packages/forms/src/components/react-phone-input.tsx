@@ -18,7 +18,7 @@ import {
   Text,
   Image,
   createIcon,
-} from "@chakra-ui/react";
+} from "@vastly/ui";
 import PhoneInputWithCountry, {
   type Country,
   getCountryCallingCode,
@@ -26,7 +26,7 @@ import PhoneInputWithCountry, {
 } from "react-phone-number-input";
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
-import type { ComponentWithAs, IconProps } from "@chakra-ui/react";
+import type { ComponentWithAs, IconProps } from "@vastly/ui";
 
 export interface ReactPhoneInputProps extends ChakraInputProps {
   country?: Country;

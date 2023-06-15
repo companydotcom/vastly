@@ -1,9 +1,9 @@
 import valid from "card-validator";
-import { forwardRef, Input, InputProps as ChakraInputProps } from "@chakra-ui/react";
+import { forwardRef, Input, InputProps as ChakraInputProps } from "@vastly/ui";
 import { PatternFormat, PatternFormatProps } from "react-number-format";
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
-import type { ComponentWithAs } from "@chakra-ui/react";
+import type { ComponentWithAs } from "@vastly/ui";
 
 const getFormatForCard = (
   cardNumber: string | number | readonly string[] | undefined,

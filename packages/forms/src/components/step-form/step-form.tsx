@@ -1,7 +1,5 @@
 import * as React from "react";
-
 import { FieldValues } from "react-hook-form";
-import { chakra, Button, ButtonProps, HTMLChakraProps, ThemingProps } from "@chakra-ui/react";
 import { callAllHandlers, runIfFn, cx, isDev } from "@vastly/utils";
 import {
   StepperProvider,
@@ -10,6 +8,11 @@ import {
   NumberStepperStep,
   useStepperContext,
   NumberStepperContainer,
+  chakra,
+  Button,
+  ButtonProps,
+  HTMLChakraProps,
+  ThemingProps
 } from "@vastly/ui";
 import { Form } from "../form";
 import { SubmitButton } from "../submit-button";

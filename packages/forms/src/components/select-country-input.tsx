@@ -2,12 +2,12 @@ import {
   forwardRef,
   Select as ChakraSelect,
   SelectProps as ChakraSelectProps,
-} from "@chakra-ui/react";
+} from "@vastly/ui";
 import { CountryDropdown, CountryDropdownProps } from "react-country-region-selector";
 
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
-import type { ComponentWithAs } from "@chakra-ui/react";
+import type { ComponentWithAs } from "@vastly/ui";
 
 export interface SelectCountryInputProps
   extends ChakraSelectProps,

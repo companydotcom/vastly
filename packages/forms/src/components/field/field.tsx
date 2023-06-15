@@ -32,7 +32,7 @@ import {
   PinInput,
   UsePinInputProps,
   SystemProps,
-} from "@chakra-ui/react";
+} from "@vastly/ui";
 import { callAllHandlers, isDev } from "@vastly/utils";
 import NumberFormat from "react-number-format";
 import type { NumberFormatBaseProps } from "react-number-format";
@@ -48,8 +48,7 @@ import { SelectCountryInput, type SelectCountryInputProps } from "../select-coun
 import { SelectRegionInput, type SelectRegionInputProps } from "../select-region-input";
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
-import type { ComponentWithAs } from "@chakra-ui/react";
-
+import type { ComponentWithAs } from "@vastly/ui";
 export interface FocusableElement {
   focus(options?: FocusOptions): void;
 }

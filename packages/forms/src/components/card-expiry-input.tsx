@@ -1,8 +1,8 @@
-import { forwardRef, Input, InputProps as ChakraInputProps } from "@chakra-ui/react";
+import { forwardRef, Input, InputProps as ChakraInputProps } from "@vastly/ui";
 import { NumberFormatBase, PatternFormatProps, usePatternFormat } from "react-number-format";
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
-import type { ComponentWithAs } from "@chakra-ui/react";
+import type { ComponentWithAs } from "@vastly/ui";
 
 export interface CardExpiryInputProps extends Omit<PatternFormatProps<ChakraInputProps>, "format"> {
   format?: string;
