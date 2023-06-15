@@ -1,5 +1,17 @@
 # create-wave-app
 
+## 0.10.15
+
+### Patch Changes
+
+- Create frontend src folder for template, update wave-cli version
+
+## 0.10.14
+
+### Patch Changes
+
+- Add graphql codegen plugin, update wave cli version for create-wave-app templates
+
 ## 0.10.13
 
 ### Patch Changes

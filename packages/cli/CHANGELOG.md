@@ -1,14 +1,41 @@
 # cli
 
-<<<<<<< HEAD
+## 0.8.11
+
+### Patch Changes
+
+- Create frontend src folder for template, update wave-cli version
+
+## 0.8.10
+
+### Patch Changes
+
+- Add graphql codegen plugin, update wave cli version for create-wave-app templates
+
+## 0.8.9
+
+### Patch Changes
+
+- Resolve pathing issue for frontend template
+
+## 0.8.8
+
+### Patch Changes
+
+- Handle lambda size limit issue with pnpm
+
+## 0.8.7
+
+### Patch Changes
+
+- 3a8b26e: Fix templates
+
 ## 0.8.6
 
 ### Patch Changes
 
 - Fix graphql schema path in codgen config
 
-=======
->>>>>>> b9d7cf772757424081395a1d43308a97d82a70de
 ## 0.8.5
 
 ### Patch Changes
