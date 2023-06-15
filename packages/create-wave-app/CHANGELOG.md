@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.15
+
+### Patch Changes
+
+- Create frontend src folder for template, update wave-cli version
+
 ## 0.10.14
 
 ### Patch Changes

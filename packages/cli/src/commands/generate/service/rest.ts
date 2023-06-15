@@ -2,7 +2,6 @@ import * as path from "path";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import pkg from "fs-extra";
-import { spawnSync } from "child_process";
 import { Client } from "../../../util/client.js";
 
 const { copy, existsSync, ensureDir, readJson, writeJson, readFile, writeFile, move } = pkg;
@@ -36,7 +35,6 @@ export const generateRestService = async (client: Client, name: string, descript
 
       // frontend
       await copy(frontendTemplate, "./apps/client");
-      await move("./apps/client/home.tsx", "./apps/client/pages/home.tsx", { overwrite: true });
       await move("./apps/client/index.tsx", "./apps/client/pages/index.tsx", { overwrite: true });
       await writeToPackageJson("./apps/client/package.json");
       const codegenConfigContents = await readFile("./apps/client/codegen.ts", "utf-8");
