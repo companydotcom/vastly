@@ -7,7 +7,7 @@
   },
   "devDependencies": {
     "@vastly/utils": "0.3.0",
-    "@vastly/wave-cli": "0.8.10",
+    "@vastly/wave-cli": "0.8.11",
     "@vastly/types": "2.4.1",
     "@vastly/eslint-config-custom": "0.5.0"
   },

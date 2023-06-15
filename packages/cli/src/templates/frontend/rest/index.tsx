@@ -2,7 +2,7 @@ import React from "react";
 import { createAuthLink, AUTH_TYPE } from "aws-appsync-auth-link";
 import { createSubscriptionHandshakeLink } from "aws-appsync-subscription-link";
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink, ApolloLink } from "@apollo/client";
-import Home from "./home";
+import Home from "../src/home";
 
 const url = ""; // Appsync API Endpoint URL
 
