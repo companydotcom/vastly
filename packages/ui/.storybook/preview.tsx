@@ -15,6 +15,11 @@ const preview: Preview = {
       exclude: /^_|as|html/,
       sort: 'requiredFirst'
     },
+    options: {
+      storySort: {
+        order: ['Introduction','Components', ['Dotted Spinner', 'Pagination', '*']]
+      }
+    }
   },
   decorators: [
     (Story) => (

@@ -6,7 +6,7 @@ const config: StorybookConfig = {
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
     "@storybook/addon-a11y",
-    // "@chakra-ui/storybook-addon",
+    "@chakra-ui/storybook-addon",
   ],
   features: {
     buildStoriesJson: true,
@@ -20,6 +20,21 @@ const config: StorybookConfig = {
   },
   typescript: {
     check: true,
+  },
+  refs: {
+    /**
+     * TODO: uncomment and add url once `forms` storybook is deployed
+     * */
+    // "@vastly/forms": {
+    //   title: "Forms",
+    //   url: "",
+    // },
+    /**
+     * TODO: remove disabled prop once bug fix/package version has been completed https://github.com/chakra-ui/chakra-ui/pull/7678)
+     * */
+    "@chakra-ui/react": {
+      disable: true,
+    },
   },
 };
 
