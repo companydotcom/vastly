@@ -24,7 +24,7 @@ const serverlessConfiguration: AWS = {
   functions: { ...functions },
   package: { individually: true },
   custom: {
-    domain: "ses.companydev.com",
+    domain: "vastly.is",
     "serverless-offline": {
       httpPort: 4000,
       useChildProcesses: true,

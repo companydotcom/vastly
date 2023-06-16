@@ -1,0 +1,19 @@
+applications:
+  - frontend:
+      buildPath: "/" # run install and build from monorepo project root
+      phases:
+        preBuild:
+          commands:
+            - npm install -g pnpm
+            - pnpm install
+        build:
+          commands:
+            - pnpm turbo run build --filter=website
+      artifacts:
+        baseDirectory: apps/website/.next
+        files:
+          - "**/*"
+      cache:
+        paths:
+          - node_modules/**/*
+    appRoot: apps/website
