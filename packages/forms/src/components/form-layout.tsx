@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { chakra, SimpleGrid, SimpleGridProps, useTheme } from "@chakra-ui/react";
+import { chakra, SimpleGrid, SimpleGridProps, useTheme } from "@vastly/ui";
 import { cx, isDev } from "@vastly/utils";
 
 export type FormLayoutProps = SimpleGridProps;

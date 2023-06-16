@@ -19,11 +19,11 @@ import {
   useFormControl,
   HTMLChakraProps,
   createIcon,
-} from "@chakra-ui/react";
+} from "@vastly/ui";
 import { __DEV__ } from "../utils";
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
-import type { ComponentWithAs, IconProps } from "@chakra-ui/react";
+import type { ComponentWithAs, IconProps } from "@vastly/ui";
 
 interface Option {
   value: string;

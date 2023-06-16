@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { forwardRef, InputGroup, Input, InputProps, createIcon } from "@chakra-ui/react";
+import { forwardRef, InputGroup, Input, InputProps, createIcon } from "@vastly/ui";
 import { InputRightButton } from "./input-right-button";
 import { __DEV__ } from "../utils";
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
-import type { ComponentWithAs, IconProps } from "@chakra-ui/react";
+import type { ComponentWithAs, IconProps } from "@vastly/ui";
 
 interface PasswordOptions {
   viewIcon?: React.ReactNode;

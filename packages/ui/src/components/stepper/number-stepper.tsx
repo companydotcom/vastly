@@ -24,7 +24,7 @@ import {
   useStep,
   useStepperContext,
   UseStepperProps,
-} from "./use-stepper";
+} from "../../hooks/use-stepper";
 
 const [StylesProvider, useStyles] = createStylesContext("NumberStepper");
 
@@ -37,8 +37,8 @@ export interface NumberStepperProps
 
 /**
  * Display progress with numbers in multi-step workflows.
- *
  * Can be controlled or uncontrolled.
+ *
  */
 export const NumberStepper = forwardRef<NumberStepperProps, "div">((props, ref) => {
   const { orientation, children, ...containerProps } = props;
