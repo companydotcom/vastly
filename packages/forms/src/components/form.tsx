@@ -1,5 +1,5 @@
 import * as React from "react";
-import { chakra, HTMLChakraProps, forwardRef } from "@chakra-ui/react";
+import { chakra, HTMLChakraProps, forwardRef } from "@vastly/ui";
 import { cx, runIfFn } from "@vastly/utils";
 
 import {

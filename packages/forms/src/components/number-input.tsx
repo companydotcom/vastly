@@ -8,11 +8,11 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   NumberInputProps as ChakraNumberInputProps,
-} from "@chakra-ui/react";
+} from "@vastly/ui";
 import { __DEV__ } from "../utils";
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
-import type { ComponentWithAs } from "@chakra-ui/react";
+import type { ComponentWithAs } from "@vastly/ui";
 
 interface NumberInputOptions {
   /**

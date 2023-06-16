@@ -19,7 +19,7 @@ import {
   useMultiStyleConfig,
   omitThemingProps,
   forwardRef,
-} from "@chakra-ui/react";
+} from "@vastly/ui";
 
 import "react-datepicker/dist/react-datepicker.css";
 

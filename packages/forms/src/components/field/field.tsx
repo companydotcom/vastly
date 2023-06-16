@@ -32,7 +32,7 @@ import {
   PinInput,
   UsePinInputProps,
   SystemProps,
-} from "@chakra-ui/react";
+} from "@vastly/ui";
 import { callAllHandlers, isDev } from "@vastly/utils";
 import NumberFormat from "react-number-format";
 import type { NumberFormatBaseProps } from "react-number-format";
@@ -48,8 +48,7 @@ import { SelectCountryInput, type SelectCountryInputProps } from "../select-coun
 import { SelectRegionInput, type SelectRegionInputProps } from "../select-region-input";
 // TODO: Remove the workaround whenever MS fixes the issue
 // https://github.com/microsoft/TypeScript/issues/48212
-import type { ComponentWithAs } from "@chakra-ui/react";
-
+import type { ComponentWithAs } from "@vastly/ui";
 export interface FocusableElement {
   focus(options?: FocusOptions): void;
 }
@@ -93,20 +92,8 @@ export interface FieldProps<
     "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
   >;
   /**
-   * Built-in types:
-   * - text
-   * - number
-   * - password
-   * - textarea
-   * - select
-   * - native-select
-   * - checkbox
-   * - radio
-   * - switch
-   * - pin
-   * - credit-card
    *
-   * Will default to a text field if there is no matching type.
+   * Will default to a `text` field if there is no matching type.
    */
   type?: keyof FieldTypes;
   /**
@@ -161,6 +148,8 @@ export type PropsOf<T extends As> = React.ComponentPropsWithoutRef<T> & {
 };
 
 /**
+ *The `Field` component works like your basic `input` field. It should be nested inside of a `Form` component to render properly. Will default to a text field if there is no matching type.
+ *
  * Build-in types:
  * - text
  * - number
@@ -173,7 +162,7 @@ export type PropsOf<T extends As> = React.ComponentPropsWithoutRef<T> & {
  * - switch
  * - pin
  *
- * Will default to a text field if there is no matching type.
+ *
  */
 export const Field = React.forwardRef(
   <TFieldValues extends FieldValues = FieldValues>(

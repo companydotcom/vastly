@@ -1,0 +1,104 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Hooks/usePagination" />
+---
+# usePagination
+<table>
+  <tr>
+    <td><b>title</b></td>
+    <td><b>package</b></td>
+    <td><b>description</b></td>
+  </tr>
+  <tr>
+    <td>usePagination</td>
+    <td>@vastly/ui</td>
+    <td>React hook to manage pagination.</td>
+  </tr>
+</table>
+---
+<br/>
+
+`usePagination` is a custom hook used to provide pagination functionality, as well as
+page count, sibling and boundary management to custom pagination components when using it.
+
+## Import
+
+```js
+import { usePagination, Pagination, PaginationContainer, PaginationItem } from '@vastly/ui'
+```
+
+## Return value
+
+The `usePagination` hook returns an `items` array with following props:
+
+<table>
+    <tr>
+        <td>Name</td>
+        <td>Type</td>
+        <td>Description</td>
+    </tr>
+    <tr>
+        <td>`pageType`</td>
+        <td>`PageType`</td>
+        <td>"end-ellipsis" | "first" | "last" | "next" | "page" | "previous" | "start-ellipsis" |`string;`</td>
+    </tr>
+    <tr>
+        <td>`page`</td>
+        <td>`number`</td>
+        <td>Page number.</td>
+    </tr>
+    <tr>
+        <td>`isSelected`</td>
+        <td>`boolean`</td>
+        <td>Determines which `PaginationItem` is currently selected.</td>
+    </tr>
+    <tr>
+        <td>`isDisabled`</td>
+        <td>`boolean`</td>
+        <td>Disables the entire component.</td>
+    </tr>
+    <tr>
+        <td>`onClick`</td>
+        <td>`(event) => void`</td>
+        <td>A function that takes an event object.</td>
+    </tr>
+</table>
+
+
+## Parameters
+
+The `usePagination` hook accepts an object with the following properties:
+```js
+UsePaginationProps {
+  count?: number;
+  boundaryCount?: number;
+  defaultPage?: number;
+  isDisabled?: boolean;
+  hideNextButton?: boolean;
+  hidePrevButton?: boolean;
+  onChange?: (event: any, value: number) => void;
+  page?: number;
+  siblingCount?: number;
+  items?: PaginationItems[];
+}
+```
+
+## Usage
+
+```jsx
+import { usePagination, Pagination, PaginationContainer, PaginationItem } from '@vastly/ui'
+
+function Example() {
+    const { items } = usePagination({ count: 8 });
+      return(
+      <Pagination>
+        <PaginationContainer>
+        {items.map((item: any) => (
+            <PaginationItem {...item} />
+            ))}
+        </PaginationContainer>
+      </Pagination>
+      )
+}
+```
+

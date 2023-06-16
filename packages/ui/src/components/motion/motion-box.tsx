@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Box, BoxProps } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
