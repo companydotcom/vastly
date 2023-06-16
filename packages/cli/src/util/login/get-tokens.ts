@@ -8,7 +8,7 @@ export async function getTokens(client: Client) {
   const server = createServer();
   server.listen(5001);
 
-  const location = new URL("https://workshop-black-ten.vercel.app/notifications/cli-");
+  const location = new URL("https://wave.vastly.is/notifications/cli-");
 
   output.spinner.start("Waiting for verification\n");
 
