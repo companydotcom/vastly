@@ -9,7 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@vastly/ui": "workspace:*"
+    "@vastly/ui": "workspace:*",
+    "next": "^13.3.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@vastly/eslint-config-custom": "workspace:*"
