@@ -14,5 +14,5 @@ export default defineConfig({
   watch: env === "development",
   target: "esnext",
   outDir: "dist",
-  entry: ["src/**/*.ts"], //include all files under src
+  entry: ["src/**/*.ts", "!src/templates/**/*"], //include all files under src
 });

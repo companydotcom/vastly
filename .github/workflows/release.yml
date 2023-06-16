@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - main
+      - develop
 
 jobs:
   release:
@@ -23,19 +24,11 @@ jobs:
         with:
           node-version: 16
 
-      - name: install npm@9
-        run: npm i -g npm@9
-
-      - name: install pnpm@8.3.1
-        run: npm i -g pnpm@8.3.1
-
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build Packages
-        run: pnpm build
+      - name: install pnpm@8.6.0
+        run: npm i -g pnpm@8.6.0
 
       - name: Publish
+        if: ${{ github.ref_name == 'main' }}
         id: changesets
         uses: changesets/action@v1
         with:

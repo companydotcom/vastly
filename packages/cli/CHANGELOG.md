@@ -1,5 +1,77 @@
 # cli
 
+## 0.8.11
+
+### Patch Changes
+
+- Create frontend src folder for template, update wave-cli version
+
+## 0.8.10
+
+### Patch Changes
+
+- Add graphql codegen plugin, update wave cli version for create-wave-app templates
+
+## 0.8.9
+
+### Patch Changes
+
+- Resolve pathing issue for frontend template
+
+## 0.8.8
+
+### Patch Changes
+
+- Handle lambda size limit issue with pnpm
+
+## 0.8.7
+
+### Patch Changes
+
+- 3a8b26e: Fix templates
+
+## 0.8.6
+
+### Patch Changes
+
+- Fix graphql schema path in codgen config
+
+## 0.8.5
+
+### Patch Changes
+
+- Remove subscriptions gql file
+
+## 0.8.4
+
+### Patch Changes
+
+- Fix tsconfig
+
+## 0.8.3
+
+### Patch Changes
+
+- Ignore templates in tsconfig
+
+## 0.8.2
+
+### Patch Changes
+
+- Include templates in tsup build, add service description question
+
+## 0.8.1
+
+### Patch Changes
+
+- Fix frontend package.json path
+
+## 0.8.0
+
+### Minor Changes
+
+- Adds generate service command
+
 ## 0.7.2
 
 ### Patch Changes
