@@ -1,9 +1,9 @@
 {
-  "name": "wave",
-  "version": "0.0.1",
+  "name": "vastly",
+  "version": "0.1.0",
   "private": true,
   "repository": {
-    "url": "git+https://github.com/companydotcom/wave"
+    "url": "git+https://github.com/companydotcom/vastly"
   },
   "workspaces": [
     "apps/*",

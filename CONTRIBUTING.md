@@ -2,7 +2,7 @@
 
 ## Submodules
 
-The wave repo uses git submodules to let us separate concerns for other non-technical contributors
+The vastly repo uses git submodules to let us separate concerns for other non-technical contributors
 (such as design or product)
 
 ### After fresh clone
@@ -16,9 +16,10 @@ git submodule update --init
 
 ### Contributing to the submodule from this repo
 
-From the wave repo, if you want to modify the submodule, you **must first cd into that submodule**.
-For example, `cd apps/docs/pages` will switch your terminal to that submodules current branch. Be
-sure to keep track of which branch you are on - main branch, develop, or feature branch etc.
+From the vastly repo, if you want to modify the submodule, you **must first cd into that
+submodule**. For example, `cd apps/docs/pages` will switch your terminal to that submodules current
+branch. Be sure to keep track of which branch you are on - main branch, develop, or feature branch
+etc.
 
 ### Pulling submodules changes into this repo
 
@@ -35,6 +36,6 @@ run `vercel deploy`
 
 ## Publishing Packages
 
-In order to publish public packages to NPM run `pnpm changeset` then `pnpm changeset version`
-commit your changes, that's it. When your branch is merged into `main` it will be automatically
-published to NPM.
+In order to publish public packages to NPM run `pnpm changeset` then `pnpm changeset version` commit
+your changes, that's it. When your branch is merged into `main` it will be automatically published
+to NPM.
