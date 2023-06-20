@@ -1,8 +1,8 @@
-# Vastly's Wave
+# Vastly
 
-![PhotoFunia-1685554144](https://github.com/companydotcom/wave/assets/24517115/e827c537-c8ad-4852-bbac-86076167b54e)
+![PhotoFunia-1687282076](https://github.com/companydotcom/vastly/assets/24517115/d37ed8cf-3e3b-4cce-99ed-01d9dcb3ca6b)
 
-This is Vastly's monorepo to power the Wave platform
+This is Vastly's monorepo that powers Vastly apps, libraries, and products.
 
 ## What's inside?
 
@@ -17,7 +17,7 @@ This monorepo uses [pnpm](https://pnpm.io) as a package manager and
 - `ui`: a React component library, (formerly Potion) shared by both `workshop` and `docs`
   applications
 - `forms`: a React component library with custom form components
-- `cli`: our custom CLI
+- `wave-cli`: our custom CLI
 - `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and
   `eslint-config-prettier`)
 - `tsconfig`: `tsconfig.json`s used throughout the monorepo
