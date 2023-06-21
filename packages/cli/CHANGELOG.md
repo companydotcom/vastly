@@ -1,5 +1,11 @@
 # cli
 
+## 0.9.0
+
+### Minor Changes
+
+- Changes package name, adds vastly bin
+
 ## 0.8.11
 
 ### Patch Changes
