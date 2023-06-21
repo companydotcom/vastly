@@ -1,6 +1,6 @@
 {
-  "name": "@vastly/wave-cli",
-  "version": "0.8.11",
+  "name": "@vastly/cli",
+  "version": "0.9.0",
   "description": "Vastly Wave CLI",
   "author": "Vastly",
   "license": "MIT",
@@ -27,7 +27,8 @@
     "node": ">=14.16"
   },
   "bin": {
-    "wave": "./dist/index.js"
+    "wave": "./dist/index.js",
+    "vastly": "./dist/index.js"
   },
   "files": [
     "dist"

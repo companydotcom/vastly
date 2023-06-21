@@ -42,7 +42,7 @@ This monorepo has some tools setup for managing our packages:
 
 To build all apps and packages, run the following command:
 
-```
+```bash
 cd vastly
 pnpm run build:all
 ```
@@ -51,7 +51,7 @@ pnpm run build:all
 
 To develop all apps and packages, run the following command:
 
-```
+```bash
 cd vastly
 pnpm run dev
 ```
