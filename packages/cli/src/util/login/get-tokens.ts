@@ -10,7 +10,7 @@ export async function getTokens(client: Client) {
 
   const location = new URL("https://wave.vastly.is/notifications/cli-");
 
-  output.log("\n");
+  output.spinner.text = "\n";
   output.spinner.start("Waiting for verification\n");
 
   try {
