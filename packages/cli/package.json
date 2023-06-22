@@ -27,7 +27,6 @@
     "node": ">=14.16"
   },
   "bin": {
-    "wave": "./dist/index.js",
     "vastly": "./dist/index.js"
   },
   "files": [

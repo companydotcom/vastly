@@ -82,7 +82,7 @@ describe("executeLogin function", () => {
 
     // @ts-ignore
     await expect(executeLogin(mockClient, email)).rejects.toThrow(
-      "Unexpected error: Error: Invalid email",
+      "Unexpected error: Invalid email",
     );
   });
 });

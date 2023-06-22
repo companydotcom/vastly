@@ -39,6 +39,13 @@ export const functions: AWS["functions"] = {
           "Fn::GetAtt": ["PasswordlessMagicLinksUserPool", "Arn"],
         },
       },
+      {
+        Effect: "Allow",
+        Action: "cognito-idp:AdminGetUser",
+        Resource: {
+          "Fn::GetAtt": ["PasswordlessMagicLinksUserPool", "Arn"],
+        },
+      },
     ],
   },
   verify: {
