@@ -15,6 +15,7 @@ export type LoginResult = number | LoginResultSuccess;
 export default async function doEmailLogin(client: Client, email: string): Promise<LoginResult> {
   const { output } = client;
 
+  output.spinner.text = "\n";
   output.spinner.color = "yellow";
   output.spinner.start("Sending you an email...\n");
 
@@ -25,7 +26,7 @@ export default async function doEmailLogin(client: Client, email: string): Promi
     return 1;
   }
 
-  output.print(eraseLines(1));
+  output.print(eraseLines(2));
   output.print(`\nSent an email to ${chalk.cyan(email)}!  Please follow the directions inside.\n`);
 
   try {

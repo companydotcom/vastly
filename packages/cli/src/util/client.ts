@@ -3,6 +3,7 @@ import { JSONObject } from "@vastly/types";
 import fetch, { BodyInit, Headers, RequestInit } from "node-fetch";
 import { Output } from "./output/index.js";
 import { Config } from "../types/index.js";
+import { responseError } from "./error.js";
 
 export interface FetchOptions extends Omit<RequestInit, "body"> {
   body?: BodyInit | JSONObject;
@@ -42,6 +43,13 @@ export default function makeClient(opts: ClientOptions) {
   async function request<T>(url: string, opts?: FetchOptions): Promise<T>;
   async function request(url: string, opts: FetchOptions = {}) {
     const res = await _fetch(url, opts);
+
+    if (!res.ok) {
+      const error = await responseError(res);
+
+      throw error;
+    }
+
     const contentType = res.headers.get("content-type");
 
     if (!contentType) {
