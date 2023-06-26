@@ -1,5 +1,5 @@
 import type { VerifyAuthChallengeResponseTriggerHandler } from "aws-lambda";
-import { decrypt } from "../../lib/encryption";
+import { decrypt } from "../lib/encryption";
 
 const handler: VerifyAuthChallengeResponseTriggerHandler = async (event) => {
   const email = event.request.userAttributes.email;
