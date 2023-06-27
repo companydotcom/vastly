@@ -27,7 +27,7 @@ const config: StorybookConfig = {
       return {
         "@vastly/forms": {
           title: "@vastly/forms development mode",
-          url: "http://localhost:9009/",
+          url: "vastly-forms.vercel.app",
         },
         /**
          * TODO: remove disabled prop once bug fix/package version has been completed
