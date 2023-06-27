@@ -7,6 +7,7 @@ import type {
 import { CognitoJwtVerifier } from "aws-jwt-verify";
 import middy from "@middy/core";
 import inputOutputLogger from "@middy/input-output-logger";
+import { getTokenFromBearer } from "../lib/utils";
 
 const { USER_POOL_ID, APP_CLIENT_ID } = process.env;
 
@@ -15,7 +16,6 @@ const verifier = CognitoJwtVerifier.create({
   userPoolId: USER_POOL_ID || "",
   tokenUse: "access",
   clientId: APP_CLIENT_ID || "",
-  scope: "read",
 });
 
 const authorize = async (event: APIGatewayTokenAuthorizerEvent) => {
@@ -23,9 +23,7 @@ const authorize = async (event: APIGatewayTokenAuthorizerEvent) => {
     throw new Error("Unauthorized");
   }
 
-  const accessToken = event.authorizationToken?.includes("Bearer")
-    ? event.authorizationToken?.split(" ")[1]
-    : event?.authorizationToken;
+  const accessToken = getTokenFromBearer(event.authorizationToken);
 
   try {
     // decode jwt token, if valid, generate allow policy

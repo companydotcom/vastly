@@ -1,19 +1,24 @@
+import chalk from "chalk";
+
 import { Client } from "../util/client.js";
 import { MockClient } from "../../__tests__/mocks/client.js";
 
-export default async function whoami(client: Client | MockClient) {
-  const { output, apiUrl, config } = client;
+interface UserResponse {
+  email?: string;
+}
 
-  console.log("🫵 ----------------------------🫵");
-  console.log("🫵 : whoami : apiUrl", apiUrl);
-  console.log("🫵 ----------------------------🫵");
+export default async function whoami(client: Client | MockClient) {
+  const { output } = client;
 
   try {
-    const t = await client.fetch(`${apiUrl}/dev/onboarding/user`, {
+    const TEMPURL = "https://h0kouesmrl.execute-api.us-east-1.amazonaws.com";
+
+    const { email }: UserResponse = await client.fetch(`${TEMPURL}/dev/user`, {
       method: "GET",
     });
 
-    console.log(t);
+    output.log(email, chalk.green);
+    output.log("\n");
   } catch (e) {
     console.log(e);
   }

@@ -13,7 +13,7 @@ export default function makeOutput(opts: OutputOptions) {
 
   const print = (str: string) => {
     spinner.stop();
-    stream.write(str);
+    stream.write(`${str}\n`);
   };
 
   const log = (str: string, color = chalk.grey) => {
