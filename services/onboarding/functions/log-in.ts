@@ -10,8 +10,8 @@ import httpErrorHandler from "@middy/http-error-handler";
 import cors from "@middy/http-cors";
 import inputOutputLogger from "@middy/input-output-logger";
 import jsonBodyParser from "@middy/http-json-body-parser";
-import { TIMEOUT_MINS } from "../../lib/constants";
-import { encrypt } from "../../lib/encryption";
+import { TIMEOUT_MINS } from "../lib/constants";
+import { encrypt } from "../lib/encryption";
 
 const { SES_FROM_ADDRESS, USER_POOL_ID, BASE_URL, AWS_REGION } = process.env;
 const ONE_MIN = 60 * 1000;

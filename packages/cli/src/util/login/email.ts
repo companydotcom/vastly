@@ -15,7 +15,7 @@ export type LoginResult = number | LoginResultSuccess;
 export default async function doEmailLogin(client: Client, email: string): Promise<LoginResult> {
   const { output } = client;
 
-  output.print("\n");
+  output.log?.("\n");
   output.spinner.color = "yellow";
   output.spinner.start("Sending you an email...\n");
 
