@@ -901,9 +901,6 @@ importers:
       aws-lambda:
         specifier: ^1.0.7
         version: 1.0.7
-      http-errors:
-        specifier: 2.0.0
-        version: 2.0.0
     devDependencies:
       '@serverless/typescript':
         specifier: ^3.29.0
@@ -911,9 +908,6 @@ importers:
       '@types/aws-lambda':
         specifier: ^8.10.114
         version: 8.10.114
-      '@types/http-errors':
-        specifier: 2.0.1
-        version: 2.0.1
       '@vastly/eslint-config-custom-server':
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom-server
@@ -14878,10 +14872,6 @@ packages:
 
   /@types/http-cache-semantics@4.0.1:
     resolution: {integrity: sha512-SZs7ekbP8CN0txVG2xVRH6EgKmEm31BOxA07vkFaETzZz1xh+cbt8BcI0slpymvwhx5dlFnQG2rTlPVQn+iRPQ==}
-    dev: true
-
-  /@types/http-errors@2.0.1:
-    resolution: {integrity: sha512-/K3ds8TRAfBvi5vfjuz8y6+GiAYBZ0x4tXv1Av6CWBWn0IlADc+ZX9pMq7oU0fNQPnBwIZl3rmeLp6SBApbxSQ==}
     dev: true
 
   /@types/inquirer@8.2.6:

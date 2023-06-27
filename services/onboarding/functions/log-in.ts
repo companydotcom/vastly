@@ -13,14 +13,14 @@ import jsonBodyParser from "@middy/http-json-body-parser";
 import { TIMEOUT_MINS } from "../lib/constants";
 import { encrypt } from "../lib/encryption";
 
-const { SES_FROM_ADDRESS, USER_POOL_ID, BASE_URL, AWS_REGION } = process.env;
+const { SES_FROM_ADDRESS, USER_POOL_ID, AWS_REGION } = process.env;
 const ONE_MIN = 60 * 1000;
 
 const cognitoClient = new CognitoIdentityProviderClient({ region: AWS_REGION });
 const sesClient = new SESClient({ region: AWS_REGION });
 
 const logIn = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const { email } = typeof event.body === "string" ? JSON.parse(event.body) : event.body;
+  const { email, port } = typeof event.body === "string" ? JSON.parse(event.body) : event.body;
 
   if (!email) {
     return {
@@ -39,6 +39,8 @@ const logIn = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult
     email,
     expiration: expiration.toJSON(),
   };
+
+  const BASE_URL = `localhost:${port || 5001}`;
 
   const tokenRaw = await encrypt(JSON.stringify(payload));
   const token = new URLSearchParams({ "": tokenRaw || "" }).toString().slice(1);
