@@ -9,6 +9,9 @@ const config: StorybookConfig = {
     "@chakra-ui/storybook-addon",
     "@storybook/addon-storysource",
   ],
+  features: {
+    storyStoreV7: true,
+  },
   framework: {
     name: "@storybook/react-webpack5",
     options: {},
