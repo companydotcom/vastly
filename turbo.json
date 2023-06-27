@@ -37,7 +37,7 @@
         "@vastly/ui#build"
       ]
     },
-    "ui#build-storybook": {
+    "ui#storybook": {
       "outputs": [
         "packages/ui/dist/storybook-static/**"
       ],

@@ -7,10 +7,10 @@ const config: StorybookConfig = {
     "@storybook/addon-interactions",
     "@storybook/addon-a11y",
     "@chakra-ui/storybook-addon",
-    "@storybook/addon-storysource",
   ],
   features: {
     storyStoreV7: true,
+    buildStoriesJson: true,
   },
   framework: {
     name: "@storybook/react-webpack5",
