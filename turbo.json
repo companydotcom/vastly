@@ -37,15 +37,6 @@
         "@vastly/ui#build"
       ]
     },
-    "ui#storybook": {
-      "outputs": [
-        "packages/ui/dist/storybook-static/**"
-      ],
-      "dependsOn": [
-        "@vastly/forms#build",
-        "@vastly/forms#build-storybook"
-      ]
-    },
     "lint": {
       "outputs": []
     },
