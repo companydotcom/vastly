@@ -11,7 +11,7 @@ import cors from "@middy/http-cors";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import httpErrorHandler from "@middy/http-error-handler";
 
-const { AWS_REGION } = process.env;
+const { AWS_REGION, APP_CLIENT_ID } = process.env;
 
 const cognitoClient = new CognitoIdentityProviderClient({ region: AWS_REGION });
 
@@ -30,7 +30,7 @@ const verify = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResul
   try {
     const authParams: InitiateAuthCommandInput = {
       AuthFlow: "CUSTOM_AUTH",
-      ClientId: "4vr9r59ednfan4cj167sf8mrqf",
+      ClientId: APP_CLIENT_ID,
       AuthParameters: {
         USERNAME: email,
       },
@@ -39,7 +39,7 @@ const verify = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResul
     const cognitoUser = await cognitoClient.send(initiateAuthCommand);
 
     const challengeParams: RespondToAuthChallengeCommandInput = {
-      ClientId: "4vr9r59ednfan4cj167sf8mrqf",
+      ClientId: APP_CLIENT_ID,
       ChallengeName: cognitoUser?.ChallengeName,
       Session: cognitoUser?.Session,
       ChallengeResponses: {

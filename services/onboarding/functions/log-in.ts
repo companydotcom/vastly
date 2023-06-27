@@ -1,24 +1,26 @@
 import {
   CognitoIdentityProviderClient,
   AdminUpdateUserAttributesCommand,
+  AdminGetUserCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
 import cors from "@middy/http-cors";
+import inputOutputLogger from "@middy/input-output-logger";
 import jsonBodyParser from "@middy/http-json-body-parser";
-import { TIMEOUT_MINS } from "../../lib/constants";
-import { encrypt } from "../../lib/encryption";
+import { TIMEOUT_MINS } from "../lib/constants";
+import { encrypt } from "../lib/encryption";
 
-const { SES_FROM_ADDRESS, USER_POOL_ID, BASE_URL, AWS_REGION } = process.env;
+const { SES_FROM_ADDRESS, USER_POOL_ID, AWS_REGION } = process.env;
 const ONE_MIN = 60 * 1000;
 
 const cognitoClient = new CognitoIdentityProviderClient({ region: AWS_REGION });
 const sesClient = new SESClient({ region: AWS_REGION });
 
 const logIn = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
-  const { email } = typeof event.body === "string" ? JSON.parse(event.body) : event.body;
+  const { email, port } = typeof event.body === "string" ? JSON.parse(event.body) : event.body;
 
   if (!email) {
     return {
@@ -38,43 +40,77 @@ const logIn = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult
     expiration: expiration.toJSON(),
   };
 
+  const BASE_URL = `localhost:${port || 5001}`;
+
   const tokenRaw = await encrypt(JSON.stringify(payload));
   const token = new URLSearchParams({ "": tokenRaw || "" }).toString().slice(1);
   const magicLink = `http://${BASE_URL}?email=${email}&token=${token}`;
 
   try {
-    // the decision to use Cognito’s user attributes has an impact on the number of users
-    // that can sign in at the same time. Because Cognito has a hard limit of 25 reqs/sec
-    // on AdminSetUserAttribute. If you’re likely to experience thundering herd problems
-    // then you should consider using DynamoDB to record the secret token instead.
-    const command = new AdminUpdateUserAttributesCommand({
+    const existingUserCommand = new AdminGetUserCommand({
       UserPoolId: USER_POOL_ID,
       Username: email,
-      UserAttributes: [
-        {
-          Name: "custom:authChallenge",
-          Value: tokenRaw,
-        },
-      ],
     });
 
-    await cognitoClient.send(command);
-  } catch (error) {
-    console.log("ERROR: ", error);
+    const existingUser = await cognitoClient.send(existingUserCommand);
+
+    if (existingUser) {
+      // the decision to use Cognito’s user attributes has an impact on the number of users
+      // that can sign in at the same time. Because Cognito has a hard limit of 25 reqs/sec
+      // on AdminSetUserAttribute. If you’re likely to experience thundering herd problems
+      // then you should consider using DynamoDB to record the secret token instead.
+      const command = new AdminUpdateUserAttributesCommand({
+        UserPoolId: USER_POOL_ID,
+        Username: email,
+        UserAttributes: [
+          {
+            Name: "custom:authChallenge",
+            Value: tokenRaw,
+          },
+        ],
+      });
+
+      await cognitoClient.send(command);
+
+      await sendEmail(email, magicLink);
+      return {
+        statusCode: 202,
+        body: JSON.stringify({ code: "EMAIL_SENT", message: "The email has been sent!" }),
+      };
+    } else {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          error: {
+            code: "USER_NOT_FOUND",
+            message: "User not found",
+          },
+        }),
+      };
+    }
+  } catch (error: any) {
+    if (error?.__type === "UserNotFoundException") {
+      return {
+        statusCode: error.$metadata.httpStatusCode || 400,
+        body: JSON.stringify({
+          error: {
+            code: "USER_NOT_FOUND",
+            message: "User not found",
+          },
+        }),
+      };
+    }
+
     return {
-      statusCode: 404,
+      statusCode: error.$metadata.httpStatusCode || 400,
       body: JSON.stringify({
-        status: "USER_NOT_FOUND",
-        message: "User not found",
+        error: {
+          code: "ERROR LOGGING IN",
+          message: error?.__type,
+        },
       }),
     };
   }
-
-  await sendEmail(email, magicLink);
-  return {
-    statusCode: 202,
-    body: JSON.stringify({ status: "EMAIL_SENT", message: "The email has been sent!" }),
-  };
 };
 
 async function sendEmail(emailAddress: string, magicLink: string) {
@@ -300,6 +336,10 @@ async function sendEmail(emailAddress: string, magicLink: string) {
   }
 }
 
-const handler = middy(logIn).use(jsonBodyParser()).use(cors()).use(httpErrorHandler());
+const handler = middy(logIn)
+  .use(jsonBodyParser())
+  .use(cors())
+  .use(inputOutputLogger())
+  .use(httpErrorHandler());
 
 export { handler, sendEmail };

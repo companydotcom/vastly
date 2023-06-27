@@ -32,6 +32,7 @@ export default async function login(client: Client) {
       result = await doEmailLogin(client, email);
     } else {
       result = 1;
+
       throw new Error("Email invalid!");
     }
 
