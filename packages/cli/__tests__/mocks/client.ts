@@ -22,6 +22,7 @@ export const makeMockClient = (): any => {
       start: vi.fn(),
       fail: vi.fn(),
     },
+    log: vi.fn(),
     print: vi.fn(),
     debug: vi.fn(),
     error: vi.fn(),

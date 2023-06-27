@@ -18,14 +18,10 @@ export default async function addEnv(client: Client) {
 
     let projects = await doPullEnv(client, { eventType: "pull-projects" });
     if (!projects?.length) {
-      spinner.succeed(
-        chalk.bgMagentaBright(
-          "  No projects found! Let's get started adding a new env variable :D  \n",
-        ),
-      );
+      spinner.succeed(chalk.bgMagentaBright("  No projects found! Let's get started...  \n"));
       projects = [];
     } else {
-      spinner.succeed();
+      spinner.succeed(`${projects?.length} project(s) found \n`);
     }
 
     const input = await client

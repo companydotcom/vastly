@@ -29,10 +29,10 @@ export default async function pullAllEnv(client: Client) {
     // Grabs projects from data, throws error if no projects are found
     const projects = await doPullEnv(client, { eventType: "pull-projects" });
     if (!projects?.length) {
-      spinner.fail(chalk.bgMagentaBright("  No projects found! Add an env to get started :D  \n"));
+      spinner.fail(chalk.bgMagentaBright("  No projects found! Add an env to get started  \n"));
       throw new Error("Command failed with exit code 1");
     } else {
-      spinner.succeed();
+      spinner.succeed(`${projects?.length} project(s) found \n`);
     }
 
     const answers = await client
@@ -41,7 +41,7 @@ export default async function pullAllEnv(client: Client) {
           type: "list",
           name: "environment",
           message: "Which ENVIRONMENT do you want to pull from?",
-          choices: ["dev", "production"],
+          choices: ["dev", "prod"],
         },
         {
           type: "list",
@@ -55,6 +55,7 @@ export default async function pullAllEnv(client: Client) {
           name: "directory",
           message: "Which directory do you want to write to?",
           choices: ["root", ...allDirs],
+          default: ["root"],
         },
       ])
       .then((a) => a)

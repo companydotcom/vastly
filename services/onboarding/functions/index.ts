@@ -2,7 +2,7 @@ import type { AWS } from "@serverless/typescript";
 
 export const functions: AWS["functions"] = {
   logIn: {
-    handler: "functions/log-in/handler.handler",
+    handler: "functions/log-in.handler",
     events: [
       {
         http: {
@@ -39,10 +39,17 @@ export const functions: AWS["functions"] = {
           "Fn::GetAtt": ["PasswordlessMagicLinksUserPool", "Arn"],
         },
       },
+      {
+        Effect: "Allow",
+        Action: "cognito-idp:AdminGetUser",
+        Resource: {
+          "Fn::GetAtt": ["PasswordlessMagicLinksUserPool", "Arn"],
+        },
+      },
     ],
   },
   verify: {
-    handler: "functions/verify/handler.handler",
+    handler: "functions/verify.handler",
     events: [
       {
         http: {
@@ -52,9 +59,12 @@ export const functions: AWS["functions"] = {
         },
       },
     ],
+    environment: {
+      APP_CLIENT_ID: { Ref: "WebUserPoolClient" },
+    },
   },
   logOut: {
-    handler: "functions/log-out/handler.handler",
+    handler: "functions/log-out.handler",
     events: [
       {
         http: {
@@ -66,16 +76,16 @@ export const functions: AWS["functions"] = {
     ],
   },
   preSignUp: {
-    handler: "functions/pre-sign-up/handler.handler",
+    handler: "functions/pre-sign-up.handler",
   },
   defineAuthChallenge: {
-    handler: "functions/define-auth-challenge/handler.handler",
+    handler: "functions/define-auth-challenge.handler",
   },
   createAuthChallenge: {
-    handler: "functions/create-auth-challenge/handler.handler",
+    handler: "functions/create-auth-challenge.handler",
   },
   verifyAuthChallengeResponse: {
-    handler: "functions/verify-auth-challenge-response/handler.handler",
+    handler: "functions/verify-auth-challenge-response.handler",
     environment: {
       KMS_KEY_ID: { Ref: "EncryptionKey" },
     },

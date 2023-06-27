@@ -13,7 +13,7 @@ export default async function deleteEnv(client: Client) {
     let spinner = output.spinner;
 
     spinner = ora({
-      text: `Fetching your keys...\n`,
+      text: `Fetching your secrets and variables...\n`,
       color: "yellow",
     }).start();
 
@@ -21,11 +21,11 @@ export default async function deleteEnv(client: Client) {
     const projects = await doPullEnv(client, { eventType: "pull-projects" });
     if (!projects?.length) {
       spinner.fail(
-        chalk.bgMagentaBright("  No secrets or env found! Add an env to get started :D  \n"),
+        chalk.bgMagentaBright("  No secrets or variables found! Add an env to get started  \n"),
       );
       throw new Error("Command failed with exit code 1");
     } else {
-      spinner.succeed();
+      spinner.succeed("Success!");
     }
 
     const env: EnvVariable = await client

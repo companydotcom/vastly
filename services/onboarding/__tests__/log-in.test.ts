@@ -1,5 +1,5 @@
 import { SESClient } from "@aws-sdk/client-ses";
-import { sendEmail } from "../functions/log-in/handler";
+import { sendEmail } from "../functions/log-in";
 
 describe("sendEmail", () => {
   beforeEach(() => {

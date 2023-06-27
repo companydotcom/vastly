@@ -1,5 +1,11 @@
 # cli
 
+## 0.9.1
+
+### Patch Changes
+
+- adds error handling to the env commands, cleans code and adds better success text
+
 ## 0.9.0
 
 ### Minor Changes

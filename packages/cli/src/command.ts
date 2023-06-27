@@ -99,5 +99,13 @@ export async function makeProgram(program: Command) {
       await func(client, arg);
     });
 
+  program
+    .command("whoami")
+    .description("Display the username of the currently logged in user")
+    .action(async () => {
+      const func = (await import("./commands/whoami.js")).default;
+      await func(client);
+    });
+
   return program;
 }

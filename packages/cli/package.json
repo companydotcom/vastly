@@ -1,6 +1,6 @@
 {
   "name": "@vastly/cli",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Vastly Wave CLI",
   "author": "Vastly",
   "license": "MIT",
@@ -27,7 +27,6 @@
     "node": ">=14.16"
   },
   "bin": {
-    "wave": "./dist/index.js",
     "vastly": "./dist/index.js"
   },
   "files": [
@@ -45,9 +44,6 @@
     "dist/*"
   ],
   "dependencies": {
-    "@aws-sdk/client-cognito-identity-provider": "^3.298.0",
-    "@aws-sdk/credential-providers": "^3.321.1",
-    "@aws-sdk/types": "^3.310.0",
     "@sentry/node": "^7.48.0",
     "@vastly/utils": "workspace:*",
     "ansi-escapes": "^6.2.0",
