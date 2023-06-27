@@ -10,6 +10,7 @@ export interface LoginResult {
 export default async function executeLogin(
   client: Client,
   email: string,
+  port: number,
 ): Promise<number | LoginResult> {
   const { apiUrl } = client;
 
@@ -18,6 +19,7 @@ export default async function executeLogin(
       method: "POST",
       body: {
         email,
+        port,
       },
     });
   } catch (err: unknown) {

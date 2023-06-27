@@ -1,50 +1,54 @@
 import url from "url";
-import { createServer } from "http";
+import { Server, IncomingMessage, ServerResponse } from "http";
 import executeVerify from "./execute-verify.js";
 import { Client } from "../client.js";
 
-export async function getTokens(client: Client) {
+export async function getTokens(
+  client: Client,
+  server: Server<typeof IncomingMessage, typeof ServerResponse>,
+) {
   const { output } = client;
-  const server = createServer();
-  server.listen(5001);
 
   const location = new URL("https://wave.vastly.is/notifications/cli-");
 
-  output.log("\n");
+  server.setTimeout(3000);
+
   output.spinner.start("Waiting for verification\n");
 
   try {
     const token: Promise<{ token: string }> = new Promise(async (resolve, reject) => {
-      server.once("request", async (req, res) => {
-        // Close the HTTP connection to prevent
-        // `server.close()` from hanging
-        res.setHeader("connection", "close");
+      server
+        .once("request", async (req, res) => {
+          // Close the HTTP connection to prevent
+          // `server.close()` from hanging
+          res.setHeader("connection", "close");
 
-        const parsedUrl = url.parse(req.url || "", true);
-        const { email, token } = parsedUrl.query;
+          const parsedUrl = url.parse(req.url || "", true);
+          const { email, token } = parsedUrl.query;
 
-        if (!email || !token) {
-          res.writeHead(400, { "Content-Type": "application/json" });
-          res.end(JSON.stringify({ error: "Email and token are required in the query string." }));
-        }
-
-        if (email && token) {
-          const authResponse = await executeVerify(client, email, token?.toString());
-
-          if (authResponse) {
-            location.pathname += "success";
-            resolve({
-              token: authResponse?.token,
-            });
+          if (!email || !token) {
+            res.writeHead(400, { "Content-Type": "application/json" });
+            res.end(JSON.stringify({ error: "Email and token are required in the query string." }));
           }
-        }
 
-        output.spinner.succeed("Verification success");
+          if (email && token) {
+            const authResponse = await executeVerify(client, email, token?.toString());
 
-        res.statusCode = 302;
-        res.setHeader("location", location.href);
-        res.end();
-      });
+            if (authResponse) {
+              location.pathname += "success";
+              resolve({
+                token: authResponse?.token,
+              });
+            }
+          }
+
+          output.spinner.succeed("Verification success");
+
+          res.statusCode = 302;
+          res.setHeader("location", location.href);
+          res.end();
+        })
+        .setTimeout(3000);
       server.once("error", reject);
     });
 

@@ -1,4 +1,4 @@
-import { Argument, Command } from "commander";
+import { Argument, Command, Option } from "commander";
 import { mkdirp } from "fs-extra";
 import { errorToString, isErrnoException } from "@vastly/utils";
 import { readConfigFile, writeToConfigFile, getConfigFilePath } from "./util/config/files.js";
@@ -102,9 +102,11 @@ export async function makeProgram(program: Command) {
   program
     .command("whoami")
     .description("Display the username of the currently logged in user")
-    .action(async () => {
+    .option("-t, --token", "Returns your current token from user config")
+    .action(async (_args, options) => {
       const func = (await import("./commands/whoami.js")).default;
-      await func(client);
+
+      await func(client, options.opts());
     });
 
   return program;
