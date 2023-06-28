@@ -221,6 +221,16 @@ const serverlessConfiguration: AWS = {
         },
       },
     },
+    Outputs: {
+      PasswordlessMagicLinksUserPoolArn: {
+        Value: { Ref: "PasswordlessMagicLinksUserPool" },
+        Export: { Name: "PasswordlessMagicLinksUserPoolArn-${self:provider.stage}" },
+      },
+      WebUserPoolClientArn: {
+        Value: { Ref: "WebUserPoolClient" },
+        Export: { Name: "WebUserPoolClientArn-${self:provider.stage}" },
+      },
+    },
   },
 };
 

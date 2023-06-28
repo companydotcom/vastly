@@ -10,6 +10,7 @@ const config: StorybookConfig = {
   ],
   features: {
     buildStoriesJson: true,
+    storyStoreV7: true,
   },
   framework: {
     name: "@storybook/react-webpack5",
@@ -21,21 +22,35 @@ const config: StorybookConfig = {
   typescript: {
     check: true,
   },
-  refs: {
-    /**
-     * TODO: replace localhost with deployed `forms` url
-     * */
-    "@vastly/forms": {
-      title: "@vastly/forms",
-      url: "http://localhost:9009",
-    },
-    /**
-     * TODO: remove disabled prop once bug fix/package version has been completed
-     * https://github.com/chakra-ui/chakra-ui/pull/7678)
-     * */
-    "@chakra-ui/react": {
-      disable: true,
-    },
+  refs: (config, { configType }) => {
+    if (configType === "DEVELOPMENT") {
+      return {
+        "@vastly/forms": {
+          title: "@vastly/forms development mode",
+          url: "http://localhost:9009/",
+        },
+        /**
+         * TODO: remove disabled prop once bug fix/package version has been completed
+         * https://github.com/chakra-ui/chakra-ui/pull/7678)
+         * */
+        "@chakra-ui/react": {
+          disable: true,
+        },
+      };
+    }
+    return {
+      "@vastly/forms": {
+        title: "@vastly/forms",
+        url: "https://vastly-forms.vercel.app",
+      },
+      /**
+       * TODO: remove disabled prop once bug fix/package version has been completed
+       * https://github.com/chakra-ui/chakra-ui/pull/7678)
+       * */
+      "@chakra-ui/react": {
+        disable: true,
+      },
+    };
   },
 };
 
