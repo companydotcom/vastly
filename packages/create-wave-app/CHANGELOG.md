@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.16
+
+### Patch Changes
+
+- generate ciam command
+
 ## 0.10.15
 
 ### Patch Changes
