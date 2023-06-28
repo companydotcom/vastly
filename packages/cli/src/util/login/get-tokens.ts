@@ -45,6 +45,7 @@ export async function getTokens(
         res.setHeader("location", location.href);
         res.end();
       });
+
       server.once("error", reject);
     });
 
