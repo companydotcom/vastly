@@ -1,5 +1,11 @@
 # cli
 
+## 0.9.2
+
+### Patch Changes
+
+- generate ciam command
+
 ## 0.9.1
 
 ### Patch Changes

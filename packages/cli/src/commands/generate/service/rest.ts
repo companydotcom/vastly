@@ -21,29 +21,62 @@ export const generateRestService = async (client: Client, name: string, descript
       existsSync("./apps") &&
       existsSync("./apps/client/package.json")
     ) {
-      //backend
+      // backend
       await ensureDir(`./services/${serviceName}`);
       await copy(backendTemplate, `./services/${serviceName}`);
+
+      // write service name and description to package.json
       const templateContents = await readFile(`./services/${serviceName}/package.json`, "utf-8");
       const modifiedTemplateContents = templateContents
         .replace("<%= appName %>", serviceName)
         .replace("<%= description %>", description);
       await writeFile(`./services/${serviceName}/package.json`, modifiedTemplateContents);
+
+      // write service name to cdk file
       const cdkContents = await readFile(`./services/${serviceName}/cdk/src/index.ts`, "utf-8");
       const modifiedCdkContents = cdkContents.replace("Service Name", serviceName);
       await writeFile(`./services/${serviceName}/cdk/src/index.ts`, modifiedCdkContents);
 
-      // frontend
-      await copy(frontendTemplate, "./apps/client");
-      await move("./apps/client/index.tsx", "./apps/client/pages/index.tsx", { overwrite: true });
-      await writeToPackageJson("./apps/client/package.json");
-      const codegenConfigContents = await readFile("./apps/client/codegen.ts", "utf-8");
-      const modifiedCodegenConfigContents = codegenConfigContents.replace(
-        "Service Name",
-        serviceName,
-      );
-      await writeFile("./apps/client/codegen.ts", modifiedCodegenConfigContents);
-      return { success: true };
+      // if a microservice has already been generated, do not re-copy frontend template, just append new service name into codgen config)
+      if (existsSync("./apps/client/graphql") && existsSync("./apps/client/codegen.ts")) {
+        // append subsequent service names into codegen config file
+        const codegenConfigContents = await readFile("./apps/client/codegen.ts", "utf-8");
+        const modifiedCodegenConfigContents = codegenConfigContents.replace(
+          /const serviceName = \[(.*?)\];/,
+          `const serviceName = [$1, "${serviceName}"];`,
+        );
+        await writeFile("./apps/client/codegen.ts", modifiedCodegenConfigContents);
+
+        return { success: true, message: `Successfully generated ${serviceName} service.` };
+      } else {
+        // copy frontend template
+        await copy(frontendTemplate, "./apps/client");
+
+        // add apollo wrapper around app
+        const appContents = await readFile("./apps/client/pages/_app.tsx", "utf-8");
+        const modifiedAppContents1 = appContents.replace(
+          'import { UiProvider } from "@vastly/ui";',
+          "import { UiProvider } from \"@vastly/ui\";\nimport { ApolloWrapper } from '../apollo.jsx';",
+        );
+        const modifiedAppContents2 = modifiedAppContents1.replace(
+          /<Component\s*{\.\.\.pageProps}\s*\/>/,
+          "<ApolloWrapper>\n        <Component {...pageProps} />\n       </ApolloWrapper>",
+        );
+        await writeFile("./apps/client/pages/_app.tsx", modifiedAppContents2);
+
+        //add dependencies and scripts to package.json
+        await writeToPackageJson("./apps/client/package.json");
+
+        // configure codgen config file with first generated microservice gql schema
+        const codegenConfigContents = await readFile("./apps/client/codegen.ts", "utf-8");
+        const modifiedCodegenConfigContents = codegenConfigContents.replace(
+          "const serviceName = []",
+          `const serviceName = ["${serviceName}"]`,
+        );
+        await writeFile("./apps/client/codegen.ts", modifiedCodegenConfigContents);
+
+        return { success: true, message: `Successfully generated ${serviceName} service.` };
+      }
     } else {
       throw new Error("services and apps folders do not exist");
     }
@@ -67,7 +100,6 @@ const writeToPackageJson = async (filePath: string) => {
     };
 
     await writeJson(filePath, packageJson, { spaces: 2 });
-    console.log("Successfully updated package.json.");
   } catch (error) {
     console.error("Error writing to package.json:", error);
   }

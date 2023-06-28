@@ -93,7 +93,7 @@ export async function makeProgram(program: Command) {
   program
     .command("generate")
     .description("Generate a Microservice")
-    .addArgument(new Argument("<action>", "generate options").choices(["service"]))
+    .addArgument(new Argument("<action>", "generate options").choices(["service", "ciam"]))
     .action(async (arg) => {
       const func = (await import("./commands/generate/index.js")).default;
       await func(client, arg);
