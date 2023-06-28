@@ -2,7 +2,6 @@ import React from "react";
 import { createAuthLink, AUTH_TYPE } from "aws-appsync-auth-link";
 import { createSubscriptionHandshakeLink } from "aws-appsync-subscription-link";
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink, ApolloLink } from "@apollo/client";
-import Home from "../src/home";
 
 const url = ""; // Appsync API Endpoint URL
 
@@ -25,14 +24,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const ApolloWrapper = ({ children }: any) => {
+export const ApolloWrapper = ({ children }: any) => {
   return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
-
-export default function App() {
-  return (
-    <ApolloWrapper client={client}>
-      <Home />
-    </ApolloWrapper>
-  );
-}
