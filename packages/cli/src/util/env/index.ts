@@ -4,13 +4,10 @@ import { Client } from "../client.js";
 
 export async function executeAddVariable(client: Client, env: EnvVariable): Promise<EnvResult> {
   try {
-    return await client.fetch<EnvResult>(
-      `https://x5x5pwee0a.execute-api.us-east-1.amazonaws.com/dev/env/${env.environment}`,
-      {
-        method: "POST",
-        body: env,
-      },
-    );
+    return await client.fetch<EnvResult>(`https://api.vastly.is/env/${env.environment}`, {
+      method: "POST",
+      body: env,
+    });
   } catch (err: unknown) {
     throw new Error(`Unexpected error: ${err}`);
   }
@@ -21,13 +18,10 @@ export async function executeDeleteVariable(
   { environment, projects, keyName }: EnvVariable,
 ): Promise<EnvResult> {
   try {
-    return await client.fetch<EnvResult>(
-      `https://x5x5pwee0a.execute-api.us-east-1.amazonaws.com/dev/env/${environment}?p=${projects}`,
-      {
-        method: "DELETE",
-        body: keyName,
-      },
-    );
+    return await client.fetch<EnvResult>(`https://api.vastly.is/env/${environment}?p=${projects}`, {
+      method: "DELETE",
+      body: keyName,
+    });
   } catch (err: unknown) {
     throw new Error(`Unexpected error: ${errorToString(err)} Check keyName and Environment`);
   }
@@ -43,7 +37,7 @@ export async function executePullAllVariables(
 ): Promise<EnvVariable[]> {
   try {
     return await client.fetch<EnvVariable[]>(
-      `https://x5x5pwee0a.execute-api.us-east-1.amazonaws.com/dev/env/${environment}?event=${eventType}&p=${projects}`,
+      `https://api.vastly.is/env/${environment}?event=${eventType}&p=${projects}`,
       {
         method: "GET",
       },
