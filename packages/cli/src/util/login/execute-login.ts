@@ -15,7 +15,7 @@ export default async function executeLogin(
   const { apiUrl } = client;
 
   try {
-    return await client.fetch<LoginResult>(`${apiUrl}/dev/onboarding/login`, {
+    return await client.fetch<LoginResult>(`${apiUrl}/onboarding/login`, {
       method: "POST",
       body: {
         email,
