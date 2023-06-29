@@ -1,5 +1,11 @@
 # cli
 
+## 0.9.6
+
+### Patch Changes
+
+- Fix mutation query
+
 ## 0.9.5
 
 ### Patch Changes
