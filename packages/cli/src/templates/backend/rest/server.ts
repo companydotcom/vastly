@@ -19,7 +19,7 @@ import { argv, createServer } from "prisma-appsync/dist/server";
     }
 
     mutation createUser {
-      createPost(data: { email: "test-user@vastly.is" }) {
+      createUser(data: { email: "test-user@vastly.is" }) {
         email
       }
     }
