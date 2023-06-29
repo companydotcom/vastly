@@ -1,5 +1,11 @@
 # cli
 
+## 0.10.0
+
+### Minor Changes
+
+- adds better error handling, polishing CLI
+
 ## 0.9.7
 
 ### Patch Changes

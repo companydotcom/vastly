@@ -1,5 +1,11 @@
 # environment
 
+## 0.3.0
+
+### Minor Changes
+
+- adds better error handling, polishing CLI
+
 ## 0.2.0
 
 ### Minor Changes

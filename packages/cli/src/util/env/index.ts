@@ -1,3 +1,4 @@
+import { errorToString } from "@vastly/utils";
 import { EnvVariable, EnvResult } from "../../types/index.js";
 import { Client } from "../client.js";
 
@@ -22,7 +23,7 @@ export async function executeDeleteVariable(
       body: keyName,
     });
   } catch (err: unknown) {
-    throw new Error(`Unexpected error: ${err}`);
+    throw new Error(`Unexpected error: ${errorToString(err)} Check keyName and Environment`);
   }
 }
 
