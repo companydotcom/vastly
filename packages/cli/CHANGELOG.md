@@ -1,5 +1,11 @@
 # cli
 
+## 0.9.3
+
+### Patch Changes
+
+- Moved all services off of dev instance of api url. Now using official https://api.vastly.is
+
 ## 0.9.2
 
 ### Patch Changes
