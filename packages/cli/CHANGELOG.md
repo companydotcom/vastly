@@ -1,5 +1,11 @@
 # cli
 
+## 0.9.5
+
+### Patch Changes
+
+- Update default queries for local microservice server
+
 ## 0.9.4
 
 ### Patch Changes
