@@ -10,7 +10,7 @@ export default async function executeVerify(
   token: string,
 ): Promise<VerifyResult> {
   try {
-    return await client.fetch<VerifyResult>(`${client.apiUrl}/dev/onboarding/verify`, {
+    return await client.fetch<VerifyResult>(`${client.apiUrl}/onboarding/verify`, {
       method: "POST",
       body: {
         email,

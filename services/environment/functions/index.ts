@@ -6,8 +6,8 @@ export const functions: AWS["functions"] = {
     description: "Add a secret or environment variable",
     events: [
       {
-        httpApi: {
-          method: "POST",
+        http: {
+          method: "post",
           path: "/env/{env}",
         },
       },
@@ -30,8 +30,8 @@ export const functions: AWS["functions"] = {
     description: "Delete a secret or environment variable",
     events: [
       {
-        httpApi: {
-          method: "DELETE",
+        http: {
+          method: "delete",
           path: "/env/{env}",
         },
       },
@@ -54,8 +54,8 @@ export const functions: AWS["functions"] = {
     description: "Fetch all secrets and variables per environment and project",
     events: [
       {
-        httpApi: {
-          method: "GET",
+        http: {
+          method: "get",
           path: "/env/{env}",
         },
       },

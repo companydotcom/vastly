@@ -15,11 +15,21 @@ const serverlessConfiguration: AWS = {
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
     },
     deploymentMethod: "direct",
+    apiGateway: {
+      restApiId: {
+        "Fn::ImportValue": "ApiRestId",
+      },
+      restApiRootResourceId: {
+        "Fn::ImportValue": "ApiRootResourceId",
+      },
+      websocketApiId: {
+        "Fn::ImportValue": "ApiWsId",
+      },
+    },
   },
   functions: { ...functions },
   package: { individually: true },
   custom: {
-    domain: "vastly.is",
     "serverless-offline": {
       httpPort: 4000,
       useChildProcesses: true,

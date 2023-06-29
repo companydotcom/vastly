@@ -1,5 +1,11 @@
 # cli
 
+## 0.9.7
+
+### Patch Changes
+
+- changed dev api urls to official https://api.vastly.is url
+
 ## 0.9.6
 
 ### Patch Changes
