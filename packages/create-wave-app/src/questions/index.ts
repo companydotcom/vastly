@@ -71,11 +71,11 @@ export const generateQuestions = [
     message: "Which package manager do you want to use?",
     choices: [
       { name: "npm", value: "npm" },
-      {
-        name: "pnpm",
-        value: "pnpm",
-        disabled: !isPnpmInstalled && "not installed",
-      },
+      // {
+      //   name: "pnpm",
+      //   value: "pnpm",
+      //   disabled: !isPnpmInstalled && "not installed",
+      // },
       {
         name: "yarn",
         value: "yarn",
