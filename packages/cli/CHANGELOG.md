@@ -1,5 +1,11 @@
 # cli
 
+## 0.9.4
+
+### Patch Changes
+
+- Add local dev server for microservice template
+
 ## 0.9.3
 
 ### Patch Changes
