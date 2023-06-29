@@ -1,10 +1,34 @@
 # cli
 
+## 0.9.7
+
+### Patch Changes
+
+- changed dev api urls to official https://api.vastly.is url
+
+## 0.9.6
+
+### Patch Changes
+
+- Fix mutation query
+
+## 0.9.5
+
+### Patch Changes
+
+- Update default queries for local microservice server
+
+## 0.9.4
+
+### Patch Changes
+
+- Add local dev server for microservice template
+
 ## 0.9.3
 
 ### Patch Changes
 
-- Moved all services off of dev instance of api url. Now using official https://api.vastly.is
+- Format error, apollo path
 
 ## 0.9.2
 
