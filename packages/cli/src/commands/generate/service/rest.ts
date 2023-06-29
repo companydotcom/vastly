@@ -56,7 +56,7 @@ export const generateRestService = async (client: Client, name: string, descript
         const appContents = await readFile("./apps/client/pages/_app.tsx", "utf-8");
         const modifiedAppContents1 = appContents.replace(
           'import { UiProvider } from "@vastly/ui";',
-          "import { UiProvider } from \"@vastly/ui\";\nimport { ApolloWrapper } from '../apollo.jsx';",
+          "import { UiProvider } from \"@vastly/ui\";\nimport { ApolloWrapper } from '../apollo';",
         );
         const modifiedAppContents2 = modifiedAppContents1.replace(
           /<Component\s*{\.\.\.pageProps}\s*\/>/,
@@ -78,7 +78,9 @@ export const generateRestService = async (client: Client, name: string, descript
         return { success: true, message: `Successfully generated ${serviceName} service.` };
       }
     } else {
-      throw new Error("services and apps folders do not exist");
+      throw new Error(
+        "Services and Apps folders do not exist. Please use the Vastly CLI from the root of your create-wave-app repo.",
+      );
     }
   } catch (error) {
     console.error(error);
