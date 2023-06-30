@@ -5,6 +5,8 @@ vi.mock("fs-extra", () => {
   const mock = {
     copy: vi.fn(() => void 0),
     exists: vi.fn(() => true),
+    readFile: vi.fn(() => "<%= appName %>, <%= description %>"),
+    writeFile: vi.fn(() => void 0),
   };
   return {
     ...mock,
@@ -27,6 +29,9 @@ describe("copyTemplate", () => {
   });
 
   it("throws an error when packageManagerConfig does not exist", async () => {
+    const consoleSpy = vi.spyOn(console, "error");
+    consoleSpy.mockImplementationOnce(vi.fn(() => void 0));
+
     const actual = await copyTemplate("pnpm", {
       repoName: "testRepo",
       repoDescription: "testRepoDescription",
@@ -35,7 +40,7 @@ describe("copyTemplate", () => {
       success: false,
       message: "Something went wrong: Error: Unsupported package manager version.",
     };
-
+    expect(consoleSpy).toBeCalledTimes(1);
     expect(actual).toEqual(mockError);
   });
 

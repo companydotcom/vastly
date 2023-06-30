@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.17
+
+### Patch Changes
+
+- Update templates
+
 ## 0.10.16
 
 ### Patch Changes
