@@ -5,6 +5,7 @@ import middy from "@middy/core";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import type { DynamoDBDocument, PutCommandInput, PutCommandOutput } from "@aws-sdk/lib-dynamodb";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { errorToString } from "@vastly/utils";
 import { docClient, dynamoClient } from "../../lib/dynamodb";
 import { EnvVariable } from "../../lib/types";
 
@@ -62,7 +63,7 @@ async function addVariable(
     return response;
   } catch (error) {
     console.log(error);
-    throw new Error("Error adding to database");
+    throw new Error(`${errorToString(error)}`);
   } finally {
     dynamo.destroy();
   }
