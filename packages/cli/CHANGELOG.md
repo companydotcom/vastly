@@ -1,5 +1,11 @@
 # cli
 
+## 0.11.0
+
+### Minor Changes
+
+- Adds better error handling and streamlines codes
+
 ## 0.10.0
 
 ### Minor Changes

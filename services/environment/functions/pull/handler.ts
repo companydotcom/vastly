@@ -7,6 +7,7 @@ import type { NativeAttributeValue } from "@aws-sdk/util-dynamodb";
 import type { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import type { DynamoDBDocument, QueryCommandInput, ScanCommandInput } from "@aws-sdk/lib-dynamodb";
 import { dynamoClient, docClient } from "../../lib/dynamodb";
+import { errorToString } from "@vastly/utils";
 
 const { TABLE_NAME } = process.env;
 
@@ -79,7 +80,7 @@ async function getAllEnv(
     return Items;
   } catch (error) {
     console.log(error);
-    throw Error("Error fetching variables");
+    throw new Error(`${errorToString(error)}`);
   } finally {
     dynamo.destroy();
   }
@@ -111,7 +112,7 @@ async function getAllProjects(
     return [...projects];
   } catch (error) {
     console.log(error);
-    throw Error("Error fetching projects");
+    throw new Error(`${errorToString(error)}: Projects`);
   } finally {
     dynamo.destroy();
   }
@@ -138,7 +139,7 @@ async function getKeyNames(
     return keyNames ?? [];
   } catch (error) {
     console.log(error);
-    throw Error("Error fetching keys");
+    throw new Error(`${errorToString(error)}: Key names`);
   } finally {
     dynamo.destroy();
   }
