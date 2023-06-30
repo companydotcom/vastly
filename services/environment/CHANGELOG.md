@@ -1,5 +1,11 @@
 # environment
 
+## 0.4.0
+
+### Minor Changes
+
+- Adds better error handling and streamlines codes
+
 ## 0.3.0
 
 ### Minor Changes
