@@ -796,6 +796,70 @@ importers:
         specifier: ^4.9.5
         version: 4.9.5
 
+  services/api:
+    dependencies:
+      '@aws-sdk/client-cognito-identity-provider':
+        specifier: ^3.298.0
+        version: 3.298.0
+      '@middy/core':
+        specifier: ^4.2.7
+        version: 4.2.7
+      '@middy/http-cors':
+        specifier: ^4.2.7
+        version: 4.2.7
+      '@middy/http-error-handler':
+        specifier: ^4.2.7
+        version: 4.2.7
+      '@middy/http-json-body-parser':
+        specifier: ^4.2.6
+        version: 4.2.6
+      '@middy/input-output-logger':
+        specifier: 4.5.2
+        version: 4.5.2
+      '@vastly/utils':
+        specifier: workspace:*
+        version: link:../../packages/utilities
+      aws-jwt-verify:
+        specifier: 4.0.0
+        version: 4.0.0
+      aws-lambda:
+        specifier: ^1.0.7
+        version: 1.0.7
+    devDependencies:
+      '@serverless/typescript':
+        specifier: ^3.29.0
+        version: 3.29.0
+      '@types/aws-lambda':
+        specifier: ^8.10.114
+        version: 8.10.114
+      '@vastly/eslint-config-custom-server':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config-custom-server
+      esbuild:
+        specifier: ^0.17.11
+        version: 0.17.11
+      eslint:
+        specifier: ^8.36.0
+        version: 8.36.0
+      serverless:
+        specifier: ^3.28.1
+        version: 3.28.1
+      serverless-esbuild:
+        specifier: ^1.42.0
+        version: 1.42.0(esbuild@0.17.11)
+      serverless-iam-roles-per-function:
+        specifier: ^3.2.0
+        version: 3.2.0
+      serverless-offline:
+        specifier: ^12.0.4
+        version: 12.0.4(serverless@3.28.1)(typescript@4.9.5)
+      tsconfig:
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
+      vitest:
+        specifier: 0.31.0
+        version: 0.31.0(@vitest/ui@0.28.4)(jsdom@21.1.0)
+
   services/environment:
     dependencies:
       '@aws-sdk/client-dynamodb':
@@ -16150,7 +16214,7 @@ packages:
     resolution: {integrity: sha512-9GNFMRrEMG5y3Jvv+V4azWvc+qNWdWLTjDdhf/zgMlz8haaaLWv0xeAIWxz9PuWUBawsVxy0zZotjCdR3Xq+2w==}
     hasBin: true
     dependencies:
-      aws-sdk: 2.1146.0
+      aws-sdk: 2.1388.0
       commander: 3.0.2
       js-yaml: 3.14.1
       watchpack: 2.4.0
@@ -16185,7 +16249,6 @@ packages:
       util: 0.12.5
       uuid: 8.0.0
       xml2js: 0.5.0
-    dev: true
 
   /axe-core@4.7.2:
     resolution: {integrity: sha512-zIURGIS1E1Q4pcrMjp+nnEh+16G56eG/MUllJH8yEvw7asDo7Ac9uhC9KIH5jzpITueEZolfYglnCGIuSBz39g==}
@@ -21062,7 +21125,6 @@ packages:
     engines: {node: '>= 0.4'}
     dependencies:
       has-tostringtag: 1.0.0
-    dev: true
 
   /is-glob@4.0.3:
     resolution: {integrity: sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg==}
@@ -26045,11 +26107,11 @@ packages:
       esbuild: 0.17.11
       execa: 5.1.1
       fp-ts: 2.16.0
-      fs-extra: 11.1.0
+      fs-extra: 11.1.1
       globby: 11.1.0
       p-map: 4.0.0
       ramda: 0.28.0
-      semver: 7.3.8
+      semver: 7.5.0
     dev: true
 
   /serverless-iam-roles-per-function@3.2.0:
@@ -26079,7 +26141,7 @@ packages:
       chalk: 5.2.0
       desm: 1.3.0
       execa: 6.1.0
-      fs-extra: 11.1.0
+      fs-extra: 11.1.1
       is-wsl: 2.2.0
       java-invoke-local: 0.0.6
       jose: 4.14.4
@@ -26154,7 +26216,7 @@ packages:
       process-utils: 4.0.0
       promise-queue: 2.2.5
       require-from-string: 2.0.2
-      semver: 7.3.8
+      semver: 7.5.0
       signal-exit: 3.0.7
       strip-ansi: 6.0.1
       supports-color: 8.1.1
@@ -28013,7 +28075,6 @@ packages:
       is-generator-function: 1.0.10
       is-typed-array: 1.1.10
       which-typed-array: 1.1.9
-    dev: true
 
   /utila@0.4.0:
     resolution: {integrity: sha512-Z0DbgELS9/L/75wZbro8xAnT50pBVFQZ+hUEueGDU5FN51YSCYM+jdxsfCiHjwNP/4LCDD0i/graKpeBnOXKRA==}
@@ -28662,12 +28723,10 @@ packages:
     dependencies:
       sax: 1.2.1
       xmlbuilder: 11.0.1
-    dev: true
 
   /xmlbuilder@11.0.1:
     resolution: {integrity: sha512-fDlsI/kFEx7gLvbecc0/ohLG50fugQp8ryHzMTuW9vSa1GJ0XYWKnhsUx7oie3G98+r56aTQIUB4kht42R3JvA==}
     engines: {node: '>=4.0'}
-    dev: true
 
   /xmlbuilder@9.0.7:
     resolution: {integrity: sha512-7YXTQc3P2l9+0rjaUbLwMKRhtmwg1M1eDf6nag7urC7pIPYLD9W/jmzQ4ptRSUbodw5S0jfoGTflLemQibSpeQ==}

@@ -15,12 +15,12 @@ export default async function writeToFile(data: EnvVariable[], directory: string
   try {
     // Writes .env files to directories
     directory.forEach(async (dir) => {
-      let root;
+      let root: string;
       if (dir === "root" || !directory.length) {
         root = path.dirname((await findUp(config, { type: "directory" })) || ".");
         writeFile(`${root}/.env`, content, (err) => {
           if (err) throw err;
-          console.log(chalk.green(`File saved to `) + chalk.underline.cyan(`${dir}`));
+          console.log(chalk.green(`File saved to `) + chalk.underline.cyan(`${root ? root : dir}`));
         });
         return true;
       } else {

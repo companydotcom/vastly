@@ -8,10 +8,9 @@ import { errorToString } from "@vastly/utils";
 
 export default async function deleteEnv(client: Client) {
   const { output } = client;
+  let spinner = output.spinner;
 
   try {
-    let spinner = output.spinner;
-
     spinner = ora({
       text: `Fetching your secrets and variables...\n`,
       color: "yellow",
@@ -25,7 +24,7 @@ export default async function deleteEnv(client: Client) {
       );
       throw new Error("Command failed with exit code 1");
     } else {
-      spinner.succeed("Success!");
+      spinner.succeed("Success! \n");
     }
 
     const env: EnvVariable = await client
@@ -66,13 +65,10 @@ export default async function deleteEnv(client: Client) {
     }).start();
 
     const response = await doDeleteEnv(client, env);
-    if (response?.message.includes("Error")) {
-      spinner.stop();
-      throw Error(response.message);
-    }
-    spinner.succeed(chalk.green("Success!"));
+    spinner.succeed(chalk.green("Success! \n"));
     return response;
   } catch (err: unknown) {
+    spinner.fail();
     output.error(errorToString(err));
   }
 }
