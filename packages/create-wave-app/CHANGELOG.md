@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.19
+
+### Patch Changes
+
+- Add services folder back to template
+
 ## 0.10.18
 
 ### Patch Changes
