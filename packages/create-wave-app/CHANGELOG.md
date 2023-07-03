@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.20
+
+### Patch Changes
+
+- Remove templates from tsup build
+
 ## 0.10.19
 
 ### Patch Changes
