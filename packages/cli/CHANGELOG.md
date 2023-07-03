@@ -1,5 +1,23 @@
 # cli
 
+## 0.11.0
+
+### Minor Changes
+
+- Adds better error handling and streamlines codes
+
+## 0.10.0
+
+### Minor Changes
+
+- adds better error handling, polishing CLI
+
+## 0.9.7
+
+### Patch Changes
+
+- changed dev api urls to official https://api.vastly.is url
+
 ## 0.9.6
 
 ### Patch Changes

@@ -9,20 +9,9 @@ export const functions: AWS["functions"] = {
           method: "get",
           path: "/user",
           cors: true,
-          authorizer: "auth",
+          authorizer: "${cf:vastly-${self:provider.stage}.SharedAuthorizerArn}",
         },
       },
     ],
-  },
-  auth: {
-    handler: "functions/authorize.handler",
-    environment: {
-      USER_POOL_ID: {
-        "Fn::ImportValue": "PasswordlessMagicLinksUserPoolArn-${self:provider.stage}",
-      },
-      APP_CLIENT_ID: {
-        "Fn::ImportValue": "WebUserPoolClientArn-${self:provider.stage}",
-      },
-    },
   },
 };

@@ -17,10 +17,9 @@ export default async function pullAllEnv(client: Client) {
   });
 
   const { output } = client;
+  let spinner = output.spinner;
 
   try {
-    let spinner = output.spinner;
-
     spinner = ora({
       text: `Fetching your projects...\n`,
       color: "yellow",
@@ -96,6 +95,7 @@ export default async function pullAllEnv(client: Client) {
     }
     return response;
   } catch (err: unknown) {
+    spinner.fail();
     output.error(errorToString(err));
   }
 }
