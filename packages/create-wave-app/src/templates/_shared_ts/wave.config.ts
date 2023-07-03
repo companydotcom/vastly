@@ -1,4 +1,4 @@
-const dxpConfig = {
+export const dxpConfig = {
   /**
    *  What are the configs we need?
    * @dxp/core is a package that is a dependency of the monorepo template, referenced from the package.json into this config file
@@ -7,5 +7,3 @@ const dxpConfig = {
    *
    */
 };
-
-module.exports = dxpConfig;

@@ -51,7 +51,7 @@ Follow the instructions below to begin creating with your create-wave-app repo.
       If Yes:
       - What is your GitHub email?
       - What is your GitHub username?
-      - What is your GitHub token?
+      - What is your GitHub token? (Personal Access Token with full repo scope)
    4. Which package manager do you want to use? npm / yarn
    5. Generate? No / Yes
    ```

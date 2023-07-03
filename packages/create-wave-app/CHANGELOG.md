@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.18
+
+### Patch Changes
+
+- Fix wave.config.ts file
+
 ## 0.10.17
 
 ### Patch Changes
