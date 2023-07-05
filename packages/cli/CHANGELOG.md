@@ -1,5 +1,11 @@
 # cli
 
+## 0.11.2
+
+### Patch Changes
+
+- fixed -V command
+
 ## 0.11.0
 
 ### Minor Changes
