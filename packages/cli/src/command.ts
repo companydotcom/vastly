@@ -2,7 +2,6 @@ import { Argument, Command, Option } from "commander";
 import { mkdirp } from "fs-extra";
 import { errorToString, isErrnoException } from "@vastly/utils";
 import { readConfigFile, writeToConfigFile, getConfigFilePath } from "./util/config/files.js";
-import { getPackageInfo } from "./util/config/get-package-info.js";
 import { Config } from "./types/index.js";
 import getGlobalPathConfig from "./util/config/files.js";
 import { defaultConfig } from "./util/config/defaults.js";
@@ -12,7 +11,6 @@ const makeOutput = await import("./util/output/create-output.js");
 
 const VASTLY_CONFIG_PATH = getConfigFilePath();
 const VASTLY_DIR = getGlobalPathConfig();
-const pkg = getPackageInfo();
 
 export async function makeProgram(program: Command) {
   const options = program.opts();
@@ -64,7 +62,7 @@ export async function makeProgram(program: Command) {
   program
     .name("wave")
     .description("CLI for Vastly Wave")
-    .version("0.11.4")
+    .version("0.11.5")
     .option("-d, --debug", "outputs extra debugging", false);
 
   program

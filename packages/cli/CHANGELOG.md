@@ -1,5 +1,11 @@
 # cli
 
+## 0.11.5
+
+### Patch Changes
+
+- trying to fix cli -V issue
+
 ## 0.11.3
 
 ### Patch Changes
