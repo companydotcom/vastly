@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.11.1
+
+### Patch Changes
+
+- Changes how pkg is passed down
+
 ## 0.11.0
 
 ### Minor Changes

@@ -15,7 +15,7 @@ Sentry.init({
 });
 
 try {
-  const command = await makeProgram(program);
+  const command = await makeProgram(program, pkg);
 
   if (typeof command === "number") {
     process.exitCode = command;

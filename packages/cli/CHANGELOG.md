@@ -1,5 +1,11 @@
 # cli
 
+## 0.12.1
+
+### Patch Changes
+
+- Changes how pkg is passed down
+
 ## 0.12.0
 
 ### Minor Changes
