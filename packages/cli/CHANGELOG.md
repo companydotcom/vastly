@@ -1,11 +1,5 @@
 # cli
 
-## 0.11.4
-
-### Patch Changes
-
-- bump
-
 ## 0.11.3
 
 ### Patch Changes
