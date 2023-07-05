@@ -3,7 +3,7 @@ import { functions } from "./functions";
 
 const serverlessConfiguration: AWS = {
   service: "environment",
-  frameworkVersion: "3",
+  frameworkVersion: "3.28.1",
   plugins: ["serverless-esbuild", "serverless-offline", "serverless-iam-roles-per-function"],
   provider: {
     name: "aws",
@@ -15,13 +15,22 @@ const serverlessConfiguration: AWS = {
       NODE_OPTIONS: "--enable-source-maps --stack-trace-limit=1000",
     },
     deploymentMethod: "direct",
-    httpApi: {
-      cors: true,
+    apiGateway: {
+      restApiId: {
+        "Fn::ImportValue": "ApiRestId",
+      },
+      restApiRootResourceId: {
+        "Fn::ImportValue": "ApiRootResourceId",
+      },
+      websocketApiId: {
+        "Fn::ImportValue": "ApiWsId",
+      },
     },
   },
   functions: { ...functions },
   package: { individually: true },
   custom: {
+    domain: "api.vastly.is",
     "serverless-offline": {
       httpPort: 4000,
     },

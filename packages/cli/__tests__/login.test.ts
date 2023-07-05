@@ -65,7 +65,7 @@ describe("executeLogin function", () => {
     // @ts-ignore
     const loginResult = await executeLogin(mockClient, email);
 
-    expect(mockClient.fetch).toHaveBeenCalledWith(`${mockClient.apiUrl}/dev/onboarding/login`, {
+    expect(mockClient.fetch).toHaveBeenCalledWith(`${mockClient.apiUrl}/onboarding/login`, {
       method: "POST",
       body: {
         email,

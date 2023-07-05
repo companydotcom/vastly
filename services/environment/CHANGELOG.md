@@ -1,5 +1,23 @@
 # environment
 
+## 0.4.0
+
+### Minor Changes
+
+- Adds better error handling and streamlines codes
+
+## 0.3.0
+
+### Minor Changes
+
+- adds better error handling, polishing CLI
+
+## 0.2.0
+
+### Minor Changes
+
+- Moved all services off of dev instance of api url. Now using official https://api.vastly.is
+
 ## 0.1.3
 
 ### Patch Changes

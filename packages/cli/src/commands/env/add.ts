@@ -7,10 +7,9 @@ import { doPullEnv } from "../../util/env/pull-all.js";
 
 export default async function addEnv(client: Client) {
   const { output } = client;
+  let spinner = output.spinner;
 
   try {
-    let spinner = output.spinner;
-
     spinner = ora({
       text: `Fetching your projects...\n`,
       color: "yellow",
@@ -82,13 +81,10 @@ export default async function addEnv(client: Client) {
     }).start();
 
     const response = await doAddEnv(client, input);
-    if (response?.message.includes("Error")) {
-      spinner.stop();
-      throw Error(response.message);
-    }
-    spinner.succeed(chalk.green("Success!"));
+    spinner.succeed(chalk.green("Success! \n"));
     return response;
   } catch (err: unknown) {
+    spinner.fail();
     output.error(errorToString(err));
   }
 }

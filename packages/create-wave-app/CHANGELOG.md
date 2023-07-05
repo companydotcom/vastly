@@ -1,5 +1,29 @@
 # create-wave-app
 
+## 0.10.20
+
+### Patch Changes
+
+- Remove templates from tsup build
+
+## 0.10.19
+
+### Patch Changes
+
+- Add services folder back to template
+
+## 0.10.18
+
+### Patch Changes
+
+- Fix wave.config.ts file
+
+## 0.10.17
+
+### Patch Changes
+
+- Update templates
+
 ## 0.10.16
 
 ### Patch Changes
