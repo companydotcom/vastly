@@ -1,5 +1,29 @@
 # cli
 
+## 0.11.6
+
+### Patch Changes
+
+- fix issue with vastly command.ts
+
+## 0.11.5
+
+### Patch Changes
+
+- trying to fix cli -V issue
+
+## 0.11.3
+
+### Patch Changes
+
+- fixed -V command
+
+## 0.11.2
+
+### Patch Changes
+
+- fixed -V command
+
 ## 0.11.0
 
 ### Minor Changes

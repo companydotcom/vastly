@@ -1,5 +1,29 @@
 # create-wave-app
 
+## 0.10.24
+
+### Patch Changes
+
+- fix issue with vastly command.ts
+
+## 0.10.23
+
+### Patch Changes
+
+- trying to fix cli -V issue
+
+## 0.10.22
+
+### Patch Changes
+
+- bump
+
+## 0.10.21
+
+### Patch Changes
+
+- fixed -V command
+
 ## 0.10.20
 
 ### Patch Changes
