@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.11.0
+
+### Minor Changes
+
+- Adds better handling for grabbing package.json
+
 ## 0.10.24
 
 ### Patch Changes
