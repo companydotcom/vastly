@@ -1,5 +1,11 @@
 # cli
 
+## 0.12.3
+
+### Patch Changes
+
+- Another attempt
+
 ## 0.12.2
 
 ### Patch Changes

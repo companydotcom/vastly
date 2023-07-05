@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.11.3
+
+### Patch Changes
+
+- Another attempt
+
 ## 0.11.2
 
 ### Patch Changes
