@@ -11,7 +11,7 @@ const pkg = getPackageInfo();
 
 Sentry.init({
   dsn: "https://033b189965c244779dcf679e47a0133f@o4504997433180160.ingest.sentry.io/4505013895954432",
-  release: `wave-cli@${pkg.version}`,
+  release: `cli@${pkg.version}`,
 });
 
 try {

@@ -1,7 +1,7 @@
 {
   "name": "@vastly/cli",
-  "version": "0.11.5",
-  "description": "Vastly Wave CLI",
+  "version": "0.11.6",
+  "description": "Vastly CLI",
   "author": "Vastly",
   "license": "MIT",
   "type": "module",
@@ -79,7 +79,6 @@
   },
   "keywords": [
     "vastly",
-    "wave",
     "cli"
   ]
 }
