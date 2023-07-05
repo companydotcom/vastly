@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.21
+
+### Patch Changes
+
+- fixed -V command
+
 ## 0.10.20
 
 ### Patch Changes
