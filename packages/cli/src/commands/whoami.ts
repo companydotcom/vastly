@@ -14,9 +14,7 @@ export default async function whoami(client: Client | MockClient, options: Whoam
   const { output } = client;
 
   try {
-    const TEMPURL = "https://h0kouesmrl.execute-api.us-east-1.amazonaws.com";
-
-    const { email }: UserResponse = await client.fetch(`${TEMPURL}/dev/user`, {
+    const { email }: UserResponse = await client.fetch(`${client.apiUrl}/user`, {
       method: "GET",
     });
 
