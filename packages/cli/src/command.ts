@@ -1,7 +1,7 @@
 import { Argument, Command } from "commander";
 import { mkdirp } from "fs-extra";
 import { errorToString, isErrnoException } from "@vastly/utils";
-import { getPackageInfo } from "./util/config/get-package-info.js";
+import type { PackageJson } from "type-fest";
 import { readConfigFile, writeToConfigFile, getConfigFilePath } from "./util/config/files.js";
 import { Config } from "./types/index.js";
 import getGlobalPathConfig from "./util/config/files.js";
@@ -13,9 +13,7 @@ const makeOutput = await import("./util/output/create-output.js");
 const VASTLY_CONFIG_PATH = getConfigFilePath();
 const VASTLY_DIR = getGlobalPathConfig();
 
-const pkg = getPackageInfo();
-
-export async function makeProgram(program: Command) {
+export async function makeProgram(program: Command, pkg: PackageJson) {
   const options = program.opts();
   const output = makeOutput.default({ stream: process.stderr, debugEnabled: options.debug });
 
