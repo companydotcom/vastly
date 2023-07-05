@@ -14,7 +14,7 @@ export default async function logout(client: Client | MockClient) {
   output.spinner.start("Logging you out...");
 
   try {
-    await client.fetch(`${apiUrl}/dev/onboarding/logout`, {
+    await client.fetch(`${apiUrl}/onboarding/logout`, {
       method: "POST",
       body: {
         token: config.token,
