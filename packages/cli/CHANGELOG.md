@@ -1,5 +1,11 @@
 # cli
 
+## 0.12.0
+
+### Minor Changes
+
+- Adds better handling for grabbing package.json
+
 ## 0.11.6
 
 ### Patch Changes

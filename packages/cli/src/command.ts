@@ -1,4 +1,4 @@
-import { Argument, Command, Option } from "commander";
+import { Argument, Command } from "commander";
 import { mkdirp } from "fs-extra";
 import { errorToString, isErrnoException } from "@vastly/utils";
 import { getPackageInfo } from "./util/config/get-package-info.js";
