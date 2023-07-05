@@ -64,7 +64,7 @@ export async function makeProgram(program: Command) {
   program
     .name("wave")
     .description("CLI for Vastly Wave")
-    .version(`${pkg.version}`)
+    .version("0.11.4")
     .option("-d, --debug", "outputs extra debugging", false);
 
   program

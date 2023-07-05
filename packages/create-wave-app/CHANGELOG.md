@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.22
+
+### Patch Changes
+
+- bump
+
 ## 0.10.21
 
 ### Patch Changes
