@@ -8,7 +8,7 @@ export function pkgUpSync({ cwd }: any = {}) {
 }
 
 export function getPackageInfo() {
-  const packageJsonPath = pkgUpSync();
+  const rootPath = pkgUpSync({ cwd: import.meta.url }) as string;
 
-  return fs.readJSONSync(packageJsonPath || "") as PackageJson;
+  return fs.readJSONSync(rootPath || "") as PackageJson;
 }
