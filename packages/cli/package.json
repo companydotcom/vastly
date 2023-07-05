@@ -1,14 +1,13 @@
 {
   "name": "@vastly/cli",
-  "version": "0.9.1",
-  "description": "Vastly Wave CLI",
+  "version": "0.12.3",
+  "description": "Vastly CLI",
   "author": "Vastly",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "preferGlobal": true,
   "publishConfig": {
     "access": "public"
   },
@@ -44,9 +43,6 @@
     "dist/*"
   ],
   "dependencies": {
-    "@aws-sdk/client-cognito-identity-provider": "^3.298.0",
-    "@aws-sdk/credential-providers": "^3.321.1",
-    "@aws-sdk/types": "^3.310.0",
     "@sentry/node": "^7.48.0",
     "@vastly/utils": "workspace:*",
     "ansi-escapes": "^6.2.0",
@@ -82,7 +78,6 @@
   },
   "keywords": [
     "vastly",
-    "wave",
     "cli"
   ]
 }

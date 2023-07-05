@@ -17,7 +17,7 @@ This monorepo uses [pnpm](https://pnpm.io) as a package manager and
 - `ui`: a React component library, (formerly Potion) shared by both `workshop` and `docs`
   applications
 - `forms`: a React component library with custom form components
-- `wave-cli`: our custom CLI
+- `cli`: our custom CLI
 - `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and
   `eslint-config-prettier`)
 - `tsconfig`: `tsconfig.json`s used throughout the monorepo

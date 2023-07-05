@@ -1,16 +1,16 @@
 import url from "url";
-import { createServer } from "http";
+import { Server, IncomingMessage, ServerResponse } from "http";
 import executeVerify from "./execute-verify.js";
 import { Client } from "../client.js";
 
-export async function getTokens(client: Client) {
+export async function getTokens(
+  client: Client,
+  server: Server<typeof IncomingMessage, typeof ServerResponse>,
+) {
   const { output } = client;
-  const server = createServer();
-  server.listen(5001);
 
   const location = new URL("https://wave.vastly.is/notifications/cli-");
 
-  output.print("\n");
   output.spinner.start("Waiting for verification\n");
 
   try {
@@ -45,6 +45,7 @@ export async function getTokens(client: Client) {
         res.setHeader("location", location.href);
         res.end();
       });
+
       server.once("error", reject);
     });
 

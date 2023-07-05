@@ -1,7 +1,7 @@
 import { validate } from "email-validator";
 import login from "../src/commands/login";
 import { mockClient } from "./mocks/client";
-import doEmailLogin, { LoginResult } from "../src/util/login/email";
+import doEmailLogin from "../src/util/login/email";
 import executeLogin from "../src/util/login/execute-login";
 
 describe("login", async () => {
@@ -41,7 +41,7 @@ describe("login", async () => {
     // @ts-ignore
     const result = await doEmailLogin(mockClient, "invalid-email");
 
-    expect(result).toBe(1);
+    expect(result).toBe(0);
     expect(mockClient.output.error).toHaveBeenCalled();
   });
 });
@@ -65,7 +65,7 @@ describe("executeLogin function", () => {
     // @ts-ignore
     const loginResult = await executeLogin(mockClient, email);
 
-    expect(mockClient.fetch).toHaveBeenCalledWith(`${mockClient.apiUrl}/dev/onboarding/login`, {
+    expect(mockClient.fetch).toHaveBeenCalledWith(`${mockClient.apiUrl}/onboarding/login`, {
       method: "POST",
       body: {
         email,

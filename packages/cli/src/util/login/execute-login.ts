@@ -10,14 +10,16 @@ export interface LoginResult {
 export default async function executeLogin(
   client: Client,
   email: string,
+  port: number,
 ): Promise<number | LoginResult> {
   const { apiUrl } = client;
 
   try {
-    return await client.fetch<LoginResult>(`${apiUrl}/dev/onboarding/login`, {
+    return await client.fetch<LoginResult>(`${apiUrl}/onboarding/login`, {
       method: "POST",
       body: {
         email,
+        port,
       },
     });
   } catch (err: unknown) {

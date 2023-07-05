@@ -26,8 +26,12 @@ export interface ClientOptions {
 export default function makeClient(opts: ClientOptions) {
   // A wrapper around node-fetch that handles JSON bodies and type safety
   function _fetch(_url: string, options: FetchOptions = {}) {
-    const headers = new Headers(options.headers);
     const method = options?.method;
+    const headers = new Headers(options.headers);
+
+    if (opts?.config?.token) {
+      headers.set("Authorization", `Bearer ${opts.config.token}`);
+    }
 
     let body;
     if (isJSONObject(options.body)) {

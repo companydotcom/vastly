@@ -9,6 +9,7 @@ import type {
   DeleteCommandOutput,
   DynamoDBDocument,
 } from "@aws-sdk/lib-dynamodb";
+import { errorToString } from "@vastly/utils";
 import { docClient, dynamoClient } from "../../lib/dynamodb";
 
 const { TABLE_NAME } = process.env;
@@ -65,8 +66,8 @@ async function deleteVariable(
     const response = await dynamoDoc.delete(params);
     return response;
   } catch (error) {
-    console.log(error);
-    throw Error("Error deleting from database");
+    console.log(`${errorToString(error)}: Check keyName and Environment`);
+    throw new Error(`${errorToString(error)}`);
   } finally {
     dynamo.destroy();
   }

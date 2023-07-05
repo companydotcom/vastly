@@ -1,6 +1,7 @@
 import { Argument, Command } from "commander";
 import { mkdirp } from "fs-extra";
 import { errorToString, isErrnoException } from "@vastly/utils";
+import type { PackageJson } from "type-fest";
 import { readConfigFile, writeToConfigFile, getConfigFilePath } from "./util/config/files.js";
 import { Config } from "./types/index.js";
 import getGlobalPathConfig from "./util/config/files.js";
@@ -12,7 +13,7 @@ const makeOutput = await import("./util/output/create-output.js");
 const VASTLY_CONFIG_PATH = getConfigFilePath();
 const VASTLY_DIR = getGlobalPathConfig();
 
-export async function makeProgram(program: Command) {
+export async function makeProgram(program: Command, pkg: PackageJson) {
   const options = program.opts();
   const output = makeOutput.default({ stream: process.stderr, debugEnabled: options.debug });
 
@@ -56,18 +57,18 @@ export async function makeProgram(program: Command) {
     stderr: process.stderr,
     output,
     config,
-    apiUrl: "https://gxmblcgqcb.execute-api.us-east-1.amazonaws.com",
+    apiUrl: "https://api.vastly.is",
   });
 
   program
-    .name("wave")
-    .description("CLI for Vastly Wave")
-    .version("0.0.1")
+    .name("vastly")
+    .description("CLI for Vastly")
+    .version(`${pkg.version}`)
     .option("-d, --debug", "outputs extra debugging", false);
 
   program
     .command("login")
-    .description("Log into Vastly Wave")
+    .description("Log into Vastly")
     .action(async () => {
       const func = (await import("./commands/login.js")).default;
       await func(client);
@@ -75,7 +76,7 @@ export async function makeProgram(program: Command) {
 
   program
     .command("logout")
-    .description("Log out of Vastly Wave")
+    .description("Log out of Vastly")
     .action(async () => {
       const func = (await import("./commands/logout.js")).default;
       await func(client);
@@ -83,7 +84,7 @@ export async function makeProgram(program: Command) {
 
   program
     .command("env")
-    .description("Log out of Vastly Wave")
+    .description("Log out of Vastly")
     .addArgument(new Argument("<action>", "drink cup size").choices(["add", "delete", "pull"]))
     .action(async (arg) => {
       const func = (await import("./commands/env/index.js")).default;
@@ -93,10 +94,20 @@ export async function makeProgram(program: Command) {
   program
     .command("generate")
     .description("Generate a Microservice")
-    .addArgument(new Argument("<action>", "generate options").choices(["service"]))
+    .addArgument(new Argument("<action>", "generate options").choices(["service", "ciam"]))
     .action(async (arg) => {
       const func = (await import("./commands/generate/index.js")).default;
       await func(client, arg);
+    });
+
+  program
+    .command("whoami")
+    .description("Display the username of the currently logged in user")
+    .option("-t, --token", "Returns your current token from user config")
+    .action(async (_args, options) => {
+      const func = (await import("./commands/whoami.js")).default;
+
+      await func(client, options.opts());
     });
 
   return program;

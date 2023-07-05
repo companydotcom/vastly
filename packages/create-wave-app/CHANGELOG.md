@@ -1,5 +1,83 @@
 # create-wave-app
 
+## 0.11.3
+
+### Patch Changes
+
+- Another attempt
+
+## 0.11.2
+
+### Patch Changes
+
+- More path fixes
+
+## 0.11.1
+
+### Patch Changes
+
+- Changes how pkg is passed down
+
+## 0.11.0
+
+### Minor Changes
+
+- Adds better handling for grabbing package.json
+
+## 0.10.24
+
+### Patch Changes
+
+- fix issue with vastly command.ts
+
+## 0.10.23
+
+### Patch Changes
+
+- trying to fix cli -V issue
+
+## 0.10.22
+
+### Patch Changes
+
+- bump
+
+## 0.10.21
+
+### Patch Changes
+
+- fixed -V command
+
+## 0.10.20
+
+### Patch Changes
+
+- Remove templates from tsup build
+
+## 0.10.19
+
+### Patch Changes
+
+- Add services folder back to template
+
+## 0.10.18
+
+### Patch Changes
+
+- Fix wave.config.ts file
+
+## 0.10.17
+
+### Patch Changes
+
+- Update templates
+
+## 0.10.16
+
+### Patch Changes
+
+- generate ciam command
+
 ## 0.10.15
 
 ### Patch Changes
