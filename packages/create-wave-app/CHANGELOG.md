@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.10.23
+
+### Patch Changes
+
+- trying to fix cli -V issue
+
 ## 0.10.22
 
 ### Patch Changes
