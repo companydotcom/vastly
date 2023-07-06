@@ -8,6 +8,7 @@ import {
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import middy from "@middy/core";
 import cors from "@middy/http-cors";
+import inputOutputLogger from "@middy/input-output-logger";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import httpErrorHandler from "@middy/http-error-handler";
 
@@ -67,6 +68,10 @@ const verify = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResul
   }
 };
 
-const handler = middy(verify).use(jsonBodyParser()).use(cors()).use(httpErrorHandler());
+const handler = middy(verify)
+  .use(jsonBodyParser())
+  .use(cors())
+  .use(inputOutputLogger())
+  .use(httpErrorHandler());
 
 export { handler };

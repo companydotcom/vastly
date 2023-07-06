@@ -44,7 +44,7 @@ const logIn = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult
 
   const tokenRaw = await encrypt(JSON.stringify(payload));
   const token = new URLSearchParams({ "": tokenRaw || "" }).toString().slice(1);
-  const magicLink = `http://${BASE_URL}?email=${email}&token=${token}`;
+  const magicLink = `http://${BASE_URL}?email=${encodeURIComponent(email)}&token=${token}`;
 
   try {
     const existingUserCommand = new AdminGetUserCommand({
