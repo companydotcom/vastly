@@ -1,5 +1,11 @@
 # cli
 
+## 0.12.4
+
+### Patch Changes
+
+- Fix encoded urls
+
 ## 0.12.3
 
 ### Patch Changes
