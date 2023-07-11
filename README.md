@@ -11,7 +11,6 @@ This monorepo uses [pnpm](https://pnpm.io) as a package manager and
 
 ### Apps and Packages
 
-- `docs`: a [Nextra](https://nextra.site/) app
 - `workshop`: a [Next.js](https://nextjs.org/) app, used for testing purposes
 - `client`: a collection of React features to be consumed by creators
 - `ui`: a React component library, (formerly Potion) shared by both `workshop` and `docs`
