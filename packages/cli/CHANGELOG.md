@@ -1,5 +1,35 @@
 # cli
 
+## 0.12.4
+
+### Patch Changes
+
+- Fix encoded urls
+
+## 0.12.3
+
+### Patch Changes
+
+- Another attempt
+
+## 0.12.2
+
+### Patch Changes
+
+- More path fixes
+
+## 0.12.1
+
+### Patch Changes
+
+- Changes how pkg is passed down
+
+## 0.12.0
+
+### Minor Changes
+
+- Adds better handling for grabbing package.json
+
 ## 0.11.6
 
 ### Patch Changes

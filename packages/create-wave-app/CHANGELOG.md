@@ -1,5 +1,29 @@
 # create-wave-app
 
+## 0.11.3
+
+### Patch Changes
+
+- Another attempt
+
+## 0.11.2
+
+### Patch Changes
+
+- More path fixes
+
+## 0.11.1
+
+### Patch Changes
+
+- Changes how pkg is passed down
+
+## 0.11.0
+
+### Minor Changes
+
+- Adds better handling for grabbing package.json
+
 ## 0.10.24
 
 ### Patch Changes
