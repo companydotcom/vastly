@@ -1,5 +1,12 @@
 # cli
 
+## 0.12.6
+
+### Patch Changes
+
+- updated create-wave-app readme. fixed error handling in generate ciam command. updated
+  create-wave-app docs links
+
 ## 0.12.5
 
 ### Patch Changes
