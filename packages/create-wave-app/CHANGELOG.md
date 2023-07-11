@@ -1,5 +1,12 @@
 # create-wave-app
 
+## 0.11.4
+
+### Patch Changes
+
+- removes services dir by default. removes default nextjs front end docs. fixes some bugs with
+  generate service and generate ciam
+
 ## 0.11.3
 
 ### Patch Changes

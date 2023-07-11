@@ -1,5 +1,12 @@
 # cli
 
+## 0.12.5
+
+### Patch Changes
+
+- removes services dir by default. removes default nextjs front end docs. fixes some bugs with
+  generate service and generate ciam
+
 ## 0.12.4
 
 ### Patch Changes
