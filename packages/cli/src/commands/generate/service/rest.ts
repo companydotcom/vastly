@@ -16,11 +16,7 @@ export const generateRestService = async (client: Client, name: string, descript
   try {
     const backendTemplate = path.resolve(__dirname, "../../../../dist/templates/backend", "rest");
     const frontendTemplate = path.resolve(__dirname, "../../../../dist/templates/frontend", "rest");
-    if (
-      existsSync("./services") &&
-      existsSync("./apps") &&
-      existsSync("./apps/client/package.json")
-    ) {
+    if (existsSync("./apps") && existsSync("./apps/client/package.json")) {
       // backend
       await ensureDir(`./services/${serviceName}`);
       await copy(backendTemplate, `./services/${serviceName}`);
@@ -78,9 +74,7 @@ export const generateRestService = async (client: Client, name: string, descript
         return { success: true, message: `Successfully generated ${serviceName} service.` };
       }
     } else {
-      throw new Error(
-        "Services and Apps folders do not exist. Please use the Vastly CLI from the root of your create-wave-app repo.",
-      );
+      throw new Error("Please use the Vastly CLI from the root of your create-wave-app repo.");
     }
   } catch (error) {
     console.error(error);
@@ -120,5 +114,6 @@ const frontendPackageJson = {
     "aws-appsync-subscription-link": "^3.1.2",
     graphql: "^16.6.0",
     "@graphql-codegen/cli": "^3.3.1",
+    uuid: "9.0.0",
   },
 };
