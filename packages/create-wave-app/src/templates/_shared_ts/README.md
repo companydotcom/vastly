@@ -38,7 +38,7 @@ Follow the instructions below to begin creating with your create-wave-app repo.
 
 ### Installation
 
-1. We recommend creating a new Vastly Wave app using create-wave-app, which sets up everything
+1. We recommend creating a new Vastly Wave app using `create-wave-app`, which sets up everything
    automatically for you. To create a project, run:
    ```sh
    npx create-wave-app@latest

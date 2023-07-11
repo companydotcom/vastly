@@ -25,12 +25,14 @@ const serviceQuestions = [
     choices: [
       { name: "REST", value: "rest" },
       {
-        name: "EDA",
+        name: "EDA (WIP)",
         value: "eda",
+        disabled: true,
       },
       {
-        name: "Streaming Service",
+        name: "Streaming Service (WIP)",
         value: "streaming",
+        disabled: true,
       },
     ],
   },
