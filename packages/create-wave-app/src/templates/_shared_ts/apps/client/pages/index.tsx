@@ -15,22 +15,22 @@ const cards = [
   {
     heading: "Documentation",
     description: "Find in-depth information about Create-Wave-App features and API.",
-    link: "https://vastly.is",
+    link: "https://docs.vastly.is",
   },
   {
     heading: "Learn",
     description: "Learn about Create-Wave-App.",
-    link: "https://vastly.is",
+    link: "https://docs.vastly.is/getting-started/setting-up-your-first-monorepo",
   },
   {
-    heading: "Examples",
-    description: "Discover and deploy boilerplate example Create-Wave-App projects.",
-    link: "https://vastly.is",
+    heading: "UI",
+    description: "Discover and use boilerplate example Vastly UI components.",
+    link: "https://ui.vastly.is/",
   },
   {
     heading: "Deploy",
     description: "Instantly deploy your Create-Wave-App site to a public URL.",
-    link: "https://vastly.is",
+    link: "https://docs.vastly.is/publish-and-deploy/future-state",
   },
 ];
 
