@@ -14,11 +14,13 @@ export const generateCognito = async (client: Client) => {
 
   try {
     const template = path.resolve(__dirname, "../../../../dist/templates/frontend", "ciam");
-    if (
-      existsSync("./services") &&
-      existsSync("./apps") &&
-      existsSync("./apps/client/package.json")
-    ) {
+    if (existsSync("./apps") && existsSync("./apps/client/package.json")) {
+      if (
+        existsSync("./apps/client/pages/api/auth") &&
+        existsSync("./apps/client/pages/api/auth/[...nextauth].js")
+      ) {
+        throw new Error("An authenticate provider has already been wired up to this app.");
+      }
       await ensureDir("./apps/client/pages");
       await copy(template, "./apps/client/pages");
 
@@ -46,7 +48,7 @@ export const generateCognito = async (client: Client) => {
 
       return { success: true, message: `Successfully generated AWS Cognito CIAM.` };
     } else {
-      throw new Error("services and apps folders do not exist");
+      throw new Error("This command must be run from the root of a create-wave-app monorepo.");
     }
   } catch (error) {
     console.error(error);
