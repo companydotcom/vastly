@@ -19,7 +19,10 @@ export const generateCognito = async (client: Client) => {
         existsSync("./apps/client/pages/api/auth") &&
         existsSync("./apps/client/pages/api/auth/[...nextauth].js")
       ) {
-        throw new Error("An authenticate provider has already been wired up to this app.");
+        return {
+          success: false,
+          message: "An authenticate provider has already been wired up to this app.",
+        };
       }
       await ensureDir("./apps/client/pages");
       await copy(template, "./apps/client/pages");

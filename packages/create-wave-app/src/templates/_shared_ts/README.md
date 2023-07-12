@@ -74,8 +74,11 @@ or `yarn install`. Moving forward, the examples below will be using `npm`.
    3. Please enter a description for your service: Description for the example service
    ```
 3. After the prompts, `@vastly/cli` will create a folder with your service name inside the
-   `services` folder. Navigate to your new service and run `npm install`
-4. For additional information about your configuring new service, please see
+   `services` folder. There will also be a `graphql` directory, `apollo.tsx` file, and `codegen.ts`
+   file in your client app.
+4. Make sure to re-run your package manager install command at the root of the monorepo after
+   generating a service.
+5. For additional information about your configuring new service, please see
 <a href="#configuring-generated-microservices">Configuring Generated Microservices</a> below or
 visit: https://prisma-appsync.vercel.app/
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -88,9 +91,10 @@ visit: https://prisma-appsync.vercel.app/
    1. Which CIAM provider would you like to use? AWS Cognito
    ```
 3. After the prompt, `@vastly/cli` will create an `api` folder, as well as `login.tsx` and
-   `restricted.tsx` pages inside `apps/client/pages` folder. Navigate to the `client` folder and run
-   `npm install`
-4. For additional information about configuring your CIAM, please see
+   `restricted.tsx` pages inside `apps/client/pages` folder.
+4. Make sure to re-run your package manager install command at the root of the monorepo after
+   generating a service.
+5. For additional information about configuring your CIAM, please see
 <a href="#configuring-generated-ciam">Configuring Generated CIAM</a> below or visit:
 https://next-auth.js.org/
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
