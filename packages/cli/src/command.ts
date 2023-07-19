@@ -84,8 +84,8 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
 
   program
     .command("env")
-    .description("Log out of Vastly")
-    .addArgument(new Argument("<action>", "drink cup size").choices(["add", "delete", "pull"]))
+    .description("Manage your environment variables")
+    .addArgument(new Argument("<action>", "env options").choices(["add", "delete", "pull"]))
     .action(async (arg) => {
       const func = (await import("./commands/env/index.js")).default;
       await func(client, arg);
