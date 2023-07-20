@@ -24,7 +24,7 @@ export default async function deleteEnv(client: Client) {
       );
       throw new Error("Command failed with exit code 1");
     } else {
-      spinner.succeed("Success! \n");
+      spinner.succeed("Fetching your secrets and variables \n");
     }
 
     const env: EnvVariable = await client
@@ -69,6 +69,6 @@ export default async function deleteEnv(client: Client) {
     return response;
   } catch (err: unknown) {
     spinner.fail();
-    output.error(errorToString(err));
+    output.error(`${errorToString(err)} ---> 📝 Are you logged in? `);
   }
 }

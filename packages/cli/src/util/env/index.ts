@@ -9,7 +9,7 @@ export async function executeAddVariable(client: Client, env: EnvVariable): Prom
       body: env,
     });
   } catch (err: unknown) {
-    throw new Error(`Unexpected error: ${err}`);
+    throw new Error(`${errorToString(err)}`);
   }
 }
 
@@ -23,7 +23,7 @@ export async function executeDeleteVariable(
       body: keyName,
     });
   } catch (err: unknown) {
-    throw new Error(`Unexpected error: ${errorToString(err)} Check keyName and Environment`);
+    throw new Error(`${errorToString(err)} Check keyName and Environment`);
   }
 }
 
@@ -43,6 +43,6 @@ export async function executePullAllVariables(
       },
     );
   } catch (err: unknown) {
-    throw new Error(`Unexpected error: ${err}`);
+    throw new Error(`${errorToString(err)}`);
   }
 }

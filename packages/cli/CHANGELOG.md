@@ -1,5 +1,11 @@
 # cli
 
+## 0.12.7
+
+### Patch Changes
+
+- Adds authorizer error handling
+
 ## 0.12.6
 
 ### Patch Changes
