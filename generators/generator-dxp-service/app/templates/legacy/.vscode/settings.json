@@ -1,7 +1,0 @@
-{
-  "editor.formatOnSave": true,
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "cSpell.words": ["companyql", "devx", "codegen", "typecheck"]
-}

@@ -61,44 +61,34 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
   });
 
   program
-    .name("vastly")
-    .description("CLI for Vastly")
+    .name("wave")
+    .description("CLI for Wave")
     .version(`${pkg.version}`)
     .option("-d, --debug", "outputs extra debugging", false);
 
   program
-    .command("login")
-    .description("Log into Vastly")
+    .command("dev")
+    .description("Run your Wave app locally")
     .action(async () => {
-      const func = (await import("./commands/login.js")).default;
+      const func = (await import("./commands/dev/index.js")).default;
       await func(client);
     });
 
   program
-    .command("logout")
-    .description("Log out of Vastly")
+    .command("deploy")
+    .description("Deploy your wave app")
     .action(async () => {
-      const func = (await import("./commands/logout.js")).default;
+      const func = (await import("./commands/deploy/index.js")).default;
       await func(client);
     });
 
   program
-    .command("env")
-    .description("Log out of Vastly")
-    .addArgument(new Argument("<action>", "drink cup size").choices(["add", "delete", "pull"]))
+    .command("generate")
+    .description("Generate a Microservice")
+    .addArgument(new Argument("<action>", "generate options").choices(["service", "ciam"]))
     .action(async (arg) => {
-      const func = (await import("./commands/env/index.js")).default;
+      const func = (await import("./commands/generate/index.js")).default;
       await func(client, arg);
-    });
-
-  program
-    .command("whoami")
-    .description("Display the username of the currently logged in user")
-    .option("-t, --token", "Returns your current token from user config")
-    .action(async (_args, options) => {
-      const func = (await import("./commands/whoami.js")).default;
-
-      await func(client, options.opts());
     });
 
   return program;

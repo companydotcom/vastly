@@ -1,5 +1,11 @@
 # @vastly/types
 
+## 2.4.2
+
+### Patch Changes
+
+- creates vastly/wave package. moves generate commands to wave from cli. updates create-wave-app
+
 ## 2.4.1
 
 ### Patch Changes

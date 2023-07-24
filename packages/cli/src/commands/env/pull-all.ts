@@ -5,7 +5,7 @@ import { findUp } from "find-up";
 import path from "node:path";
 import { Client } from "../../util/client.js";
 import { doPullEnv } from "../../util/env/pull-all.js";
-import writeToFile from "../../util/write-env-files.js";
+import writeToFile from "../../util/env/write-env-files.js";
 import { errorToString } from "@vastly/utils";
 
 export default async function pullAllEnv(client: Client) {

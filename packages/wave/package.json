@@ -1,7 +1,7 @@
 {
-  "name": "@vastly/cli",
-  "version": "0.12.7",
-  "description": "Vastly CLI",
+  "name": "@vastly/wave",
+  "version": "0.0.2",
+  "description": "Vastly's Wave Package",
   "author": "Vastly",
   "license": "MIT",
   "type": "module",
@@ -14,7 +14,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/companydotcom/vastly",
-    "directory": "packages/cli"
+    "directory": "packages/wave"
   },
   "exports": {
     ".": {
@@ -26,17 +26,18 @@
     "node": ">=14.16"
   },
   "bin": {
-    "vastly": "./dist/index.js"
+    "wave": "./dist/index.js"
   },
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsup",
+    "build": "tsup && pnpm copy-files",
     "dev": "ts-node --esm ./src/index.ts",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "copy-files": "cp -R ./src/templates/ ./dist/templates"
   },
   "sideEffects": [
     "dist/*"
@@ -77,6 +78,6 @@
   },
   "keywords": [
     "vastly",
-    "cli"
+    "wave"
   ]
 }
