@@ -1,10 +1,16 @@
 # cli
 
+## 0.12.8
+
+### Patch Changes
+
+- moved generate to wave
+
 ## 0.12.7
 
 ### Patch Changes
 
-- creates vastly/wave package. moves generate commands to wave from cli. updates create-wave-app
+- Adds authorizer error handling
 
 ## 0.12.6
 

@@ -85,6 +85,6 @@ export default async function addEnv(client: Client) {
     return response;
   } catch (err: unknown) {
     spinner.fail();
-    output.error(errorToString(err));
+    output.error(`${errorToString(err)} ---> 📝 Are you logged in? `);
   }
 }
