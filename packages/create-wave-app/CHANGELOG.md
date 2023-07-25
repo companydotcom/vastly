@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.11.6
+
+### Patch Changes
+
+- creates vastly/wave package. moves generate commands to wave from cli. updates create-wave-app
+
 ## 0.11.5
 
 ### Patch Changes
