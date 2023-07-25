@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.12.0
+
+### Minor Changes
+
+- b04ffd8: Adds .gitignore to template, updates package versions
+
 ## 0.11.6
 
 ### Patch Changes
