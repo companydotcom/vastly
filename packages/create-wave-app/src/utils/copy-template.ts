@@ -26,6 +26,7 @@ export const copyTemplate = async (
     let sharedTemplate = path.resolve(__dirname, "../../dist/templates", "_shared_ts");
     await copy(sharedTemplate, "./");
     await copy(`${sharedTemplate}/apps/client/_gitignore`, "./.gitignore");
+    await copy(`${sharedTemplate}/apps/client/_gitignore`, "./apps/client/.gitignore");
 
     //check package manager version is supported
     let packageManagerVersion = getPackageManagerVersion(packageManager);
