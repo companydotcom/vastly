@@ -1,5 +1,11 @@
 # cli
 
+## 0.12.8
+
+### Patch Changes
+
+- moved generate to wave
+
 ## 0.12.7
 
 ### Patch Changes

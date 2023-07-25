@@ -7,14 +7,16 @@
     "services/*"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "npx wave deploy"
   },
   "devDependencies": {
     "@vastly/utils": "0.3.0",
     "@vastly/cli": "0.12.8",
-    "@vastly/types": "2.4.2",
+    "@vastly/wave": "0.0.2",
+    "@vastly/types": "2.4.1",
     "@vastly/eslint-config-custom": "0.5.0",
-    "turbo": "1.10.11"
+    "turbo": "1.10.0"
   },
   "keywords": [],
   "author": "",

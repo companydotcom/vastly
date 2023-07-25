@@ -66,14 +66,14 @@ or `yarn install`. Moving forward, the examples below will be using `npm`.
 
 ### Generating Microservices
 
-1. Run `vastly generate service`
+1. Run `wave generate service`
 2. You'll see the following prompts:
    ```sh
    1. What type of microservice do you want to generate? REST / EDA / Streaming Service
    2. What would you like to name your service? example-service
    3. Please enter a description for your service: Description for the example service
    ```
-3. After the prompts, `@vastly/cli` will create a folder with your service name inside the
+3. After the prompts, `@vastly/wave` will create a folder with your service name inside the
    `services` folder. There will also be a `graphql` directory, `apollo.tsx` file, and `codegen.ts`
    file in your client app.
 4. Make sure to re-run your package manager install command at the root of the monorepo after
@@ -85,12 +85,12 @@ visit: https://prisma-appsync.vercel.app/
 
 ### Generating CIAM
 
-1. Run `vastly generate ciam`
+1. Run `wave generate ciam`
 2. You'll see the following prompt:
    ```sh
    1. Which CIAM provider would you like to use? AWS Cognito
    ```
-3. After the prompt, `@vastly/cli` will create an `api` folder, as well as `login.tsx` and
+3. After the prompt, `@wave/cli` will create an `api` folder, as well as `login.tsx` and
    `restricted.tsx` pages inside `apps/client/pages` folder.
 4. Make sure to re-run your package manager install command at the root of the monorepo after
    generating a service.

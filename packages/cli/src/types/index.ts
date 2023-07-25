@@ -1,4 +1,4 @@
-interface ConfigContent {
+export interface ConfigContent {
   token?: string;
 }
 
