@@ -12,7 +12,7 @@
     "@vastly/wave": "0.0.2",
     "@vastly/types": "2.4.2",
     "@vastly/eslint-config-custom": "0.5.0",
-    "turbo": "1.10.0"
+    "turbo": "1.10.11"
   },
   "keywords": [],
   "author": "",
