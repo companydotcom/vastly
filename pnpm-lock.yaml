@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 importers:
 
   .:
@@ -52,6 +56,9 @@ importers:
       '@vastly/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      embla-carousel-react:
+        specifier: 8.0.0-rc11
+        version: 8.0.0-rc11(react@18.2.0)
       next:
         specifier: ^13.3.4
         version: 13.3.4(@babel/core@7.22.9)(react-dom@18.2.0)(react@18.2.0)
@@ -307,13 +314,13 @@ importers:
     dependencies:
       eslint-config-next:
         specifier: latest
-        version: 13.4.4(eslint@7.32.0)(typescript@4.9.5)
+        version: 13.4.1(eslint@7.32.0)(typescript@4.9.5)
       eslint-config-prettier:
         specifier: ^8.3.0
         version: 8.3.0(eslint@7.32.0)
       eslint-config-turbo:
         specifier: latest
-        version: 1.10.0(eslint@7.32.0)
+        version: 1.9.3(eslint@7.32.0)
       eslint-plugin-react:
         specifier: 7.28.0
         version: 7.28.0(eslint@7.32.0)
@@ -325,7 +332,7 @@ importers:
     dependencies:
       eslint-config-turbo:
         specifier: latest
-        version: 1.10.0(eslint@7.32.0)
+        version: 1.9.3(eslint@7.32.0)
     devDependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.56.0
@@ -10308,8 +10315,8 @@ packages:
   /@next/env@13.3.4:
     resolution: {integrity: sha512-oTK/wRV2qga86m/4VdrR1+/56UA6U1Qv3sIgowB+bZjahniZLEG5BmmQjfoGv7ZuLXBZ8Eec6hkL9BqJcrEL2g==}
 
-  /@next/eslint-plugin-next@13.4.4:
-    resolution: {integrity: sha512-5jnh7q6I15efnjR/rR+/TGTc9hn53g3JTbEjAMjmeQiExKqEUgIXqrHI5zlTNlNyzCPkBB860/ctxXheZaF2Vw==}
+  /@next/eslint-plugin-next@13.4.1:
+    resolution: {integrity: sha512-tVPS/2FKlA3ANCRCYZVT5jdbUKasBU8LG6bYqcNhyORDFTlDYa4cAWQJjZ7msIgLwMQIbL8CAsxrOL8maa/4Lg==}
     dependencies:
       glob: 7.1.7
     dev: false
@@ -17125,6 +17132,28 @@ packages:
     engines: {node: '>4.0'}
     dev: false
 
+  /embla-carousel-react@8.0.0-rc11(react@18.2.0):
+    resolution: {integrity: sha512-hXOAUMOIa0GF5BtdTTqBuKcjgU+ipul6thTCXOZttqnu2c6VS3SIzUUT+onIIEw+AptzKJcPwGcoAByAGa9eJw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.1 || ^18.0.0
+    dependencies:
+      embla-carousel: 8.0.0-rc11
+      embla-carousel-reactive-utils: 8.0.0-rc11(embla-carousel@8.0.0-rc11)
+      react: 18.2.0
+    dev: false
+
+  /embla-carousel-reactive-utils@8.0.0-rc11(embla-carousel@8.0.0-rc11):
+    resolution: {integrity: sha512-pDNVJNCn0dybLkHw93My+cMfkRQ5oLZff6ZCwgmrw+96aPiZUyo5ANywz8Lb70SWWgD/TNBRrtQCquvjHS31Sg==}
+    peerDependencies:
+      embla-carousel: 8.0.0-rc11
+    dependencies:
+      embla-carousel: 8.0.0-rc11
+    dev: false
+
+  /embla-carousel@8.0.0-rc11:
+    resolution: {integrity: sha512-Toeaug98PGYzSY56p/xsa+u4zbQbAXgGymwEDUc2wqT+1XCnnUsH42MClglhABJQbobwDYxOabhJrfXyJKUMig==}
+    dev: false
+
   /emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
 
@@ -17652,8 +17681,8 @@ packages:
       source-map: 0.6.1
     dev: true
 
-  /eslint-config-next@13.4.4(eslint@7.32.0)(typescript@4.9.5):
-    resolution: {integrity: sha512-z/PMbm6L0iC/fwISULxe8IVy4DtNqZk2wQY711o35klenq70O6ns82A8yuMVCFjHC0DIyB2lyugesRtuk9u8dQ==}
+  /eslint-config-next@13.4.1(eslint@7.32.0)(typescript@4.9.5):
+    resolution: {integrity: sha512-ajuxjCkW1hvirr0EQZb3/B/bFH52Z7CT89uCtTcICFL9l30i5c8hN4p0LXvTjdOXNPV5fEDcxBgGHgXdzTj1/A==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0
       typescript: '>=3.3.1'
@@ -17661,7 +17690,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@next/eslint-plugin-next': 13.4.4
+      '@next/eslint-plugin-next': 13.4.1
       '@rushstack/eslint-patch': 1.3.2
       '@typescript-eslint/parser': 5.56.0(eslint@7.32.0)(typescript@4.9.5)
       eslint: 7.32.0
@@ -17686,13 +17715,13 @@ packages:
       eslint: 7.32.0
     dev: false
 
-  /eslint-config-turbo@1.10.0(eslint@7.32.0):
-    resolution: {integrity: sha512-iJsjoOb0vjnpV65rL+SAOIgbOluEibFqo/ke4UzXA9bi13cNJOT9k6FCQA7RXBHwChz+6BzYq5ZyoE3WcUg+0g==}
+  /eslint-config-turbo@1.9.3(eslint@7.32.0):
+    resolution: {integrity: sha512-QG6jxFQkrGSpQqlFKefPdtgUfr20EbU0s4tGGIuGFOcPuJEdsY6VYZpZUxNJvmMcTGqPgMyOPjAFBKhy/DPHLA==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
       eslint: 7.32.0
-      eslint-plugin-turbo: 1.10.0(eslint@7.32.0)
+      eslint-plugin-turbo: 1.9.3(eslint@7.32.0)
     dev: false
 
   /eslint-import-resolver-node@0.3.7:
@@ -17902,8 +17931,8 @@ packages:
       - typescript
     dev: false
 
-  /eslint-plugin-turbo@1.10.0(eslint@7.32.0):
-    resolution: {integrity: sha512-7eDeOjZDx/GcrZj4XYX1puaxsDtm6FE53qlbb4JyJhhkKC8OVYTJHTpu8kSmFTNsVoIgDFo/SEUIMwKHLYRM3w==}
+  /eslint-plugin-turbo@1.9.3(eslint@7.32.0):
+    resolution: {integrity: sha512-ZsRtksdzk3v+z5/I/K4E50E4lfZ7oYmLX395gkrUMBz4/spJlYbr+GC8hP9oVNLj9s5Pvnm9rLv/zoj5PVYaVw==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
