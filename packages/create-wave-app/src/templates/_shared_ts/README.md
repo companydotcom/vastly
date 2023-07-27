@@ -110,7 +110,22 @@ https://next-auth.js.org/
 1. Navigate to your generated service folder
 2. Add your database URL to the `schema.prisma` file in the prisma folder. Please visit
    https://www.prisma.io/docs/concepts/database-connectors for proper formatting of your databse URL
-3. Run `npm run generate`
+3. Run `npm run generate`. Please visit
+   https://www.prisma.io/docs/reference/api-reference/command-reference#generate to learn more about
+   what this command generates
+
+#### - Local Development Servers
+
+##### Local GraphQL Server
+
+1. To start your local graphQL server, run `npm run dev`
+2. This will automatically push your Prisma Schema changes to a SQLite database, as well as launch a
+   local GraphQL IDE server (with auto-reload and TS support).
+
+##### Local Database Server
+
+1. To start your local database server, run `npm run db`. Please visit
+   https://www.prisma.io/docs/concepts/components/prisma-studio for additional information
 
 #### - Deploying to AWS Appsync
 
