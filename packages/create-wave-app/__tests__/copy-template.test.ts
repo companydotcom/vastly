@@ -7,6 +7,7 @@ vi.mock("fs-extra", () => {
     exists: vi.fn(() => true),
     readFile: vi.fn(() => "<%= appName %>, <%= description %>"),
     writeFile: vi.fn(() => void 0),
+    move: vi.fn(() => void 0),
   };
   return {
     ...mock,

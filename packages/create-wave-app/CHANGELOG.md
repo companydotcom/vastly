@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.13.1
+
+### Patch Changes
+
+- # Fixes gitignore template. Copy and remove template after
+
 ## 0.13.0
 
 ### Minor Changes

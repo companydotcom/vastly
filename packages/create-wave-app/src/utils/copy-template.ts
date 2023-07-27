@@ -7,7 +7,7 @@ import pkg from "fs-extra";
 import { satisfies } from "semver";
 import { PackageManagerName, PACKAGE_MANAGERS, GeneratorResponse } from "../types/index.js";
 import { getPackageManagerVersion } from "./get-package-manager-version.js";
-const { copy, exists, writeFile, readFile } = pkg;
+const { copy, exists, writeFile, readFile, move } = pkg;
 
 export const copyTemplate = async (
   packageManager: PackageManagerName,
@@ -25,8 +25,8 @@ export const copyTemplate = async (
     //copy template
     let sharedTemplate = path.resolve(__dirname, "../../dist/templates", "_shared_ts");
     await copy(sharedTemplate, "./");
-    await copy(`${sharedTemplate}/apps/client/_gitignore`, "./.gitignore");
-    await copy(`${sharedTemplate}/apps/client/_gitignore`, "./apps/client/.gitignore");
+    await move(`${sharedTemplate}/apps/client/_gitignore`, "./apps/client/.gitignore");
+    await copy("./apps/client/.gitignore", "./.gitignore");
 
     //check package manager version is supported
     let packageManagerVersion = getPackageManagerVersion(packageManager);
