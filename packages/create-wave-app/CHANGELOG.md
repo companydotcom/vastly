@@ -1,10 +1,18 @@
 # create-wave-app
 
+<<<<<<< HEAD
 ## 0.12.1
 
 ### Patch Changes
 
 - Fixes gitignore template. Copy first, remove template after
+=======
+## 0.13.0
+
+### Minor Changes
+
+- Create wave dev command, update README and REST service template
+>>>>>>> main
 
 ## 0.12.0
 

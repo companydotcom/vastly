@@ -15,6 +15,7 @@
   },
   "scripts": {
     "generate": "npx prisma generate",
-    "dev": "npx wave dev"
+    "dev": "npx wave dev",
+    "db": "npx prisma studio"
   }
 }
