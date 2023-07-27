@@ -146,10 +146,6 @@ const writeToPackageJson = async (filePath: string) => {
   try {
     const packageJson = await readJson(filePath);
 
-    packageJson.scripts = {
-      ...packageJson.scripts,
-      ...frontendPackageJson.scripts,
-    };
     packageJson.dependencies = {
       ...packageJson.dependencies,
       ...frontendPackageJson.dependencies,
@@ -162,9 +158,6 @@ const writeToPackageJson = async (filePath: string) => {
 };
 
 const frontendPackageJson = {
-  scripts: {
-    codegen: "graphql-codegen --config codegen.ts",
-  },
   dependencies: {
     "@apollo/client": "^3.7.14",
     "@graphql-codegen/typescript-operations": "^4.0.0",

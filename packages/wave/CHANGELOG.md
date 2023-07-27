@@ -1,5 +1,12 @@
 # @vastly/wave
 
+## 0.2.0
+
+### Minor Changes
+
+- Adds codegen command to wave package and removes it from create-wave-app. Error handling and CLI
+  beautification, logs.
+
 ## 0.1.0
 
 ### Minor Changes

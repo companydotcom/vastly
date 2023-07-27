@@ -5,7 +5,7 @@ import * as path from "path";
 import { fileURLToPath } from "url";
 import { Client } from "../../../util/client.js";
 
-const { copy, existsSync, ensureDir, readJson, writeJson, readFile, writeFile, move } = pkg;
+const { copy, existsSync, ensureDir, readJson, writeJson, readFile, writeFile } = pkg;
 
 export const generateCognito = async (client: Client) => {
   const { output } = client;
