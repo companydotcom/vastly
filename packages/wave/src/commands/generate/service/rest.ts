@@ -17,13 +17,14 @@ export const generateRestService = async (client: Client, name: string, descript
 
   try {
     spinner = ora({
-      text: chalk.yellow.bold(`Generating ${chalk.underline.cyan(`${serviceName}`)}...\n`),
+      text: chalk.yellow.bold(`\nGenerating ${chalk.underline.cyan(`${serviceName}`)}...\n`),
       color: "yellow",
     }).start();
 
     const backendTemplate = path.resolve(__dirname, "../../../../dist/templates/backend", "rest");
     const frontendTemplate = path.resolve(__dirname, "../../../../dist/templates/frontend", "rest");
     if (existsSync("./apps") && existsSync("./apps/client/package.json")) {
+      spinner.stopAndPersist();
       // backend
       await ensureDir(`./services/${serviceName}`);
       await copy(backendTemplate, `./services/${serviceName}`);
@@ -50,7 +51,6 @@ export const generateRestService = async (client: Client, name: string, descript
         );
         await writeFile("./apps/client/codegen.ts", modifiedCodegenConfigContents);
 
-        spinner.stopAndPersist();
         console.log(
           ` ${chalk.underline.bold.green(`${serviceName}`)} files and directory generated!\n`,
         );
@@ -65,6 +65,18 @@ export const generateRestService = async (client: Client, name: string, descript
 
         return { success: true, message: `Successfully generated ${serviceName} service.` };
       } else {
+        console.log(
+          ` ${chalk.underline.bold.green(`${serviceName}`)} files and directory generated!\n`,
+        );
+        console.log(chalk.magenta("/services"));
+        console.log(chalk.magenta(` |- /${serviceName}`));
+        console.log(chalk.magenta("   |- /cdk"));
+        console.log(chalk.magenta("   |- /prisma"));
+        console.log(chalk.blueBright("   |- cdk.json"));
+        console.log(chalk.blueBright("   |- handler.ts"));
+        console.log(chalk.blueBright("   |- package.json"));
+        console.log(chalk.blueBright("   |- server.ts\n"));
+
         spinner = ora({
           text: chalk.yellow.bold(
             `Adding files for ${chalk.underline.cyan(
@@ -134,6 +146,7 @@ export const generateRestService = async (client: Client, name: string, descript
         return { success: true, message: `Successfully generated ${serviceName} service.` };
       }
     } else {
+      spinner.fail("Please use the Vastly CLI from the root of your create-wave-app repo.");
       throw new Error("Please use the Vastly CLI from the root of your create-wave-app repo.");
     }
   } catch (error) {
