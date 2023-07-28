@@ -57,7 +57,6 @@ export const copyTemplate = async (
         .replace("<%= appName %>", repoName.toLowerCase().replace(/\s+/g, "-"))
         .replace("<%= description %>", repoDescription);
       await writeFile(`./package.json`, modifiedTemplateContents);
-      execSync("ncu --upgrade");
     }
 
     spinner.succeed(chalk.green("wave-app generator completed successfully"));
