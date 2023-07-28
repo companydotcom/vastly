@@ -91,5 +91,13 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
       await func(client, arg);
     });
 
+    program
+      .command("codegen")
+      .description("Generate GraphQL types and front-end hooks")
+      .action(async (arg) => {
+        const func = (await import("./commands/codegen/index.js")).default;
+        await func(client);
+      });
+
   return program;
 }

@@ -1,5 +1,12 @@
 # create-wave-app
 
+## 0.13.2
+
+### Patch Changes
+
+- Adds codegen command to wave package and removes it from create-wave-app. Error handling and CLI
+  beautification, logs.
+
 ## 0.13.1
 
 ### Patch Changes

@@ -139,7 +139,7 @@ https://next-auth.js.org/
 2. Run `npm install`
 3. Update the `apollo.tsx` file in the `apps/client` folder with your generated Appsync API `url`,
    `region`, and `apiKey`.
-4. Run `npm run codegen`
+4. Run `npx wave codegen`
 5. Types and front end hooks will be generated in the `graphql-types.ts` in the graphql folder
 
 #### - Using Frontend Hooks Example
