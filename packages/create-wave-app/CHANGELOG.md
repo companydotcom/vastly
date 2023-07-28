@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.14.0
+
+### Minor Changes
+
+- Added command to automatically update dependencies upon generation
+
 ## 0.13.2
 
 ### Patch Changes

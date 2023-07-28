@@ -7,6 +7,7 @@ import pkg from "fs-extra";
 import { satisfies } from "semver";
 import { PackageManagerName, PACKAGE_MANAGERS, GeneratorResponse } from "../types/index.js";
 import { getPackageManagerVersion } from "./get-package-manager-version.js";
+import { execSync } from "child_process";
 const { copy, exists, writeFile, readFile, move } = pkg;
 
 export const copyTemplate = async (
@@ -56,6 +57,7 @@ export const copyTemplate = async (
         .replace("<%= appName %>", repoName.toLowerCase().replace(/\s+/g, "-"))
         .replace("<%= description %>", repoDescription);
       await writeFile(`./package.json`, modifiedTemplateContents);
+      execSync("ncu --upgrade");
     }
 
     spinner.succeed(chalk.green("wave-app generator completed successfully"));

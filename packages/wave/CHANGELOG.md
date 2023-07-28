@@ -1,5 +1,11 @@
 # @vastly/wave
 
+## 0.2.1
+
+### Patch Changes
+
+- Added command to automatically update dependencies upon generation
+
 ## 0.2.0
 
 ### Minor Changes
