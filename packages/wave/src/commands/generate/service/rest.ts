@@ -17,7 +17,7 @@ export const generateRestService = async (client: Client, name: string, descript
 
   try {
     spinner = ora({
-      text: chalk.yellow.bold(`\nGenerating ${chalk.underline.cyan(`${serviceName}`)}...\n`),
+      text: chalk.yellow.bold(`Generating ${chalk.underline.cyan(`${serviceName}`)}...\n`),
       color: "yellow",
     }).start();
 
@@ -63,6 +63,7 @@ export const generateRestService = async (client: Client, name: string, descript
         console.log(chalk.blueBright("   |- package.json"));
         console.log(chalk.blueBright("   |- server.ts\n"));
 
+        spinner.succeed(chalk.green(`Successfully generated ${serviceName} service!`));
         return { success: true, message: `Successfully generated ${serviceName} service.` };
       } else {
         console.log(
