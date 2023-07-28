@@ -1,5 +1,30 @@
 # create-wave-app
 
+## 0.13.2
+
+### Patch Changes
+
+- Adds codegen command to wave package and removes it from create-wave-app. Error handling and CLI
+  beautification, logs.
+
+## 0.13.1
+
+### Patch Changes
+
+- # Fixes gitignore template. Copy and remove template after
+
+## 0.13.0
+
+### Minor Changes
+
+- Create wave dev command, update README and REST service template
+
+## 0.12.0
+
+### Minor Changes
+
+- b04ffd8: Adds .gitignore to template, updates package versions
+
 ## 0.11.6
 
 ### Patch Changes

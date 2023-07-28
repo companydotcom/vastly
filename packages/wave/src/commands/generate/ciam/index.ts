@@ -15,7 +15,7 @@ const ciamQuestions = [
   {
     name: "ciam",
     type: "list",
-    message: "Which CIAM provider would you like to use?",
+    message: "Which cIAM provider would you like to use?",
     choices: [{ name: "AWS Cognito", value: "cognito" }],
   },
 ];
