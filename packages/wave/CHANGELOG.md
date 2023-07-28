@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- Added command to automatically update dependencies upon generation
+- Adding conditional spinner
 
 ## 0.2.0
 
