@@ -5,9 +5,9 @@ import ora, { Ora } from "ora";
 import chalk from "chalk";
 import pkg from "fs-extra";
 import { satisfies } from "semver";
+import { execSync } from "child_process";
 import { PackageManagerName, PACKAGE_MANAGERS, GeneratorResponse } from "../types/index.js";
 import { getPackageManagerVersion } from "./get-package-manager-version.js";
-import { execSync } from "child_process";
 const { copy, exists, writeFile, readFile, move } = pkg;
 
 export const copyTemplate = async (
