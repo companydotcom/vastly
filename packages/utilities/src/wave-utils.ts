@@ -1,7 +1,3 @@
-export interface WaveOptions {
-  name?: string;
-  accountId?: string;
-  stage?: string;
-}
+import { WaveConfig } from "@vastly/types";
 
-export const defineConfig = (options: WaveOptions) => options;
+export const defineConfig = (options: WaveConfig) => options;

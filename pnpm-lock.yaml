@@ -624,6 +624,9 @@ importers:
 
   packages/utilities:
     dependencies:
+      '@vastly/types':
+        specifier: workspace:*
+        version: link:../types
       react:
         specifier: '>=18.0.0'
         version: 18.2.0

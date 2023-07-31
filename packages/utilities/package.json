@@ -15,7 +15,9 @@
     "dev": "tsc -w",
     "lint": "TIMING=1 eslint \"src/**/*.ts*\""
   },
-  "dependencies": {},
+  "dependencies": {
+    "@vastly/types": "workspace:*"
+  },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.111",
     "@types/react": "^18.0.17",

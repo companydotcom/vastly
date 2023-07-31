@@ -27,7 +27,7 @@ export function getConfigFilePath() {
   return CONFIG_FILE_PATH;
 }
 
-// reads Vastly global "config" file atomically
+// reads Vastly global Vastly global "config" file atomically
 export const readVastlyConfigFile = () => {
   const config = loadJsonFileSync(CONFIG_FILE_PATH);
   return config as Config;
