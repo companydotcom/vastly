@@ -1,6 +1,6 @@
 {
   "name": "@vastly/wave",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Vastly's Wave Package",
   "author": "Vastly",
   "license": "MIT",
@@ -51,6 +51,7 @@
     "find-up": "^6.3.0",
     "fs-extra": "^11.1.0",
     "inquirer": "^9.1.5",
+    "joycon": "3.1.1",
     "js-yaml": "^4.1.0",
     "load-json-file": "^7.0.1",
     "node-fetch": "^3.3.1",
