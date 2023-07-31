@@ -8,8 +8,15 @@ export interface JSONObject {
   [key: string]: JSONValue;
 }
 
+export interface WaveOptions {
+  name?: string;
+  stage?: string;
+  accountId?: string;
+}
+
 export interface ConfigContent {
   token?: string;
+  wave?: WaveOptions;
 }
 
 export type Config = ConfigContent | Record<string, any>;

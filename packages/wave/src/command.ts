@@ -3,7 +3,12 @@ import { mkdirp } from "fs-extra";
 import { Config } from "@vastly/types";
 import { errorToString, isErrnoException } from "@vastly/utils";
 import type { PackageJson } from "type-fest";
-import { readConfigFile, writeToConfigFile, getConfigFilePath } from "./util/config/files.js";
+import {
+  readVastlyConfigFile,
+  readWaveConfigFile,
+  writeToConfigFile,
+  getConfigFilePath,
+} from "./util/config/files.js";
 import getGlobalPathConfig from "./util/config/files.js";
 import { defaultConfig } from "./util/config/defaults.js";
 
@@ -27,7 +32,7 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
 
   let config: Config | undefined;
   try {
-    config = readConfigFile();
+    config = readVastlyConfigFile();
   } catch (err: unknown) {
     if (isErrnoException(err) && err.code === "ENOENT") {
       config = defaultConfig;
@@ -49,6 +54,16 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
       );
       return 1;
     }
+  }
+
+  try {
+    config.wave = readWaveConfigFile();
+  } catch (err: unknown) {
+    output.error(
+      `An unexpected error occurred while trying to read the config in "${process.cwd()}" ${errorToString(
+        err,
+      )}`,
+    );
   }
 
   const client = makeClient.default({
@@ -91,13 +106,13 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
       await func(client, arg);
     });
 
-    program
-      .command("codegen")
-      .description("Generate GraphQL types and front-end hooks")
-      .action(async (arg) => {
-        const func = (await import("./commands/codegen/index.js")).default;
-        await func(client);
-      });
+  program
+    .command("codegen")
+    .description("Generate GraphQL types and front-end hooks")
+    .action(async (arg) => {
+      const func = (await import("./commands/codegen/index.js")).default;
+      await func(client);
+    });
 
   return program;
 }

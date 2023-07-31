@@ -1,5 +1,11 @@
 # @vastly/types
 
+## 2.4.3
+
+### Patch Changes
+
+- add config loader to wave package
+
 ## 2.4.2
 
 ### Patch Changes

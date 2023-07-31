@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.13.3
+
+### Patch Changes
+
+- add config loader to wave package
+
 ## 0.13.2
 
 ### Patch Changes

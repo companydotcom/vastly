@@ -4,6 +4,7 @@ import xdgAppPaths from "xdg-app-paths";
 import type { XDGAppPaths } from "xdg-app-paths";
 import { loadJsonFileSync } from "load-json-file";
 import { writeJsonFileSync } from "write-json-file";
+import JoyCon from "joycon";
 
 // Returns in which directory the config should be present
 export const getGlobalPathConfig = (): string => {
@@ -24,10 +25,16 @@ export function getConfigFilePath() {
   return CONFIG_FILE_PATH;
 }
 
-// reads "config" file atomically
-export const readConfigFile = () => {
+// reads Vastly global "config" file atomically
+export const readVastlyConfigFile = () => {
   const config = loadJsonFileSync(CONFIG_FILE_PATH);
   return config as Config;
+};
+
+export const readWaveConfigFile = () => {
+  const joycon = new JoyCon();
+
+  return joycon.loadSync(["wave.config.ts"]);
 };
 
 export const writeToConfigFile = (authConfig: Config, filePath?: string) => {

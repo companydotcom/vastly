@@ -1,5 +1,11 @@
 # @vastly/wave
 
+## 0.2.2
+
+### Patch Changes
+
+- add config loader to wave package
+
 ## 0.2.1
 
 ### Patch Changes
