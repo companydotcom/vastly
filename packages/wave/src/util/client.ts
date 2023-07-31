@@ -1,5 +1,5 @@
 import inquirer from "inquirer";
-import { JSONObject, Config } from "@vastly/types";
+import { JSONObject, Config, WaveConfig } from "@vastly/types";
 import fetch, { BodyInit, Headers, RequestInit } from "node-fetch";
 import { Output } from "./output/index.js";
 import { responseError } from "./error.js";
@@ -19,6 +19,7 @@ export interface ClientOptions {
   stderr: NodeJS.WriteStream;
   output: Output;
   config: Config;
+  waveConfig: WaveConfig | undefined;
   apiUrl: string;
 }
 
@@ -80,6 +81,7 @@ export default function makeClient(opts: ClientOptions) {
     fetch: request,
     apiUrl: opts.apiUrl,
     config: opts.config,
+    waveConfig: opts.waveConfig,
     prompt,
   };
 }

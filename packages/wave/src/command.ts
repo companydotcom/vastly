@@ -56,24 +56,27 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
     }
   }
 
-  try {
-    config.wave = readWaveConfigFile();
-  } catch (err: unknown) {
-    output.error(
-      `An unexpected error occurred while trying to read the config in "${process.cwd()}" ${errorToString(
-        err,
-      )}`,
-    );
-  }
-
   const client = makeClient.default({
     stdin: process.stdin,
     stdout: process.stdout,
     stderr: process.stderr,
     output,
     config,
+    waveConfig: undefined,
     apiUrl: "https://api.vastly.is",
   });
+
+  try {
+    const waveConfig = await readWaveConfigFile(process.cwd());
+    client.waveConfig = waveConfig.data;
+  } catch (err: unknown) {
+    output.error(
+      `An unexpected error occurred while trying to read the wave.config.ts file in "${process.cwd()}" -- ${errorToString(
+        err,
+      )}`,
+    );
+    return 1;
+  }
 
   program
     .name("wave")

@@ -1,4 +1,4 @@
-import { defineConfig } from "@vastly/wave";
+import { defineConfig } from "@vastly/utils";
 
 export default defineConfig({
   name: "wave",

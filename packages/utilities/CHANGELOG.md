@@ -1,5 +1,11 @@
 # @vastly/utils
 
+## 0.3.1
+
+### Patch Changes
+
+- updates provenance. updates wave.config.ts reader.
+
 ## 0.3.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @vastly/ui
 
+## 0.4.1
+
+### Patch Changes
+
+- updates provenance. updates wave.config.ts reader.
+- Updated dependencies
+  - @vastly/utils@0.3.1
+
 ## 0.4.0
 
 ### Minor Changes

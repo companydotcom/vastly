@@ -1,6 +1,6 @@
 {
   "name": "@vastly/utils",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "main": "./dist/index.js",
   "source": "./src/index.ts",
   "types": "./dist/index.d.ts",
@@ -31,7 +31,8 @@
     "react-dom": ">=18.0.0"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "repository": {
     "url": "git+https://github.com/companydotcom/vastly"
