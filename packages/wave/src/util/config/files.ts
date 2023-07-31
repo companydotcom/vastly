@@ -1,10 +1,12 @@
+import JoyCon from "joycon";
+import { bundleRequire } from "bundle-require";
+import { defineConfig } from "@vastly/utils";
 import { Config } from "@vastly/types";
-import { join } from "path";
+import path, { join } from "path";
 import xdgAppPaths from "xdg-app-paths";
 import type { XDGAppPaths } from "xdg-app-paths";
 import { loadJsonFileSync } from "load-json-file";
 import { writeJsonFileSync } from "write-json-file";
-import JoyCon from "joycon";
 
 // Returns in which directory the config should be present
 export const getGlobalPathConfig = (): string => {
@@ -25,16 +27,36 @@ export function getConfigFilePath() {
   return CONFIG_FILE_PATH;
 }
 
-// reads Vastly global "config" file atomically
+// reads Vastly global Vastly global "config" file atomically
 export const readVastlyConfigFile = () => {
   const config = loadJsonFileSync(CONFIG_FILE_PATH);
   return config as Config;
 };
 
-export const readWaveConfigFile = () => {
-  const joycon = new JoyCon();
+export const readWaveConfigFile = async (
+  cwd: string,
+): Promise<{ path?: string; data?: ReturnType<typeof defineConfig> }> => {
+  const configJoycon = new JoyCon();
 
-  return joycon.loadSync(["wave.config.ts"]);
+  const configPath = configJoycon.resolveSync({
+    files: ["wave.config.ts"],
+    cwd,
+    stopDir: path.parse(cwd).root,
+    packageKey: "wave",
+  });
+
+  if (configPath) {
+    const config = await bundleRequire({
+      filepath: configPath,
+    });
+
+    return {
+      path: configPath,
+      data: config.mod.wave || config.mod.default || config.mod,
+    };
+  }
+
+  return {};
 };
 
 export const writeToConfigFile = (authConfig: Config, filePath?: string) => {

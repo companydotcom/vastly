@@ -7,16 +7,14 @@ export type JSONValue = Primitive | JSONObject | JSONArray;
 export interface JSONObject {
   [key: string]: JSONValue;
 }
-
-export interface WaveOptions {
-  name?: string;
-  stage?: string;
-  accountId?: string;
-}
-
 export interface ConfigContent {
   token?: string;
-  wave?: WaveOptions;
+}
+
+export interface WaveConfig {
+  name?: string;
+  accountId?: string;
+  stage?: string;
 }
 
 export type Config = ConfigContent | Record<string, any>;

@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.13.4
+
+### Patch Changes
+
+- updates provenance. updates wave.config.ts reader.
+
 ## 0.13.3
 
 ### Patch Changes

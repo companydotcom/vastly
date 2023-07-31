@@ -1,5 +1,11 @@
 # @vastly/types
 
+## 2.4.4
+
+### Patch Changes
+
+- updates provenance. updates wave.config.ts reader.
+
 ## 2.4.3
 
 ### Patch Changes

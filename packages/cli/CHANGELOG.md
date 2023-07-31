@@ -1,5 +1,13 @@
 # cli
 
+## 0.12.9
+
+### Patch Changes
+
+- updates provenance. updates wave.config.ts reader.
+- Updated dependencies
+  - @vastly/utils@0.3.1
+
 ## 0.12.8
 
 ### Patch Changes
