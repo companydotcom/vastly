@@ -57,7 +57,7 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
     stderr: process.stderr,
     output,
     config,
-    apiUrl: "https://api.vastly.is",
+    apiUrl: "https://yldoj16x76.execute-api.us-east-1.amazonaws.com/prod",
   });
 
   program
