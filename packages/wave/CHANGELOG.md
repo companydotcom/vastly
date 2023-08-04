@@ -1,5 +1,11 @@
 # @vastly/wave
 
+## 0.3.0
+
+### Minor Changes
+
+- Adding local dev functionality, logs for the creator. Edits README.md
+
 ## 0.2.3
 
 ### Patch Changes
