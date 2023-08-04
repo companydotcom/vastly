@@ -13,7 +13,7 @@ const serverlessConfiguration: AWS = {
   provider: {
     name: "aws",
     runtime: "nodejs16.x",
-    stage: "dev",
+    stage: "prod",
     region: "us-east-1",
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
@@ -174,7 +174,7 @@ const serverlessConfiguration: AWS = {
                 Principal: {
                   AWS: {
                     "Fn::Sub":
-                      "arn:aws:iam::${AWS::AccountId}:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_DeploymentAdmin_aec4cb4b8a3e5bce",
+                      "arn:aws:iam::${AWS::AccountId}:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AWSAdministratorAccess_2a9aec0b20bfee72",
                   },
                 },
                 Action: [

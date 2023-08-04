@@ -13,7 +13,7 @@ const serverlessConfiguration: AWS = {
   provider: {
     name: "aws",
     runtime: "nodejs16.x",
-    stage: "dev",
+    stage: "prod",
     region: "us-east-1",
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
