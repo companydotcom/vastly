@@ -1,5 +1,11 @@
 # cli
 
+## 0.12.10
+
+### Patch Changes
+
+- temporarily changes default API gateway url
+
 ## 0.12.9
 
 ### Patch Changes
