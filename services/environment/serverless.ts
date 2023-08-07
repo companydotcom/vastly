@@ -8,7 +8,7 @@ const serverlessConfiguration: AWS = {
   provider: {
     name: "aws",
     runtime: "nodejs16.x",
-    stage: "dev",
+    stage: "prod",
     region: "us-east-1",
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
@@ -53,21 +53,21 @@ const serverlessConfiguration: AWS = {
           TableName: "env",
           KeySchema: [
             {
-              AttributeName: "projects",
+              AttributeName: "keyName",
               KeyType: "HASH",
             },
             {
-              AttributeName: "environment_keyName",
+              AttributeName: "keyValue",
               KeyType: "RANGE",
             },
           ],
           AttributeDefinitions: [
             {
-              AttributeName: "projects",
+              AttributeName: "keyName",
               AttributeType: "S",
             },
             {
-              AttributeName: "environment_keyName",
+              AttributeName: "keyValue",
               AttributeType: "S",
             },
           ],
