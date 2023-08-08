@@ -1,7 +1,7 @@
 import React from "react";
-import { UiProvider } from "../src/providers/ui-provider";
 import { Preview } from "@storybook/react";
-import { baseTheme } from '../src/theme';
+import { UiProvider } from "../src/providers/ui-provider";
+import { baseTheme } from "../src/theme";
 
 const preview: Preview = {
   parameters: {
@@ -13,20 +13,20 @@ const preview: Preview = {
       },
       expanded: true,
       exclude: /^_|as|html/,
-      sort: 'requiredFirst'
+      sort: "requiredFirst",
     },
     options: {
       storySort: {
-        order: ['Introduction','Components', ['Dotted Spinner', 'Pagination', '*']]
-      }
-    }
+        order: ["Introduction", "Components", ["Dotted Spinner", "Pagination", "*"]],
+      },
+    },
   },
   decorators: [
     (Story) => (
       <UiProvider theme={baseTheme}>
-      <Story />
-    </UiProvider>
-    )
+        <Story />
+      </UiProvider>
+    ),
   ],
 };
 
