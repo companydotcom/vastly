@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.13.5
+
+### Patch Changes
+
+- pinning prisma version
+
 ## 0.13.4
 
 ### Patch Changes

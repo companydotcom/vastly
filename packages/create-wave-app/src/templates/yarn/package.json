@@ -13,7 +13,7 @@
   "devDependencies": {
     "@vastly/utils": "0.3.1",
     "@vastly/cli": "0.12.9",
-    "@vastly/wave": "0.2.3",
+    "@vastly/wave": "0.2.4",
     "@vastly/types": "2.4.4",
     "@vastly/eslint-config-custom": "0.5.0",
     "turbo": "1.10.11"
