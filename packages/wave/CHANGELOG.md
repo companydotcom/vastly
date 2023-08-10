@@ -5,6 +5,11 @@
 ### Minor Changes
 
 - Update prisma-appsync microservice template
+## 0.2.4
+
+### Patch Changes
+
+- pinning prisma version for stability
 
 ## 0.2.3
 
