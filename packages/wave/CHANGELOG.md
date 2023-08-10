@@ -1,5 +1,11 @@
 # @vastly/wave
 
+## 0.3.0
+
+### Minor Changes
+
+- Update prisma-appsync microservice template
+
 ## 0.2.3
 
 ### Patch Changes
