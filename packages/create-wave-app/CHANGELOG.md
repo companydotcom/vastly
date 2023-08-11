@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.13.6
+
+### Patch Changes
+
+- Output credentials for appsync api
+
 ## 0.13.5
 
 ### Patch Changes

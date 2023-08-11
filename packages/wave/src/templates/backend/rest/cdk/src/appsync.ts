@@ -35,7 +35,7 @@ export class AppSyncStack extends Stack {
     private props: AppSyncStackProps
     private resourcesPrefix: string
     private resourcesPrefixCamel: string
-    private graphqlApi: appSync.GraphqlApi
+    protected graphqlApi: appSync.GraphqlApi
     private directResolverFn: lambda.Alias
     private apiRole: iam.Role
     private dataSources: {
@@ -207,5 +207,13 @@ export class AppSyncStack extends Stack {
             api: this.graphqlApi,
             name: `${this.resourcesPrefixCamel}NoneDataSource`,
         })
+    }
+
+    public getApiUrl(): string {
+        return this.graphqlApi.graphqlUrl;
+    }
+
+    public getApiKey(): string | undefined {
+        return this.graphqlApi.apiKey;
     }
 }

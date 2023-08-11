@@ -1,6 +1,6 @@
 /* eslint-disable no-new */
 import { join } from 'path'
-import { App } from 'aws-cdk-lib'
+import { App, CfnOutput } from 'aws-cdk-lib'
 import { AuthorizationType } from 'aws-cdk-lib/aws-appsync'
 import { kebabCase } from 'scule'
 import { AppSyncStack } from './appsync'
@@ -9,7 +9,7 @@ const app = new App()
 
 const serviceName = "Service Name";
 
-new AppSyncStack(app, kebabCase(serviceName), {
+const appSyncStack = new AppSyncStack(app, kebabCase(serviceName), {
   resourcesPrefix: serviceName,
     schema: join(process.cwd(), 'prisma/generated/prisma-appsync/schema.gql'),
     resolvers: join(process.cwd(), 'prisma/generated/prisma-appsync/resolvers.yaml'),
@@ -57,6 +57,16 @@ new AppSyncStack(app, kebabCase(serviceName), {
             authorizationType: AuthorizationType.API_KEY,
         },
     },
+})
+
+new CfnOutput(appSyncStack, 'AppSyncApiUrlOutput', {
+  value: appSyncStack.getApiUrl(),
+  description: 'AppSync API URL',
+})
+
+new CfnOutput(appSyncStack, 'AppSyncApiKeyOutput', {
+  value: appSyncStack.getApiKey() || '',
+  description: 'AppSync API Key',
 })
 
 app.synth()

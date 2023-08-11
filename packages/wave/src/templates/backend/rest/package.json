@@ -15,7 +15,7 @@
   },
   "scripts": {
     "generate": "npx prisma generate",
-    "dev": "npx prisma generate && DATABASE_URL='file:dev.sqlite' npx prisma db push --accept-data-loss && DATABASE_URL='file:dev.sqlite' npx vite-node ./server.ts --watch -- --schema prisma/generated/prisma-appsync/schema.gql --watchers '[{\"watch\":[\"**/*.prisma\",\"*.prisma\"],\"exec\":\"npx prisma generate && DATABASE_URL='file:dev.sqlite' npx prisma db push --accept-data-loss && touch ./server.ts\"}]'",
+    "dev": "npx wave dev",
     "db": "npx prisma studio",
     "deploy": "npx cdk synth && npx cdk bootstrap && npx cdk deploy"
   }
