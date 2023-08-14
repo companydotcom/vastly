@@ -1,10 +1,22 @@
 # @vastly/wave
 
+## 0.3.1
+
+### Patch Changes
+
+- Output credentials for appsync api
+
 ## 0.3.0
 
 ### Minor Changes
 
-- Adding local dev functionality, logs for the creator. Edits README.md
+- Update prisma-appsync microservice template
+
+## 0.2.4
+
+### Patch Changes
+
+- pinning prisma version for stability
 
 ## 0.2.3
 
