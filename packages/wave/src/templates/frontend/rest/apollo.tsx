@@ -3,7 +3,7 @@ import { createAuthLink, AUTH_TYPE } from "aws-appsync-auth-link";
 import { createSubscriptionHandshakeLink } from "aws-appsync-subscription-link";
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink, ApolloLink } from "@apollo/client";
 
-const url = ""; // Appsync API Endpoint URL
+const url = ""; // Appsync API Endpoint URL or localhost
 
 const region = "";
 

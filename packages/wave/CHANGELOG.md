@@ -1,5 +1,11 @@
 # @vastly/wave
 
+## 0.4.0
+
+### Minor Changes
+
+- Fills gaps in codegen command, adds git ignore, reworks env database
+
 ## 0.3.1
 
 ### Patch Changes

@@ -119,7 +119,7 @@ https://next-auth.js.org/
 ##### Local GraphQL Server
 
 1. To start your local graphQL server, run `npm run dev`
-2. This will automatically push your Prisma Schema changes to a SQLite database, as well as launch a
+2. This will automatically load and push your Prisma Schema changes to a SQLite database (a local file: `dev.sqlite`), as well as launch a
    local GraphQL IDE server (with auto-reload and TS support).
 
 ##### Local Database Server
@@ -134,7 +134,15 @@ https://next-auth.js.org/
 3. Run `npm run deploy`
 
 #### - Generating Frontend Hooks
+##### Local development
+1. Navigate to your microservice directory
+2. Run `npm run dev`
+3. Add your local GraphQL server url into `apps/client/apollo.tsx`
+4. In a different terminal window, navigate to `apps/client`
+5. Run `npx wave codegen`
+5. Types and front end hooks will be generated in the `graphql-types.ts` in the graphql folder
 
+##### Deployed development
 1. Navigate to `apps/client`
 2. Run `npm install`
 3. Update the `apollo.tsx` file in the `apps/client` folder with your generated Appsync API `url`,

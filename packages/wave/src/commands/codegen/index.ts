@@ -31,23 +31,27 @@ export default async function codegen(client: Client) {
         console.log(
           `- Inside the ${chalk.underline.blueBright(
             "graphql-types.ts",
-          )} file, you'll find all your generated types plus hooks for use in your front-end applications.\n Scroll to the bottom of the file for further instructions on their usage!\n`,
+          )} file, you'll find all your generated types plus hooks for use in your frontend applications.\n Scroll to the bottom of the file for further instructions on their usage!\n`,
         );
       } else {
+        spinner.fail();
         spinner.fail(
           `Make sure your Apollo Client is configured correctly! --> ${chalk.underline.cyan(
-            "apollo.tsx\n",
-          )}`,
+            "apollo.tsx",
+          )}\n`,
         );
-        throw new Error("Command failed with exit code 1");
+        console.log("Want to generate and develop locally?");
+        console.log("Go to https://docs.vastly.is/guides/local-dev for more information!");
       }
     } else {
       spinner.fail(
-        `No microservice(s) detected!\n Run ${chalk.bold.italic.yellow(
-          "wave generate service",
+        `No microservice(s) detected!\n\n Run ${chalk.italic.gray(
+          " wave generate service ",
         )} to get started\n`,
       );
-      throw new Error("Command failed with exit code 1");
+      throw new Error(
+        "If you believe this is an error, check to make sure you're in the correct working directory\nCommand failed with exit code 1",
+      );
     }
   } catch (err: unknown) {
     output.error(err as string);
@@ -57,11 +61,11 @@ export default async function codegen(client: Client) {
 // Checks if apollo.tsx is configured
 const isApolloConfigured = async (client: Client) => {
   const { output } = client;
-  const regex = /[url, region, apiKey]\s[=, :]\s"";/;
+  const urlRegex = /const\s+url\s*=\s*("|')\s*\S.*\s*\1\s*;/;
 
   try {
     const apolloContents = await readFile("./apollo.tsx", "utf-8");
-    if (apolloContents.match(regex)) {
+    if (!apolloContents.match(urlRegex)) {
       return false;
     }
     return true;
