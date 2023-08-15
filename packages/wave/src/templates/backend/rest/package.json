@@ -17,6 +17,6 @@
     "generate": "npx prisma generate",
     "dev": "npx wave dev",
     "db": "npx prisma studio",
-    "deploy": "npx cdk synth && npx cdk bootstrap && npx cdk deploy"
+    "deploy": "npx cdk synth && npx cdk bootstrap && npx cdk deploy <%= appName %> --outputs-file ./deploy-outputs.json"
   }
 }

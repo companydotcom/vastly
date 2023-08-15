@@ -53,21 +53,21 @@ const serverlessConfiguration: AWS = {
           TableName: "env",
           KeySchema: [
             {
-              AttributeName: "projects",
+              AttributeName: "keyName",
               KeyType: "HASH",
             },
             {
-              AttributeName: "environment_keyName",
+              AttributeName: "keyValue",
               KeyType: "RANGE",
             },
           ],
           AttributeDefinitions: [
             {
-              AttributeName: "projects",
+              AttributeName: "keyName",
               AttributeType: "S",
             },
             {
-              AttributeName: "environment_keyName",
+              AttributeName: "keyValue",
               AttributeType: "S",
             },
           ],

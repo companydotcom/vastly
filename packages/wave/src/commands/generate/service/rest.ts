@@ -32,7 +32,8 @@ export const generateRestService = async (client: Client, name: string, descript
       // write service name and description to package.json
       const templateContents = await readFile(`./services/${serviceName}/package.json`, "utf-8");
       const modifiedTemplateContents = templateContents
-        .replace("<%= appName %>", serviceName)
+        // @ts-ignore -- replaceAll
+        .replaceAll("<%= appName %>", serviceName)
         .replace("<%= description %>", description);
       await writeFile(`./services/${serviceName}/package.json`, modifiedTemplateContents);
 
