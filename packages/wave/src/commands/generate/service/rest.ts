@@ -28,6 +28,7 @@ export const generateRestService = async (client: Client, name: string, descript
       // backend
       await ensureDir(`./services/${serviceName}`);
       await copy(backendTemplate, `./services/${serviceName}`);
+      await move(`./services/${serviceName}/_gitignore`, `./services/${serviceName}/.gitignore`);
 
       // write service name and description to package.json
       const templateContents = await readFile(`./services/${serviceName}/package.json`, "utf-8");
