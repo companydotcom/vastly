@@ -1,5 +1,11 @@
 # cli
 
+## 0.12.11
+
+### Patch Changes
+
+- Changes api url
+
 ## 0.12.10
 
 ### Patch Changes

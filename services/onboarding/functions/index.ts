@@ -83,6 +83,9 @@ export const functions: AWS["functions"] = {
   createAuthChallenge: {
     handler: "functions/create-auth-challenge.handler",
   },
+  preTokenGeneration: {
+    handler: "functions/pre-token-generation.handler",
+  },
   verifyAuthChallengeResponse: {
     handler: "functions/verify-auth-challenge-response.handler",
     environment: {
