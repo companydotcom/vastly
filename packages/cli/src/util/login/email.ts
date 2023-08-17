@@ -5,9 +5,11 @@ import { AddressInfo } from "net";
 import { Client } from "../client.js";
 import executeLogin from "./execute-login.js";
 import { getTokens } from "./get-tokens.js";
+import { Account } from "../../types/index.js";
 
 export interface LoginResultSuccess {
   token?: string;
+  accounts?: Account[];
   success: boolean;
 }
 
@@ -40,7 +42,7 @@ export default async function doEmailLogin(client: Client, email: string): Promi
   try {
     const tokens = await getTokens(client, server);
     output.spinner.stop();
-    return { token: tokens?.token, success: true };
+    return { token: tokens?.token, accounts: tokens?.accounts, success: true };
   } catch (err) {
     output.spinner.fail("Trouble listening to verification");
     output.error(errorToString(err));

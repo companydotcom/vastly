@@ -1,5 +1,11 @@
 # cli
 
+## 0.12.12
+
+### Patch Changes
+
+- Adds account retrieval from config
+
 ## 0.12.11
 
 ### Patch Changes

@@ -37,6 +37,7 @@
     "@middy/http-json-body-parser": "^4.2.6",
     "@middy/input-output-logger": "4.5.2",
     "@vastly/utils": "workspace:*",
+    "aws-jwt-verify": "4.0.0",
     "aws-lambda": "^1.0.7"
   },
   "private": true

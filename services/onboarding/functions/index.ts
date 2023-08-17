@@ -60,6 +60,7 @@ export const functions: AWS["functions"] = {
     ],
     environment: {
       APP_CLIENT_ID: { Ref: "WebUserPoolClient" },
+      USER_POOL_ID: { Ref: "PasswordlessMagicLinksUserPool" },
     },
   },
   logOut: {

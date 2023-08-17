@@ -940,6 +940,9 @@ importers:
       '@vastly/utils':
         specifier: workspace:*
         version: link:../../packages/utilities
+      aws-jwt-verify:
+        specifier: 4.0.0
+        version: 4.0.0
       aws-lambda:
         specifier: ^1.0.7
         version: 1.0.7
@@ -1004,9 +1007,6 @@ importers:
       '@vastly/utils':
         specifier: workspace:*
         version: link:../../packages/utilities
-      aws-jwt-verify:
-        specifier: 4.0.0
-        version: 4.0.0
       aws-lambda:
         specifier: ^1.0.7
         version: 1.0.7
