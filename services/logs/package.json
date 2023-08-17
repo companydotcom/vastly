@@ -4,10 +4,7 @@
   "description": "A TypeScript starter for Serverless Framework",
   "scripts": {
     "dev": "serverless offline start",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .serverless && rm -rf .esbuild",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "test:ui": "vitest --ui"
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .serverless && rm -rf .esbuild"
   },
   "author": "",
   "license": "MIT",
