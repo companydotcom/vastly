@@ -38,7 +38,7 @@ export default async function login(client: Client) {
 
     if (typeof result !== "number" && "success" in result) {
       // write result (tokens) to config file here
-      writeToConfigFile({ token: result.token });
+      writeToConfigFile({ token: result.token, accounts: result.accounts });
     }
 
     return 0;

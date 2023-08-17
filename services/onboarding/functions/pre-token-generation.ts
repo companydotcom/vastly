@@ -1,39 +1,43 @@
 import { PreTokenGenerationTriggerHandler } from "aws-lambda";
-import { DynamoDBClient, QueryCommand } from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocument, GetCommand } from "@aws-sdk/lib-dynamodb";
+
+const dynamoClient = new DynamoDBClient({ region: "us-east-1" });
+export const docClient = DynamoDBDocument.from(dynamoClient);
 
 const handler: PreTokenGenerationTriggerHandler = async (event) => {
   console.log("PreTokenGenerationTriggerHandler= : event", event);
 
-  // const params = {
-  //     TableName: "your-table-name",
-  //     KeyConditionExpression: "#organizationKey = :organizationValue and #accountId = :accountValue",
-  //     ExpressionAttributeNames: {
-  //       "#organizationKey": "organizationKey",
-  //       "#accountId": "accountId"
-  //     },
-  //     ExpressionAttributeValues: {
-  //       ":organizationValue": { S: organizationKey },
-  //       ":accountValue": { S: accountId }
-  //     }
-  //   };
+  const organization = event.request.userAttributes["custom:organization"];
+
+  const command = new GetCommand({
+    TableName: "User",
+    Key: {
+      user_id: event.userName,
+      organization,
+    },
+  });
+
   try {
-    // TODO: Implement your custom logic here
+    // @ts-ignore issue with the aws-sdk libraries
+    // https://github.com/aws/aws-sdk-js-v3/issues/3390
+    const { Item } = await docClient.send(command);
 
-    // Modify the response object if necessary
-    // For example, to add custom claims to the ID token:
+    const accounts = JSON.stringify(Item?.accounts);
 
+    // Modify the response object to add accounts for the user. This should now appear on their cognito id token
     event.response.claimsOverrideDetails = {
       claimsToAddOrOverride: {
-        custom_claim_key: "custom_claim_value",
-        // Add more custom claims as needed
+        accounts,
       },
     };
 
     return event;
   } catch (error) {
-    // Handle errors gracefully
     console.error("Error handling pre-token generation:", error);
     throw error;
+  } finally {
+    dynamoClient.destroy();
   }
 };
 

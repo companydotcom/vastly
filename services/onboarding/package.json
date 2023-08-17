@@ -27,8 +27,10 @@
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.298.0",
+    "@aws-sdk/client-dynamodb": "^3.312.0",
     "@aws-sdk/client-kms": "^3.297.0",
     "@aws-sdk/client-ses": "^3.298.0",
+    "@aws-sdk/lib-dynamodb": "^3.325.0",
     "@aws-sdk/util-base64": "^3.310.0",
     "@middy/core": "^4.2.7",
     "@middy/http-cors": "^4.2.7",
@@ -36,6 +38,7 @@
     "@middy/http-json-body-parser": "^4.2.6",
     "@middy/input-output-logger": "4.5.2",
     "@vastly/utils": "workspace:*",
+    "aws-jwt-verify": "4.0.0",
     "aws-lambda": "^1.0.7"
   },
   "private": true

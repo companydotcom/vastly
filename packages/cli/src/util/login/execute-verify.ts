@@ -1,7 +1,9 @@
+import { Account } from "../../types/index.js";
 import { Client } from "../client.js";
 
 export interface VerifyResult {
   token: string;
+  accounts?: Account[];
 }
 
 export default async function executeVerify(

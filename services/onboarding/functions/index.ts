@@ -60,6 +60,7 @@ export const functions: AWS["functions"] = {
     ],
     environment: {
       APP_CLIENT_ID: { Ref: "WebUserPoolClient" },
+      USER_POOL_ID: { Ref: "PasswordlessMagicLinksUserPool" },
     },
   },
   logOut: {
@@ -85,6 +86,18 @@ export const functions: AWS["functions"] = {
   },
   preTokenGeneration: {
     handler: "functions/pre-token-generation.handler",
+    // @ts-expect-error no types for serverless-iam-roles-per-function
+    iamRoleStatements: [
+      {
+        Effect: "Allow",
+        Action: "dynamodb:GetItem",
+        Resource: [
+          {
+            "Fn::GetAtt": ["UserTable", "Arn"],
+          },
+        ],
+      },
+    ],
   },
   verifyAuthChallengeResponse: {
     handler: "functions/verify-auth-challenge-response.handler",
