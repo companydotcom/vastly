@@ -112,6 +112,24 @@ const serverlessConfiguration: AWS = {
           },
         },
       },
+      UserTable: {
+        Type: "AWS::DynamoDB::Table",
+        Properties: {
+          TableName: "User",
+          AttributeDefinitions: [
+            { AttributeName: "user_id", AttributeType: "S" },
+            { AttributeName: "organization", AttributeType: "S" },
+          ],
+          KeySchema: [
+            { AttributeName: "user_id", KeyType: "HASH" },
+            { AttributeName: "organization", KeyType: "RANGE" },
+          ],
+          ProvisionedThroughput: {
+            ReadCapacityUnits: 5,
+            WriteCapacityUnits: 5,
+          },
+        },
+      },
       WebUserPoolClient: {
         Type: "AWS::Cognito::UserPoolClient",
         Properties: {
