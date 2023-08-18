@@ -2,7 +2,7 @@ import type { AWS } from "@serverless/typescript";
 import { functions } from "./functions";
 
 const serverlessConfiguration: AWS = {
-  service: "vastly",
+  service: "logs",
   frameworkVersion: "3.28.1",
   plugins: [
     "serverless-esbuild",
