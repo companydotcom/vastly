@@ -34,8 +34,13 @@ const handler: PreTokenGenerationTriggerHandler = async (event) => {
 
     return event;
   } catch (error) {
-    console.error("Error handling pre-token generation:", error);
-    throw error;
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        status: "ERROR_GENERATING_TOKEN",
+        message: error.message,
+      }),
+    };
   } finally {
     dynamoClient.destroy();
   }
