@@ -1,4 +1,3 @@
-import { errorToString } from "@vastly/utils";
 import { Account } from "../../types/index.js";
 import { Client } from "../client.js";
 
@@ -12,7 +11,6 @@ export default async function executeVerify(
   email: string | string[],
   token: string,
 ): Promise<VerifyResult | number> {
-  const { output } = client;
   try {
     return await client.fetch<VerifyResult>(`${client.apiUrl}/onboarding/verify`, {
       method: "POST",

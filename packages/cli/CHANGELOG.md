@@ -1,5 +1,11 @@
 # cli
 
+## 0.12.13
+
+### Patch Changes
+
+- Fixes CLI localhost error routing
+
 ## 0.12.12
 
 ### Patch Changes
