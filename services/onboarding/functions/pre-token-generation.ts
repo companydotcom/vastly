@@ -8,7 +8,11 @@ export const docClient = DynamoDBDocument.from(dynamoClient);
 const handler: PreTokenGenerationTriggerHandler = async (event) => {
   console.log("PreTokenGenerationTriggerHandler= : event", event);
 
-  const organization = event.request.userAttributes["custom:organization"];
+  const organization = event.request?.userAttributes?.["custom:organization"];
+
+  if (!organization) {
+    throw new Error("Custom organization attribute missing from Cognito User.");
+  }
 
   const command = new GetCommand({
     TableName: "User",
