@@ -9,12 +9,19 @@ export interface JSONObject {
 }
 export interface ConfigContent {
   token?: string;
+  accounts?: Account[];
+}
+
+export interface Account {
+  account_alias: string;
+  account_id: number;
 }
 
 export interface WaveConfig {
   name?: string;
   accountId?: string;
   stage?: string;
+  hostedZone: "vastly.tech";
 }
 
 export type Config = ConfigContent | Record<string, any>;

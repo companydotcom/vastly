@@ -58,6 +58,19 @@ export const copyTemplate = async (
       await writeFile(`./package.json`, modifiedTemplateContents);
     }
 
+    // update wave config
+    let configContents = await readFile("./wave.config.ts", "utf-8");
+    // appName will be used in CloudFormation stack names,
+    // need to make sure it's valid
+    configContents = configContents.replace(
+      "<%= appName %>",
+      repoName
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^A-Za-z0-9-]/g, ""),
+    );
+    await writeFile("./wave.config.ts", configContents);
+
     spinner.succeed(chalk.green("wave-app generator completed successfully"));
     return { success: true };
   } catch (error) {

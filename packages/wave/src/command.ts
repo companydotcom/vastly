@@ -92,13 +92,16 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
       await func(client);
     });
 
-  program
-    .command("deploy")
-    .description("Deploy your wave app")
-    .action(async () => {
-      const func = (await import("./commands/deploy/index.js")).default;
-      await func(client);
-    });
+    program
+      .command("deploy")
+      .description("Deploy your wave app")
+      .addArgument(
+        new Argument("<action>", "deploy options").choices(["frontend", "backend", "fullstack"]),
+      )
+      .action(async (arg) => {
+        const func = (await import("./commands/deploy/index.js")).default;
+        await func(client, arg);
+      });
 
   program
     .command("generate")
