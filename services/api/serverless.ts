@@ -56,6 +56,41 @@ const serverlessConfiguration: AWS = {
           RouteSelectionExpression: "$request.body.action",
         },
       },
+      SharedAuthorizer: {
+        DependsOn: ["VastlyApi"],
+        Type: "AWS::ApiGateway::Authorizer",
+        Properties: {
+          Name: "SharedAuthorizer",
+          RestApiId: { Ref: "VastlyApi" },
+          Type: "TOKEN",
+          IdentitySource: "method.request.header.Authorization",
+          AuthorizerUri: {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:apigateway:",
+                "${self:provider.region}",
+                ":lambda:path/",
+                "2015-03-31/functions/",
+                { "Fn::GetAtt": ["AuthLambdaFunction", "Arn"] },
+                "/invocations",
+              ],
+            ],
+          },
+        },
+      },
+      AuthorizerPermission: {
+        Type: "AWS::Lambda::Permission",
+        Properties: {
+          FunctionName: {
+            "Fn::GetAtt": ["AuthLambdaFunction", "Arn"],
+          },
+          Action: "lambda:InvokeFunction",
+          Principal: {
+            "Fn::Join": ["", ["apigateway.", { Ref: "AWS::URLSuffix" }]],
+          },
+        },
+      },
     },
     Outputs: {
       VastlyApiRestId: {
@@ -74,6 +109,14 @@ const serverlessConfiguration: AWS = {
         Value: { "Fn::GetAtt": ["AuthLambdaFunction", "Arn"] },
         Export: {
           Name: "SharedAuthorizerArn",
+        },
+      },
+      SharedAuthorizerId: {
+        Value: {
+          Ref: "SharedAuthorizer",
+        },
+        Export: {
+          Name: "SharedAuthId",
         },
       },
     },
