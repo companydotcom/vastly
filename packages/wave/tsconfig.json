@@ -9,7 +9,7 @@
 		"target": "ESNext",
 		"esModuleInterop": true,
 		"allowJs": true,
-		"lib": ["ES2020"],
+		"lib": ["ES2021"],
 		"resolveJsonModule": true,
 		"sourceMap": true,
 		"outDir": "./dist",
