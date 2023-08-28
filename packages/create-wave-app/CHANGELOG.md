@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.14.0
+
+### Minor Changes
+
+- Fills gaps in codegen command, adds git ignore, reworks env database
+
 ## 0.13.6
 
 ### Patch Changes

@@ -86,6 +86,15 @@ const serverlessConfiguration: AWS = {
               AttributeDataType: "String",
               Mutable: true,
               Required: false,
+              Name: "organization",
+              StringAttributeConstraints: {
+                MinLength: "2",
+              },
+            },
+            {
+              AttributeDataType: "String",
+              Mutable: true,
+              Required: false,
               Name: "authChallenge",
               StringAttributeConstraints: {
                 MinLength: "8",
@@ -99,6 +108,25 @@ const serverlessConfiguration: AWS = {
             VerifyAuthChallengeResponse: {
               "Fn::GetAtt": ["VerifyAuthChallengeResponseLambdaFunction", "Arn"],
             },
+            PreTokenGeneration: { "Fn::GetAtt": ["PreTokenGenerationLambdaFunction", "Arn"] },
+          },
+        },
+      },
+      UserTable: {
+        Type: "AWS::DynamoDB::Table",
+        Properties: {
+          TableName: "User",
+          AttributeDefinitions: [
+            { AttributeName: "user_id", AttributeType: "S" },
+            { AttributeName: "organization", AttributeType: "S" },
+          ],
+          KeySchema: [
+            { AttributeName: "user_id", KeyType: "HASH" },
+            { AttributeName: "organization", KeyType: "RANGE" },
+          ],
+          ProvisionedThroughput: {
+            ReadCapacityUnits: 5,
+            WriteCapacityUnits: 5,
           },
         },
       },
@@ -117,6 +145,15 @@ const serverlessConfiguration: AWS = {
           Action: "lambda:invokeFunction",
           Principal: "cognito-idp.amazonaws.com",
           FunctionName: { Ref: "PreSignUpLambdaFunction" },
+          SourceArn: { "Fn::GetAtt": ["PasswordlessMagicLinksUserPool", "Arn"] },
+        },
+      },
+      PreTokenGenerationPermission: {
+        Type: "AWS::Lambda::Permission",
+        Properties: {
+          Action: "lambda:invokeFunction",
+          Principal: "cognito-idp.amazonaws.com",
+          FunctionName: { Ref: "PreTokenGenerationLambdaFunction" },
           SourceArn: { "Fn::GetAtt": ["PasswordlessMagicLinksUserPool", "Arn"] },
         },
       },

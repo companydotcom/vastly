@@ -1,5 +1,23 @@
 # cli
 
+## 0.12.13
+
+### Patch Changes
+
+- Fixes CLI localhost error routing
+
+## 0.12.12
+
+### Patch Changes
+
+- Adds account retrieval from config
+
+## 0.12.11
+
+### Patch Changes
+
+- Changes api url
+
 ## 0.12.10
 
 ### Patch Changes

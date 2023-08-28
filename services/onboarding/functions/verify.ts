@@ -11,10 +11,18 @@ import cors from "@middy/http-cors";
 import inputOutputLogger from "@middy/input-output-logger";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import httpErrorHandler from "@middy/http-error-handler";
+import { CognitoJwtVerifier } from "aws-jwt-verify";
 
-const { AWS_REGION, APP_CLIENT_ID } = process.env;
+const { AWS_REGION, USER_POOL_ID, APP_CLIENT_ID } = process.env;
 
 const cognitoClient = new CognitoIdentityProviderClient({ region: AWS_REGION });
+
+// Verifier that expects valid jwt tokens:
+const verifier = CognitoJwtVerifier.create({
+  userPoolId: USER_POOL_ID || "",
+  tokenUse: "id",
+  clientId: APP_CLIENT_ID || "",
+});
 
 const verify = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const { email, token } = typeof event.body === "string" ? JSON.parse(event.body) : event.body;
@@ -52,10 +60,19 @@ const verify = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResul
     const respondToChallengeCommand = new RespondToAuthChallengeCommand(challengeParams);
     const authResponse = await cognitoClient.send(respondToChallengeCommand);
 
+    let accounts: any = undefined;
+
+    if (authResponse.AuthenticationResult?.IdToken) {
+      const payload = await verifier.verify(authResponse.AuthenticationResult?.IdToken);
+
+      accounts = JSON.parse(payload.accounts as string);
+    }
+
     return {
       statusCode: 200,
       body: JSON.stringify({
         token: authResponse?.AuthenticationResult?.AccessToken,
+        accounts,
       }),
     };
   } catch (err) {

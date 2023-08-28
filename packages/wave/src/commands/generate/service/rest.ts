@@ -6,9 +6,9 @@ import nexpect from "nexpect";
 import lodashPkg from "lodash";
 import * as path from "path";
 import { fileURLToPath } from "url";
-import { Client } from "../../../../util/client.js";
+import { Client } from "../../../util/client.js";
 
-const { existsSync, readFile, writeFile, readJson, writeJson, ensureDir, copy } = pkg;
+const { existsSync, readFile, writeFile, readJson, writeJson, ensureDir, copy, move } = pkg;
 const { kebabCase, camelCase } = lodashPkg;
 
 export const generateRestService = async (
@@ -27,6 +27,7 @@ export const generateRestService = async (
     "../../../../../dist/templates/frontend",
     "rest",
   );
+  const backendTemplate = path.resolve(__dirname, "../../../../../dist/templates/backend", "rest");
 
   try {
     spinner = ora({
@@ -61,8 +62,17 @@ export const generateRestService = async (
               await writeFile(`./prisma/schema.prisma`, modifiedSchemaContents);
               execSync("npm run generate");
 
+              // .gitignore
+              await copy(backendTemplate, `./`);
+              await move(`./_gitignore`, `./.gitignore`);
+
               // add db and deploy commands, and description to packagejson
-              await writeToBackendPackageJson("./package.json", description);
+              await writeToBackendPackageJson(
+                "./package.json",
+                description,
+                deploy,
+                kebabCaseServiceName,
+              );
               console.log(
                 ` ${chalk.underline.bold.green(
                   `${kebabCaseServiceName}`,
@@ -206,7 +216,23 @@ export const generateRestService = async (
   }
 };
 
-const writeToBackendPackageJson = async (filePath: string, description: string) => {
+const writeToBackendPackageJson = async (
+  filePath: string,
+  description: string,
+  deploy: string | undefined,
+  serviceName: string,
+) => {
+  const backendPackageJson = {
+    scripts: {
+      db: "npx prisma studio",
+      deploy: `${
+        deploy === "amplify"
+          ? "npx wave deploy amplify"
+          : `npx cdk synth && npx cdk bootstrap && npx cdk deploy ${serviceName} --outputs-file ./deploy-outputs.json`
+      }`,
+    },
+  };
+
   try {
     const packageJson = await readJson(filePath);
 
@@ -223,14 +249,21 @@ const writeToBackendPackageJson = async (filePath: string, description: string) 
   }
 };
 
-const backendPackageJson = {
-  scripts: {
-    db: "npx prisma studio",
-    deploy: "npx wave deploy amplify",
-  },
-};
-
 const writeToFrontendPackageJson = async (filePath: string) => {
+  const frontendPackageJson = {
+    dependencies: {
+      "@apollo/client": "^3.7.14",
+      "@graphql-codegen/typescript-operations": "^4.0.0",
+      "@graphql-codegen/typescript-react-apollo": "^3.3.7",
+      "@graphql-codegen/typescript-resolvers": "^3.2.1",
+      "aws-appsync-auth-link": "^3.0.7",
+      "aws-appsync-subscription-link": "^3.1.2",
+      graphql: "^16.6.0",
+      "@graphql-codegen/cli": "^3.3.1",
+      uuid: "9.0.0",
+    },
+  };
+
   try {
     const packageJson = await readJson(filePath);
 
@@ -243,18 +276,4 @@ const writeToFrontendPackageJson = async (filePath: string) => {
   } catch (error) {
     console.error("Error writing to package.json:", error);
   }
-};
-
-const frontendPackageJson = {
-  dependencies: {
-    "@apollo/client": "^3.7.14",
-    "@graphql-codegen/typescript-operations": "^4.0.0",
-    "@graphql-codegen/typescript-react-apollo": "^3.3.7",
-    "@graphql-codegen/typescript-resolvers": "^3.2.1",
-    "aws-appsync-auth-link": "^3.0.7",
-    "aws-appsync-subscription-link": "^3.1.2",
-    graphql: "^16.6.0",
-    "@graphql-codegen/cli": "^3.3.1",
-    uuid: "9.0.0",
-  },
 };

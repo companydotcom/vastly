@@ -1,5 +1,5 @@
 import { Client } from "../../../util/client.js";
-import { generateRestService } from "./rest/index.js";
+import { generateRestService } from "./rest.js";
 import { generateEdaService } from "./eda.js";
 import { generateStreamingService } from "./streaming.js";
 import { ServiceAnswers } from "../../../types";

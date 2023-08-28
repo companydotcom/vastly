@@ -2,6 +2,7 @@ import { Server, IncomingMessage, ServerResponse } from "http";
 import executeVerify from "./execute-verify.js";
 import { Client } from "../client.js";
 import { errorToString } from "@vastly/utils";
+import { Account } from "../../types/index.js";
 
 export async function getTokens(
   client: Client,
@@ -14,9 +15,9 @@ export async function getTokens(
   output.spinner.start("Waiting for verification\n");
 
   try {
-    const token: Promise<{ token: string }> = new Promise(async (resolve, reject) => {
-      server.once("request", async (req, res) => {
-        try {
+    const token: Promise<{ token: string; accounts?: Account[] }> = new Promise(
+      async (resolve, reject) => {
+        server.once("request", async (req, res) => {
           // Close the HTTP connection to prevent
           // `server.close()` from hanging
           res.setHeader("connection", "close");
@@ -38,31 +39,32 @@ export async function getTokens(
               token?.toString(),
             );
 
-            if (authResponse) {
+            if (typeof authResponse === "number") {
+              location.pathname += "fail";
+              output.spinner.fail("Verification failed");
+              reject();
+            } else {
               location.pathname += "success";
               resolve({
                 token: authResponse?.token,
+                accounts: authResponse?.accounts,
               });
+
+              output.spinner.succeed("Verification success");
             }
           }
-
-          output.spinner.succeed("Verification success");
 
           res.statusCode = 302;
           res.setHeader("location", location.href);
           res.end();
-        } catch (error) {
-          reject(error);
-        }
-      });
+        });
 
-      server.once("error", reject);
-    });
+        server.once("error", reject);
+      },
+    );
 
     return await token;
   } catch (err) {
-    location.pathname += "fail";
-    output.spinner.fail("Verification failed");
     output.debug(errorToString(err));
     process.exit();
   } finally {

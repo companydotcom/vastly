@@ -1,5 +1,11 @@
 # environment
 
+## 0.5.0
+
+### Minor Changes
+
+- Fills gaps in codegen command, adds git ignore, reworks env database
+
 ## 0.4.1
 
 ### Patch Changes
