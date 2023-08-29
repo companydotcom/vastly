@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.14.1
+
+### Patch Changes
+
+- update @vastly/wave versions
+
 ## 0.14.0
 
 ### Minor Changes

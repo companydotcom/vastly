@@ -1,5 +1,11 @@
 # @vastly/wave
 
+## 0.5.0
+
+### Minor Changes
+
+- add deploy amplify command
+
 ## 0.4.1
 
 ### Patch Changes

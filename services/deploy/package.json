@@ -1,0 +1,35 @@
+{
+  "name": "deploy-service",
+  "version": "0.1.0",
+  "description": "A TypeScript starter for Serverless Framework",
+  "scripts": {
+    "dev": "serverless offline start",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .serverless && rm -rf .esbuild",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@serverless/typescript": "^3.30.1",
+    "@types/aws-lambda": "^8.10.119",
+    "@vastly/eslint-config-custom-server": "workspace:*",
+    "esbuild": "^0.19.2",
+    "eslint": "^8.47.0",
+    "serverless": "^3.34.0",
+    "serverless-esbuild": "^1.46.0",
+    "serverless-offline": "^12.0.4",
+    "tsconfig": "workspace:*",
+    "vitest": "0.34.2"
+  },
+  "dependencies": {
+    "@aws-sdk/client-sts": "3.398.0",
+    "@middy/core": "^4.6.0",
+    "@middy/http-cors": "^4.6.0",
+    "@middy/http-error-handler": "^4.6.0",
+    "@middy/http-json-body-parser": "^4.6.0",
+    "@vastly/utils": "workspace:*",
+    "aws-lambda": "^1.0.7"
+  },
+  "private": true
+}
