@@ -10,12 +10,29 @@ const deployFrontend = async ({
   pathParameters,
 }: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   const account_Id = pathParameters?.account_Id;
-  // assume role here?
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify(""),
-  };
+  try {
+    const stsClient = new STSClient({ region: AWS_REGION });
+    // Hard-coded account_Id for infra-prod account
+    const input = {
+      RoleArn: "arn:aws:iam::908170539157:role/DeployAssumeRole",
+      RoleSessionName: "testAssumeDeployRoleSession",
+      DurationSeconds: 900, // minimum 15 minutes
+    };
+
+    const command = new AssumeRoleCommand(input);
+    const response = await stsClient.send(command);
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(response.Credentials),
+    };
+  } catch (error) {
+    return {
+      statusCode: error.$metadata.httpStatusCode,
+      body: JSON.stringify(error.message),
+    };
+  }
 };
 
 const handler = middy(deployFrontend).use(cors()).use(httpErrorHandler());
