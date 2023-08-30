@@ -1,11 +1,10 @@
 {
   "name": "deploy-service",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A TypeScript starter for Serverless Framework",
   "scripts": {
     "dev": "serverless offline start",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .serverless && rm -rf .esbuild",
-    "test": "vitest run",
     "test:watch": "vitest"
   },
   "author": "",
@@ -18,6 +17,7 @@
     "eslint": "^8.47.0",
     "serverless": "^3.34.0",
     "serverless-esbuild": "^1.46.0",
+    "serverless-iam-roles-per-function": "^3.2.0",
     "serverless-offline": "^12.0.4",
     "tsconfig": "workspace:*",
     "vitest": "0.34.2"

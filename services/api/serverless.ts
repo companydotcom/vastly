@@ -24,7 +24,6 @@ const serverlessConfiguration: AWS = {
   functions: { ...functions },
   package: { individually: true },
   custom: {
-    domain: "api.vastly.is",
     "serverless-offline": {
       httpPort: 4000,
       useChildProcesses: true,
@@ -60,6 +59,7 @@ const serverlessConfiguration: AWS = {
         DependsOn: ["VastlyApi"],
         Type: "AWS::ApiGateway::Authorizer",
         Properties: {
+          AuthorizerResultTtlInSeconds: 0,
           Name: "SharedAuthorizer",
           RestApiId: { Ref: "VastlyApi" },
           Type: "TOKEN",
