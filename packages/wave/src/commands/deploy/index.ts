@@ -9,6 +9,9 @@ export default async function determineDeployCommand(client: Client, action: str
       case "amplify":
         await deployAmplify(client);
         break;
+      case "sst":
+        await deployFrontend(client, "dev");
+        break;
       default:
         console.log(`${chalk.red("Missing action! Your choices are `amplify`")}`);
     }

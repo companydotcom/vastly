@@ -1,5 +1,11 @@
 # cli
 
+## 0.12.14
+
+### Patch Changes
+
+- @vastly/utils@0.3.2
+
 ## 0.12.13
 
 ### Patch Changes

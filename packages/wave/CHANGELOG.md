@@ -1,5 +1,12 @@
 # @vastly/wave
 
+## 0.5.1
+
+### Patch Changes
+
+- Creates deploy service, refactors api gateway authorizer, writes sst deployment command
+  - @vastly/utils@0.3.2
+
 ## 0.5.0
 
 ### Minor Changes

@@ -1,5 +1,12 @@
 # @vastly/utils
 
+## 0.3.2
+
+### Patch Changes
+
+- Updated dependencies
+  - @vastly/types@2.4.5
+
 ## 0.3.1
 
 ### Patch Changes

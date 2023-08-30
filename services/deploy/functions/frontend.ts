@@ -2,7 +2,7 @@ import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import middy from "@middy/core";
 import httpErrorHandler from "@middy/http-error-handler";
 import cors from "@middy/http-cors";
-import { STSClient, AssumeRoleCommand } from '@aws-sdk/client-sts';
+import { STSClient, AssumeRoleCommand } from "@aws-sdk/client-sts";
 
 const { AWS_REGION } = process.env;
 

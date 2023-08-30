@@ -95,7 +95,7 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
   program
     .command("deploy")
     .description("Deploy your wave app")
-    .addArgument(new Argument("<action>", "deploy options").choices(["amplify"]))
+    .addArgument(new Argument("<action>", "deploy options").choices(["amplify", "sst"]))
     .action(async (arg) => {
       const func = (await import("./commands/deploy/index.js")).default;
       await func(client, arg);

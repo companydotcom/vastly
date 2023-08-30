@@ -1,5 +1,11 @@
 # @vastly/types
 
+## 2.4.5
+
+### Patch Changes
+
+- Creates deploy service, refactors api gateway authorizer, writes sst deployment command
+
 ## 2.4.4
 
 ### Patch Changes
