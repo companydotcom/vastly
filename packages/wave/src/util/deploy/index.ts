@@ -16,7 +16,8 @@ export default async function doDeploy(client: Client, stage: string) {
     throw Error();
   }
   try {
-    return await executeDeploy(client, stage);
+    const res = await executeDeploy(client, stage);
+    return res;
   } catch (err: unknown) {
     output.error(errorToString(err));
     return;
@@ -29,18 +30,17 @@ async function executeDeploy(client: Client, stage: string): Promise<DeployResul
 
   try {
     // hardcoded account_id (stage) to infra-prod
-    return await client.fetch<DeployResult>(`${apiUrl}/deploy/908170539157`, {
+    const res: DeployResult = await client.fetch(`${apiUrl}/deploy/908170539157`, {
       method: "POST",
-      headers: {
-        // Authorization: client.config.token,
-      },
     });
+    return res;
   } catch (err: unknown) {
     if (isAPIError(err)) {
       if (err.code === "USER_NOT_FOUND") {
         throw new Error("User not found. Please sign up.");
       }
     }
+
     throw new Error(`Unexpected error: ${errorToString(err)}`);
   }
 }

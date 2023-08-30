@@ -1,5 +1,11 @@
 # @vastly/wave
 
+## 0.5.2
+
+### Patch Changes
+
+- Fixed deploy command in Wave CLI authorization issues
+
 ## 0.5.1
 
 ### Patch Changes

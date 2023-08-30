@@ -4,7 +4,7 @@ import { functions } from "./../deploy/functions/index";
 const serverlessConfiguration: AWS = {
   service: "deploy",
   frameworkVersion: "3.34.0",
-  plugins: ["serverless-esbuild", "serverless-offline"],
+  plugins: ["serverless-esbuild", "serverless-offline", "serverless-iam-roles-per-function"],
   provider: {
     name: "aws",
     runtime: "nodejs16.x",
@@ -30,7 +30,6 @@ const serverlessConfiguration: AWS = {
   functions: { ...functions },
   package: { individually: true },
   custom: {
-    domain: "api.vastly.is",
     "serverless-offline": {
       httpPort: 4000,
       useChildProcesses: true,
@@ -44,9 +43,6 @@ const serverlessConfiguration: AWS = {
       define: { "require.resolve": undefined },
       platform: "node",
       concurrency: 10,
-    },
-    sharedAuthorizer: {
-      "Fn::ImportValue": "SharedAuthorizerArn",
     },
   },
   resources: {

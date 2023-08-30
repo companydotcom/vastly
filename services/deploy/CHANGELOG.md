@@ -1,5 +1,11 @@
 # deploy-service
 
+## 0.2.1
+
+### Patch Changes
+
+- Fixed deploy command in Wave CLI authorization issues
+
 ## 0.2.0
 
 ### Minor Changes

@@ -18,7 +18,7 @@ export default async function deployFrontend(client: Client, stage: string) {
   });
 
   try {
-    const credentials = await doDeploy(client, "dev");
+    const credentials = await doDeploy(client, "sandbox");
 
     if (existsSync("./.env")) {
       const envContents = await readFile("./.env", "utf8");
