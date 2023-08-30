@@ -9,6 +9,11 @@ export const functions: AWS["functions"] = {
         http: {
           method: "post",
           path: "/env/{env}",
+          cors: true,
+          authorizer: {
+            type: "CUSTOM",
+            authorizerId: { "Fn::ImportValue": "SharedAuthId" },
+          },
         },
       },
     ],
@@ -33,6 +38,11 @@ export const functions: AWS["functions"] = {
         http: {
           method: "delete",
           path: "/env/{env}",
+          cors: true,
+          authorizer: {
+            type: "CUSTOM",
+            authorizerId: { "Fn::ImportValue": "SharedAuthId" },
+          },
         },
       },
     ],
@@ -57,6 +67,11 @@ export const functions: AWS["functions"] = {
         http: {
           method: "get",
           path: "/env/{env}",
+          cors: true,
+          authorizer: {
+            type: "CUSTOM",
+            authorizerId: { "Fn::ImportValue": "SharedAuthId" },
+          },
         },
       },
     ],

@@ -1,13 +1,14 @@
 import type { AWS } from "@serverless/typescript";
 
 export const functions: AWS["functions"] = {
-  getUser: {
-    handler: "functions/get-user.handler",
+  deployFrontend: {
+    handler: "functions/frontend.handler",
+    description: "Frontend deployment",
     events: [
       {
         http: {
-          method: "get",
-          path: "/user",
+          method: "post",
+          path: "/deploy/{account_Id}",
           cors: true,
           authorizer: {
             type: "CUSTOM",

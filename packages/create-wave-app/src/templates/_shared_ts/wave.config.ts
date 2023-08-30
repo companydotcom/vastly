@@ -1,7 +1,10 @@
 import { defineConfig } from "@vastly/utils";
 
-export default defineConfig({
-  name: "wave",
+const WAVE_CONFIG = defineConfig({
+  name: "<%= appName %>",
   stage: "",
   accountId: "",
+  hostedZone: "vastly.tech",
 });
+
+export default WAVE_CONFIG;
