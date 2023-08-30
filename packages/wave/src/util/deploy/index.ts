@@ -29,7 +29,7 @@ async function executeDeploy(client: Client, stage: string): Promise<DeployResul
 
   try {
     // hardcoded account_id (stage) to infra-prod
-    return await client.fetch<DeployResult>(`http://localhost:4000/prod/deploy/908170539157`, {
+    return await client.fetch<DeployResult>(`${apiUrl}/deploy/908170539157`, {
       method: "POST",
       headers: {
         // Authorization: client.config.token,
