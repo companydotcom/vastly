@@ -6,7 +6,7 @@ on:
       - DVOPS-998
     paths:
       - ./services/environment
-      - env-service.yml
+      - .github/workflows/env-service.yml
 
 jobs:
   deploy:
