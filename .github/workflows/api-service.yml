@@ -24,7 +24,7 @@ jobs:
         working-directory: ./services/api
         run: |
           npm install -g pnpm
-          yarn install
+          pnpm install
 
       - name: Configure AWS credentials for internal-infra-sandbox account
         uses: aws-actions/configure-aws-credentials@v3
