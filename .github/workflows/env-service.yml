@@ -1,0 +1,41 @@
+name: Deploy Environment Service
+
+on:
+  push:
+    branches:
+      - DVOPS-998
+    paths:
+      - ./services/environment
+      - env-service.yml
+
+jobs:
+  deploy:
+    name: Deploy Microservice
+    runs-on: ubuntu-latest
+    permissions:
+        id-token: write
+        contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Node Installation
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x.x
+      - name: Install Dependencies
+        working-directory: ./services/environment
+        run: |
+          npm install -g pnpm
+          pnpm install
+
+      - name: Configure AWS credentials for internal-infra-sandbox account
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+        # This role is created in the AWS Account via Cloudformation template
+          role-to-assume: arn:aws:iam::835710368006:role/Github-OIDC-Role-1VBH8BG5UNLDT
+          aws-region: us-east-1
+      - name: Deploy Microservice to AWS
+        working-directory: ./services/environment
+        run: npx serverless deploy
+
