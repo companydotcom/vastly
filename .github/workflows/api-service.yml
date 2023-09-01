@@ -23,7 +23,7 @@ jobs:
       - name: Install Dependencies
         working-directory: ./services/api
         run: |
-          npm install -g yarn
+          npm install -g pnpm
           yarn install
 
       - name: Configure AWS credentials for internal-infra-sandbox account
