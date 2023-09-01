@@ -5,7 +5,7 @@ on:
     branches:
       - DVOPS-998
     paths:
-      - ./services/environment
+      - ./services/environment/**
       - .github/workflows/env-service.yml
 
 jobs:

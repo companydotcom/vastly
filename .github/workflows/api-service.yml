@@ -5,7 +5,7 @@ on:
     branches:
       - DVOPS-998
     paths:
-      - ./services/api
+      - ./services/api/**
       - .github/workflows/api-service.yml
 
 jobs:
