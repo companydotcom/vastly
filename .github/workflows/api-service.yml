@@ -1,0 +1,37 @@
+name: Deploy Microservice to AWS
+
+on:
+  push:
+    branches:
+      - DVOPS-998
+
+jobs:
+  deploy:
+    name: Deploy Microservice
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Node Installation
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x.x
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install Dependencies
+        working-directory: ./services/api
+        run: npm install
+
+      - name: Configure AWS credentials for internal-infra-sandbox account
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+        # This role is created in the AWS Account via Cloudformation template
+          role-to-assume: arn:aws:iam::835710368006:role/Github-OIDC-Role-1VBH8BG5UNLDT
+          aws-region: us-east-1
+      - name: Deploy Microservice to AWS
+        working-directory: ./services/api
+        run: npx serverless deploy
+
