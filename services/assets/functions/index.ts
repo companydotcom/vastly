@@ -35,21 +35,21 @@ export const functions: AWS["functions"] = {
   //     },
   //   ],
   // },
-  // s3get: {
-  //   handler: "functions/s3/get.handler",
-  //   description: "Get assets from S3",
-  //   events: [
-  //     {
-  //       http: {
-  //         method: "get",
-  //         path: "/assets/s3/get/{asset}",
-  //         cors: true,
-  //         authorizer: {
-  //           type: "CUSTOM",
-  //           authorizerId: { "Fn::ImportValue": "SharedAuthId" },
-  //         },
-  //       },
-  //     },
-  //   ],
-  // },
+  s3getMedia: {
+    handler: "functions/s3/getMedia.handler",
+    description: "Get assets from S3",
+    events: [
+      {
+        http: {
+          method: "get",
+          path: "/assets/s3/get/{waveProjectName}/{assetType}",
+          cors: true,
+          authorizer: {
+            type: "CUSTOM",
+            authorizerId: { "Fn::ImportValue": "SharedAuthId" },
+          },
+        },
+      },
+    ],
+  },
 };

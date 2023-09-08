@@ -16,6 +16,7 @@ interface ListOrCreateMediaBucketResponse {
   location?: string;
 }
 
+// TODO: figure out fetch permissions and see if we need to have a new client for every command
 export const listOrCreateMediaBucket = async (
   client: S3Client,
   waveProjectName: string,
@@ -28,11 +29,19 @@ export const listOrCreateMediaBucket = async (
   // checks for existing assets bucket
   try {
     let assetsBucket;
-
+    const newS3Client = new S3Client({
+      region: "us-east-1",
+      credentials: {
+        accessKeyId: credentials?.AccessKeyId,
+        secretAccessKey: credentials?.SecretAccessKey,
+        sessionToken: credentials?.SessionToken,
+        expiration: credentials?.Expiration,
+      },
+    });
     const listCommand = new ListBucketsCommand({});
-    const { Buckets } = await client.send(listCommand);
+    const { Buckets } = await newS3Client.send(listCommand);
     if (Buckets?.length) {
-      assetsBucket = Buckets.find((b: Bucket) => b.Name?.includes(`${waveProjectName}-assets-5`));
+      assetsBucket = Buckets.find((b: Bucket) => b.Name?.includes(`${waveProjectName}-assets`));
     }
     if (assetsBucket?.Name) {
       return {
@@ -59,7 +68,7 @@ export const listOrCreateMediaBucket = async (
     const bucketName = `${waveProjectName}-assets-${uuid()}`;
     const input = {
       Bucket: bucketName,
-      // ObjectOwnership: "BucketOwnerPreferred",
+      ObjectOwnership: "BucketOwnerPreferred",
     };
 
     const createCommand = new CreateBucketCommand(input);

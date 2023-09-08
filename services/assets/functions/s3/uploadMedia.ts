@@ -10,7 +10,7 @@ import { listOrCreateMediaBucket, roleChaining } from "../../lib/utils";
 
 const { AWS_REGION } = process.env;
 
-const s3upload = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+const s3uploadMedia = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const projectName = event.pathParameters?.waveProjectName;
     const file = event.body?.["file"];
@@ -40,16 +40,16 @@ const s3upload = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyRes
 
     const detectedMime = file?.mimetype || "unspecifiedMimeType";
 
-    // create unique object names
-    const Key = `${detectedMime}/${new Date().toLocaleDateString("en-CA")}/${file.filename}`;
+    const Key = `${detectedMime?.split("/")[0]}/${file?.filename}`;
     const input = {
-      Body: file.content,
+      Body: file?.content,
       Key,
       ContentType: detectedMime,
       ContentMD5: createHash("md5").update(file.content).digest("base64"),
       Bucket: bucketName,
       RequestPayer: "requester",
-      // ACL: "bucket-owner-full-control",
+      Tagging: `type=${detectedMime?.split("/")[0]}&format=${detectedMime?.split("/")[1]}`,
+      ACL: "public-read",
     };
 
     console.log(`Writing image to bucket: ${Key}`);
@@ -89,7 +89,7 @@ const s3upload = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyRes
   }
 };
 
-const handler = middy(s3upload)
+const handler = middy(s3uploadMedia)
   .use(cors())
   .use(httpErrorHandler())
   .use(httpHeaderNormalizer())
