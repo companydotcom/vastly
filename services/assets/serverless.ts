@@ -2,7 +2,7 @@ import type { AWS } from "@serverless/typescript";
 import { functions } from "./functions/index";
 
 const serverlessConfiguration: AWS = {
-  service: "deploy",
+  service: "assets",
   frameworkVersion: "3.34.0",
   plugins: ["serverless-esbuild", "serverless-offline"],
   provider: {
@@ -16,6 +16,7 @@ const serverlessConfiguration: AWS = {
     },
     deploymentMethod: "direct",
     apiGateway: {
+      binaryMediaTypes: ["*/*"],
       restApiId: {
         "Fn::ImportValue": "ApiRestId",
       },
@@ -45,16 +46,13 @@ const serverlessConfiguration: AWS = {
       platform: "node",
       concurrency: 10,
     },
-    sharedAuthorizer: {
-      "Fn::ImportValue": "SharedAuthorizerArn",
-    },
   },
   resources: {
     Resources: {
-      deployAssumeRole: {
+      assetServiceRole: {
         Type: "AWS::IAM::Role",
         Properties: {
-          RoleName: "DeployAssumeRole",
+          RoleName: "AssetServiceRole",
           AssumeRolePolicyDocument: {
             Version: "2012-10-17",
             Statement: [
@@ -69,14 +67,14 @@ const serverlessConfiguration: AWS = {
           },
           Policies: [
             {
-              PolicyName: "SSTDeployPolicy",
+              PolicyName: "AssetServicePolicy",
               PolicyDocument: {
                 Version: "2012-10-17",
                 Statement: [
                   {
                     Effect: "Allow",
-                    Action: ["cloudformation:*", "s3:*", "iam:*", "lambda:*", "ecr:*", "ssm:*"],
-                    Resource: ["*"],
+                    Action: "s3:*",
+                    Resource: "*",
                   },
                 ],
               },
@@ -86,9 +84,9 @@ const serverlessConfiguration: AWS = {
       },
     },
     Outputs: {
-      DeployAssumeRoleOutput: {
-        Value: { Ref: "deployAssumeRole" },
-        Export: { Name: "DeployAssumeRoleArn-${self:provider.stage}" },
+      AssetServiceRoleOutput: {
+        Value: { "Fn::GetAtt": ["assetServiceRole", "Arn"] },
+        Export: { Name: "AssetServiceRoleArn" },
       },
     },
   },
