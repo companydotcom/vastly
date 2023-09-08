@@ -7,7 +7,7 @@
 - Creates Asset service, reusable AssumeRole utility, upload lambda functioning
 - Updated dependencies
   - @vastly/utils@0.4.0
-
+- Fixed deploy command in Wave CLI authorization issues
 ## 0.2.0
 
 ### Minor Changes

@@ -37,7 +37,7 @@ importers:
         version: 13.1.0
       prettier:
         specifier: latest
-        version: 3.0.2
+        version: 3.0.3
       tsup:
         specifier: ^6.5.0
         version: 6.5.0(ts-node@10.9.1)(typescript@4.9.5)
@@ -311,13 +311,13 @@ importers:
     dependencies:
       eslint-config-next:
         specifier: latest
-        version: 13.4.16(eslint@8.48.0)(typescript@4.9.5)
+        version: 13.4.4(eslint@8.48.0)(typescript@4.9.5)
       eslint-config-prettier:
         specifier: ^8.3.0
         version: 8.3.0(eslint@8.48.0)
       eslint-config-turbo:
         specifier: latest
-        version: 1.10.12(eslint@8.48.0)
+        version: 1.10.0(eslint@8.48.0)
       eslint-plugin-react:
         specifier: 7.28.0
         version: 7.28.0(eslint@8.48.0)
@@ -329,7 +329,7 @@ importers:
     dependencies:
       eslint-config-turbo:
         specifier: latest
-        version: 1.10.12(eslint@8.48.0)
+        version: 1.10.0(eslint@8.48.0)
     devDependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.56.0
@@ -687,7 +687,7 @@ importers:
         version: 6.2.0
       bundle-require:
         specifier: 4.0.1
-        version: 4.0.1(esbuild@0.17.19)
+        version: 4.0.1(esbuild@0.19.2)
       chalk:
         specifier: ^4.1.2
         version: 4.1.2
@@ -724,6 +724,9 @@ importers:
       load-json-file:
         specifier: ^7.0.1
         version: 7.0.1
+      lodash:
+        specifier: 4.17.21
+        version: 4.17.21
       nexpect:
         specifier: 0.6.0
         version: 0.6.0
@@ -901,6 +904,9 @@ importers:
       serverless-esbuild:
         specifier: ^1.46.0
         version: 1.46.0(esbuild@0.19.2)
+      serverless-iam-roles-per-function:
+        specifier: ^3.2.0
+        version: 3.2.0
       serverless-offline:
         specifier: ^12.0.4
         version: 12.0.4(serverless@3.34.0)
@@ -918,7 +924,7 @@ importers:
         version: 3.312.0
       '@aws-sdk/lib-dynamodb':
         specifier: ^3.325.0
-        version: 3.325.0(@aws-sdk/client-dynamodb@3.312.0)(@aws-sdk/smithy-client@3.374.0)(@aws-sdk/types@3.391.0)
+        version: 3.325.0(@aws-sdk/client-dynamodb@3.312.0)(@aws-sdk/smithy-client@3.374.0)(@aws-sdk/types@3.398.0)
       '@aws-sdk/util-dynamodb':
         specifier: ^3.312.0
         version: 3.312.0
@@ -994,7 +1000,7 @@ importers:
         version: 3.298.0
       '@aws-sdk/lib-dynamodb':
         specifier: ^3.325.0
-        version: 3.325.0(@aws-sdk/client-dynamodb@3.312.0)(@aws-sdk/smithy-client@3.374.0)(@aws-sdk/types@3.391.0)
+        version: 3.325.0(@aws-sdk/client-dynamodb@3.312.0)(@aws-sdk/smithy-client@3.374.0)(@aws-sdk/types@3.398.0)
       '@aws-sdk/util-base64':
         specifier: ^3.310.0
         version: 3.310.0
@@ -3904,7 +3910,7 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@aws-sdk/lib-dynamodb@3.325.0(@aws-sdk/client-dynamodb@3.312.0)(@aws-sdk/smithy-client@3.374.0)(@aws-sdk/types@3.391.0):
+  /@aws-sdk/lib-dynamodb@3.325.0(@aws-sdk/client-dynamodb@3.312.0)(@aws-sdk/smithy-client@3.374.0)(@aws-sdk/types@3.398.0):
     resolution: {integrity: sha512-AnnqJWyTf/UfEKdgroLQYo7fRnteT6HrATtu7AEJOJPo3Ufb1+uHKmmdSDlk22McDQq/FyXnNc8Dfjup8a5CdA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -3914,7 +3920,7 @@ packages:
     dependencies:
       '@aws-sdk/client-dynamodb': 3.312.0
       '@aws-sdk/smithy-client': 3.374.0
-      '@aws-sdk/types': 3.391.0
+      '@aws-sdk/types': 3.398.0
       '@aws-sdk/util-dynamodb': 3.325.0
       tslib: 2.6.1
     dev: false
@@ -8726,6 +8732,7 @@ packages:
     cpu: [arm64]
     os: [android]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/android-arm64@0.18.20:
@@ -8743,7 +8750,6 @@ packages:
     cpu: [arm64]
     os: [android]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/android-arm@0.15.18:
@@ -8770,6 +8776,7 @@ packages:
     cpu: [arm]
     os: [android]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/android-arm@0.18.20:
@@ -8787,7 +8794,6 @@ packages:
     cpu: [arm]
     os: [android]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/android-x64@0.17.11:
@@ -8805,6 +8811,7 @@ packages:
     cpu: [x64]
     os: [android]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/android-x64@0.18.20:
@@ -8822,7 +8829,6 @@ packages:
     cpu: [x64]
     os: [android]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/darwin-arm64@0.17.11:
@@ -8840,6 +8846,7 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/darwin-arm64@0.18.20:
@@ -8857,7 +8864,6 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/darwin-x64@0.17.11:
@@ -8875,6 +8881,7 @@ packages:
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/darwin-x64@0.18.20:
@@ -8892,7 +8899,6 @@ packages:
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/freebsd-arm64@0.17.11:
@@ -8910,6 +8916,7 @@ packages:
     cpu: [arm64]
     os: [freebsd]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/freebsd-arm64@0.18.20:
@@ -8927,7 +8934,6 @@ packages:
     cpu: [arm64]
     os: [freebsd]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/freebsd-x64@0.17.11:
@@ -8945,6 +8951,7 @@ packages:
     cpu: [x64]
     os: [freebsd]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/freebsd-x64@0.18.20:
@@ -8962,7 +8969,6 @@ packages:
     cpu: [x64]
     os: [freebsd]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-arm64@0.17.11:
@@ -8980,6 +8986,7 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/linux-arm64@0.18.20:
@@ -8997,7 +9004,6 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-arm@0.17.11:
@@ -9015,6 +9021,7 @@ packages:
     cpu: [arm]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/linux-arm@0.18.20:
@@ -9032,7 +9039,6 @@ packages:
     cpu: [arm]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-ia32@0.17.11:
@@ -9050,6 +9056,7 @@ packages:
     cpu: [ia32]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/linux-ia32@0.18.20:
@@ -9067,7 +9074,6 @@ packages:
     cpu: [ia32]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-loong64@0.15.18:
@@ -9094,6 +9100,7 @@ packages:
     cpu: [loong64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/linux-loong64@0.18.20:
@@ -9111,7 +9118,6 @@ packages:
     cpu: [loong64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-mips64el@0.17.11:
@@ -9129,6 +9135,7 @@ packages:
     cpu: [mips64el]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/linux-mips64el@0.18.20:
@@ -9146,7 +9153,6 @@ packages:
     cpu: [mips64el]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-ppc64@0.17.11:
@@ -9164,6 +9170,7 @@ packages:
     cpu: [ppc64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/linux-ppc64@0.18.20:
@@ -9181,7 +9188,6 @@ packages:
     cpu: [ppc64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-riscv64@0.17.11:
@@ -9199,6 +9205,7 @@ packages:
     cpu: [riscv64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/linux-riscv64@0.18.20:
@@ -9216,7 +9223,6 @@ packages:
     cpu: [riscv64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-s390x@0.17.11:
@@ -9234,6 +9240,7 @@ packages:
     cpu: [s390x]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/linux-s390x@0.18.20:
@@ -9251,7 +9258,6 @@ packages:
     cpu: [s390x]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/linux-x64@0.17.11:
@@ -9269,6 +9275,7 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/linux-x64@0.18.20:
@@ -9286,7 +9293,6 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/netbsd-x64@0.17.11:
@@ -9304,6 +9310,7 @@ packages:
     cpu: [x64]
     os: [netbsd]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/netbsd-x64@0.18.20:
@@ -9321,7 +9328,6 @@ packages:
     cpu: [x64]
     os: [netbsd]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/openbsd-x64@0.17.11:
@@ -9339,6 +9345,7 @@ packages:
     cpu: [x64]
     os: [openbsd]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/openbsd-x64@0.18.20:
@@ -9356,7 +9363,6 @@ packages:
     cpu: [x64]
     os: [openbsd]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/sunos-x64@0.17.11:
@@ -9374,6 +9380,7 @@ packages:
     cpu: [x64]
     os: [sunos]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/sunos-x64@0.18.20:
@@ -9391,7 +9398,6 @@ packages:
     cpu: [x64]
     os: [sunos]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/win32-arm64@0.17.11:
@@ -9409,6 +9415,7 @@ packages:
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/win32-arm64@0.18.20:
@@ -9426,7 +9433,6 @@ packages:
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/win32-ia32@0.17.11:
@@ -9444,6 +9450,7 @@ packages:
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/win32-ia32@0.18.20:
@@ -9461,7 +9468,6 @@ packages:
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@esbuild/win32-x64@0.17.11:
@@ -9479,6 +9485,7 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
+    dev: true
     optional: true
 
   /@esbuild/win32-x64@0.18.20:
@@ -9496,7 +9503,6 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
   /@eslint-community/eslint-utils@4.4.0(eslint@7.32.0):
@@ -10269,8 +10275,8 @@ packages:
   /@next/env@13.3.4:
     resolution: {integrity: sha512-oTK/wRV2qga86m/4VdrR1+/56UA6U1Qv3sIgowB+bZjahniZLEG5BmmQjfoGv7ZuLXBZ8Eec6hkL9BqJcrEL2g==}
 
-  /@next/eslint-plugin-next@13.4.16:
-    resolution: {integrity: sha512-QuFtQl+oSEEQb0HMYBdvBoUaTiMxbY3go/MFkF3zOnfY0t84+IbAX78cw8ZCfr6cA6UcTq3nMIlCrHwDC/moxg==}
+  /@next/eslint-plugin-next@13.4.4:
+    resolution: {integrity: sha512-5jnh7q6I15efnjR/rR+/TGTc9hn53g3JTbEjAMjmeQiExKqEUgIXqrHI5zlTNlNyzCPkBB860/ctxXheZaF2Vw==}
     dependencies:
       glob: 7.1.7
     dev: false
@@ -16146,13 +16152,13 @@ packages:
       load-tsconfig: 0.2.5
     dev: true
 
-  /bundle-require@4.0.1(esbuild@0.17.19):
+  /bundle-require@4.0.1(esbuild@0.19.2):
     resolution: {integrity: sha512-9NQkRHlNdNpDBGmLpngF3EFDcwodhMUuLz9PaWYciVcQF9SE4LFjM2DB/xV1Li5JiuDMv7ZUWuC3rGbqR0MAXQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     peerDependencies:
       esbuild: '>=0.17'
     dependencies:
-      esbuild: 0.17.19
+      esbuild: 0.19.2
       load-tsconfig: 0.2.5
     dev: false
 
@@ -17465,11 +17471,6 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /dotenv@16.0.3:
-    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
-    engines: {node: '>=12'}
-    dev: false
-
   /dotenv@16.3.1:
     resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
     engines: {node: '>=12'}
@@ -18020,6 +18021,7 @@ packages:
       '@esbuild/win32-arm64': 0.17.19
       '@esbuild/win32-ia32': 0.17.19
       '@esbuild/win32-x64': 0.17.19
+    dev: true
 
   /esbuild@0.18.20:
     resolution: {integrity: sha512-ceqxoedUrcayh7Y7ZX6NdbbDzGROiyVBgC4PriJThBKSVPWnnFHZAkfI1lJT8QFkOwH4qOS2SJkS4wvpGl8BpA==}
@@ -18079,7 +18081,6 @@ packages:
       '@esbuild/win32-arm64': 0.19.2
       '@esbuild/win32-ia32': 0.19.2
       '@esbuild/win32-x64': 0.19.2
-    dev: true
 
   /escalade@3.1.1:
     resolution: {integrity: sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==}
@@ -18116,8 +18117,8 @@ packages:
       source-map: 0.6.1
     dev: true
 
-  /eslint-config-next@13.4.16(eslint@8.48.0)(typescript@4.9.5):
-    resolution: {integrity: sha512-Of73d/FiaGf0GLCxxTGdh4rW8bRDvsqypylefkshE/uDDpQr8ifVQsD4UiB99rhegks7nJGkYtUnR3dC7kfFlw==}
+  /eslint-config-next@13.4.4(eslint@8.48.0)(typescript@4.9.5):
+    resolution: {integrity: sha512-z/PMbm6L0iC/fwISULxe8IVy4DtNqZk2wQY711o35klenq70O6ns82A8yuMVCFjHC0DIyB2lyugesRtuk9u8dQ==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0
       typescript: '>=3.3.1'
@@ -18125,7 +18126,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@next/eslint-plugin-next': 13.4.16
+      '@next/eslint-plugin-next': 13.4.4
       '@rushstack/eslint-patch': 1.3.3
       '@typescript-eslint/parser': 5.62.0(eslint@8.48.0)(typescript@4.9.5)
       eslint: 8.48.0
@@ -18134,7 +18135,7 @@ packages:
       eslint-plugin-import: 2.28.0(@typescript-eslint/parser@5.62.0)(eslint-import-resolver-typescript@3.6.0)(eslint@8.48.0)
       eslint-plugin-jsx-a11y: 6.7.1(eslint@8.48.0)
       eslint-plugin-react: 7.33.1(eslint@8.48.0)
-      eslint-plugin-react-hooks: 5.0.0-canary-7118f5dd7-20230705(eslint@8.48.0)
+      eslint-plugin-react-hooks: 4.6.0(eslint@8.48.0)
       typescript: 4.9.5
     transitivePeerDependencies:
       - eslint-import-resolver-webpack
@@ -18150,13 +18151,13 @@ packages:
       eslint: 8.48.0
     dev: false
 
-  /eslint-config-turbo@1.10.12(eslint@8.48.0):
-    resolution: {integrity: sha512-z3jfh+D7UGYlzMWGh+Kqz++hf8LOE96q3o5R8X4HTjmxaBWlLAWG+0Ounr38h+JLR2TJno0hU9zfzoPNkR9BdA==}
+  /eslint-config-turbo@1.10.0(eslint@8.48.0):
+    resolution: {integrity: sha512-iJsjoOb0vjnpV65rL+SAOIgbOluEibFqo/ke4UzXA9bi13cNJOT9k6FCQA7RXBHwChz+6BzYq5ZyoE3WcUg+0g==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
       eslint: 8.48.0
-      eslint-plugin-turbo: 1.10.12(eslint@8.48.0)
+      eslint-plugin-turbo: 1.10.0(eslint@8.48.0)
     dev: false
 
   /eslint-import-resolver-node@0.3.9:
@@ -18283,8 +18284,8 @@ packages:
       semver: 6.3.1
     dev: false
 
-  /eslint-plugin-react-hooks@5.0.0-canary-7118f5dd7-20230705(eslint@8.48.0):
-    resolution: {integrity: sha512-AZYbMo/NW9chdL7vk6HQzQhT+PvTAEVqWk9ziruUoW2kAOcN5qNyelv70e0F1VNQAbvutOC9oc+xfWycI9FxDw==}
+  /eslint-plugin-react-hooks@4.6.0(eslint@8.48.0):
+    resolution: {integrity: sha512-oFc7Itz9Qxh2x4gNHStv3BqJq54ExXmfC+a1NjAta66IAN87Wu0R/QArgIS9qKzX3dXKPI9H5crl9QchNMY9+g==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
@@ -18368,12 +18369,11 @@ packages:
       - typescript
     dev: false
 
-  /eslint-plugin-turbo@1.10.12(eslint@8.48.0):
-    resolution: {integrity: sha512-uNbdj+ohZaYo4tFJ6dStRXu2FZigwulR1b3URPXe0Q8YaE7thuekKNP+54CHtZPH9Zey9dmDx5btAQl9mfzGOw==}
+  /eslint-plugin-turbo@1.10.0(eslint@8.48.0):
+    resolution: {integrity: sha512-7eDeOjZDx/GcrZj4XYX1puaxsDtm6FE53qlbb4JyJhhkKC8OVYTJHTpu8kSmFTNsVoIgDFo/SEUIMwKHLYRM3w==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
-      dotenv: 16.0.3
       eslint: 8.48.0
     dev: false
 
@@ -23417,8 +23417,8 @@ packages:
     hasBin: true
     dev: true
 
-  /prettier@3.0.2:
-    resolution: {integrity: sha512-o2YR9qtniXvwEZlOKbveKfDQVyqxbEIWn48Z8m3ZJjBjcCmUy3xZGIv+7AkaeuaTr6yPXJjwv07ZWlsWbEy1rQ==}
+  /prettier@3.0.3:
+    resolution: {integrity: sha512-L/4pUDMxcNa8R/EthV08Zt42WBO4h1rarVtK0K+QJG0X187OLo7l699jWw0GKuwzkPQ//jMFA/8Xm6Fh3J/DAg==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true

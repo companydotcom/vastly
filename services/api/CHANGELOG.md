@@ -1,5 +1,11 @@
 # api-service
 
+## 0.1.3
+
+### Patch Changes
+
+- Fixed deploy command in Wave CLI authorization issues
+
 ## 0.1.2
 
 ### Patch Changes

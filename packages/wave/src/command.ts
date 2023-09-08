@@ -63,7 +63,7 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
     output,
     config,
     waveConfig: undefined,
-    apiUrl: "https://api.vastly.is",
+    apiUrl: "https://lenz62zq97.execute-api.us-east-1.amazonaws.com/prod",
   });
 
   try {
