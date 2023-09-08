@@ -1,18 +1,20 @@
-import httpErrorHandler from "@middy/http-error-handler";
 import middy from "@middy/core";
 import cors from "@middy/http-cors";
-import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import httpErrorHandler from "@middy/http-error-handler";
+import httpJsonBodyParser from "@middy/http-json-body-parser";
+import httpHeaderNormalizer from "@middy/http-header-normalizer";
 import { S3Client, ListObjectsV2Command } from "@aws-sdk/client-s3";
-import { listOrCreateMediaBucket, roleChaining } from "../../lib";
+import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import { listOrCreateMediaBucket, normalizeFilePath, roleChaining } from "../../lib";
 
 const { AWS_REGION } = process.env;
 
 const s3GetMedia = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
-    const projectName = event?.pathParameters?.waveProjectName as string;
-    const asset = event?.pathParameters?.assetType as string;
+    const filePath = normalizeFilePath(event.queryStringParameters?.["filePath"]);
+    const clientName = event.pathParameters?.clientName;
 
-    if (!asset || !projectName) {
+    if (!filePath || !clientName) {
       return {
         statusCode: 400,
         body: JSON.stringify({
@@ -34,25 +36,14 @@ const s3GetMedia = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyR
       },
     ]);
 
-    const { bucketName } = await listOrCreateMediaBucket(s3Client, projectName, credentials);
+    const { bucketName } = await listOrCreateMediaBucket(s3Client, clientName, credentials);
 
     const params = {
       Bucket: bucketName,
-      Prefix: `${asset}/`,
+      Prefix: `${filePath}/`,
     };
 
-    // const newS3Client = new S3Client([
-    //   {
-    //     region: AWS_REGION,
-    //     credentials: {
-    //       accessKeyId: credentials?.AccessKeyId,
-    //       secretAccessKey: credentials?.SecretAccessKey,
-    //       sessionToken: credentials?.SessionToken,
-    //       expiration: credentials?.Expiration,
-    //     },
-    //   },
-    // ]);
-    console.log(`----- Getting contents from S3 ${bucketName}`);
+    console.log(`----- Getting contents from S3: ${bucketName}`);
     const command = new ListObjectsV2Command(params);
     const data = await s3Client.send(command);
 
@@ -70,10 +61,14 @@ const s3GetMedia = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyR
     const mediaUrl = `https://${bucketName}.s3.amazonaws.com/`;
     if (data.Contents.length > 1) {
       media = data.Contents.map((file) => {
-        return { url: mediaUrl + file.Key, ETag: file.ETag };
+        return { fileName: file.Key, url: mediaUrl + file.Key, ETag: file.ETag };
       });
     } else {
-      media = { url: mediaUrl + data.Contents[0].Key, ETag: data.Contents[0].ETag };
+      media = {
+        fileName: data.Contents[0].Key,
+        url: mediaUrl + data.Contents[0].Key,
+        ETag: data.Contents[0].ETag,
+      };
     }
 
     return {
@@ -90,6 +85,10 @@ const s3GetMedia = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyR
   }
 };
 
-const handler = middy(s3GetMedia).use(cors()).use(httpErrorHandler());
+const handler = middy(s3GetMedia)
+  .use(cors())
+  .use(httpHeaderNormalizer())
+  .use(httpJsonBodyParser())
+  .use(httpErrorHandler());
 
 export { handler };

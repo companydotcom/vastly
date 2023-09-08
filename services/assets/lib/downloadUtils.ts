@@ -48,12 +48,9 @@ export const downloadInChunks = async ({
 }): Promise<void> => {
   const oneMB = 1024 * 1024;
   // writes stream to local file
-  const writeStream = createWriteStream(fileURLToPath(new URL(`./${key}`, import.meta.url))).on(
-    "error",
-    (err) => {
-      throw Error("Error in writeStream");
-    },
-  );
+  const writeStream = createWriteStream(fileURLToPath(new URL(`./${key}`))).on("error", (err) => {
+    throw Error("Error in writeStream");
+  });
 
   let rangeAndLength = { start: -1, end: -1, length: -1 };
 
@@ -73,4 +70,11 @@ export const downloadInChunks = async ({
     writeStream.write(await Body.transformToByteArray());
     rangeAndLength = getRangeAndLength(ContentRange);
   }
+};
+
+export const normalizeFilePath = (path?: string) => {
+  if (path) {
+    return path.replace(/^\/+|\/+$/g, "");
+  }
+  return path;
 };
