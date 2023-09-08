@@ -25,12 +25,12 @@ export default async function codegen(client: Client) {
         console.log(" File generated:");
         console.log(chalk.magenta("  /client"));
         console.log(chalk.magenta("    |- /graphql"));
-        console.log(chalk.blueBright("       |- graphql-types.ts"));
+        console.log(chalk.blueBright("       |- api.ts"));
         console.log();
         console.log(`${chalk.underline.yellow("Next steps:")}`);
         console.log(
           `- Inside the ${chalk.underline.blueBright(
-            "graphql-types.ts",
+            "api.ts",
           )} file, you'll find all your generated types plus hooks for use in your frontend applications.\n Scroll to the bottom of the file for further instructions on their usage!\n`,
         );
       } else {
@@ -61,7 +61,7 @@ export default async function codegen(client: Client) {
 // Checks if apollo.tsx is configured
 const isApolloConfigured = async (client: Client) => {
   const { output } = client;
-  const urlRegex = /const\s+url\s*=\s*("|')\s*\S.*\s*\1\s*;/;
+  const urlRegex = /const\s+url\s*=\s*("|')\s*\S.*\s*\1\s*;|process.env/;
 
   try {
     const apolloContents = await readFile("./apollo.tsx", "utf-8");
