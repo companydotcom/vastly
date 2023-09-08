@@ -8,7 +8,7 @@ export const functions: AWS["functions"] = {
       {
         http: {
           method: "post",
-          path: "/assets/s3/upload/{waveProjectName}",
+          path: "/assets/s3/upload/{clientName}",
           cors: true,
           authorizer: {
             type: "CUSTOM",
@@ -42,7 +42,7 @@ export const functions: AWS["functions"] = {
       {
         http: {
           method: "get",
-          path: "/assets/s3/get/{waveProjectName}/{assetType}",
+          path: "/assets/s3/get/{clientName}",
           cors: true,
           authorizer: {
             type: "CUSTOM",

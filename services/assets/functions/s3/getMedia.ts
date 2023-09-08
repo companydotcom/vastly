@@ -3,7 +3,7 @@ import middy from "@middy/core";
 import cors from "@middy/http-cors";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { S3Client, ListObjectsV2Command } from "@aws-sdk/client-s3";
-import { listOrCreateMediaBucket, roleChaining } from "../../lib/utils";
+import { listOrCreateMediaBucket, roleChaining } from "../../lib";
 
 const { AWS_REGION } = process.env;
 

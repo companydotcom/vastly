@@ -1,28 +1,22 @@
 import {
-  CreateBucketCommand,
   S3Client,
   ListBucketsCommand,
+  Bucket,
+  CreateBucketCommand,
   PutBucketVersioningCommand,
-  PutBucketPolicyCommand,
   PutPublicAccessBlockCommand,
+  PutBucketPolicyCommand,
 } from "@aws-sdk/client-s3";
 import { v4 as uuid } from "uuid";
-import { assumeRole } from "@vastly/utils";
-import type { Bucket } from "@aws-sdk/client-s3";
-
-interface ListOrCreateMediaBucketResponse {
-  bucketName?: string;
-  creationDate?: string | Date;
-  location?: string;
-}
+import { ListOrCreateMediaBucketResponse } from "../types";
 
 // TODO: figure out fetch permissions and see if we need to have a new client for every command
 export const listOrCreateMediaBucket = async (
   client: S3Client,
-  waveProjectName: string,
+  vastlyClientName: string,
   credentials?: any,
 ): Promise<ListOrCreateMediaBucketResponse> => {
-  if (!client || !waveProjectName) {
+  if (!client || !vastlyClientName) {
     throw Error("Missing user or S3 client");
   }
 
@@ -41,7 +35,7 @@ export const listOrCreateMediaBucket = async (
     const listCommand = new ListBucketsCommand({});
     const { Buckets } = await newS3Client.send(listCommand);
     if (Buckets?.length) {
-      assetsBucket = Buckets.find((b: Bucket) => b.Name?.includes(`${waveProjectName}-assets`));
+      assetsBucket = Buckets.find((b: Bucket) => b.Name?.includes(`${vastlyClientName}-assets`));
     }
     if (assetsBucket?.Name) {
       return {
@@ -65,7 +59,7 @@ export const listOrCreateMediaBucket = async (
         expiration: credentials?.Expiration,
       },
     });
-    const bucketName = `${waveProjectName}-assets-${uuid()}`;
+    const bucketName = `${vastlyClientName}-assets-${uuid()}`;
     const input = {
       Bucket: bucketName,
       ObjectOwnership: "BucketOwnerPreferred",
@@ -158,7 +152,7 @@ export const addBucketPolicy = async (bucketName: string, credentials?: any) => 
           },
           Effect: "Allow",
           Action: ["s3:*"],
-          Resource: `arn:aws:s3:::${bucketName}/*`,
+          Resource: [`arn:aws:s3:::${bucketName}/*`, `arn:aws:s3:::${bucketName}`],
         },
       ],
     };
@@ -173,14 +167,4 @@ export const addBucketPolicy = async (bucketName: string, credentials?: any) => 
     console.error(err);
     throw Error(`${err}: Error attaching bucket policy`);
   }
-};
-
-export const roleChaining = async () => {
-  const roleChainCreds = await assumeRole("AssetServiceRole", "908170539157");
-  const response = await assumeRole(
-    "CrossAccountAssetServiceRole",
-    "229258319284",
-    roleChainCreds?.Credentials,
-  );
-  return { credentials: response.Credentials, role: response.AssumedRoleUser };
 };

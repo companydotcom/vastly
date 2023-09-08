@@ -6,16 +6,17 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import httpHeaderNormalizer from "@middy/http-header-normalizer";
 import httpMultipartBodyParser from "@middy/http-multipart-body-parser";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-import { listOrCreateMediaBucket, roleChaining } from "../../lib/utils";
+import { roleChaining, listOrCreateMediaBucket, multipleFileUpload } from "../../lib";
 
 const { AWS_REGION } = process.env;
 
 const s3uploadMedia = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
-    const projectName = event.pathParameters?.waveProjectName;
     const file = event.body?.["file"];
+    const filePath = event.body?.["filePath"];
+    const clientName = event.pathParameters?.clientName;
 
-    if (!file || !file.content || !file.mimetype || !projectName) {
+    if (!file || !clientName) {
       return {
         statusCode: 400,
         body: JSON.stringify({
@@ -36,11 +37,14 @@ const s3uploadMedia = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
         },
       },
     ]);
-    const { bucketName } = await listOrCreateMediaBucket(s3Client, projectName, credentials);
+    const { bucketName } = await listOrCreateMediaBucket(s3Client, clientName, credentials);
 
+    if (file.length > 1) {
+      return await multipleFileUpload(file, filePath, bucketName ?? "");
+    }
     const detectedMime = file?.mimetype || "unspecifiedMimeType";
 
-    const Key = `${detectedMime?.split("/")[0]}/${file?.filename}`;
+    const Key = `${filePath}/${file?.filename}`;
     const input = {
       Body: file?.content,
       Key,
@@ -68,7 +72,7 @@ const s3uploadMedia = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
     ]);
     const command = new PutObjectCommand(input);
     const response = await newS3Client.send(command);
-    const url = `https://${bucketName}.s3-${AWS_REGION}.amazonaws.com/${Key}`;
+    const url = `https://${bucketName}.s3.amazonaws.com/${Key}`;
 
     return {
       isBase64Encoded: false,
