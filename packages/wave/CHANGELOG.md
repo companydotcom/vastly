@@ -1,5 +1,11 @@
 # @vastly/wave
 
+## 0.5.3
+
+### Patch Changes
+
+- fixes wave codegen command for thm
+
 ## 0.5.2
 
 ### Patch Changes
