@@ -1,5 +1,12 @@
 # user-service
 
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies
+  - @vastly/utils@0.4.1
+
 ## 0.2.2
 
 ### Patch Changes
