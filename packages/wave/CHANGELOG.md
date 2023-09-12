@@ -1,5 +1,12 @@
 # @vastly/wave
 
+## 0.5.4
+
+### Patch Changes
+
+- Updated dependencies
+  - @vastly/utils@0.4.1
+
 ## 0.5.3
 
 ### Patch Changes

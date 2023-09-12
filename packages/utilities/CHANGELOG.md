@@ -1,5 +1,17 @@
 # @vastly/utils
 
+## 0.4.1
+
+### Patch Changes
+
+- adds get, update, and upload functionality
+
+## 0.4.0
+
+### Minor Changes
+
+- Creates Asset service, reusable AssumeRole utility, upload lambda functioning
+
 ## 0.3.2
 
 ### Patch Changes

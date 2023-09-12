@@ -1,9 +1,20 @@
 # deploy-service
 
+## 0.2.2
+
+### Patch Changes
+
+- adds get, update, and upload functionality
+- Updated dependencies
+  - @vastly/utils@0.4.1
+
 ## 0.2.1
 
 ### Patch Changes
 
+- Creates Asset service, reusable AssumeRole utility, upload lambda functioning
+- Updated dependencies
+  - @vastly/utils@0.4.0
 - Fixed deploy command in Wave CLI authorization issues
 
 ## 0.2.0

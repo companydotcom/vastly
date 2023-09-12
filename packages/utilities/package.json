@@ -1,6 +1,6 @@
 {
   "name": "@vastly/utils",
-  "version": "0.3.2",
+  "version": "0.4.1",
   "main": "./dist/index.js",
   "source": "./src/index.ts",
   "types": "./dist/index.d.ts",
@@ -16,14 +16,17 @@
     "lint": "TIMING=1 eslint \"src/**/*.ts*\""
   },
   "dependencies": {
-    "@vastly/types": "workspace:*"
+    "@aws-sdk/client-sts": "3.398.0",
+    "@types/uuid": "9.0.3",
+    "@vastly/types": "workspace:*",
+    "uuid": "9.0.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.111",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
-    "eslint": "^7.32.0",
     "@vastly/eslint-config-custom": "workspace:*",
+    "eslint": "^7.32.0",
     "json-schema-to-ts": "^2.7.2",
     "tsconfig": "workspace:*",
     "typescript": "^4.9.5"
