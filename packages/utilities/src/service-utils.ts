@@ -12,7 +12,7 @@ import { v4 as uuid } from "uuid";
  * @param newCredentials
  * @returns
  */
-export const assumeRole = async (roleName: string, accountId: string, newCredentials?: any) => {
+export const UseAssumeRole = async (roleName: string, accountId: string, newCredentials?: any) => {
   try {
     let stsClient;
     if (newCredentials) {

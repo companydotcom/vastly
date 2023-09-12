@@ -11,7 +11,7 @@ import { v4 as uuid } from "uuid";
 import { ListOrCreateMediaBucketResponse } from "../types";
 
 // TODO: figure out fetch permissions and see if we need to have a new client for every command
-export const listOrCreateMediaBucket = async (
+export const getMediaBucket = async (
   client: S3Client,
   vastlyClientName: string,
   credentials?: any,
@@ -42,13 +42,17 @@ export const listOrCreateMediaBucket = async (
         bucketName: assetsBucket?.Name,
         creationDate: assetsBucket?.CreationDate,
       };
+    } else {
+      return await createBucket(credentials, vastlyClientName);
     }
   } catch (err) {
     console.error(err);
     throw Error(`${err}: Error fetching buckets`);
   }
+};
 
-  // creates new bucket if one does not exist
+// creates new bucket if one does not exist
+export const createBucket = async (credentials: any, vastlyClientName: string) => {
   try {
     const newS3Client = new S3Client({
       region: "us-east-1",

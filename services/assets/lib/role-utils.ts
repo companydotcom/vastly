@@ -1,4 +1,4 @@
-import { assumeRole } from "@vastly/utils";
+import { UseAssumeRole } from "@vastly/utils";
 import { RoleChainingResponse } from "../types";
 
 /**
@@ -7,8 +7,8 @@ import { RoleChainingResponse } from "../types";
  * @returns {Promise<RoleChainingResponse>}
  */
 export const roleChaining = async (): Promise<RoleChainingResponse> => {
-  const roleChainCreds = await assumeRole("AssetServiceRole", "908170539157");
-  const response = await assumeRole(
+  const roleChainCreds = await UseAssumeRole("AssetServiceRole", "908170539157");
+  const response = await UseAssumeRole(
     "CrossAccountAssetServiceRole",
     "229258319284",
     roleChainCreds?.Credentials,

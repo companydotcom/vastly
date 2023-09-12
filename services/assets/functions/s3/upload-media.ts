@@ -6,17 +6,17 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import httpHeaderNormalizer from "@middy/http-header-normalizer";
 import httpMultipartBodyParser from "@middy/http-multipart-body-parser";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-import { roleChaining, listOrCreateMediaBucket, multipleFileUpload } from "../../lib";
+import { roleChaining, multipleFileUpload, normalizeFilePath, getMediaBucket } from "../../lib";
 
 const { AWS_REGION } = process.env;
 
 const s3uploadMedia = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     const file = event.body?.["file"];
-    const filePath = event.body?.["filePath"];
+    const filePath = normalizeFilePath(event.body?.["filePath"]);
     const clientName = event.pathParameters?.clientName;
 
-    if (!file || !clientName) {
+    if (!file || !clientName || !filePath) {
       return {
         statusCode: 400,
         body: JSON.stringify({
@@ -37,7 +37,7 @@ const s3uploadMedia = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
         },
       },
     ]);
-    const { bucketName } = await listOrCreateMediaBucket(s3Client, clientName, credentials);
+    const { bucketName } = await getMediaBucket(s3Client, clientName, credentials);
 
     if (file.length > 1) {
       return await multipleFileUpload(file, filePath, bucketName ?? "");

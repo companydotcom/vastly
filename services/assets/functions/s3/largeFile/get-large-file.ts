@@ -3,24 +3,24 @@ import middy from "@middy/core";
 import cors from "@middy/http-cors";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 import { S3Client } from "@aws-sdk/client-s3";
-import { listOrCreateMediaBucket, downloadInChunks } from "../../lib";
+import { getMediaBucket, downloadInChunks } from "../../../lib";
 
 const { AWS_REGION } = process.env;
 
-// projectName passed through parameters
-const s3GetMedia = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+// TODO
+const s3GetLargeMedia = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
-    const s3Client = new S3Client({ region: AWS_REGION });
+    const s3client = new S3Client({ region: AWS_REGION });
     const project = event?.pathParameters?.waveProjectName as string;
 
-    const { bucketName } = await listOrCreateMediaBucket(s3Client, project);
+    const { bucketName } = await getMediaBucket(s3client, project);
 
     const params = {
       bucket: bucketName,
       key: event?.pathParameters?.fileName as string,
     };
 
-    await downloadInChunks({ ...params, s3Client });
+    await downloadInChunks({ ...params, s3client });
 
     return {
       statusCode: 200,
@@ -36,6 +36,6 @@ const s3GetMedia = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyR
   }
 };
 
-const handler = middy(s3GetMedia).use(cors()).use(httpErrorHandler());
+const handler = middy(s3GetLargeMedia).use(cors()).use(httpErrorHandler());
 
 export { handler };

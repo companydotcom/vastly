@@ -1,7 +1,7 @@
 import { createHash } from "crypto";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { File, S3UploadResponse } from "../types";
-import { roleChaining } from "./";
+import { roleChaining } from ".";
 
 export const multipleFileUpload = async (
   files: File[],

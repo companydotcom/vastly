@@ -5,7 +5,7 @@ import httpJsonBodyParser from "@middy/http-json-body-parser";
 import httpHeaderNormalizer from "@middy/http-header-normalizer";
 import { S3Client, ListObjectsV2Command } from "@aws-sdk/client-s3";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-import { listOrCreateMediaBucket, normalizeFilePath, roleChaining } from "../../lib";
+import { getMediaBucket, normalizeFilePath, roleChaining } from "../../lib";
 
 const { AWS_REGION } = process.env;
 
@@ -36,7 +36,7 @@ const s3GetMedia = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyR
       },
     ]);
 
-    const { bucketName } = await listOrCreateMediaBucket(s3Client, clientName, credentials);
+    const { bucketName } = await getMediaBucket(s3Client, clientName, credentials);
 
     const params = {
       Bucket: bucketName,

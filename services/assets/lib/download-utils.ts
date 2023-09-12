@@ -8,13 +8,13 @@ export const getObjectRange = async ({
   key,
   start,
   end,
-  s3Client,
+  s3client,
 }: {
-  bucket: string;
   key: string;
   start: number;
   end: number;
-  s3Client: S3Client;
+  s3client: S3Client;
+  bucket?: string;
 }): Promise<any> => {
   const command = new GetObjectCommand({
     Bucket: bucket,
@@ -22,7 +22,7 @@ export const getObjectRange = async ({
     Range: `bytes=${start}-${end}`,
   });
 
-  return await s3Client.send(command);
+  return await s3client.send(command);
 };
 
 export const getRangeAndLength = (contentRange: string): Range => {
@@ -40,11 +40,11 @@ export const isComplete = ({ end, length }: Range): boolean => end === length - 
 export const downloadInChunks = async ({
   bucket,
   key,
-  s3Client,
+  s3client,
 }: {
-  bucket: string;
   key: string;
-  s3Client: S3Client;
+  s3client: S3Client;
+  bucket?: string;
 }): Promise<void> => {
   const oneMB = 1024 * 1024;
   // writes stream to local file
@@ -63,7 +63,7 @@ export const downloadInChunks = async ({
     const { ContentRange, Body } = await getObjectRange({
       bucket,
       key,
-      s3Client,
+      s3client,
       ...nextRange,
     });
 

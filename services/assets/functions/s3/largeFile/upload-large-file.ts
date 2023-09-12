@@ -12,7 +12,7 @@ import middy from "@middy/core";
 import cors from "@middy/http-cors";
 import httpHeaderNormalizer from "@middy/http-header-normalizer";
 import httpMultipartBodyParser from "@middy/http-multipart-body-parser";
-import { listOrCreateMediaBucket } from "../../lib";
+import { getMediaBucket } from "../../../lib";
 
 const { AWS_REGION } = process.env;
 
@@ -22,7 +22,7 @@ const initialMultipartUpload = async (event: APIGatewayProxyEvent) => {
   const project = event?.pathParameters?.waveProjectName as string;
   const fileName = "";
 
-  const { bucketName } = await listOrCreateMediaBucket(s3Client, project);
+  const { bucketName } = await getMediaBucket(s3Client, project);
 
   const multipartParams = {
     Bucket: bucketName,
@@ -31,13 +31,13 @@ const initialMultipartUpload = async (event: APIGatewayProxyEvent) => {
   };
   const createCommand = new CreateMultipartUploadCommand(multipartParams);
   const { UploadId, Key } = await s3Client.send(createCommand);
-  //  need to create a loop to update all parts, look for example
+  //  need to create a loop to update all parts
   const uploadParams = {
     Bucket: bucketName,
     Key,
     UploadId,
     PartNumber: 1,
-    Body: "PART_DATA", // what is this?
+    Body: "PART_DATA",
   };
 
   const uploadPartCommand = new UploadPartCommand(uploadParams);
