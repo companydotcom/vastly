@@ -4,7 +4,9 @@
   "description": "A service for managing assets",
   "scripts": {
     "dev": "serverless offline start",
-    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .serverless && rm -rf .esbuild"
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .serverless && rm -rf .esbuild",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "author": "",
   "license": "MIT",
