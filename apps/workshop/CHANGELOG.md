@@ -1,5 +1,12 @@
 # workshop
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [bb604c2]
+  - @vastly/forms@0.4.3
+
 ## 0.0.7
 
 ### Patch Changes
