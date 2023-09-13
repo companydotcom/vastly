@@ -1,5 +1,11 @@
 # @dxp/forms
 
+## 0.4.3
+
+### Patch Changes
+
+- Exports createForm and createField functions
+
 ## 0.4.2
 
 ### Patch Changes
