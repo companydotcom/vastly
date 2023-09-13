@@ -1,5 +1,11 @@
 # @dxp/forms
 
+## 0.4.3
+
+### Patch Changes
+
+- bb604c2: exports registerFieldType function
+
 ## 0.4.2
 
 ### Patch Changes
