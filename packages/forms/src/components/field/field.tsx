@@ -187,13 +187,13 @@ if (isDev()) {
   Field.displayName = "Field";
 }
 
-interface CreateFieldProps {
+export interface CreateFieldProps {
   displayName: string;
   hideLabel?: boolean;
   BaseField: React.FC<any>;
 }
 
-const createField = (
+export const createField = (
   InputComponent: React.FC<any>,
   { displayName, hideLabel, BaseField }: CreateFieldProps,
 ) => {
