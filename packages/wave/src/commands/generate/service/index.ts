@@ -1,6 +1,7 @@
 import { Client } from "../../../util/client.js";
-import { generateRestService } from "./rest.js";
+import { generatePrismaService } from "./prisma.js";
 import { generateEdaService } from "./eda.js";
+import { generateSlsService } from "./sls.js";
 import { generateStreamingService } from "./streaming.js";
 import { ServiceAnswers } from "../../../types";
 
@@ -8,12 +9,14 @@ export const generateService = async (client: Client) => {
   const { output } = client;
 
   client.prompt(serviceQuestions).then(async (answers: ServiceAnswers) => {
-    if (answers.service === "rest") {
-      await generateRestService(client, answers.name, answers.description, answers.deploy);
+    if (answers.service === "prisma") {
+      await generatePrismaService(client, answers.name, answers.description, answers.deploy);
     } else if (answers.service === "eda") {
       await generateEdaService(client);
     } else if (answers.service === "streaming") {
       await generateStreamingService(client);
+    } else if (answers.service === "sls") {
+      await generateSlsService(client, answers.name, answers.description);
     }
   });
 };
@@ -24,7 +27,8 @@ const serviceQuestions = [
     type: "list",
     message: "What type of microservice do you want to generate?",
     choices: [
-      { name: "REST", value: "rest" },
+      { name: "Prisma", value: "prisma" },
+      { name: "SLS", value: "sls" },
       {
         name: "EDA (WIP)",
         value: "eda",
