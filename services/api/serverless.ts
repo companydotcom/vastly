@@ -3,7 +3,7 @@ import { functions } from "./functions";
 
 const serverlessConfiguration: AWS = {
   service: "vastly",
-  frameworkVersion: "3.28.1",
+  frameworkVersion: "3.34.0",
   plugins: [
     "serverless-esbuild",
     "serverless-offline",

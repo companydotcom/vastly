@@ -9,11 +9,16 @@ import middy from "@middy/core";
 import inputOutputLogger from "@middy/input-output-logger";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocument, GetCommand } from "@aws-sdk/lib-dynamodb";
+import {
+  CognitoIdentityProviderClient,
+  AdminGetUserCommand,
+} from "@aws-sdk/client-cognito-identity-provider";
 import { getTokenFromBearer } from "../lib/utils";
 
-const { USER_POOL_ID, APP_CLIENT_ID } = process.env;
-const dynamoClient = new DynamoDBClient({ region: "us-east-1" });
-export const docClient = DynamoDBDocument.from(dynamoClient);
+const { USER_POOL_ID, APP_CLIENT_ID, AWS_REGION } = process.env;
+const dynamoClient = new DynamoDBClient({ region: AWS_REGION });
+const docClient = DynamoDBDocument.from(dynamoClient);
+const cognitoClient = new CognitoIdentityProviderClient({ region: AWS_REGION });
 
 // Verifier that expects valid access tokens:
 const verifier = CognitoJwtVerifier.create({
@@ -36,19 +41,29 @@ const authorize = async (event: APIGatewayTokenAuthorizerEvent) => {
     // and get the users available accounts
     // return account id from this function if it exists
 
-    const command = new GetCommand({
-      TableName: "User",
-      Key: {
-        user_id: payload.username,
-      },
-    });
-
-    const { Item } = await docClient.send(command);
-
-    const accounts = JSON.stringify(Item?.accounts);
-
     if (payload) {
       console.log("🟢 Token is valid. Payload:", payload);
+
+      const getUserFromCognitocommand = new AdminGetUserCommand({
+        UserPoolId: USER_POOL_ID,
+        Username: payload?.username,
+      });
+
+      const cognitoUser = await cognitoClient.send(getUserFromCognitocommand);
+
+      const organization = cognitoUser?.UserAttributes?.find(
+        (att) => att?.Name === "custom:organization",
+      )?.Value;
+
+      const command = new GetCommand({
+        TableName: "User",
+        Key: {
+          user_id: payload?.username,
+          organization,
+        },
+      });
+
+      const { Item } = await docClient.send(command);
 
       return generateAllow(payload.sub, event.methodArn);
     }
@@ -62,8 +77,21 @@ const authorize = async (event: APIGatewayTokenAuthorizerEvent) => {
           claimValidationErrors: error.payload,
         }),
       });
+    } else if (error.type === "JwtExpiredError") {
+      return generateDeny("", event.methodArn, {
+        body: JSON.stringify({
+          message: "Your JWT token has expired. Please login again.",
+          error: error.payload,
+        }),
+      });
+    } else {
+      return generateDeny("", event.methodArn, {
+        body: JSON.stringify({
+          message: "Unauthorized.",
+          error: error.payload,
+        }),
+      });
     }
-    throw new error("Unauthorized");
   }
 };
 
