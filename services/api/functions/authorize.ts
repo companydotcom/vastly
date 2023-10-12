@@ -7,9 +7,13 @@ import type {
 import { CognitoJwtVerifier } from "aws-jwt-verify";
 import middy from "@middy/core";
 import inputOutputLogger from "@middy/input-output-logger";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocument, GetCommand } from "@aws-sdk/lib-dynamodb";
 import { getTokenFromBearer } from "../lib/utils";
 
 const { USER_POOL_ID, APP_CLIENT_ID } = process.env;
+const dynamoClient = new DynamoDBClient({ region: "us-east-1" });
+export const docClient = DynamoDBDocument.from(dynamoClient);
 
 // Verifier that expects valid access tokens:
 const verifier = CognitoJwtVerifier.create({
@@ -28,6 +32,20 @@ const authorize = async (event: APIGatewayTokenAuthorizerEvent) => {
   try {
     // decode jwt token, if valid, generate allow policy
     const payload = await verifier.verify(accessToken);
+    // query User table by userid (username || sub)
+    // and get the users available accounts
+    // return account id from this function if it exists
+
+    const command = new GetCommand({
+      TableName: "User",
+      Key: {
+        user_id: payload.username,
+      },
+    });
+
+    const { Item } = await docClient.send(command);
+
+    const accounts = JSON.stringify(Item?.accounts);
 
     if (payload) {
       console.log("🟢 Token is valid. Payload:", payload);
