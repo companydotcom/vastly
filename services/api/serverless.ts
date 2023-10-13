@@ -62,7 +62,7 @@ const serverlessConfiguration: AWS = {
           AuthorizerResultTtlInSeconds: 0,
           Name: "SharedAuthorizer",
           RestApiId: { Ref: "VastlyApi" },
-          Type: "TOKEN",
+          Type: "REQUEST",
           IdentitySource: "method.request.header.Authorization",
           AuthorizerUri: {
             "Fn::Join": [

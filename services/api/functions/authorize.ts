@@ -1,5 +1,5 @@
 import type {
-  APIGatewayTokenAuthorizerEvent,
+  APIGatewayRequestAuthorizerEvent,
   PolicyDocument,
   Statement,
   AuthResponse,
@@ -27,19 +27,27 @@ const verifier = CognitoJwtVerifier.create({
   clientId: APP_CLIENT_ID || "",
 });
 
-const authorize = async (event: APIGatewayTokenAuthorizerEvent) => {
-  if (!event.authorizationToken) {
-    throw new Error("Unauthorized");
+// The authorizer currently checks for the Authroization token from the request,
+// validates it, and if its valid, we then grab the users organization from Cognito,
+// the users assigned accounts from the Dynamo User table, and cross checks the passed query parameter called
+// stage. If the stage param exists on the users accounts, proceed
+
+const authorize = async (event: APIGatewayRequestAuthorizerEvent) => {
+  if (!event.headers?.Authorization) {
+    throw new Error("Unauthorized.  Missing the Authorization header.");
   }
 
-  const accessToken = getTokenFromBearer(event.authorizationToken);
+  const stage = event.queryStringParameters?.stage;
+
+  if (!stage) {
+    throw new Error("Missing stage parameter");
+  }
+
+  const accessToken = getTokenFromBearer(event.headers?.Authorization);
 
   try {
     // decode jwt token, if valid, generate allow policy
     const payload = await verifier.verify(accessToken);
-    // query User table by userid (username || sub)
-    // and get the users available accounts
-    // return account id from this function if it exists
 
     if (payload) {
       console.log("🟢 Token is valid. Payload:", payload);
@@ -65,7 +73,16 @@ const authorize = async (event: APIGatewayTokenAuthorizerEvent) => {
 
       const { Item } = await docClient.send(command);
 
-      return generateAllow(payload.sub, event.methodArn);
+      let targetAccountId: number;
+
+      if (Item?.accounts?.some?.((account) => account?.account_alias === stage)) {
+        const id = Item?.accounts?.find?.((account) => account?.account_alias === stage)
+          ?.account_id;
+        targetAccountId = id;
+        return generateAllow(payload.sub, event.methodArn, { targetAccountId });
+      } else {
+        throw new Error("Can't find given account alias for the user");
+      }
     }
   } catch (error: any) {
     console.log("🔴 Access forbidden:", error);
