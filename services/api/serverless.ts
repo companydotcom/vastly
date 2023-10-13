@@ -3,7 +3,7 @@ import { functions } from "./functions";
 
 const serverlessConfiguration: AWS = {
   service: "vastly",
-  frameworkVersion: "3.28.1",
+  frameworkVersion: "3.34.0",
   plugins: [
     "serverless-esbuild",
     "serverless-offline",
@@ -62,7 +62,7 @@ const serverlessConfiguration: AWS = {
           AuthorizerResultTtlInSeconds: 0,
           Name: "SharedAuthorizer",
           RestApiId: { Ref: "VastlyApi" },
-          Type: "TOKEN",
+          Type: "REQUEST",
           IdentitySource: "method.request.header.Authorization",
           AuthorizerUri: {
             "Fn::Join": [

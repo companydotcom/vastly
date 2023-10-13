@@ -1,5 +1,5 @@
 import type {
-  APIGatewayTokenAuthorizerEvent,
+  APIGatewayRequestAuthorizerEvent,
   PolicyDocument,
   Statement,
   AuthResponse,
@@ -7,9 +7,18 @@ import type {
 import { CognitoJwtVerifier } from "aws-jwt-verify";
 import middy from "@middy/core";
 import inputOutputLogger from "@middy/input-output-logger";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocument, GetCommand } from "@aws-sdk/lib-dynamodb";
+import {
+  CognitoIdentityProviderClient,
+  AdminGetUserCommand,
+} from "@aws-sdk/client-cognito-identity-provider";
 import { getTokenFromBearer } from "../lib/utils";
 
-const { USER_POOL_ID, APP_CLIENT_ID } = process.env;
+const { USER_POOL_ID, APP_CLIENT_ID, AWS_REGION } = process.env;
+const dynamoClient = new DynamoDBClient({ region: AWS_REGION });
+const docClient = DynamoDBDocument.from(dynamoClient);
+const cognitoClient = new CognitoIdentityProviderClient({ region: AWS_REGION });
 
 // Verifier that expects valid access tokens:
 const verifier = CognitoJwtVerifier.create({
@@ -18,12 +27,23 @@ const verifier = CognitoJwtVerifier.create({
   clientId: APP_CLIENT_ID || "",
 });
 
-const authorize = async (event: APIGatewayTokenAuthorizerEvent) => {
-  if (!event.authorizationToken) {
-    throw new Error("Unauthorized");
+// The authorizer currently checks for the Authroization token from the request,
+// validates it, and if its valid, we then grab the users organization from Cognito,
+// the users assigned accounts from the Dynamo User table, and cross checks the passed query parameter called
+// stage. If the stage param exists on the users accounts, proceed
+
+const authorize = async (event: APIGatewayRequestAuthorizerEvent) => {
+  if (!event.headers?.Authorization) {
+    throw new Error("Unauthorized.  Missing the Authorization header.");
   }
 
-  const accessToken = getTokenFromBearer(event.authorizationToken);
+  const stage = event.queryStringParameters?.stage;
+
+  if (!stage) {
+    throw new Error("Missing stage parameter");
+  }
+
+  const accessToken = getTokenFromBearer(event.headers?.Authorization);
 
   try {
     // decode jwt token, if valid, generate allow policy
@@ -32,7 +52,37 @@ const authorize = async (event: APIGatewayTokenAuthorizerEvent) => {
     if (payload) {
       console.log("🟢 Token is valid. Payload:", payload);
 
-      return generateAllow(payload.sub, event.methodArn);
+      const getUserFromCognitocommand = new AdminGetUserCommand({
+        UserPoolId: USER_POOL_ID,
+        Username: payload?.username,
+      });
+
+      const cognitoUser = await cognitoClient.send(getUserFromCognitocommand);
+
+      const organization = cognitoUser?.UserAttributes?.find(
+        (att) => att?.Name === "custom:organization",
+      )?.Value;
+
+      const command = new GetCommand({
+        TableName: "User",
+        Key: {
+          user_id: payload?.username,
+          organization,
+        },
+      });
+
+      const { Item } = await docClient.send(command);
+
+      let targetAccountId: number;
+
+      if (Item?.accounts?.some?.((account) => account?.account_alias === stage)) {
+        const id = Item?.accounts?.find?.((account) => account?.account_alias === stage)
+          ?.account_id;
+        targetAccountId = id;
+        return generateAllow(payload.sub, event.methodArn, { targetAccountId });
+      } else {
+        throw new Error("Can't find given account alias for the user");
+      }
     }
   } catch (error: any) {
     console.log("🔴 Access forbidden:", error);
@@ -44,8 +94,21 @@ const authorize = async (event: APIGatewayTokenAuthorizerEvent) => {
           claimValidationErrors: error.payload,
         }),
       });
+    } else if (error.type === "JwtExpiredError") {
+      return generateDeny("", event.methodArn, {
+        body: JSON.stringify({
+          message: "Your JWT token has expired. Please login again.",
+          error: error.payload,
+        }),
+      });
+    } else {
+      return generateDeny("", event.methodArn, {
+        body: JSON.stringify({
+          message: "Unauthorized.",
+          error: error.payload,
+        }),
+      });
     }
-    throw new error("Unauthorized");
   }
 };
 
