@@ -1,0 +1,12 @@
+{
+    "extends": "tsconfig/base.json",
+    "compilerOptions": {
+      "target": "es6",
+      "sourceMap": true,
+      "moduleResolution": "node",
+      "baseUrl": ".",
+      "types": ["vitest/globals"],
+    },
+    "include": ["__tests__","src/**/*.ts", "serverless.ts"],
+    "exclude": ["node_modules", "coverage"]
+  }
