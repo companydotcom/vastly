@@ -23,13 +23,12 @@ const handler: PreTokenGenerationTriggerHandler = async (event) => {
   });
 
   try {
-    // @ts-ignore issue with the aws-sdk libraries
-    // https://github.com/aws/aws-sdk-js-v3/issues/3390
     const { Item } = await docClient.send(command);
 
     const accounts = JSON.stringify(Item?.accounts);
 
     // Modify the response object to add accounts for the user. This should now appear on their cognito id token
+    // Which can then be retrieved in the shared authorizer function and more
     event.response.claimsOverrideDetails = {
       claimsToAddOrOverride: {
         accounts,
