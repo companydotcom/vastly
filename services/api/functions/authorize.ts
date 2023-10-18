@@ -30,7 +30,7 @@ const verifier = CognitoJwtVerifier.create({
 // The authorizer currently checks for the Authroization token from the request,
 // validates it, and if its valid, we then grab the users organization from Cognito,
 // the users assigned accounts from the Dynamo User table, and cross checks the passed query parameter called
-// stage. If the stage param exists on the users accounts, proceed
+// stage. If the stage param exists on the users accounts, add the id to the response context, and proceed
 
 const authorize = async (event: APIGatewayRequestAuthorizerEvent) => {
   if (!event.headers?.Authorization) {
@@ -38,10 +38,6 @@ const authorize = async (event: APIGatewayRequestAuthorizerEvent) => {
   }
 
   const stage = event.queryStringParameters?.stage;
-
-  if (!stage) {
-    throw new Error("Missing stage parameter");
-  }
 
   const accessToken = getTokenFromBearer(event.headers?.Authorization);
 
@@ -52,36 +48,42 @@ const authorize = async (event: APIGatewayRequestAuthorizerEvent) => {
     if (payload) {
       console.log("🟢 Token is valid. Payload:", payload);
 
-      const getUserFromCognitocommand = new AdminGetUserCommand({
-        UserPoolId: USER_POOL_ID,
-        Username: payload?.username,
-      });
-
-      const cognitoUser = await cognitoClient.send(getUserFromCognitocommand);
-
-      const organization = cognitoUser?.UserAttributes?.find(
-        (att) => att?.Name === "custom:organization",
-      )?.Value;
-
-      const command = new GetCommand({
-        TableName: "User",
-        Key: {
-          user_id: payload?.username,
-          organization,
-        },
-      });
-
-      const { Item } = await docClient.send(command);
-
-      let targetAccountId: number;
-
-      if (Item?.accounts?.some?.((account) => account?.account_alias === stage)) {
-        const id = Item?.accounts?.find?.((account) => account?.account_alias === stage)
-          ?.account_id;
-        targetAccountId = id;
-        return generateAllow(payload.sub, event.methodArn, { targetAccountId });
+      if (!stage) {
+        return generateAllow(payload.sub, event.methodArn);
       } else {
-        throw new Error("Can't find given account alias for the user");
+        const getUserFromCognitocommand = new AdminGetUserCommand({
+          UserPoolId: USER_POOL_ID,
+          Username: payload?.username,
+        });
+
+        const cognitoUser = await cognitoClient.send(getUserFromCognitocommand);
+
+        const organization = cognitoUser?.UserAttributes?.find(
+          (att) => att?.Name === "custom:organization",
+        )?.Value;
+
+        const command = new GetCommand({
+          TableName: "User",
+          Key: {
+            user_id: payload?.username,
+            organization,
+          },
+        });
+
+        const { Item } = await docClient.send(command);
+
+        let targetAccountId: number;
+
+        if (Item?.accounts?.some?.((account) => account?.account_alias === stage)) {
+          const id = Item?.accounts?.find?.((account) => account?.account_alias === stage)
+            ?.account_id;
+
+          targetAccountId = id;
+
+          return generateAllow(payload.sub, event.methodArn, { targetAccountId });
+        } else {
+          throw new Error("Can't find given account alias for the user");
+        }
       }
     }
   } catch (error: any) {
