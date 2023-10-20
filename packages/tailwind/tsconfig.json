@@ -1,0 +1,5 @@
+{
+  "extends": "tsconfig/react-library.json",
+  "include": [".", "../utilities/src/context-utils.ts"],
+  "exclude": ["dist", "build", "node_modules"]
+}
