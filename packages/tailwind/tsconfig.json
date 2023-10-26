@@ -1,5 +1,11 @@
 {
   "extends": "tsconfig/react-library.json",
-  "include": [".", "../utilities/src/context-utils.ts"],
-  "exclude": ["dist", "build", "node_modules"]
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [ "**/*.ts", "**/*.tsx"],
+  "exclude": ["dist", "build", "node_modules"],
 }

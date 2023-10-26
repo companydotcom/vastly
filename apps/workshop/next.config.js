@@ -1,4 +1,4 @@
 module.exports = {
   reactStrictMode: true,
-  transpilePackages: ["@vastly/ui", "@vastly/forms"],
+  transpilePackages: ["@vastly/ui", "@vastly/forms", "@vastly/tailwind"],
 };

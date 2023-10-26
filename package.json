@@ -26,7 +26,9 @@
     "test:watch": "turbo run test:watch",
     "postinstall": "pnpm run build:packages",
     "dev:components": "turbo run dev --filter=@vastly/ui --filter=@vastly/forms --filter=@vastly/utils --no-cache --continue",
-    "release": "pnpm install --frozen-lockfile && pnpm build && pnpm changeset publish"
+    "release": "pnpm install --frozen-lockfile && pnpm build && pnpm changeset publish",
+    "dev:workshop": "turbo run dev --filter=workshop",
+    "dev:tailwind": "turbo run dev --filter=@vastly/tailwind"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.0",
@@ -39,7 +41,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
     "prettier": "latest",
-    "tsup": "^6.5.0",
+    "tsup": "^7.2.0",
     "tsx": "^3.12.2",
     "turbo": "1.10.0",
     "vitest": "0.31.0"

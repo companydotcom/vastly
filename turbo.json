@@ -20,6 +20,15 @@
         "storybook-static/**"
       ]
     },
+    "workshop#dev": {
+      "cache": false,
+      "outputs": [
+        ".next/**"
+      ],
+      "dependsOn": [
+        "@vastly/tailwind#build"
+      ]
+    },
     "workshop#build-storybook": {
       "outputs": [
         "storybook-static/**"

@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.111",
-    "@types/react": "^18.0.17",
+    "@types/react": "^18",
     "@types/react-dom": "^18.0.6",
     "@vastly/eslint-config-custom": "workspace:*",
     "eslint": "^7.32.0",

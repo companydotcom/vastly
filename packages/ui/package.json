@@ -33,7 +33,7 @@
     "@storybook/react-webpack5": "^7.2.1",
     "@storybook/testing-library": "^0.2.0",
     "@storybook/theming": "7.2.1",
-    "@types/react": "^18.0.17",
+    "@types/react": "^18",
     "@types/react-datepicker": "^4.8.0",
     "@types/react-dom": "^18.0.6",
     "@vastly/eslint-config-custom": "workspace:*",
