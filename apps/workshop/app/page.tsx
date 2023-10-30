@@ -9,6 +9,7 @@ import {
 export default async function Home() {
   return (
     <div className="flex flex-col mx-auto max-w-6xl p-10 gap-6">
+      <h1 className="text-testtest">TEST</h1>
       <div>
         <h1 className="font-bold">Button</h1>
         <Button>Test</Button>

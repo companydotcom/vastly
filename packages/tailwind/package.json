@@ -2,11 +2,10 @@
     "name": "@vastly/tailwind",
     "version": "0.0.1",
     "license": "MIT",
-    "sideEffects": false,
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
     "types": "./dist/index.d.ts",
-    "preferGlobal": true,
+    "sideEffects": false,
     "files": [
         "dist/**"
     ],
