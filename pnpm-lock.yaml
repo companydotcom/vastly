@@ -600,9 +600,6 @@ importers:
       '@vastly/eslint-config-custom':
         specifier: workspace:*
         version: link:../eslint-config-custom
-      esbuild-react18-useclient:
-        specifier: 1.0.7
-        version: 1.0.7
       eslint:
         specifier: ^7.32.0
         version: 7.32.0
@@ -20785,11 +20782,6 @@ packages:
 
   /esbuild-plugin-alias@0.2.1:
     resolution: {integrity: sha512-jyfL/pwPqaFXyKnj8lP8iLk6Z0m099uXR45aSN8Av1XD4vhvQutxxPzgA2bTcAwQpa1zCXDcWOlhFgyP3GKqhQ==}
-    dev: true
-
-  /esbuild-react18-useclient@1.0.7:
-    resolution: {integrity: sha512-4RITwBZwzt1MDQqt20QUqAhEBiMVjiP4yno74HTMa/bvSwh7q+hgtH/PGkMRwcmUPAI9Nyo72csYN3L7eAKs1g==}
-    deprecated: This package is deprecated in favor of [esbuild-plugin-react18](https://github.com/mayank1513/esbuild-plugin-react18). Please switch to [esbuild-plugin-react18](https://github.com/mayank1513/esbuild-plugin-react18), which also offers additional options and more control over your build output.
     dev: true
 
   /esbuild-register@3.4.2(esbuild@0.17.19):
