@@ -6,12 +6,13 @@ import nexpect from "nexpect";
 import lodashPkg from "lodash";
 import * as path from "path";
 import { fileURLToPath } from "url";
+
 import { Client } from "../../../util/client.js";
 
 const { existsSync, readFile, writeFile, readJson, writeJson, ensureDir, copy, move } = pkg;
 const { kebabCase, camelCase } = lodashPkg;
 
-export const generateRestService = async (
+export const generatePrismaService = async (
   client: Client,
   name: string,
   description: string,
@@ -25,9 +26,13 @@ export const generateRestService = async (
   const frontendTemplate = path.resolve(
     __dirname,
     "../../../../../dist/templates/frontend",
-    "rest",
+    "prisma",
   );
-  const backendTemplate = path.resolve(__dirname, "../../../../../dist/templates/backend", "rest");
+  const backendTemplate = path.resolve(
+    __dirname,
+    "../../../../../dist/templates/backend",
+    "prisma",
+  );
 
   try {
     spinner = ora({

@@ -1,6 +1,6 @@
 {
   "name": "@vastly/wave",
-  "version": "0.5.4",
+  "version": "0.6.0",
   "description": "Vastly's Wave Package",
   "author": "Vastly",
   "license": "MIT",
@@ -34,7 +34,7 @@
   ],
   "scripts": {
     "build": "tsup && pnpm copy-files",
-    "dev": "ts-node --esm ./src/index.ts",
+    "dev": "node --loader ts-node/esm ./src/index.ts",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "copy-files": "cp -R ./src/templates/ ./dist/templates"
   },

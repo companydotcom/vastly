@@ -1,5 +1,11 @@
 # @vastly/wave
 
+## 0.6.0
+
+### Minor Changes
+
+- Added the sls option the wave generate command. Changed REST option to be called Prisma.
+
 ## 0.5.4
 
 ### Patch Changes
