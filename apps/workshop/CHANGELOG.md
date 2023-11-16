@@ -1,5 +1,13 @@
 # workshop
 
+## 0.0.9
+
+### Patch Changes
+
+- Updated dependencies
+  - @vastly/ui@0.4.3
+  - @vastly/forms@0.4.4
+
 ## 0.0.8
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @vastly/ui
 
+## 0.4.3
+
+### Patch Changes
+
+- Fixes styles not applying to the ellipsis button in Pagination
+
 ## 0.4.2
 
 ### Patch Changes

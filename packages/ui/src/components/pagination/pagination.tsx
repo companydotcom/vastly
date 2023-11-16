@@ -149,6 +149,7 @@ export const PaginationItem = forwardRef<PaginationItemProps, "button">((props, 
           className={`potion-pagination__${pageType}`}
           ref={ref}
           isDisabled={isDisabled}
+          {...rest}
         >
           …
         </Button>
