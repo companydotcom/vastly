@@ -41,6 +41,7 @@ export const getMediaBucket = async (
       return {
         bucketName: assetsBucket?.Name,
         creationDate: assetsBucket?.CreationDate,
+        client: newS3Client
       };
     } else {
       return await createBucket(credentials, vastlyClientName);
@@ -78,6 +79,7 @@ export const createBucket = async (credentials: any, vastlyClientName: string) =
       return {
         bucketName,
         location: response.Location,
+        client: newS3Client
       };
     }
     throw Error();

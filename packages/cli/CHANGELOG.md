@@ -1,5 +1,14 @@
 # cli
 
+## 0.12.16
+
+### Patch Changes
+
+- Adds idToken to client, updates user service to accomodate, updates asset service to accomodate
+  and utilize idToken
+- Updated dependencies
+  - @vastly/utils@0.4.2
+
 ## 0.12.15
 
 ### Patch Changes

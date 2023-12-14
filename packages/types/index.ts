@@ -8,7 +8,10 @@ export interface JSONObject {
   [key: string]: JSONValue;
 }
 export interface ConfigContent {
-  token?: string;
+  token?: {
+    accessToken?: string;
+    idToken?: string;
+  };
   accounts?: Account[];
 }
 

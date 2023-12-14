@@ -1,5 +1,14 @@
 # assets-service
 
+## 0.3.1
+
+### Patch Changes
+
+- Adds idToken to client, updates user service to accomodate, updates asset service to accomodate
+  and utilize idToken
+- Updated dependencies
+  - @vastly/utils@0.4.2
+
 ## 0.3.0
 
 ### Minor Changes

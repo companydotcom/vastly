@@ -71,7 +71,10 @@ const verify = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResul
     return {
       statusCode: 200,
       body: JSON.stringify({
-        token: authResponse?.AuthenticationResult?.AccessToken,
+        token: {
+          accessToken: authResponse?.AuthenticationResult?.AccessToken,
+          idToken: authResponse?.AuthenticationResult?.IdToken
+        },
         accounts,
       }),
     };
