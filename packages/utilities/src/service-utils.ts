@@ -7,11 +7,6 @@ export type UseAssumeRoleResponse =
   | AssumeRoleCommandOutput
   | { error: string; success?: never };
 
-
-/**
- * TODO: this needs initial credentials to run. Configure the cognito token claims. https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/iam/command/CreateAccessKeyCommand/
- *  */
-
 /**
  *
  * @param roleName
