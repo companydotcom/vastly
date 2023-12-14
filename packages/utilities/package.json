@@ -1,6 +1,6 @@
 {
   "name": "@vastly/utils",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "main": "./dist/index.js",
   "source": "./src/index.ts",
   "types": "./dist/index.d.ts",
@@ -21,9 +21,7 @@
     "@types/uuid": "9.0.3",
     "@vastly/types": "workspace:*",
     "jwt-decode": "4.0.0",
-    "load-json-file": "^7.0.1",
-    "uuid": "9.0.0",
-    "xdg-app-paths": "^8.3.0"
+    "uuid": "9.0.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.111",

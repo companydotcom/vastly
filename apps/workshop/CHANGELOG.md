@@ -1,5 +1,14 @@
 # workshop
 
+## 0.0.11
+
+### Patch Changes
+
+- fixes build error and shared utilities packages fix
+- Updated dependencies
+  - @vastly/forms@0.4.6
+  - @vastly/ui@0.4.5
+
 ## 0.0.10
 
 ### Patch Changes

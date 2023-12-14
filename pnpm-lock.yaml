@@ -37,7 +37,7 @@ importers:
         version: 13.1.0
       prettier:
         specifier: latest
-        version: 3.1.0
+        version: 3.1.1
       tsup:
         specifier: ^6.5.0
         version: 6.5.0(ts-node@10.9.2)(typescript@4.9.5)
@@ -694,9 +694,6 @@ importers:
       jwt-decode:
         specifier: 4.0.0
         version: 4.0.0
-      load-json-file:
-        specifier: ^7.0.1
-        version: 7.0.1
       react:
         specifier: '>=18.0.0'
         version: 18.2.0
@@ -706,9 +703,6 @@ importers:
       uuid:
         specifier: 9.0.0
         version: 9.0.0
-      xdg-app-paths:
-        specifier: ^8.3.0
-        version: 8.3.0
     devDependencies:
       '@types/aws-lambda':
         specifier: ^8.10.111
@@ -964,9 +958,15 @@ importers:
       aws-lambda:
         specifier: ^1.0.7
         version: 1.0.7
+      load-json-file:
+        specifier: ^7.0.1
+        version: 7.0.1
       uuid:
         specifier: 9.0.0
         version: 9.0.0
+      xdg-app-paths:
+        specifier: ^8.3.0
+        version: 8.3.0
     devDependencies:
       '@serverless/typescript':
         specifier: ^3.30.1
@@ -977,6 +977,9 @@ importers:
       '@vastly/eslint-config-custom-server':
         specifier: workspace:*
         version: link:../../packages/eslint-config-custom-server
+      '@vastly/types':
+        specifier: workspace:*
+        version: link:../../packages/types
       esbuild:
         specifier: ^0.19.2
         version: 0.19.2
@@ -24846,8 +24849,8 @@ packages:
     hasBin: true
     dev: true
 
-  /prettier@3.1.0:
-    resolution: {integrity: sha512-TQLvXjq5IAibjh8EpBIkNKxO749UEWABoiIZehEPiY4GNpVdhaFKqSTu+QrlU6D2dPAfubRmtJTi4K4YkQ5eXw==}
+  /prettier@3.1.1:
+    resolution: {integrity: sha512-22UbSzg8luF4UuZtzgiUOfcGM8s4tjBv6dJRT7j275NXsy2jb4aJa4NNveul5x4eqlF1wuhuR2RElK71RvmVaw==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true

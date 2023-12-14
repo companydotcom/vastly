@@ -6,8 +6,9 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import httpHeaderNormalizer from "@middy/http-header-normalizer";
 import httpMultipartBodyParser from "@middy/http-multipart-body-parser";
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
-import { multipleFileUpload, normalizeFilePath, getMediaBucket } from "../../lib";
-import { UseAssumeRole, readConfigFile } from '@vastly/utils';
+import { multipleFileUpload, normalizeFilePath, getMediaBucket, readConfigFile } from "../../lib";
+import { UseAssumeRole } from '@vastly/utils';
+
 
 const { AWS_REGION } = process.env;
 
@@ -52,7 +53,7 @@ const s3uploadMedia = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
     const { bucketName, client } = await getMediaBucket(s3Client, clientName, assumeRoleResult.Credentials);
 
     if (file.length > 1) {
-      return await multipleFileUpload(file, filePath, bucketName ?? "");
+      return await multipleFileUpload(file, filePath, bucketName ?? "", assumeRoleResult.Credentials);
     }
     const detectedMime = file?.mimetype || "unspecifiedMimeType";
 

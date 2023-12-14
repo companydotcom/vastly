@@ -1,5 +1,13 @@
 # website
 
+## 0.1.4
+
+### Patch Changes
+
+- fixes build error and shared utilities packages fix
+- Updated dependencies
+  - @vastly/ui@0.4.5
+
 ## 0.1.3
 
 ### Patch Changes

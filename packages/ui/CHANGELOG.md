@@ -1,5 +1,13 @@
 # @vastly/ui
 
+## 0.4.5
+
+### Patch Changes
+
+- fixes build error and shared utilities packages fix
+- Updated dependencies
+  - @vastly/utils@0.4.3
+
 ## 0.4.4
 
 ### Patch Changes

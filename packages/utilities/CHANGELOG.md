@@ -1,5 +1,13 @@
 # @vastly/utils
 
+## 0.4.3
+
+### Patch Changes
+
+- fixes build error and shared utilities packages fix
+- Updated dependencies
+  - @vastly/types@2.4.6
+
 ## 0.4.2
 
 ### Patch Changes

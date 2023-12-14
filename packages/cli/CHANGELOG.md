@@ -1,5 +1,13 @@
 # cli
 
+## 0.12.17
+
+### Patch Changes
+
+- fixes build error and shared utilities packages fix
+- Updated dependencies
+  - @vastly/utils@0.4.3
+
 ## 0.12.16
 
 ### Patch Changes
