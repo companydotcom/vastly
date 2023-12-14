@@ -1,38 +1,51 @@
-import { STSClient, AssumeRoleCommand } from "@aws-sdk/client-sts";
+import { STSClient, AssumeRoleCommand, AssumeRoleCommandInput, GetCallerIdentityCommand, AssumeRoleCommandOutput } from "@aws-sdk/client-sts";
+import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
 import { v4 as uuid } from "uuid";
+import { jwtDecode } from "jwt-decode";
 
-/**
- * TODO: this needs initial credentials to run. Configure the cognito token claims. https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/iam/command/CreateAccessKeyCommand/
- *  */
+export type UseAssumeRoleResponse =
+  | AssumeRoleCommandOutput
+  | { error: string; success?: never };
 
 /**
  *
  * @param roleName
- * @param accountId
- * @param newCredentials
- * @returns
+ * @param token
+ * @param client
+ * @returns - AssumeRoleCommandOutput
  */
-export const UseAssumeRole = async (roleName: string, accountId: string, newCredentials?: any) => {
+export const UseAssumeRole = async (token: string, client?: string, roleName?: string ): Promise<UseAssumeRoleResponse> => {
   try {
-    let stsClient;
-    if (newCredentials) {
-      stsClient = new STSClient({
-        region: "us-east-1",
-        credentials: {
-          accessKeyId: newCredentials?.AccessKeyId,
-          secretAccessKey: newCredentials?.SecretAccessKey,
-          sessionToken: newCredentials?.SessionToken,
-          expiration: newCredentials?.Expiration,
-        },
-      });
-    } else {
-      stsClient = new STSClient({
-        region: "us-east-1",
-      });
+    if (!token) {
+      throw Error("Missing or invalid ID token! Sign into vastly to refresh")
     }
 
-    const input = {
-      RoleArn: `arn:aws:iam::${accountId}:role/${roleName}`,
+    let input: AssumeRoleCommandInput;
+
+    let ASSUME_ROLE_IDENTITY_POOL = `ASSUME_ROLE_IDENTITY_POOL_${client}`
+    const { iss } = jwtDecode(token);
+
+    let COGNITO_ID = `${iss?.split("//")[1]}`;
+    const loginData = {
+      [COGNITO_ID]: token,
+    };
+    console.log("LOGIN DATA: ", loginData)
+
+    const stsClient = new STSClient({
+      region: "us-east-1",
+      credentials: fromCognitoIdentityPool({
+        clientConfig: { region: "us-east-1" },
+        identityPoolId: `${process.env[ASSUME_ROLE_IDENTITY_POOL]}`,
+        logins: loginData
+      })
+    });
+
+
+    const callerInput = new GetCallerIdentityCommand({});
+    const { Account } = await stsClient.send(callerInput);
+
+   input = {
+      RoleArn: `arn:aws:iam::${Account}:role/${roleName}`,
       RoleSessionName: `${roleName}Session-${uuid().split("-")[1]}`,
       DurationSeconds: 900, // minimum 15 minutes
     };
@@ -45,6 +58,6 @@ export const UseAssumeRole = async (roleName: string, accountId: string, newCred
     }
     throw Error();
   } catch (err) {
-    throw Error(`${err}: Unable to assume role`);
+    return { error: `${err}: Unable to assume role`};
   }
 };

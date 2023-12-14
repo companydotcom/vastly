@@ -30,7 +30,7 @@ export default function makeClient(opts: ClientOptions) {
     const headers = new Headers(options.headers);
 
     if (opts?.config?.token) {
-      headers.set("Authorization", `Bearer ${opts.config.token}`);
+      headers.set("Authorization", `Bearer ${opts.config.token.accessToken}`);
     }
 
     let body;

@@ -1,3 +1,9 @@
+import xdgAppPaths from "xdg-app-paths";
+import type { XDGAppPaths } from "xdg-app-paths";
+import { join } from "path";
+import { loadJsonFileSync } from "load-json-file";
+import { Config } from '@vastly/types';
+
 export const cx = (...classNames: any[]) => classNames.filter(Boolean).join(" ");
 
 export function isDev() {
@@ -48,4 +54,19 @@ export function callAll<T extends AnyFunction>(...fns: (T | undefined)[]) {
       fn?.(arg);
     });
   };
-}
+};
+
+export const getGlobalPathConfig = (): string => {
+  const configDirs = (xdgAppPaths)({
+    name: "vastly",
+  }).dataDirs();
+
+  return configDirs[0];
+};
+
+export const readConfigFile = () => {
+  const VASTLY_DIR = getGlobalPathConfig();
+  const CONFIG_FILE_PATH = join(VASTLY_DIR, "config.json");
+  const config = loadJsonFileSync(CONFIG_FILE_PATH);
+  return config as Config;
+};

@@ -1,7 +1,10 @@
+import { S3Client } from '@aws-sdk/client-s3';
+
 export interface ListOrCreateMediaBucketResponse {
   bucketName?: string;
   creationDate?: string | Date;
   location?: string;
+  client?: S3Client
 }
 
 export interface File {

@@ -1,5 +1,14 @@
 # onboarding-service
 
+## 0.2.4
+
+### Patch Changes
+
+- Adds idToken to client, updates user service to accomodate, updates asset service to accomodate
+  and utilize idToken
+- Updated dependencies
+  - @vastly/utils@0.4.2
+
 ## 0.2.3
 
 ### Patch Changes

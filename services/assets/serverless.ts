@@ -33,7 +33,7 @@ const serverlessConfiguration: AWS = {
   custom: {
     domain: "api.vastly.is",
     "serverless-offline": {
-      httpPort: 4000,
+      httpPort: 4003,
       useChildProcesses: true,
     },
     esbuild: {
