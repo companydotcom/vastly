@@ -1,19 +1,24 @@
 import { createHash } from "crypto";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { File, S3UploadResponse } from "../types";
-import { roleChaining } from ".";
+import xdgAppPaths from "xdg-app-paths";
+import { join } from "path";
+import { loadJsonFileSync } from "load-json-file";
+import { Config } from '@vastly/types';
+
 
 export const multipleFileUpload = async (
   files: File[],
   filePath: string,
   bucketName: string,
+  credentials?: any,
 ): Promise<S3UploadResponse> => {
   try {
     if (!files || !filePath || !bucketName) {
       throw Error("Missing event body or bucket name!");
     }
 
-    const { credentials } = await roleChaining();
+    // const { credentials } = await roleChaining();
     const s3Client = new S3Client([
       {
         region: "us-east-1",
@@ -63,4 +68,19 @@ export const multipleFileUpload = async (
       }),
     };
   }
+};
+
+export const getGlobalPathConfig = (): string => {
+  const configDirs = (xdgAppPaths)({
+    name: "vastly",
+  }).dataDirs();
+
+  return configDirs[0];
+};
+
+export const readConfigFile = () => {
+  const VASTLY_DIR = getGlobalPathConfig();
+  const CONFIG_FILE_PATH = join(VASTLY_DIR, "config.json");
+  const config = loadJsonFileSync(CONFIG_FILE_PATH);
+  return config as Config;
 };
