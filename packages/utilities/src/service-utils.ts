@@ -59,6 +59,5 @@ export const UseAssumeRole = async (token: string, client?: string, roleName?: s
     throw Error();
   } catch (err) {
     return { error: `${err}: Unable to assume role`};
-    // throw Error(`${err}: Unable to assume role`);
   }
 };
