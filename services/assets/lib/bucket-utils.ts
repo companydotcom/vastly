@@ -34,17 +34,21 @@ export const getMediaBucket = async (
     });
     const listCommand = new ListBucketsCommand({});
     const { Buckets } = await newS3Client.send(listCommand);
+    const snakeCasedClientName = vastlyClientName?.split("_")?.join("-");
     if (Buckets?.length) {
-      assetsBucket = Buckets.find((b: Bucket) => b.Name?.includes(`${vastlyClientName}-assets`));
+      assetsBucket = Buckets.find(
+        (b: Bucket) => b.Name?.includes(`${snakeCasedClientName}-assets`),
+      );
     }
+
     if (assetsBucket?.Name) {
       return {
         bucketName: assetsBucket?.Name,
         creationDate: assetsBucket?.CreationDate,
-        client: newS3Client
+        client: newS3Client,
       };
     } else {
-      return await createBucket(credentials, vastlyClientName);
+      return await createBucket(credentials, snakeCasedClientName);
     }
   } catch (err) {
     console.error(err);
