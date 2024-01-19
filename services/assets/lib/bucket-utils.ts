@@ -35,8 +35,12 @@ export const getMediaBucket = async (
     const listCommand = new ListBucketsCommand({});
     const { Buckets } = await newS3Client.send(listCommand);
     if (Buckets?.length) {
-      assetsBucket = Buckets.find((b: Bucket) => b.Name?.includes(`${vastlyClientName}-assets`));
+      const snakeCasedClientName = vastlyClientName?.split("_")?.join("-");
+      assetsBucket = Buckets.find(
+        (b: Bucket) => b.Name?.includes(`${snakeCasedClientName}-assets`),
+      );
     }
+
     if (assetsBucket?.Name) {
       return {
         bucketName: assetsBucket?.Name,

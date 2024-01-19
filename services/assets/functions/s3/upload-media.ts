@@ -19,7 +19,6 @@ const s3uploadMedia = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
     const filePath = normalizeFilePath(event.body?.["filePath"]);
     const idToken = event.headers?.["authorization"] || readConfigFile().token?.idToken;
 
-
     if (!file || !clientName || !filePath) {
       return {
         statusCode: 400,
@@ -29,12 +28,16 @@ const s3uploadMedia = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
       };
     }
 
-    const assumeRoleResult = await UseAssumeRole(idToken, clientName, "CrossAccountAssetServiceRole");
+    const assumeRoleResult = await UseAssumeRole(
+      idToken,
+      clientName,
+      "CrossAccountAssetServiceRole",
+    );
     if ("error" in assumeRoleResult) {
       return {
         statusCode: 404,
         body: JSON.stringify({
-          location: `${assumeRoleResult.error}`,
+          location: `There was an error with UseAssumeRole: ${assumeRoleResult.error}`,
         }),
       };
     }
@@ -50,10 +53,19 @@ const s3uploadMedia = async (event: APIGatewayProxyEvent): Promise<APIGatewayPro
         },
       },
     ]);
-    const { bucketName, client } = await getMediaBucket(s3Client, clientName, assumeRoleResult.Credentials);
+    const { bucketName, client } = await getMediaBucket(
+      s3Client,
+      clientName,
+      assumeRoleResult.Credentials,
+    );
 
     if (file.length > 1) {
-      return await multipleFileUpload(file, filePath, bucketName ?? "", assumeRoleResult.Credentials);
+      return await multipleFileUpload(
+        file,
+        filePath,
+        bucketName ?? "",
+        assumeRoleResult.Credentials,
+      );
     }
     const detectedMime = file?.mimetype || "unspecifiedMimeType";
 
