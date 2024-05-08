@@ -2,7 +2,7 @@ import httpErrorHandler from "@middy/http-error-handler";
 import cors from "@middy/http-cors";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import middy from "@middy/core";
-import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import type { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from "aws-lambda";
 import type { NativeAttributeValue } from "@aws-sdk/util-dynamodb";
 import type { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import type { DynamoDBDocument, QueryCommandInput, ScanCommandInput } from "@aws-sdk/lib-dynamodb";
@@ -145,9 +145,36 @@ async function getKeyNames(
   }
 }
 
-const getAllEnvHandler = middy(baseHandler)
-  .use(jsonBodyParser())
-  .use(cors())
-  .use(httpErrorHandler());
+const getAllEnvHandler: middy.MiddyfiedHandler<
+  Omit<APIGatewayProxyEvent, "body"> & {
+    body: any;
+  } & APIGatewayProxyEvent,
+  APIGatewayProxyResult,
+  Error,
+  Context
+> = middy(baseHandler).use(jsonBodyParser()).use(cors()).use(httpErrorHandler());
 
 export { getAllEnvHandler, baseHandler, getAllEnv, getAllProjects, getKeyNames };
+
+// function setEnvironmentVariablesUnix(secrets: { [key: string]: string }) {
+//   for (const [key, value] of Object.entries(secrets)) {
+//       process.env[key] = value;
+//   }
+// }
+
+// function setEnvironmentVariablesWindows(secrets: { [key: string]: string }) {
+//   const powershellScript = Object.entries(secrets).map(([key, value]) =>
+//       `$env:${key} = "${value}"`
+//   ).join(';');
+
+//   require('child_process').execSync(`powershell -Command "${powershellScript}"`, { stdio: 'inherit' });
+// }
+
+// function setEnvironmentVariables(secrets: { [key: string]: string }) {
+//   if (process.platform === 'win32') {
+//       setEnvironmentVariablesWindows(secrets);
+//   } else {
+//       setEnvironmentVariablesUnix(secrets);
+//   }
+// }
+

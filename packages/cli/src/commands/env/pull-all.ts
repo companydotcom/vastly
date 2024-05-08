@@ -29,7 +29,7 @@ export default async function pullAllEnv(client: Client) {
     const projects = await doPullEnv(client, { eventType: "pull-projects" });
     if (!projects?.length) {
       spinner.fail(chalk.bgMagentaBright("  No projects found! Add an env to get started  \n"));
-      throw new Error("Command failed with exit code 1");
+      return;
     } else {
       spinner.succeed(`${projects?.length} project(s) found \n`);
     }

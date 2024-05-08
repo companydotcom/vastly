@@ -22,15 +22,20 @@ export default async function whoami(client: Client | MockClient, options: Whoam
       throw new Error();
     }
 
+    output.log(email, chalk.cyan);
+
     if (options.token) {
       if (!client.config?.token) {
         throw new Error();
       }
 
-      output.log(`${client.config.token}\n`, chalk.cyan);
+      output.log(
+        `idToken: ${client.config.token.idToken}\n\n
+        accessToken: ${client.config.token.accessToken}\n`,
+        chalk.cyan,
+      );
     }
 
-    output.log(email, chalk.cyan);
     output.log("\n");
   } catch (e) {
     output.error("There was a problem fetching your user. Did you try running vastly login first?");
