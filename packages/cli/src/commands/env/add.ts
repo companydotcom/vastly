@@ -68,33 +68,38 @@ export default async function addEnv(client: Client) {
         color: "yellow",
       }).start();
 
-      await addVariable(answers);
-      spinner.succeed(chalk.green("Success! \n"));
+      const response = await addVariable(answers);
+      if (response.$metadata.httpStatusCode === 200) {
+        spinner.succeed(chalk.green("Success! \n"));
 
-      const listItems = await client
-        .prompt([
-          {
-            type: "confirm",
-            name: "list",
-            message: "Would you like to view your table?",
-          },
-        ])
-        .then((a) => a)
-        .catch((error) => {
-          if (error.isTtyError) {
-            // Prompt couldn't be rendered in the current environment
-            throw new Error("Interactive mode not supported");
-          } else {
-            // Something else went wrong
-            output.error("something wrong");
-          }
-        });
+        const listItems = await client
+          .prompt([
+            {
+              type: "confirm",
+              name: "list",
+              message: "Would you like to view your table?",
+            },
+          ])
+          .then((a) => a)
+          .catch((error) => {
+            if (error.isTtyError) {
+              // Prompt couldn't be rendered in the current environment
+              throw new Error("Interactive mode not supported");
+            } else {
+              // Something else went wrong
+              output.error("something wrong");
+            }
+          });
 
-      if (listItems.list) {
-        await listTableItems();
+        if (listItems.list) {
+          await listTableItems();
+        }
+        return;
       }
-      return;
+      spinner.fail(chalk.bgMagentaBright("  Something went wrong \n"));
+      throw new Error();
     }
+    spinner.fail(chalk.bgMagentaBright("  No table found! Something went wrong  \n"));
     throw new Error();
   } catch (err: unknown) {
     spinner.fail();

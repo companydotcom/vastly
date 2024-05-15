@@ -37,7 +37,7 @@ export default async function pullAllEnv(client: Client) {
           {
             type: "list",
             name: "app",
-            message: "Which APP or SERVICE env do you want?",
+            message: "Which APP or SERVICE do you want to pull from?",
             choices: apps,
             default: apps?.[0],
           },
@@ -89,12 +89,12 @@ export default async function pullAllEnv(client: Client) {
           ),
         );
       }
-    } else {
-      spinner.fail(chalk.bgMagentaBright("  No table found! Add an env to get started  \n"));
+      return;
     }
-    return;
+    spinner.fail(chalk.bgMagentaBright("  No table found! Add an env to get started  \n"));
+    throw new Error();
   } catch (err: unknown) {
     spinner.fail();
-    output.error(`${errorToString(err)} ---> 📝 Are you logged in? `);
+    output.error(`Pull: ${errorToString(err)}`);
   }
 }
