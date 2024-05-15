@@ -28,7 +28,7 @@ export default async function deleteEnv(client: Client) {
           {
             type: "confirm",
             name: "list",
-            message: "Would you like to view your envs first?",
+            message: "Would you like to view your table first?",
           },
         ])
         .then((a) => a)
