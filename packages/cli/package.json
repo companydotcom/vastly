@@ -43,6 +43,9 @@
     "dist/*"
   ],
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "3.572.0",
+    "@aws-sdk/lib-dynamodb": "3.572.0",
+    "@aws-sdk/util-dynamodb": "^3.312.0",
     "@sentry/node": "^7.48.0",
     "@vastly/utils": "workspace:*",
     "ansi-escapes": "^6.2.0",
