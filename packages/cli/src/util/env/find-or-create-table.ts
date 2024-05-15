@@ -23,7 +23,7 @@ export async function findOrCreateTable(): Promise<boolean> {
 
     return false;
   } catch (error: unknown) {
-    throw new Error(`Find or Create Table: ${errorToString(error)}`);
+    return false;
   } finally {
     dynamoClient.destroy();
   }

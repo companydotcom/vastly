@@ -8,7 +8,11 @@ import { EnvVariable } from "../../types";
 const { writeFile } = pkg;
 const config = ["apps", "services", "pnpm-workspace.yaml"];
 
-export default async function writeToFile(data: EnvVariable[], directory: string[] | ["root"]) {
+export default async function writeToFile(
+  data: EnvVariable[],
+  directory: string[] | ["root"],
+  fileName: string,
+) {
   const rootDir = path.dirname((await findUp(config, { type: "directory" })) || ".");
   const content = convertJSONToEnv(data);
 
@@ -18,19 +22,16 @@ export default async function writeToFile(data: EnvVariable[], directory: string
       let root: string;
       if (dir === "root" || !directory.length) {
         root = path.dirname((await findUp(config, { type: "directory" })) || ".");
-        writeFile(`${root}/.env`, content, (err) => {
+        writeFile(`${root}/${fileName}`, content, (err) => {
           if (err) throw err;
-          console.log(chalk.green(`File saved to `) + chalk.underline.cyan(`${root ? root : dir}`));
         });
-        return true;
       } else {
-        writeFile(`${rootDir}/${dir}/.env`, content, (err) => {
+        writeFile(`${rootDir}/${dir}/${fileName}`, content, (err) => {
           if (err) throw err;
-          console.log(chalk.green(`File saved to `) + chalk.underline.cyan(`${dir}`));
         });
-        return true;
       }
     });
+    return directory;
   } catch (err: any) {
     console.error(`Failed to write env files: ${err.message}`);
     throw err;
@@ -39,7 +40,8 @@ export default async function writeToFile(data: EnvVariable[], directory: string
 
 const convertJSONToEnv = (items: Record<string, any>[]): string => {
   return items.reduce((envFile, item) => {
-    const key = item.environment_keyName.split(":")[1];
-    return envFile + `${key}=${item.keyValue}\n`;
+    const key = Object.keys(item)[0];
+    const value = item[key];
+    return envFile + `${key}=${value}\n`;
   }, "");
 };

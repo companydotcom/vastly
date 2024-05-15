@@ -42,11 +42,14 @@ export default async function addEnv(client: Client) {
             type: "input",
             name: "keyName",
             message: "What is the NAME of your environment variable?",
+            validate: (input) => (input !== "" ? true : "Please enter a value"),
+            error: "Please enter a value",
           },
           {
             type: "input",
             name: "keyValue",
             message: "What is the VALUE of your environment variable?",
+            validate: (input) => (input !== "" ? true : "Please enter a value"),
           },
         ])
         .then((a) => a)

@@ -1,12 +1,14 @@
 import fastGlob from "fast-glob";
+
 import ora from "ora";
 import chalk from "chalk";
 import { findUp } from "find-up";
 import path from "node:path";
 import { Client } from "../../util/client.js";
-import { doPullEnv } from "../../util/env/pull-all.js";
+import { getAllEnv, getAppsFromTable } from "../../util/env/pull-all.js";
 import writeToFile from "../../util/env/write-env-files.js";
 import { errorToString } from "@vastly/utils";
+import { findOrCreateTable } from "../../util/env/find-or-create-table.js";
 
 export default async function pullAllEnv(client: Client) {
   const rootDir = path.dirname((await findUp(["apps", "services", "pnpm-workspace.yaml"])) || ".");
@@ -21,79 +23,76 @@ export default async function pullAllEnv(client: Client) {
 
   try {
     spinner = ora({
-      text: `Fetching your projects...\n`,
+      text: `Checking for an env table...\n`,
       color: "yellow",
     }).start();
 
-    // Grabs projects from data, throws error if no projects are found
-    const projects = await doPullEnv(client, { eventType: "pull-projects" });
-    if (!projects?.length) {
-      spinner.fail(chalk.bgMagentaBright("  No projects found! Add an env to get started  \n"));
-      return;
-    } else {
-      spinner.succeed(`${projects?.length} project(s) found \n`);
-    }
+    const tableExists = await findOrCreateTable();
+    if (tableExists) {
+      spinner.succeed(chalk.green("Table Found! \n"));
 
-    const answers = await client
-      .prompt([
-        {
-          type: "list",
-          name: "environment",
-          message: "Which ENVIRONMENT do you want to pull from?",
-          choices: ["dev", "prod"],
-        },
-        {
-          type: "list",
-          name: "projects",
-          message: "Which PROJECT do you want to pull from?",
-          choices: projects,
-          when: () => projects?.length,
-        },
-        {
-          type: "checkbox",
-          name: "directory",
-          message: "Which directory do you want to write to?",
-          choices: ["root", ...allDirs],
-          default: ["root"],
-        },
-      ])
-      .then((a) => a)
-      .catch((error) => {
-        if (error.isTtyError) {
-          // Prompt couldn't be rendered in the current environment
-          throw new Error("Interactive mode not supported");
-        } else {
-          // Something else went wrong
-          output.error("something wrong");
-        }
-      });
-
-    spinner = ora({
-      text: `Fetching your variables for ${answers.projects}#${answers.environment}...\n`,
-      color: "yellow",
-    }).start();
-
-    const response = await doPullEnv(client, { eventType: "pull-env", ...answers });
-    if (response?.length) {
-      spinner.succeed(chalk.green(`Variables for ${answers.environment} successfully fetched!`));
+      const apps = await getAppsFromTable();
+      const answers = await client
+        .prompt([
+          {
+            type: "list",
+            name: "app",
+            message: "Which APP or SERVICE env do you want?",
+            choices: apps,
+            default: apps?.[0],
+          },
+          {
+            type: "input",
+            name: "fileName",
+            message: "Input your env file name:",
+            default: ".env.local",
+          },
+          {
+            type: "checkbox",
+            name: "directory",
+            message: "Choose a directory to write to:",
+            choices: ["root", ...allDirs],
+            validate: (input) => (input.length ? true : "You must choose at least one directory"),
+          },
+        ])
+        .then((a) => a)
+        .catch((error) => {
+          if (error.isTtyError) {
+            // Prompt couldn't be rendered in the current environment
+            throw new Error("Interactive mode not supported");
+          } else {
+            // Something else went wrong
+            output.error("something wrong");
+          }
+        });
 
       spinner = ora({
-        text: "Creating .env file...\n",
-        color: "magenta",
+        text: `Fetching variables for ${answers.app}...\n`,
+        color: "yellow",
       }).start();
 
-      await writeToFile(response, answers.directory);
+      const response = await getAllEnv(answers.app);
+      if (response?.length) {
+        spinner.succeed(chalk.green(`Success! \n`));
 
-      spinner.succeed(chalk.bgGreenBright(`File successfully created!\n`));
+        spinner = ora({
+          text: "Creating .env file...\n",
+          color: "magenta",
+        }).start();
+
+        const directory = await writeToFile(response, answers.directory, answers.fileName);
+        spinner.succeed(chalk.bgGreenBright(`File successfully created!\n`));
+        directory.forEach((dir) =>
+          console.log(
+            chalk.green(`File saved to `) +
+              chalk.underline.cyan(`${dir === "root" ? rootDir : dir}`),
+          ),
+        );
+      }
     } else {
-      spinner.fail(
-        chalk.bgYellowBright(
-          `No variables or secrets for the ${answers.environment} environment found!`,
-        ),
-      );
-      throw Error();
+      spinner.fail(chalk.bgMagentaBright("  No table found! Add an env to get started  \n"));
     }
-    return response;
+    return;
   } catch (err: unknown) {
     spinner.fail();
     output.error(`${errorToString(err)} ---> 📝 Are you logged in? `);
