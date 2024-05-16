@@ -1,6 +1,6 @@
 {
   "name": "assets-service",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "A service for managing assets",
   "scripts": {
     "dev": "serverless offline start",
