@@ -1,5 +1,14 @@
 # @dxp/forms
 
+## 0.4.7
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies [f8fca0c]
+  - @vastly/utils@0.5.0
+  - @vastly/ui@0.4.6
+
 ## 0.4.6
 
 ### Patch Changes

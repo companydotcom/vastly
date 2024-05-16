@@ -1,5 +1,12 @@
 # workshop
 
+## 0.0.12
+
+### Patch Changes
+
+- @vastly/forms@0.4.7
+- @vastly/ui@0.4.6
+
 ## 0.0.11
 
 ### Patch Changes

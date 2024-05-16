@@ -1,5 +1,11 @@
 # @vastly/test-utils
 
+## 0.1.7
+
+### Patch Changes
+
+- @vastly/ui@0.4.6
+
 ## 0.1.6
 
 ### Patch Changes

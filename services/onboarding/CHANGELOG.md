@@ -1,5 +1,13 @@
 # onboarding-service
 
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies [f8fca0c]
+  - @vastly/utils@0.5.0
+
 ## 0.2.5
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # assets-service
 
+## 0.3.3
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies [f8fca0c]
+  - @vastly/utils@0.5.0
+
 ## 0.3.2
 
 ### Patch Changes
