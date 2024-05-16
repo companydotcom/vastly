@@ -2,89 +2,107 @@ import ora from "ora";
 import chalk from "chalk";
 import { errorToString } from "@vastly/utils";
 import { Client } from "../../util/client.js";
-import doAddEnv from "../../util/env/add.js";
-import { doPullEnv } from "../../util/env/pull-all.js";
+import { findUp } from "find-up";
+import path from "node:path";
+import fastGlob from "fast-glob";
+import { findOrCreateTable } from "../../util/env/find-or-create-table.js";
+import addVariable from "../../util/env/add.js";
+import listTableItems from "../../util/env/list-items.js";
 
 export default async function addEnv(client: Client) {
+  const rootDir = path.dirname((await findUp(["apps", "services", "pnpm-workspace.yaml"])) || ".");
+  const allDirs = await fastGlob(["apps/*/", "services/*/"], {
+    cwd: rootDir,
+    onlyDirectories: true,
+    deep: 1,
+  });
+
   const { output } = client;
   let spinner = output.spinner;
 
   try {
     spinner = ora({
-      text: `Fetching your projects...\n`,
+      text: `Checking for an env table...\n`,
       color: "yellow",
     }).start();
 
-    let projects = await doPullEnv(client, { eventType: "pull-projects" });
-    if (!projects?.length) {
-      spinner.succeed(chalk.bgMagentaBright("  No projects found! Let's get started...  \n"));
-      projects = [];
-    } else {
-      spinner.succeed(`${projects?.length} project(s) found \n`);
-    }
+    const tableExists = await findOrCreateTable();
+    if (tableExists) {
+      spinner.succeed(chalk.green("Table Found! \n"));
+      const answers = await client
+        .prompt([
+          {
+            type: "list",
+            name: "app",
+            message: "Which APP or SERVICE would you like to add to?",
+            choices: ["root", ...allDirs],
+            default: "root",
+          },
+          {
+            type: "input",
+            name: "keyName",
+            message: "What is the NAME of your environment variable?",
+            validate: (input) => (input !== "" ? true : "Please enter a value"),
+            error: "Please enter a value",
+          },
+          {
+            type: "input",
+            name: "keyValue",
+            message: "What is the VALUE of your environment variable?",
+            validate: (input) => (input !== "" ? true : "Please enter a value"),
+          },
+        ])
+        .then((a) => a)
+        .catch((error) => {
+          if (error.isTtyError) {
+            // Prompt couldn't be rendered in the current environment
+            throw new Error("Interactive mode not supported");
+          } else {
+            // Something else went wrong
+            output.error("something wrong");
+          }
+        });
 
-    const input = await client
-      .prompt([
-        {
-          type: "text",
-          name: "keyName",
-          message: "What is the NAME of your env variable?",
-        },
-        {
-          type: "password",
-          name: "keyValue",
-          message: "What is the VALUE of your env variable?",
-          mask: "*",
-        },
-        {
-          type: "list",
-          name: "environment",
-          message: "Which ENVIRONMENT is this for?",
-          choices: ["dev", "prod"],
-        },
-        {
-          type: "confirm",
-          name: "projectsConfirm",
-          message: "Add a new project?",
-          default: false,
-          when: () => projects?.length,
-        },
-        {
-          type: "text",
-          name: "projects",
-          message: "What is the name of your PROJECT?",
-          choices: projects,
-          when: (a) => !projects?.length || a.projectsConfirm,
-        },
-        {
-          type: "list",
-          name: "projects",
-          message: "Choose a PROJECT to add to:",
-          choices: projects,
-          when: (a) => projects?.length && !a.projectsConfirm,
-        },
-      ])
-      .then((a) => a)
-      .catch((error) => {
-        if (error.isTtyError) {
-          // Prompt couldn't be rendered in the current environment
-          throw new Error("Interactive mode not supported");
-        } else {
-          // Something else went wrong
-          output.error("something wrong");
+      spinner = ora({
+        text: "Adding to the database...\n",
+        color: "yellow",
+      }).start();
+
+      const response = await addVariable(answers);
+      if (response.$metadata.httpStatusCode === 200) {
+        spinner.succeed(chalk.green("Success! \n"));
+
+        const listItems = await client
+          .prompt([
+            {
+              type: "confirm",
+              name: "list",
+              message: "Would you like to view your table?",
+            },
+          ])
+          .then((a) => a)
+          .catch((error) => {
+            if (error.isTtyError) {
+              // Prompt couldn't be rendered in the current environment
+              throw new Error("Interactive mode not supported");
+            } else {
+              // Something else went wrong
+              output.error("something wrong");
+            }
+          });
+
+        if (listItems.list) {
+          await listTableItems();
         }
-      });
-
-    spinner = ora({
-      text: "Adding to the database...\n",
-      color: "yellow",
-    }).start();
-
-    const response = await doAddEnv(client, input);
-    spinner.succeed(chalk.green("Success! \n"));
-    return response;
+        return;
+      }
+      spinner.fail(chalk.bgMagentaBright("  Something went wrong \n"));
+      throw new Error();
+    }
+    spinner.fail(chalk.bgMagentaBright("  No table found! Something went wrong  \n"));
+    throw new Error();
   } catch (err: unknown) {
     spinner.fail();
-    output.error(`${errorToString(err)} ---> 📝 Are you logged in? `);
+    output.error(`Add Env: ${errorToString(err)}`);
   }
 }

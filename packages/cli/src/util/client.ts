@@ -19,7 +19,7 @@ export interface ClientOptions {
   stdout: NodeJS.WriteStream;
   stderr: NodeJS.WriteStream;
   output: Output;
-  config: Config;
+  config?: Config;
   apiUrl: string;
 }
 

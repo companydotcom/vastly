@@ -2,7 +2,7 @@ import httpErrorHandler from "@middy/http-error-handler";
 import cors from "@middy/http-cors";
 import jsonBodyParser from "@middy/http-json-body-parser";
 import middy from "@middy/core";
-import type { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
+import type { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from "aws-lambda";
 import type { NativeAttributeValue } from "@aws-sdk/util-dynamodb";
 import type { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import type { DynamoDBDocument, QueryCommandInput, ScanCommandInput } from "@aws-sdk/lib-dynamodb";
@@ -145,9 +145,15 @@ async function getKeyNames(
   }
 }
 
-const getAllEnvHandler = middy(baseHandler)
-  .use(jsonBodyParser())
-  .use(cors())
-  .use(httpErrorHandler());
+const getAllEnvHandler: middy.MiddyfiedHandler<
+  Omit<APIGatewayProxyEvent, "body"> & {
+    body: any;
+  } & APIGatewayProxyEvent,
+  APIGatewayProxyResult,
+  Error,
+  Context
+> = middy(baseHandler).use(jsonBodyParser()).use(cors()).use(httpErrorHandler());
 
 export { getAllEnvHandler, baseHandler, getAllEnv, getAllProjects, getKeyNames };
+
+

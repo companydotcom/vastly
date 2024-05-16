@@ -1,10 +1,12 @@
 import ora from "ora";
 import chalk from "chalk";
 import { Client } from "../../util/client.js";
-import doDeleteEnv from "../../util/env/delete.js";
+import deleteVariable from "../../util/env/delete.js";
 import { EnvVariable } from "../../types/index.js";
-import { doPullEnv } from "../../util/env/pull-all.js";
 import { errorToString } from "@vastly/utils";
+import { findOrCreateTable } from "../../util/env/find-or-create-table.js";
+import { getAppsFromTable } from "../../util/env/pull-all.js";
+import listTableItems from "../../util/env/list-items.js";
 
 export default async function deleteEnv(client: Client) {
   const { output } = client;
@@ -12,63 +14,107 @@ export default async function deleteEnv(client: Client) {
 
   try {
     spinner = ora({
-      text: `Fetching your secrets and variables...\n`,
+      text: `Checking for an env table...\n`,
       color: "yellow",
     }).start();
 
-    // Grabs projects from data, throws error if no projects are found
-    const projects = await doPullEnv(client, { eventType: "pull-projects" });
-    if (!projects?.length) {
-      spinner.fail(
-        chalk.bgMagentaBright("  No secrets or variables found! Add an env to get started  \n"),
-      );
-      throw new Error("Command failed with exit code 1");
-    } else {
-      spinner.succeed("Fetching your secrets and variables \n");
-    }
+    const tableExists = await findOrCreateTable();
+    if (tableExists) {
+      spinner.succeed(chalk.green("Table Found! \n"));
 
-    const env: EnvVariable = await client
-      .prompt([
-        {
-          type: "list",
-          name: "environment",
-          message: "Which ENVIRONMENT do you want to delete from?",
-          choices: ["dev", "prod"],
-        },
-        {
-          type: "list",
-          name: "projects",
-          message: "Which PROJECT do you want to delete from?",
-          choices: projects,
-          when: () => projects.length,
-        },
-        {
-          type: "text",
-          name: "keyName",
-          message: "What is the NAME of the variable you want to delete? (CASE SENSITIVE)",
-        },
-      ])
-      .then((a) => a)
-      .catch((error) => {
-        if (error.isTtyError) {
-          // Prompt couldn't be rendered in the current environment
-          throw new Error("Interactive mode not supported");
-        } else {
-          // Something else went wrong
-          output.error("something wrong");
+      const listItems = await client
+        .prompt([
+          {
+            type: "confirm",
+            name: "list",
+            message: "Would you like to view your table first?",
+          },
+        ])
+        .then((a) => a)
+        .catch((error) => {
+          if (error.isTtyError) {
+            // Prompt couldn't be rendered in the current environment
+            throw new Error("Interactive mode not supported");
+          } else {
+            // Something else went wrong
+            output.error("something wrong");
+          }
+        });
+
+      if (listItems.list) {
+        await listTableItems();
+      }
+
+      const apps = await getAppsFromTable();
+
+      const env: EnvVariable = await client
+        .prompt([
+          {
+            type: "list",
+            name: "app",
+            message: "Which APP or SERVICE do you want to delete from?",
+            choices: apps,
+            default: apps?.[0],
+            validate: (input) => (input.length ? true : "Please make a selection"),
+          },
+          {
+            type: "input",
+            name: "keyName",
+            message: "What is the NAME of the variable you want to delete? (CASE SENSITIVE)",
+            validate: (input) => (input !== "" ? true : "Please enter a keyName"),
+          },
+        ])
+        .then((a) => a)
+        .catch((error) => {
+          if (error.isTtyError) {
+            // Prompt couldn't be rendered in the current environment
+            throw new Error("Interactive mode not supported");
+          } else {
+            // Something else went wrong
+            output.error("something wrong");
+          }
+        });
+
+      spinner = ora({
+        text: "Starting delete...\n",
+        color: "yellow",
+      }).start();
+
+      const response = await deleteVariable(env);
+      if (response.$metadata.httpStatusCode === 200) {
+        spinner.succeed(chalk.green("Success! \n"));
+
+        const listItems = await client
+          .prompt([
+            {
+              type: "confirm",
+              name: "list",
+              message: "Would you like to view your table?",
+            },
+          ])
+          .then((a) => a)
+          .catch((error) => {
+            if (error.isTtyError) {
+              // Prompt couldn't be rendered in the current environment
+              throw new Error("Interactive mode not supported");
+            } else {
+              // Something else went wrong
+              output.error("something wrong");
+            }
+          });
+
+        if (listItems.list) {
+          await listTableItems();
         }
-      });
-
-    spinner = ora({
-      text: "Deleting...\n",
-      color: "yellow",
-    }).start();
-
-    const response = await doDeleteEnv(client, env);
-    spinner.succeed(chalk.green("Success! \n"));
-    return response;
+        return;
+      }
+      spinner.fail(chalk.bgMagentaBright("  Something went wrong \n"));
+      throw new Error();
+    }
+    spinner.fail(chalk.bgMagentaBright("  No table found! Add an env to get started  \n"));
+    throw new Error();
   } catch (err: unknown) {
     spinner.fail();
-    output.error(`${errorToString(err)} ---> 📝 Are you logged in? `);
+    output.error(`Delete: ${errorToString(err)}`);
   }
 }
