@@ -1,5 +1,11 @@
 # website
 
+## 0.1.6
+
+### Patch Changes
+
+- @vastly/ui@0.4.7
+
 ## 0.1.5
 
 ### Patch Changes
