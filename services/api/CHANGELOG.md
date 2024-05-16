@@ -1,12 +1,5 @@
 # api-service
 
-## 0.1.8
-
-### Patch Changes
-
-- Updated dependencies [e8cbb16]
-  - @vastly/utils@0.5.1
-
 ## 0.1.7
 
 ### Patch Changes
