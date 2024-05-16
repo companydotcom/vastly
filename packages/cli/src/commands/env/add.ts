@@ -34,7 +34,7 @@ export default async function addEnv(client: Client) {
           {
             type: "list",
             name: "app",
-            message: "Which APP is this for?",
+            message: "Which APP or SERVICE would you like to add to?",
             choices: ["root", ...allDirs],
             default: "root",
           },
