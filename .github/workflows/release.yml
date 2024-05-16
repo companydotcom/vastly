@@ -24,8 +24,8 @@ jobs:
         with:
           node-version: 20
 
-      - name: install pnpm@8.6.0
-        run: npm i -g pnpm@8.6.0
+      - name: install pnpm@9.1.1
+        run: npm i -g pnpm@9.1.1
 
       - name: Publish
         if: ${{ github.ref_name == 'main' }}
