@@ -1,12 +1,5 @@
 # @vastly/ui
 
-## 0.4.7
-
-### Patch Changes
-
-- Updated dependencies [e8cbb16]
-  - @vastly/utils@0.5.1
-
 ## 0.4.6
 
 ### Patch Changes
