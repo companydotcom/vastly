@@ -3,7 +3,6 @@ import chalk from "chalk";
 import { Client } from "../../util/client.js";
 import deleteVariable from "../../util/env/delete.js";
 import { EnvVariable } from "../../types/index.js";
-// import { doPullEnv } from "../../util/env/pull-all.js";
 import { errorToString } from "@vastly/utils";
 import { findOrCreateTable } from "../../util/env/find-or-create-table.js";
 import { getAppsFromTable } from "../../util/env/pull-all.js";

@@ -156,25 +156,4 @@ const getAllEnvHandler: middy.MiddyfiedHandler<
 
 export { getAllEnvHandler, baseHandler, getAllEnv, getAllProjects, getKeyNames };
 
-// function setEnvironmentVariablesUnix(secrets: { [key: string]: string }) {
-//   for (const [key, value] of Object.entries(secrets)) {
-//       process.env[key] = value;
-//   }
-// }
-
-// function setEnvironmentVariablesWindows(secrets: { [key: string]: string }) {
-//   const powershellScript = Object.entries(secrets).map(([key, value]) =>
-//       `$env:${key} = "${value}"`
-//   ).join(';');
-
-//   require('child_process').execSync(`powershell -Command "${powershellScript}"`, { stdio: 'inherit' });
-// }
-
-// function setEnvironmentVariables(secrets: { [key: string]: string }) {
-//   if (process.platform === 'win32') {
-//       setEnvironmentVariablesWindows(secrets);
-//   } else {
-//       setEnvironmentVariablesUnix(secrets);
-//   }
-// }
 
