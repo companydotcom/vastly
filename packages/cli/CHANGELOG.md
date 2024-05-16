@@ -1,5 +1,16 @@
 # cli
 
+## 0.14.0
+
+### Minor Changes
+
+- 743f2f2: Refactors the env portion of the cli to be an internal tool, decouples it from the environment service. Updates packages in utilites
+
+### Patch Changes
+
+- Updated dependencies [743f2f2]
+  - @vastly/utils@0.5.1
+
 ## 0.13.0
 
 ### Minor Changes
