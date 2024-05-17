@@ -1,6 +1,6 @@
 {
   "name": "environment",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A TypeScript service for managing secrets",
   "scripts": {
     "dev": "serverless offline start",

@@ -1,6 +1,6 @@
 {
   "name": "user-service",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "A TypeScript starter for Serverless Framework",
   "scripts": {
     "dev": "serverless offline start",

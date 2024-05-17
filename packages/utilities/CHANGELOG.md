@@ -1,5 +1,11 @@
 # @vastly/utils
 
+## 0.5.1
+
+### Patch Changes
+
+- 743f2f2: Refactors the env portion of the cli to be an internal tool, decouples it from the environment service. Updates packages in utilites
+
 ## 0.5.0
 
 ### Minor Changes

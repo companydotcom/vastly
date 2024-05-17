@@ -18,6 +18,9 @@ const makeOutput = await import("./util/output/create-output.js");
 const VASTLY_CONFIG_PATH = getConfigFilePath();
 const VASTLY_DIR = getGlobalPathConfig();
 
+const { CLIENT_API_URL } = process.env;
+
+
 export async function makeProgram(program: Command, pkg: PackageJson) {
   const options = program.opts();
   const output = makeOutput.default({ stream: process.stderr, debugEnabled: options.debug });
@@ -63,7 +66,7 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
     output,
     config,
     waveConfig: undefined,
-    apiUrl: "https://lenz62zq97.execute-api.us-east-1.amazonaws.com/prod",
+    apiUrl: CLIENT_API_URL || '',
   });
 
   try {

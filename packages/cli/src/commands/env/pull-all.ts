@@ -11,8 +11,8 @@ import { errorToString } from "@vastly/utils";
 import { findOrCreateTable } from "../../util/env/find-or-create-table.js";
 
 export default async function pullAllEnv(client: Client) {
-  const rootDir = path.dirname((await findUp(["apps", "services", "pnpm-workspace.yaml"])) || ".");
-  const allDirs = await fastGlob(["apps/*/", "services/*/"], {
+  const rootDir = path.dirname((await findUp(["apps", "packages", "services", "pnpm-workspace.yaml"])) || ".");
+  const allDirs = await fastGlob(["apps/*/", "packages/*/", "services/*/"], {
     cwd: rootDir,
     onlyDirectories: true,
     deep: 1,

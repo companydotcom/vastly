@@ -10,8 +10,8 @@ import addVariable from "../../util/env/add.js";
 import listTableItems from "../../util/env/list-items.js";
 
 export default async function addEnv(client: Client) {
-  const rootDir = path.dirname((await findUp(["apps", "services", "pnpm-workspace.yaml"])) || ".");
-  const allDirs = await fastGlob(["apps/*/", "services/*/"], {
+  const rootDir = path.dirname((await findUp(["apps", "packages", "services", "pnpm-workspace.yaml"])) || ".");
+  const allDirs = await fastGlob(["apps/*/", "packages/*/", "services/*/"], {
     cwd: rootDir,
     onlyDirectories: true,
     deep: 1,
