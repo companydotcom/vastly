@@ -1,7 +1,0 @@
-query ListUsers {
-  listUsers {
-    id
-    email
-    fullname
-  }
-}
