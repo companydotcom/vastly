@@ -1,10 +1,18 @@
 # cli
 
+## 0.14.1
+
+### Patch Changes
+
+- Update version of node engine on all CLIs. Updates create-wave-app to use nodemon to fix console
+  error
+
 ## 0.14.0
 
 ### Minor Changes
 
-- 743f2f2: Refactors the env portion of the cli to be an internal tool, decouples it from the environment service. Updates packages in utilites
+- 743f2f2: Refactors the env portion of the cli to be an internal tool, decouples it from the
+  environment service. Updates packages in utilites
 
 ### Patch Changes
 
@@ -16,7 +24,8 @@
 ### Minor Changes
 
 - Refactors env cli tool to be internal facing
-- f8fca0c: Refactors the env portion of the cli to be an internal tool, decouples it from the environment service. Updates packages in utilites
+- f8fca0c: Refactors the env portion of the cli to be an internal tool, decouples it from the
+  environment service. Updates packages in utilites
 
 ### Patch Changes
 
