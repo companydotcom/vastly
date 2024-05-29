@@ -35,6 +35,7 @@ export const CardExpiryInput = forwardRef<CardExpiryInputProps, "div">((props, r
         month = "12";
       }
     }
+    // @ts-ignore
     return format(`${month}${year}`);
   };
 
