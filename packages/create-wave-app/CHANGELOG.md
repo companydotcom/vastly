@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.15.1
+
+### Patch Changes
+
+- Debugged an issue with wave generate service command
+
 ## 0.15.0
 
 ### Minor Changes

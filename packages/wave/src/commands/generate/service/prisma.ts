@@ -23,16 +23,8 @@ export const generatePrismaService = async (
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = path.dirname(__filename);
   const kebabCaseServiceName = kebabCase(name);
-  const frontendTemplate = path.resolve(
-    __dirname,
-    "../../../../../dist/templates/frontend",
-    "prisma",
-  );
-  const backendTemplate = path.resolve(
-    __dirname,
-    "../../../../../dist/templates/backend",
-    "prisma",
-  );
+  const frontendTemplate = path.resolve(__dirname, "../../../../dist/templates/frontend", "prisma");
+  const backendTemplate = path.resolve(__dirname, "../../../../dist/templates/backend", "prisma");
 
   try {
     spinner = ora({
@@ -59,17 +51,17 @@ export const generatePrismaService = async (
           .run(async (err) => {
             if (!err) {
               // rename tables to include servicename to make unique
-              const camelCaseServiceName = camelCase(name);
-              const schemaContents = await readFile(`./prisma/schema.prisma`, "utf-8");
-              const modifiedSchemaContents = schemaContents
-                .replaceAll("User", `${camelCaseServiceName}User`)
-                .replaceAll("Post", `${camelCaseServiceName}Post`);
-              await writeFile(`./prisma/schema.prisma`, modifiedSchemaContents);
+              // From Charlie -- Removing the following 6 lines, because prisma no longer supports camel cased type names
+              // const camelCaseServiceName = camelCase(name);
+              // const schemaContents = await readFile(`./prisma/schema.prisma`, "utf-8");
+              // const modifiedSchemaContents = schemaContents
+              //   .replaceAll("User", `${camelCaseServiceName}User`)
+              //   .replaceAll("Post", `${camelCaseServiceName}Post`);
+              // await writeFile(`./prisma/schema.prisma`, modifiedSchemaContents);
               execSync("npm run generate");
 
               // .gitignore
               await copy(backendTemplate, `./`);
-              await move(`./_gitignore`, `./.gitignore`);
 
               // add db and deploy commands, and description to packagejson
               await writeToBackendPackageJson(
