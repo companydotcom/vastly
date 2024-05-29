@@ -1,0 +1,19 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@prisma/client": "5.14.0",
+    "@types/node": "20.12.13",
+    "amplify-appsync-simulator": "2.4.1",
+    "js-yaml": "4.1.0",
+    "prisma": "5.14.0",
+    "prisma-appsync": "1.0.2"
+  },
+  "scripts": {
+    "generate": "npx prisma generate",
+    "dev": "npx prisma generate && DATABASE_URL='file:local.sqlite' npx prisma db push --accept-data-loss && DATABASE_URL='file:local.sqlite' npx vite-node ./server.ts --watch -- --schema prisma/generated/prisma-appsync/schema.gql --resolvers prisma/generated/prisma-appsync/resolvers.yaml --watchers '[{\"watch\":[\"**/*.prisma\",\"*.prisma\"],\"exec\":\"npx prisma generate && DATABASE_URL='file:local.sqlite' npx prisma db push --accept-data-loss && touch ./server.ts\"},{\"watch\":[\"handler.ts\"],\"exec\":\"manual-restart\"}]'",
+    "deploy": "cdk synth && cdk bootstrap && cdk deploy"
+  }
+}

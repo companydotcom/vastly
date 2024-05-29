@@ -62,7 +62,6 @@ export const generatePrismaService = async (
 
               // .gitignore
               await copy(backendTemplate, `./`);
-              await move(`./_gitignore`, `./.gitignore`);
 
               // add db and deploy commands, and description to packagejson
               await writeToBackendPackageJson(
@@ -121,14 +120,14 @@ export const generatePrismaService = async (
                   message: `Successfully generated ${kebabCaseServiceName} service.`,
                 };
               } else {
-                // spinner = ora({
-                //   text: chalk.yellow.bold(
-                //     `Adding files for ${chalk.underline.cyan(
-                //       `${kebabCaseServiceName}`,
-                //     )} to ${chalk.underline.magenta("/client")}...\n`,
-                //   ),
-                //   color: "yellow",
-                // }).start();
+                spinner = ora({
+                  text: chalk.yellow.bold(
+                    `Adding files for ${chalk.underline.cyan(
+                      `${kebabCaseServiceName}`,
+                    )} to ${chalk.underline.magenta("/client")}...\n`,
+                  ),
+                  color: "yellow",
+                }).start();
 
                 // copy frontend template
                 await copy(frontendTemplate, "./apps/client");

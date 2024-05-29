@@ -1,0 +1,814 @@
+type BatchPayload {
+    count: Int!
+}
+
+type User {
+    id: Int!
+    email: AWSEmail!
+    posts: [Post!]!
+    createdAt: AWSDateTime!
+}
+
+type Post {
+    id: Int!
+    title: String!
+    source: AWSURL
+    author: User
+    authorId: Int
+    updatedAt: AWSDateTime!
+    createdAt: AWSDateTime!
+}
+
+enum OrderByArg {
+    ASC
+    DESC
+}
+
+enum NullArg {
+    NULL
+}
+
+input IntOperation {
+    set: Int
+    increment: Int
+    decrement: Int
+    multiply: Int
+    divide: Int
+}
+
+input FloatOperation {
+    set: Float
+    increment: Float
+    decrement: Float
+    multiply: Float
+    divide: Float
+}
+
+input AWSDateTimeFilter {
+    equals: AWSDateTime
+    gt: AWSDateTime
+    gte: AWSDateTime
+    in: [AWSDateTime!]
+    lt: AWSDateTime
+    lte: AWSDateTime
+    not: AWSDateTimeFilter
+    notIn: [AWSDateTime!]
+}
+
+input AWSDateTimeNullableFilter {
+    equals: AWSDateTime
+    gt: AWSDateTime
+    gte: AWSDateTime
+    in: [AWSDateTime!]
+    lt: AWSDateTime
+    lte: AWSDateTime
+    not: AWSDateTimeFilter
+    notIn: [AWSDateTime!]
+    isNull: Boolean
+}
+
+input AWSDateTimeListFilter {
+    equals: [AWSDateTime!]
+    has: AWSDateTime
+    hasEvery: [AWSDateTime!]
+    hasSome: [AWSDateTime!]
+    isEmpty: Boolean
+}
+
+input AWSDateFilter {
+    equals: AWSDate
+    gt: AWSDate
+    gte: AWSDate
+    in: [AWSDate!]
+    lt: AWSDate
+    lte: AWSDate
+    not: AWSDateFilter
+    notIn: [AWSDate!]
+}
+
+input AWSDateNullableFilter {
+    equals: AWSDate
+    gt: AWSDate
+    gte: AWSDate
+    in: [AWSDate!]
+    lt: AWSDate
+    lte: AWSDate
+    not: AWSDateFilter
+    notIn: [AWSDate!]
+    isNull: Boolean
+}
+
+input AWSDateListFilter {
+    equals: [AWSDate!]
+    has: AWSDate
+    hasEvery: [AWSDate!]
+    hasSome: [AWSDate!]
+    isEmpty: Boolean
+}
+
+input FloatFilter {
+    equals: Float
+    gt: Float
+    gte: Float
+    in: [Float!]
+    lt: Float
+    lte: Float
+    not: FloatFilter
+    notIn: [Float!]
+    isNull: Boolean
+}
+
+input FloatNullableFilter {
+    equals: Float
+    gt: Float
+    gte: Float
+    in: [Float!]
+    lt: Float
+    lte: Float
+    not: FloatFilter
+    notIn: [Float!]
+    isNull: Boolean
+}
+
+input FloatListFilter {
+    equals: [Float!]
+    has: Float
+    hasEvery: [Float!]
+    hasSome: [Float!]
+    isEmpty: Boolean
+}
+
+input IntFilter {
+    equals: Int
+    gt: Int
+    gte: Int
+    in: [Int!]
+    lt: Int
+    lte: Int
+    not: IntFilter
+    notIn: [Int!]
+}
+
+input IntNullableFilter {
+    equals: Int
+    gt: Int
+    gte: Int
+    in: [Int!]
+    lt: Int
+    lte: Int
+    not: IntFilter
+    notIn: [Int!]
+    isNull: Boolean
+}
+
+input IntListFilter {
+    equals: [Int!]
+    has: Int
+    hasEvery: [Int!]
+    hasSome: [Int!]
+    isEmpty: Boolean
+}
+
+input AWSJSONFilter {
+    contains: String
+    endsWith: String
+    equals: AWSJSON
+    in: [AWSJSON!]
+    not: AWSJSONFilter
+    notIn: [AWSJSON!]
+    startsWith: String
+}
+
+input AWSJSONNullableFilter {
+    contains: String
+    endsWith: String
+    equals: AWSJSON
+    in: [AWSJSON!]
+    not: AWSJSONFilter
+    notIn: [AWSJSON!]
+    startsWith: String
+    isNull: Boolean
+}
+
+input AWSJSONListFilter {
+    equals: [AWSJSON!]
+    has: AWSJSON
+    hasEvery: [AWSJSON!]
+    hasSome: [AWSJSON!]
+    isEmpty: Boolean
+}
+
+input AWSEmailFilter {
+    contains: String
+    endsWith: String
+    equals: AWSEmail
+    in: [AWSEmail!]
+    not: AWSEmailFilter
+    notIn: [AWSEmail!]
+    startsWith: String
+}
+
+input AWSEmailNullableFilter {
+    contains: String
+    endsWith: String
+    equals: AWSEmail
+    in: [AWSEmail!]
+    not: AWSEmailFilter
+    notIn: [AWSEmail!]
+    startsWith: String
+    isNull: Boolean
+}
+
+input AWSEmailListFilter {
+    equals: [AWSEmail!]
+    has: AWSEmail
+    hasEvery: [AWSEmail!]
+    hasSome: [AWSEmail!]
+    isEmpty: Boolean
+}
+
+input AWSURLFilter {
+    contains: String
+    endsWith: String
+    equals: AWSURL
+    in: [AWSURL!]
+    not: AWSURLFilter
+    notIn: [AWSURL!]
+    startsWith: String
+}
+
+input AWSURLNullableFilter {
+    contains: String
+    endsWith: String
+    equals: AWSURL
+    in: [AWSURL!]
+    not: AWSURLFilter
+    notIn: [AWSURL!]
+    startsWith: String
+    isNull: Boolean
+}
+
+input AWSURLListFilter {
+    equals: [AWSURL!]
+    has: AWSURL
+    hasEvery: [AWSURL!]
+    hasSome: [AWSURL!]
+    isEmpty: Boolean
+}
+
+input StringFilter {
+    contains: String
+    endsWith: String
+    equals: String
+    in: [String!]
+    not: StringFilter
+    notIn: [String!]
+    startsWith: String
+    mode: String
+}
+
+input StringNullableFilter {
+    contains: String
+    endsWith: String
+    equals: String
+    in: [String!]
+    not: StringFilter
+    notIn: [String!]
+    startsWith: String
+    mode: String
+    isNull: Boolean
+}
+
+input StringListFilter {
+    equals: [String!]
+    has: String
+    hasEvery: [String!]
+    hasSome: [String!]
+    isEmpty: Boolean
+}
+
+input BooleanFilter {
+    equals: Boolean
+    not: BooleanFilter
+}
+
+input BooleanNullableFilter {
+    equals: Boolean
+    not: BooleanFilter
+    isNull: Boolean
+}
+
+input BooleanListFilter {
+    equals: [Boolean!]
+    has: Boolean
+    hasEvery: [Boolean!]
+    hasSome: [Boolean!]
+}
+
+input UserFilter {
+    some: UserWhereInputWithoutNullables
+    every: UserWhereInputWithoutNullables
+    none: UserWhereInputWithoutNullables
+}
+
+input UserWhereInputWithoutNullables {
+    OR: [UserWhereInput!]
+    NOT: [UserWhereInput!]
+    AND: [UserWhereInput!]
+    id: IntFilter
+    email: AWSEmailFilter
+    posts: PostFilter
+    createdAt: AWSDateTimeFilter
+}
+
+input UserWhereInput {
+    is: NullArg
+    isNot: NullArg
+    OR: [UserWhereInput!]
+    NOT: [UserWhereInput!]
+    AND: [UserWhereInput!]
+    id: IntFilter
+    email: AWSEmailFilter
+    posts: PostFilter
+    createdAt: AWSDateTimeFilter
+}
+
+input UserScalarWhereInput {
+    OR: [UserScalarWhereInput!]
+    NOT: [UserScalarWhereInput!]
+    AND: [UserScalarWhereInput!]
+    id: IntFilter
+    email: AWSEmailFilter
+    createdAt: AWSDateTimeFilter
+}
+
+input UserWhereUniqueInput {
+    id: Int
+    email: AWSEmail
+}
+
+input UserExtendedWhereUniqueInput {
+    OR: [UserWhereInput!]
+    NOT: [UserWhereInput!]
+    AND: [UserWhereInput!]
+    id: Int
+    email: AWSEmail
+    posts: PostFilter
+    createdAt: AWSDateTimeFilter
+}
+
+input UserOrderByInput {
+    id: OrderByArg
+    email: OrderByArg
+    posts: PostOrderByInput
+    createdAt: OrderByArg
+}
+
+input UserPostsCreateNestedInput {
+    connect: [PostWhereUniqueInput!]
+    create: [PostCreateWithoutUserInput!]
+    connectOrCreate: [PostConnectOrCreateWithoutUserInput!]
+}
+
+input UserPostsUpdateNestedInput {
+    connect: [PostWhereUniqueInput!]
+    disconnect: [PostExtendedWhereUniqueInput!]
+    set: [PostWhereUniqueInput!]
+    create: [PostCreateWithoutUserInput!]
+    connectOrCreate: [PostConnectOrCreateWithoutUserInput!]
+    update: [PostUpdateWithWhereUniqueWithoutUserInput!]
+    upsert: [PostUpsertWithWhereUniqueWithoutUserInput!]
+    delete: [PostExtendedWhereUniqueInput!]
+    deleteMany: [PostScalarWhereInput!]
+    updateMany: [PostUpdateManyInput!]
+}
+
+input UserCreateInput {
+    id: Int
+    email: AWSEmail!
+    passwordHash: String!
+    posts: UserPostsCreateNestedInput
+    createdAt: AWSDateTime
+}
+
+input UserCreateWithoutPostInput {
+    id: Int
+    email: AWSEmail!
+    passwordHash: String!
+    createdAt: AWSDateTime
+}
+
+input UserConnectOrCreateWithoutPostInput {
+    where: UserWhereUniqueInput!
+    create: UserCreateWithoutPostInput!
+}
+
+input UserCreateManyInput {
+    id: Int
+    email: AWSEmail!
+    passwordHash: String!
+    createdAt: AWSDateTime
+}
+
+input UserUpdateInput {
+    id: Int
+    email: AWSEmail
+    passwordHash: String
+    posts: UserPostsUpdateNestedInput
+    createdAt: AWSDateTime
+}
+
+input UserUpdateWithoutPostInput {
+    id: Int
+    email: AWSEmail
+    passwordHash: String
+    createdAt: AWSDateTime
+}
+
+input UserUpdateWithWhereUniqueWithoutPostInput {
+    data: UserUpdateWithoutPostInput!
+    where: UserExtendedWhereUniqueInput!
+}
+
+input UserUpdateManyInput {
+    where: UserScalarWhereInput!
+    data: UserUpdateInput!
+}
+
+input UserUpsertWithoutPostInput {
+    create: UserCreateWithoutPostInput!
+    update: UserUpdateWithoutPostInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutPostInput {
+    where: UserExtendedWhereUniqueInput!
+    create: UserCreateWithoutPostInput!
+    update: UserUpdateWithoutPostInput!
+}
+
+input PostFilter {
+    some: PostWhereInputWithoutNullables
+    every: PostWhereInputWithoutNullables
+    none: PostWhereInputWithoutNullables
+}
+
+input PostWhereInputWithoutNullables {
+    OR: [PostWhereInput!]
+    NOT: [PostWhereInput!]
+    AND: [PostWhereInput!]
+    id: IntFilter
+    title: StringFilter
+    source: AWSURLNullableFilter
+    author: UserWhereInput
+    authorId: IntNullableFilter
+    updatedAt: AWSDateTimeFilter
+    createdAt: AWSDateTimeFilter
+}
+
+input PostWhereInput {
+    is: NullArg
+    isNot: NullArg
+    OR: [PostWhereInput!]
+    NOT: [PostWhereInput!]
+    AND: [PostWhereInput!]
+    id: IntFilter
+    title: StringFilter
+    source: AWSURLNullableFilter
+    author: UserWhereInput
+    authorId: IntNullableFilter
+    updatedAt: AWSDateTimeFilter
+    createdAt: AWSDateTimeFilter
+}
+
+input PostScalarWhereInput {
+    OR: [PostScalarWhereInput!]
+    NOT: [PostScalarWhereInput!]
+    AND: [PostScalarWhereInput!]
+    id: IntFilter
+    title: StringFilter
+    source: AWSURLNullableFilter
+    authorId: IntNullableFilter
+    updatedAt: AWSDateTimeFilter
+    createdAt: AWSDateTimeFilter
+}
+
+input PostWhereUniqueInput {
+    id: Int
+}
+
+input PostExtendedWhereUniqueInput {
+    OR: [PostWhereInput!]
+    NOT: [PostWhereInput!]
+    AND: [PostWhereInput!]
+    id: Int
+    title: StringFilter
+    source: AWSURLNullableFilter
+    author: UserWhereInput
+    authorId: IntNullableFilter
+    updatedAt: AWSDateTimeFilter
+    createdAt: AWSDateTimeFilter
+}
+
+input PostOrderByInput {
+    id: OrderByArg
+    title: OrderByArg
+    source: OrderByArg
+    author: UserOrderByInput
+    authorId: OrderByArg
+    updatedAt: OrderByArg
+    createdAt: OrderByArg
+}
+
+input PostAuthorCreateNestedInput {
+    connect: UserWhereUniqueInput
+    create: UserCreateWithoutPostInput
+    connectOrCreate: UserConnectOrCreateWithoutPostInput
+}
+
+input PostAuthorUpdateNestedInput {
+    connect: UserWhereUniqueInput
+    disconnect: Boolean
+    create: UserCreateWithoutPostInput
+    connectOrCreate: UserConnectOrCreateWithoutPostInput
+    update: UserUpdateWithoutPostInput
+    upsert: UserUpsertWithoutPostInput
+    delete: Boolean
+}
+
+input PostCreateInput {
+    id: Int
+    title: String!
+    source: AWSURL
+    author: PostAuthorCreateNestedInput
+    updatedAt: AWSDateTime
+    createdAt: AWSDateTime
+}
+
+input PostCreateWithoutUserInput {
+    id: Int
+    title: String!
+    source: AWSURL
+    updatedAt: AWSDateTime
+    createdAt: AWSDateTime
+}
+
+input PostConnectOrCreateWithoutUserInput {
+    where: PostWhereUniqueInput!
+    create: PostCreateWithoutUserInput!
+}
+
+input PostCreateManyInput {
+    id: Int
+    title: String!
+    source: AWSURL
+    updatedAt: AWSDateTime
+    createdAt: AWSDateTime
+}
+
+input PostUpdateInput {
+    id: Int
+    title: String
+    source: AWSURL
+    author: PostAuthorUpdateNestedInput
+    updatedAt: AWSDateTime
+    createdAt: AWSDateTime
+}
+
+input PostUpdateWithoutUserInput {
+    id: Int
+    title: String
+    source: AWSURL
+    updatedAt: AWSDateTime
+    createdAt: AWSDateTime
+}
+
+input PostUpdateWithWhereUniqueWithoutUserInput {
+    data: PostUpdateWithoutUserInput!
+    where: PostExtendedWhereUniqueInput!
+}
+
+input PostUpdateManyInput {
+    where: PostScalarWhereInput!
+    data: PostUpdateInput!
+}
+
+input PostUpsertWithoutUserInput {
+    create: PostCreateWithoutUserInput!
+    update: PostUpdateWithoutUserInput!
+}
+
+input PostUpsertWithWhereUniqueWithoutUserInput {
+    where: PostExtendedWhereUniqueInput!
+    create: PostCreateWithoutUserInput!
+    update: PostUpdateWithoutUserInput!
+}
+
+type Query {
+    # Retrieve a single User record by unique identifier.
+    getUser(where: UserExtendedWhereUniqueInput!): User
+
+    # Retrieve a list of Users records.
+    listUsers(
+        where: UserWhereInput
+        orderBy: [UserOrderByInput!]
+        skip: Int
+        take: Int
+    ): [User!]
+
+    # Count the number of Users records.
+    countUsers(
+        where: UserWhereInput
+        orderBy: [UserOrderByInput!]
+        skip: Int
+        take: Int
+    ): Int!
+
+    # Retrieve a single Post record by unique identifier.
+    getPost(where: PostExtendedWhereUniqueInput!): Post
+
+    # Retrieve a list of Posts records.
+    listPosts(
+        where: PostWhereInput
+        orderBy: [PostOrderByInput!]
+        skip: Int
+        take: Int
+    ): [Post!]
+
+    # Count the number of Posts records.
+    countPosts(
+        where: PostWhereInput
+        orderBy: [PostOrderByInput!]
+        skip: Int
+        take: Int
+    ): Int!
+}
+
+type Mutation {
+    # Create a new User record.
+    createUser(data: UserCreateInput!): User!
+
+    # Create multiple new Users records.
+    createManyUsers(
+        data: [UserCreateManyInput!]
+        skipDuplicates: Boolean
+    ): BatchPayload!
+
+    # Update a single existing User record.
+    updateUser(
+        where: UserExtendedWhereUniqueInput!
+        data: UserUpdateInput
+    ): User!
+
+    # Update multiple existing Users records.
+    updateManyUsers(
+        where: UserWhereInput!
+        data: UserUpdateInput
+    ): BatchPayload!
+
+    # Create a new User record if it does not exist, or updates it if it does.
+    upsertUser(
+        create: UserCreateInput!
+        update: UserUpdateInput!
+        where: UserExtendedWhereUniqueInput!
+    ): User!
+
+    # Delete a single existing User record.
+    deleteUser(where: UserExtendedWhereUniqueInput!): User!
+
+    # Delete multiple existing Users records.
+    deleteManyUsers(where: UserWhereInput!): BatchPayload!
+
+    # Create a new Post record.
+    createPost(data: PostCreateInput!): Post!
+
+    # Create multiple new Posts records.
+    createManyPosts(
+        data: [PostCreateManyInput!]
+        skipDuplicates: Boolean
+    ): BatchPayload!
+
+    # Update a single existing Post record.
+    updatePost(
+        where: PostExtendedWhereUniqueInput!
+        data: PostUpdateInput
+    ): Post!
+
+    # Update multiple existing Posts records.
+    updateManyPosts(
+        where: PostWhereInput!
+        data: PostUpdateInput
+    ): BatchPayload!
+
+    # Create a new Post record if it does not exist, or updates it if it does.
+    upsertPost(
+        create: PostCreateInput!
+        update: PostUpdateInput!
+        where: PostExtendedWhereUniqueInput!
+    ): Post!
+
+    # Delete a single existing Post record.
+    deletePost(where: PostExtendedWhereUniqueInput!): Post!
+
+    # Delete multiple existing Posts records.
+    deleteManyPosts(where: PostWhereInput!): BatchPayload!
+}
+
+type Subscription {
+    # Event triggered when a new User record is created.
+    onCreatedUser(id: Int, email: AWSEmail): User!
+        @aws_subscribe(mutations: ["createUser"])
+
+    # Event triggered when an existing User record is updated.
+    onUpdatedUser(id: Int, email: AWSEmail): User!
+        @aws_subscribe(mutations: ["updateUser"])
+
+    # Event triggered when a User record is either created or updated.
+    onUpsertedUser(id: Int, email: AWSEmail): User!
+        @aws_subscribe(mutations: ["upsertUser"])
+
+    # Event triggered when an existing User record is deleted.
+    onDeletedUser(id: Int, email: AWSEmail): User!
+        @aws_subscribe(mutations: ["deleteUser"])
+
+    # Event triggered when a User record is either created, updated, or deleted.
+    onMutatedUser(id: Int, email: AWSEmail): User!
+        @aws_subscribe(
+            mutations: [
+                "createUser"
+                "updateUser"
+                "upsertUser"
+                "deleteUser"
+            ]
+        )
+
+    # Event triggered when multiple new Users records are created.
+    onCreatedManyUsers: BatchPayload!
+        @aws_subscribe(mutations: ["createManyUsers"])
+
+    # Event triggered when multiple existing Users records are updated.
+    onUpdatedManyUsers: BatchPayload!
+        @aws_subscribe(mutations: ["updateManyUsers"])
+
+    # Event triggered when multiple existing Users records are deleted.
+    onDeletedManyUsers: BatchPayload!
+        @aws_subscribe(mutations: ["deleteManyUsers"])
+
+    # Event triggered when multiple Users records are either created, updated, or deleted.
+    onMutatedManyUsers: BatchPayload!
+        @aws_subscribe(
+            mutations: [
+                "createManyUsers"
+                "updateManyUsers"
+                "deleteManyUsers"
+            ]
+        )
+
+    # Event triggered when a new Post record is created.
+    onCreatedPost(id: Int): Post!
+        @aws_subscribe(mutations: ["createPost"])
+
+    # Event triggered when an existing Post record is updated.
+    onUpdatedPost(id: Int): Post!
+        @aws_subscribe(mutations: ["updatePost"])
+
+    # Event triggered when a Post record is either created or updated.
+    onUpsertedPost(id: Int): Post!
+        @aws_subscribe(mutations: ["upsertPost"])
+
+    # Event triggered when an existing Post record is deleted.
+    onDeletedPost(id: Int): Post!
+        @aws_subscribe(mutations: ["deletePost"])
+
+    # Event triggered when a Post record is either created, updated, or deleted.
+    onMutatedPost(id: Int): Post!
+        @aws_subscribe(
+            mutations: [
+                "createPost"
+                "updatePost"
+                "upsertPost"
+                "deletePost"
+            ]
+        )
+
+    # Event triggered when multiple new Posts records are created.
+    onCreatedManyPosts: BatchPayload!
+        @aws_subscribe(mutations: ["createManyPosts"])
+
+    # Event triggered when multiple existing Posts records are updated.
+    onUpdatedManyPosts: BatchPayload!
+        @aws_subscribe(mutations: ["updateManyPosts"])
+
+    # Event triggered when multiple existing Posts records are deleted.
+    onDeletedManyPosts: BatchPayload!
+        @aws_subscribe(mutations: ["deleteManyPosts"])
+
+    # Event triggered when multiple Posts records are either created, updated, or deleted.
+    onMutatedManyPosts: BatchPayload!
+        @aws_subscribe(
+            mutations: [
+                "createManyPosts"
+                "updateManyPosts"
+                "deleteManyPosts"
+            ]
+        )
+}
