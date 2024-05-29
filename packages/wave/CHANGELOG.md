@@ -1,5 +1,12 @@
 # @vastly/wave
 
+## 0.6.6
+
+### Patch Changes
+
+- Update version of node engine on all CLIs. Updates create-wave-app to use nodemon to fix console
+  error
+
 ## 0.6.5
 
 ### Patch Changes
