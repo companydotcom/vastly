@@ -1,6 +1,6 @@
 {
   "name": "create-wave-app",
-  "version": "0.15.0",
+  "version": "0.15.2",
   "preferGlobal": true,
   "description": "create-wave-app from Vastly",
   "author": "Vastly",
@@ -23,34 +23,35 @@
     }
   },
   "engines": {
-    "node": ">=14.16"
+    "node": ">=20.0.0"
   },
   "scripts": {
-    "create-wave-app": "npx ts-node --esm src/index.ts",
+    "create-wave-app": "nodemon --exec node --no-warnings=ExperimentalWarning --quiet --loader ts-node/esm src/index.ts",
     "build": "tsup && pnpm copy-files",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "copy-files": "cp -R ./src/templates/ ./dist/templates"
   },
   "dependencies": {
-    "@octokit/rest": "^19.0.7",
+    "@octokit/rest": "^19.0.13",
     "chalk": "^4.1.2",
-    "commander": "^10.0.0",
-    "fs-extra": "^11.1.0",
-    "inquirer": "^8.0.0",
-    "ora": "^3.2.0",
-    "semver": "^7.3.8"
+    "commander": "^10.0.1",
+    "fs-extra": "^11.2.0",
+    "inquirer": "^8.2.6",
+    "ora": "^3.4.0",
+    "semver": "^7.6.2",
+    "nodemon": "^3.1.0"
   },
   "devDependencies": {
-    "@types/fs-extra": "^11.0.1",
-    "@types/inquirer": "^9.0.3",
-    "@types/semver": "^7.3.13",
-    "@vitest/coverage-c8": "^0.31.0",
-    "@vitest/ui": "^0.28.4",
-    "eslint": "^7.32.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/inquirer": "^9.0.7",
+    "@types/semver": "^7.5.8",
     "@vastly/eslint-config-custom": "workspace:*",
-    "jsdom": "^21.1.0",
-    "ts-node": "^10.9.1",
+    "@vitest/coverage-c8": "^0.31.4",
+    "@vitest/ui": "^0.28.5",
+    "eslint": "^7.32.0",
+    "jsdom": "^21.1.2",
+    "ts-node": "^10.9.2",
     "tsconfig": "workspace:*",
     "typescript": "^4.9.5",
     "vitest": "0.31.0"

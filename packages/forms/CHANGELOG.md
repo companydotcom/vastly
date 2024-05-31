@@ -1,5 +1,11 @@
 # @dxp/forms
 
+## 0.4.9
+
+### Patch Changes
+
+- Debugged an issue with wave generate service command
+
 ## 0.4.8
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # create-wave-app
 
+## 0.15.2
+
+### Patch Changes
+
+- Update version of node engine on all CLIs. Updates create-wave-app to use nodemon to fix console
+  error
+
+## 0.15.1
+
+### Patch Changes
+
+- Debugged an issue with wave generate service command
+
 ## 0.15.0
 
 ### Minor Changes
