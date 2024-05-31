@@ -20,11 +20,11 @@ export default async function addEnv(client: Client) {
   const { output } = client;
   let spinner = output.spinner;
 
+  spinner = ora({
+    text: `Checking for an env table...\n`,
+    color: "yellow",
+  }).start();
   try {
-    spinner = ora({
-      text: `Checking for an env table...\n`,
-      color: "yellow",
-    }).start();
 
     const tableExists = await findOrCreateTable();
     if (tableExists) {
@@ -102,7 +102,6 @@ export default async function addEnv(client: Client) {
     spinner.fail(chalk.bgMagentaBright("  No table found! Something went wrong  \n"));
     throw new Error();
   } catch (err: unknown) {
-    spinner.fail();
     output.error(`Add Env: ${errorToString(err)}`);
   }
 }

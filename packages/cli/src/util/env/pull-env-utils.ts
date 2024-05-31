@@ -3,7 +3,7 @@ import type { NativeAttributeValue } from "@aws-sdk/util-dynamodb";
 import type { QueryCommandInput, ScanCommandInput } from "@aws-sdk/lib-dynamodb";
 import { docClient, dynamoClient } from "./dynamo-client.js";
 
-export async function getAllEnv(app: string): Promise<any> {
+export async function getEnvsPerApp(app: string): Promise<any> {
   const input: QueryCommandInput = {
     TableName: "env",
     KeyConditionExpression: "app = :app",
@@ -38,6 +38,24 @@ export async function getAppsFromTable(): Promise<
     const appItems = Array.from(new Set(Items?.map((item) => item.app)));
 
     return appItems;
+  } catch (error) {
+    console.log(error);
+    throw new Error(`${errorToString(error)}`);
+  } finally {
+    dynamoClient.destroy();
+  }
+}
+
+export async function getAllEnv(): Promise<any> {
+  const input: ScanCommandInput = {
+    TableName: "env",
+  };
+
+  try {
+    const { Items } = await docClient.scan(input);
+    const keyValuePairs = Items?.map(({ keyValue, keyName }) => ({ [keyName]: keyValue }));
+
+    return keyValuePairs;
   } catch (error) {
     console.log(error);
     throw new Error(`${errorToString(error)}`);
