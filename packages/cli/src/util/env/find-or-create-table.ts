@@ -8,7 +8,7 @@ import {
   ListTablesCommandOutput,
 } from "@aws-sdk/client-dynamodb";
 
-export async function findOrCreateTable(): Promise<boolean> {
+export async function findOrCreateTable(): Promise<any> {
   try {
     const command = new ListTablesCommand({});
     const response: ListTablesCommandOutput = await docClient.send(command);
@@ -20,10 +20,8 @@ export async function findOrCreateTable(): Promise<boolean> {
     if (table.$metadata.httpStatusCode === 200) {
       return true;
     }
-
-    return false;
   } catch (error: unknown) {
-    return false;
+    return errorToString(error);
   } finally {
     dynamoClient.destroy();
   }
