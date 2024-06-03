@@ -5,7 +5,7 @@ import deleteVariable from "../../util/env/delete.js";
 import { EnvVariable } from "../../types/index.js";
 import { errorToString } from "@vastly/utils";
 import { findOrCreateTable } from "../../util/env/find-or-create-table.js";
-import { getAppsFromTable } from "../../util/env/pull-env-utils.js";
+import { getAppsFromTable } from "../../util/env/pull-all.js";
 import listTableItems from "../../util/env/list-items.js";
 
 export default async function deleteEnv(client: Client) {
@@ -114,6 +114,7 @@ export default async function deleteEnv(client: Client) {
     spinner.fail(chalk.bgMagentaBright("  No table found! Add an env to get started  \n"));
     throw new Error();
   } catch (err: unknown) {
-    output.error(`Delete Env: ${errorToString(err)}`);
+    spinner.fail();
+    output.error(`Delete: ${errorToString(err)}`);
   }
 }
