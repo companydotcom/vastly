@@ -8,7 +8,7 @@ import {
   ListTablesCommandOutput,
 } from "@aws-sdk/client-dynamodb";
 
-export async function findOrCreateTable(): Promise<any> {
+export async function findOrCreateTable(): Promise<boolean> {
   try {
     const command = new ListTablesCommand({});
     const response: ListTablesCommandOutput = await docClient.send(command);
@@ -21,8 +21,9 @@ export async function findOrCreateTable(): Promise<any> {
       return true;
     }
 
+    return false;
   } catch (error: unknown) {
-    return errorToString(error);
+    return false;
   } finally {
     dynamoClient.destroy();
   }

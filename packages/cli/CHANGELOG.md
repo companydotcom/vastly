@@ -1,11 +1,5 @@
 # cli
 
-## 0.14.2
-
-### Patch Changes
-
-- Adds pull all command for vastly env
-
 ## 0.14.1
 
 ### Patch Changes

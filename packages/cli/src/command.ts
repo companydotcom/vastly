@@ -84,15 +84,14 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
       await func(client);
     });
 
-    program
-      .command("env")
-      .description("Manage your environment variables")
-      .addArgument(new Argument("<action>", "Env options").choices(["add", "delete", "pull"]))
-      .option('-a, --all', 'Pull all environment variables')
-      .action(async (action, options) => {
-        const func = (await import("./commands/env/index.js")).default;
-        await func(client, action, options);
-  });
+  program
+    .command("env")
+    .description("Manage your environment variables")
+    .addArgument(new Argument("<action>", "env options").choices(["add", "delete", "pull"]))
+    .action(async (arg) => {
+      const func = (await import("./commands/env/index.js")).default;
+      await func(client, arg);
+    });
 
   program
     .command("whoami")
