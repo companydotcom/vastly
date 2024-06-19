@@ -1,6 +1,7 @@
 # Vastly
 
-![PhotoFunia-1687282076](https://github.com/companydotcom/vastly/assets/24517115/d37ed8cf-3e3b-4cce-99ed-01d9dcb3ca6b)
+![Vastly LOGO - CMYK - Ametrine and Platinum - L](https://github.com/companydotcom/vastly/assets/24517115/7e2e7048-0080-4a5c-a234-21459e76b233)
+
 
 This is Vastly's monorepo that powers Vastly apps, libraries, and products.
 
