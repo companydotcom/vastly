@@ -1,4 +1,3 @@
-import { shouldUseYarn } from "../utils/should-use-yarn.js";
 import { shouldUsePnpm } from "../utils/should-use-pnpm.js";
 import { GenerateAnswers } from "../types/index.js";
 
