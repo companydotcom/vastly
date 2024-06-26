@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "workspaces": [
     "apps/*",
+    "packages/*",
     "services/*"
   ],
   "scripts": {
@@ -11,12 +12,12 @@
     "deploy": "npx wave deploy"
   },
   "devDependencies": {
-    "@vastly/utils": "0.3.1",
-    "@vastly/cli": "0.14.1",
-    "@vastly/wave": "0.6.6",
-    "@vastly/types": "2.4.4",
-    "@vastly/eslint-config-custom": "0.5.0",
-    "turbo": "1.10.12"
+    "@vastly/utils": "^0.5.1",
+    "@vastly/cli": "^0.14.2",
+    "@vastly/wave": "^0.6.6",
+    "@vastly/types": "^2.4.6",
+    "@vastly/eslint-config-custom": "^0.5.0",
+    "turbo": "2.0.5"
   },
   "keywords": [],
   "author": "",

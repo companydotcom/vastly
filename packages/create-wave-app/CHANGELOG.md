@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.16.0
+
+### Minor Changes
+
+- Removes yarn and adds pnpm for package manager
+
 ## 0.15.2
 
 ### Patch Changes

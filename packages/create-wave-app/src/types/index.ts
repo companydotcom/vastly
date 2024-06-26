@@ -1,4 +1,4 @@
-export type PackageManagerName = "yarn" | "pnpm" | "npm";
+export type PackageManagerName = "pnpm" | "npm";
 export interface GenerateAnswers {
   repoName: string;
   repoDescription: string;
@@ -50,26 +50,6 @@ export const PACKAGE_MANAGERS: Record<PackageManagerName, PackageManager[]> = {
       version: "latest",
       executable: "pnpm dlx",
       semver: ">=7",
-    },
-  ],
-  yarn: [
-    {
-      name: "yarn",
-      template: "yarn",
-      command: "yarn",
-      installArgs: ["install"],
-      version: "1.x",
-      executable: "npx",
-      semver: "<2",
-    },
-    {
-      name: "berry",
-      template: "berry",
-      command: "yarn",
-      installArgs: ["install", "--no-immutable"],
-      version: "stable",
-      executable: "yarn dlx",
-      semver: ">=2",
     },
   ],
 };

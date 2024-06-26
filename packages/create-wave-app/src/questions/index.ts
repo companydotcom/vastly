@@ -1,9 +1,7 @@
-import { shouldUseYarn } from "../utils/should-use-yarn.js";
 import { shouldUsePnpm } from "../utils/should-use-pnpm.js";
 import { GenerateAnswers } from "../types/index.js";
 
-//check if yarn and pnpm are installed; if not, disable option in prompt
-const isYarnInstalled = shouldUseYarn();
+//check if pnpm is installed; if not, disable option in prompt
 const isPnpmInstalled = shouldUsePnpm();
 
 export const generateQuestions = [
@@ -71,15 +69,10 @@ export const generateQuestions = [
     message: "Which package manager do you want to use?",
     choices: [
       { name: "npm", value: "npm" },
-      // {
-      //   name: "pnpm",
-      //   value: "pnpm",
-      //   disabled: !isPnpmInstalled && "not installed",
-      // },
       {
-        name: "yarn",
-        value: "yarn",
-        disabled: !isYarnInstalled && "not installed",
+        name: "pnpm",
+        value: "pnpm",
+        disabled: !isPnpmInstalled,
       },
     ],
   },
