@@ -30,7 +30,7 @@ export const copyTemplate = async (
 
     //check package manager version is supported
     let packageManagerVersion = getPackageManagerVersion(packageManager);
-    let packageManagerConfig = PACKAGE_MANAGERS[packageManager].find((packageManager) =>
+    let packageManagerConfig = PACKAGE_MANAGERS[packageManager]?.find((packageManager) =>
       satisfies(packageManagerVersion, packageManager.semver),
     );
 
