@@ -72,7 +72,7 @@ export const generateQuestions = [
       {
         name: "pnpm",
         value: "pnpm",
-        disabled: !isPnpmInstalled,
+        disabled: !isPnpmInstalled && "not installed",
       },
     ],
   },
