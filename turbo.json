@@ -9,7 +9,7 @@
     "AWS_REGION",
     "TABLE_NAME"
   ],
-  "pipeline": {
+  "tasks": {
     "build": {
       "dependsOn": [
         "^build"
