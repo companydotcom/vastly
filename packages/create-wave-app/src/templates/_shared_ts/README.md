@@ -52,12 +52,12 @@ Follow the instructions below to begin creating with your create-wave-app repo.
       - What is your GitHub email?
       - What is your GitHub username?
       - What is your GitHub token? (Personal Access Token with full repo scope)
-   4. Which package manager do you want to use? npm / yarn
+   4. Which package manager do you want to use? npm / pnpm
    5. Generate? No / Yes
    ```
 3. After the prompts, create-wave-app will create a folder with your project name. Navigate to your
 new project and run one of the following depending on your answer to question 4 above. `npm install`
-or `yarn install`. Moving forward, the examples below will be using `npm`.
+or `pnpm install`. Moving forward, the examples below will be using `npm`.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---

@@ -2,6 +2,7 @@ import { spawnSync } from "child_process";
 import ora, { Ora } from "ora";
 import chalk from "chalk";
 import { Octokit } from "@octokit/rest";
+import { chdir } from "node:process";
 import { copyTemplate } from "./copy-template.js";
 import { GenerateAnswers, GeneratorResponse } from "../types/index.js";
 
@@ -44,14 +45,18 @@ export const generateGithubRepo = async ({
       color: "yellow",
     }).start();
     spawnSync("git", ["clone", repoData.clone_url]);
-    spinner.succeed(chalk.green(`Repository ${chalk.bold(repoData.name)} cloned successfully`));
+    spinner.succeed(
+      chalk.green(
+        `Repository ${chalk.bold(repoData.name)} cloned to your local machine successfully`,
+      ),
+    );
 
     // change directory into cloned github repository
     spinner = ora({
       text: "Changing directory...",
       color: "yellow",
     }).start();
-    process.chdir(repoData.name);
+    chdir(`${repoData.name}`);
     spinner.succeed(chalk.green(`Changed directory to ${chalk.bold(repoData.name)}`));
 
     // generate repo from template
@@ -77,7 +82,7 @@ export const generateGithubRepo = async ({
     });
     spinner.succeed(
       chalk.green(
-        `Repo created successfully at ${chalk.bold(`https://github.com/${userName}/${repoName}`)}`,
+        `See your repository here :D ---> ${chalk.bold(`https://github.com/${userName}/${repoData.name}`)}`,
       ),
     );
 

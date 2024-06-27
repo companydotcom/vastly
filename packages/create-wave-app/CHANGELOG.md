@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.16.1
+
+### Patch Changes
+
+- updates deps, refactors to nextjs 14 structure, updates tests
+
 ## 0.16.0
 
 ### Minor Changes

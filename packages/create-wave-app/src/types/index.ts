@@ -1,4 +1,4 @@
-export type PackageManagerName = "pnpm" | "npm";
+export type PackageManagerName = "yarn" | "pnpm" | "npm";
 export interface GenerateAnswers {
   repoName: string;
   repoDescription: string;
@@ -52,6 +52,7 @@ export const PACKAGE_MANAGERS: Record<PackageManagerName, PackageManager[]> = {
       semver: ">=7",
     },
   ],
+  yarn: [],
 };
 
 export interface GeneratorResponse {

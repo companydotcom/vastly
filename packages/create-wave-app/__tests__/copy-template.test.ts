@@ -33,7 +33,7 @@ describe("copyTemplate", () => {
     const consoleSpy = vi.spyOn(console, "error");
     consoleSpy.mockImplementationOnce(vi.fn(() => void 0));
 
-    const actual = await copyTemplate("pnpm", {
+    const actual = await copyTemplate("yarn", {
       repoName: "testRepo",
       repoDescription: "testRepoDescription",
     });
@@ -41,7 +41,7 @@ describe("copyTemplate", () => {
       success: false,
       message: "Something went wrong: Error: Unsupported package manager version.",
     };
-    expect(consoleSpy).toBeCalledTimes(1);
+    expect(consoleSpy).toBeCalledTimes(2);
     expect(actual).toEqual(mockError);
   });
 

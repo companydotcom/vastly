@@ -34,11 +34,14 @@ describe("shouldUsePnpm", () => {
 
   it("returns false when not using pnpm and pnpm is not installed", () => {
     delete process.env["npm_config_user_agent"];
+    vi.mocked(execSync).mockImplementationOnce(() => {
+      throw Error;
+    });
     expect(shouldUsePnpm()).toBe(false);
   });
 
   it("returns false when an error is thrown", () => {
-    process.env["npm_config_user_agent"] = "pnpm";
+    process.env["npm_config_user_agent"] = "yarn";
 
     vi.mocked(execSync).mockImplementationOnce(() => {
       throw Error;
