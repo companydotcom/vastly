@@ -1,5 +1,5 @@
 {
-    "name": "ui",
+    "name": "@repo/ui",
     "version": "0.0.0",
     "license": "MIT",
     "scripts": {
@@ -8,7 +8,6 @@
         "clean": "rimraf .turbo && rimraf node_modules && rimraf dist"
     },
     "devDependencies": {
-        "@gsa/tsconfig": "*",
         "@tailwindcss/typography": "^0.5.10",
         "@types/node": "^17.0.12",
         "@types/react": "^18.2.47",

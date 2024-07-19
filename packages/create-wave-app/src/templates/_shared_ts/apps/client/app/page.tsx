@@ -1,18 +1,6 @@
-import {
-  Heading,
-  CardHeader,
-  SimpleGrid,
-  Container,
-  Card,
-  Text,
-  CardBody,
-  HStack,
-  LinkBox,
-  LinkOverlay,
-} from "@vastly/ui";
 import { Metadata } from "next";
 
-const cards = [
+const LINKS = [
   {
     heading: "Documentation",
     description: "Find in-depth information about Create-Wave-App features and API.",
@@ -35,39 +23,13 @@ const cards = [
   },
 ];
 
-export default function Home() {
+export default function Page(): JSX.Element {
   return (
-    <main>
-      <div>
-        <p>Get started by editing</p>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <div className="w-full max-w-5xl items-center justify-between">
+        <p className="">Welcome to Create-Wave-App!</p>
       </div>
     </main>
-    // <Container maxW="container.md" centerContent mt="44" textAlign="center">
-    //   <Heading as="h2" size={["xl", "2xl"]}>
-    //     Welcome to Create-Wave-App!
-    //   </Heading>
-    //   <SimpleGrid columns={[1, 2]} gap="8" mt="12">
-    //     {cards.map((card) => (
-    //       <LinkBox key={card.heading}>
-    //         <Card minH="40" bgColor="blackAlpha.300" textAlign="left">
-    //           <CardHeader p="4" pb="0">
-    //             <HStack gap="2" alignItems="flex-end">
-    //               <Heading fontSize="2xl">
-    //                 <LinkOverlay href={card.link} isExternal>
-    //                   {card.heading}
-    //                 </LinkOverlay>
-    //               </Heading>
-    //               <ArrowIcon />
-    //             </HStack>
-    //           </CardHeader>
-    //           <CardBody p="4" pt="3">
-    //             <Text>{card.description}</Text>
-    //           </CardBody>
-    //         </Card>
-    //       </LinkBox>
-    //     ))}
-    //   </SimpleGrid>
-    // </Container>
   );
 }
 

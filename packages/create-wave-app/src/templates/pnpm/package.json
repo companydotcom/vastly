@@ -1,21 +1,31 @@
 {
+  "private": true,
   "name": "<%= appName %>",
   "description": "<%= description %>",
   "version": "1.0.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
     "deploy": "npx wave deploy",
-    "clean": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && find . -name 'cdk.out' -type d -prune -exec rm -rf '{}' + && find . -name 'cdk.context.json' -type d -prune -exec rm -rf '{}' + && find . -name 'dist' -type d -prune -exec rm -rf '{}' +"
+    "type-check": "turbo type-check",
+    "clean": "turbo clean",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.11",
     "@vastly/utils": "^0.5.1",
     "@vastly/cli": "^0.14.2",
     "@vastly/wave": "^0.6.6",
     "@vastly/types": "^2.4.6",
-    "@vastly/eslint-config-custom": "^0.5.0",
-    "turbo": "2.0.7"
+    "turbo": "^2.0.7"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "packageManager": "pnpm@9.1.4"
 }
