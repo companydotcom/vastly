@@ -31,7 +31,7 @@ export default async function addVariableBulk(answers: {
         Item: {
           app: answers?.app,
           keyName: splitLine[0],
-          keyValue: splitLine[1],
+          keyValue: splitLine?.slice(1, splitLine?.length)?.join(""),
         },
       };
 
