@@ -1,5 +1,18 @@
 # cli
 
+## 0.14.4
+
+### Patch Changes
+
+- Fixed an issue where bulk env file upload was cutting off env variable values if they had "="
+  signs in them.
+
+## 0.14.3
+
+### Patch Changes
+
+- Added the option to do bulk .env variable upload to the @vastly/cli command
+
 ## 0.14.2
 
 ### Patch Changes
