@@ -1,5 +1,11 @@
 # cli
 
+## 0.14.3
+
+### Patch Changes
+
+- Added the option to do bulk .env variable upload to the @vastly/cli command
+
 ## 0.14.2
 
 ### Patch Changes
