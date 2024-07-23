@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { Button } from "@repo/ui/components/ui/button";
 
 const LINKS = [
   {
@@ -26,8 +26,20 @@ const LINKS = [
 export default function Page(): JSX.Element {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="w-full max-w-5xl items-center justify-between">
-        <p className="">Welcome to Create-Wave-App!</p>
+      <div>
+        <div className="w-full max-w-5xl items-center justify-between">
+          <p className="text text-lag">Welcome to Create-Wave-App!</p>
+        </div>
+        <div className="bg-white">
+          <Button>TEST BUTTON</Button>
+        </div>
+        <div className="">
+          {LINKS.map((link) => (
+            <div key={link.heading}>
+              <p>{link.heading}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </main>
   );
