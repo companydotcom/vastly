@@ -4,7 +4,6 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "eslint.packageManager": "pnpm",
   "cSpell.words": [
     "codegen",
     "commitlint",
