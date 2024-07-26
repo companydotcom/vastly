@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.18.0
+
+### Minor Changes
+
+- Fix eslitn errors
+
 ## 0.17.0
 
 ### Minor Changes
