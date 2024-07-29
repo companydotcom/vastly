@@ -1,3 +1,10 @@
 {
-  "recommendations": ["bradlc.vscode-tailwindcss"]
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "rvest.vs-code-prettier-eslint",
+    "Prisma.prisma",
+    "GraphQL.vscode-graphql-syntax",
+    "ChakrounAnas.turbo-console-log"
+  ]
 }
