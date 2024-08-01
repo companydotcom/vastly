@@ -11,7 +11,7 @@ import addVariable from "../../util/env/add.js";
 import addVariableBulk from "../../util/env/add-bulk.js";
 import listTableItems from "../../util/env/list-items.js";
 
-export default async function addEnv(client: Client) {
+export default async function addEnv(client: Client, stage: string) {
   const rootDir = path.dirname(
     (await findUp(["apps", "packages", "services", "pnpm-workspace.yaml"])) || ".",
   );
@@ -90,9 +90,9 @@ export default async function addEnv(client: Client) {
       let response;
 
       if (answers?.bulkOrSingle === "single") {
-        response = await addVariable(answers);
+        response = await addVariable(answers, stage);
       } else {
-        response = await addVariableBulk(answers);
+        response = await addVariableBulk(answers, stage);
       }
 
       if (

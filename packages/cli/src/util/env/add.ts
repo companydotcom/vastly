@@ -3,11 +3,14 @@ import type { PutCommandInput, PutCommandOutput } from "@aws-sdk/lib-dynamodb";
 import { EnvVariable } from "../../types/index.js";
 import { docClient, dynamoClient } from "./dynamo-client.js";
 
-export default async function addVariable(newVariable: EnvVariable): Promise<PutCommandOutput> {
+export default async function addVariable(
+  newVariable: EnvVariable,
+  stage: string,
+): Promise<PutCommandOutput> {
   const { TABLE_NAME } = process.env;
   const params: PutCommandInput = {
     TableName: TABLE_NAME || "env",
-    Item: newVariable,
+    Item: { ...newVariable, stage },
   };
 
   try {

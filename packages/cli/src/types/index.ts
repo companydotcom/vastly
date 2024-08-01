@@ -12,9 +12,12 @@ export interface EnvVariable {
   app: string;
   keyName: string;
   keyValue: string;
+  stage: string;
 }
 
 export interface Account {
   account_id: number;
   account_alias: string;
 }
+
+export type Stage = "sandbox" | "local" | "uat" | "production";

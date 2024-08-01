@@ -4,22 +4,27 @@ import addEnv from "./add.js";
 import deleteEnv from "./delete.js";
 import pullEnv from "./pull.js";
 import pullAllEnv from "./pull-all.js";
+import { type Stage } from "../../types/index.js";
 
-export default async function determineEnvCommand(client: Client, action: string, options: any) {
+export default async function determineEnvCommand(
+  client: Client,
+  action: string,
+  options: { stage: Stage; all?: boolean },
+) {
   try {
     switch (action) {
       case "add":
-        await addEnv(client);
+        await addEnv(client, options.stage);
         break;
-      case "delete":
-        await deleteEnv(client);
-        break;
-      case "pull":
-        if (options.all) {
-          await pullAllEnv(client);
-        } else {
-          await pullEnv(client);
-        }
+        // case "delete":
+        //   await deleteEnv(clien, options.stage);
+        //   break;
+        // case "pull":
+        //   if (options.all) {
+        //     await pullAllEnv(client, options.stage);
+        //   } else {
+        //     await pullEnv(client, options.stage);
+        //   }
         break;
       default:
         console.log(`${chalk.red("Missing action! Your choices are `add, delete, or pull`")}`);
