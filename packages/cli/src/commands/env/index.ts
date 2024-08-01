@@ -16,9 +16,9 @@ export default async function determineEnvCommand(
       case "add":
         await addEnv(client, options.stage);
         break;
-        // case "delete":
-        //   await deleteEnv(clien, options.stage);
-        //   break;
+      case "delete":
+        await deleteEnv(client, options.stage);
+        break;
         // case "pull":
         //   if (options.all) {
         //     await pullAllEnv(client, options.stage);

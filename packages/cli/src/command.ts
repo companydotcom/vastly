@@ -63,7 +63,7 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
     config,
     apiUrl: CLIENT_API_URL || "",
   });
-  const allowableStages: Stage[] = ["sandbox", "local", "uat", "production"];
+  const allowableStages: Stage[] = ["sandbox", "local", "uat", "prod", "production"];
 
   program
     .name("vastly")
@@ -93,12 +93,15 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
     .addArgument(new Argument("<action>", "Env options").choices(["add", "delete", "pull"]))
     .option("-a, --all", "Pull all environment variables")
     .requiredOption("-st, --stage <stage>", "Pass a stage argument to add, delete, or pull from")
-    .action(async (action: string, options: any) => {
+    .action(async (action: string, options: { stage: Stage; all?: boolean }) => {
       if (options.stage && !allowableStages.includes(options.stage)) {
         console.log(
-          `${chalk.red(`Invalid stage! Your choices are ${allowableStages.join(", ")}`)}`,
+          `${chalk.red(`Invalid stage! Your choices are ${chalk.inverse(allowableStages.join(", "))}`)}`,
         );
         process.exit(1);
+      }
+      if (options.stage === "production") {
+        options.stage = "prod";
       }
       const func = (await import("./commands/env/index.js")).default;
       await func(client, action, options);

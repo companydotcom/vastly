@@ -20,4 +20,4 @@ export interface Account {
   account_alias: string;
 }
 
-export type Stage = "sandbox" | "local" | "uat" | "production";
+export type Stage = "sandbox" | "local" | "uat" | "prod" | "production";
