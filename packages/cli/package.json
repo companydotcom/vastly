@@ -57,6 +57,7 @@
     "fs-extra": "^11.1.0",
     "inquirer": "^9.1.5",
     "js-yaml": "^4.1.0",
+    "latest-version": "9.0.0",
     "load-json-file": "^7.0.1",
     "node-fetch": "^3.3.1",
     "ora": "^6.3.0",

@@ -3,6 +3,8 @@ import { mkdirp } from "fs-extra";
 import { Config } from "@vastly/types";
 import { errorToString, isErrnoException } from "@vastly/utils";
 import type { PackageJson } from "type-fest";
+import chalk from "chalk";
+import latestVersion from "latest-version";
 import {
   readVastlyConfigFile,
   readWaveConfigFile,
@@ -20,11 +22,20 @@ const VASTLY_DIR = getGlobalPathConfig();
 
 const { CLIENT_API_URL } = process.env;
 
-
 export async function makeProgram(program: Command, pkg: PackageJson) {
   const options = program.opts();
   const output = makeOutput.default({ stream: process.stderr, debugEnabled: options.debug });
 
+  try {
+    const lv = await latestVersion("@vastly/wave");
+    if (pkg.version && lv !== pkg.version) {
+      output.log(
+        `${chalk.green("Update available!")} ${chalk.red(pkg.version)} -> ${chalk.yellowBright.bold(lv)} \nRun ${chalk.cyan.inverse("pnpm add -g @vastly/wave")} to update \n`,
+      );
+    }
+  } catch (e) {
+    return 1;
+  }
   // Make sure global config dir exists
   try {
     await mkdirp(VASTLY_DIR);
@@ -66,7 +77,7 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
     output,
     config,
     waveConfig: undefined,
-    apiUrl: CLIENT_API_URL || '',
+    apiUrl: CLIENT_API_URL || "",
   });
 
   try {

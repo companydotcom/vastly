@@ -1,8 +1,11 @@
 import { Argument, Command } from "commander";
 import { mkdirp } from "fs-extra";
 import { Config } from "@vastly/types";
+import chalk from "chalk";
 import { errorToString, isErrnoException } from "@vastly/utils";
 import type { PackageJson } from "type-fest";
+import latestVersion from "latest-version";
+
 import { readConfigFile, writeToConfigFile, getConfigFilePath } from "./util/config/files.js";
 import getGlobalPathConfig from "./util/config/files.js";
 import { defaultConfig } from "./util/config/defaults.js";
@@ -18,6 +21,17 @@ const { CLIENT_API_URL } = process.env;
 export async function makeProgram(program: Command, pkg: PackageJson) {
   const options = program.opts();
   const output = makeOutput.default({ stream: process.stderr, debugEnabled: options.debug });
+
+  try {
+    const lv = await latestVersion("@vastly/cli");
+    if (pkg.version && lv !== pkg.version) {
+      output.log(
+        `${chalk.green("Update available!")} ${chalk.red(pkg.version)} -> ${chalk.yellowBright.bold(lv)} \nRun ${chalk.cyan.inverse("pnpm add -g @vastly/cli")} to update \n`,
+      );
+    }
+  } catch (e) {
+    return 1;
+  }
 
   // Make sure global config dir exists
   try {
@@ -59,7 +73,7 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
     stderr: process.stderr,
     output,
     config,
-    apiUrl: CLIENT_API_URL || '',
+    apiUrl: CLIENT_API_URL || "",
   });
 
   program

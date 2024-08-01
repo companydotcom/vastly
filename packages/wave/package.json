@@ -59,6 +59,7 @@
     "inquirer": "^9.1.5",
     "joycon": "3.1.1",
     "js-yaml": "^4.1.0",
+    "latest-version": "9.0.0",
     "load-json-file": "^7.0.1",
     "lodash": "4.17.21",
     "nexpect": "0.6.0",
