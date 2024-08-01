@@ -1,5 +1,11 @@
 # cli
 
+## 0.14.5
+
+### Patch Changes
+
+- Adds version update check
+
 ## 0.14.4
 
 ### Patch Changes
