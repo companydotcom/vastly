@@ -35,15 +35,17 @@ export default async function pullAllEnv(client: Client, stage: string) {
       }).start();
 
       const directory = await writeToFile(response, ["root"], ".env");
-      spinner.succeed(chalk.bgGreenBright(`File successfully created!\n`));
+      spinner.succeed(chalk.bgGreenBright(`File successfully created!`));
       directory.forEach((dir) =>
         console.log(
-          chalk.green(`File saved to `) + chalk.underline.cyan(`${dir === "root" ? rootDir : dir}`),
+          chalk.green(`.env File saved to `) +
+            chalk.underline.cyan(`${dir === "root" ? rootDir : dir}`),
         ),
       );
+    } else {
+      spinner.fail(`Not found! There are no envs for ${chalk.magenta(stage)}`);
+      return;
     }
-    spinner.fail(`Not found! There are no envs for ${chalk.magenta(stage)}`);
-    return;
   } catch (err: unknown) {
     output.error(`Pull Env: ${errorToString(err)}`);
   }

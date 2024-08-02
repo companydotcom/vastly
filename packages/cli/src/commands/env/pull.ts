@@ -88,9 +88,10 @@ export default async function pullEnv(client: Client, stage: string) {
               chalk.underline.cyan(`${dir === "root" ? rootDir : dir}`),
           ),
         );
+      } else {
+        spinner.fail(`Not found! There are no envs for ${chalk.magenta(stage, answers.app)}`);
+        return;
       }
-      spinner.fail(`Not found! There are no envs for ${chalk.magenta(stage, answers.app)}`);
-      return;
     }
     spinner.fail(chalk.bgMagentaBright("  No table found! Add an env to get started  \n"));
     throw new Error();
