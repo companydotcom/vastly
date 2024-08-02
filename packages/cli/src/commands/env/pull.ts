@@ -92,11 +92,12 @@ export default async function pullEnv(client: Client, stage: string) {
         spinner.fail(`Not found! There are no envs for ${chalk.magenta(stage, answers.app)}`);
         return;
       }
+    } else {
+      spinner.fail(chalk.bgMagentaBright("  No table found! Add an env to get started  \n"));
+      throw new Error();
     }
-    spinner.fail(chalk.bgMagentaBright("  No table found! Add an env to get started  \n"));
-    throw new Error();
   } catch (err: unknown) {
-    output.error(`Pull Env: ${errorToString(err)}`);
+    output.error(`${errorToString(err)}`);
     spinner.fail("Pull Failed");
   }
 }
