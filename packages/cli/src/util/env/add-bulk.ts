@@ -1,15 +1,17 @@
-import { errorToString } from "@vastly/utils";
-import type { PutCommandInput, PutCommandOutput } from "@aws-sdk/lib-dynamodb";
-import { EnvVariable } from "../../types/index.js";
-import { docClient, dynamoClient } from "./dynamo-client.js";
 import fs from "fs";
 import readline from "node:readline";
+import type { PutCommandInput } from "@aws-sdk/lib-dynamodb";
+import { errorToString } from "@vastly/utils";
+import { docClient, dynamoClient } from "./dynamo-client.js";
 
-export default async function addVariableBulk(answers: {
-  app: string;
-  bulkOrSingle: string;
-  filePath: string;
-}): Promise<any> {
+export default async function addVariableBulk(
+  answers: {
+    app: string;
+    bulkOrSingle: string;
+    filePath: string;
+  },
+  stage: string,
+): Promise<any> {
   const { TABLE_NAME } = process.env;
 
   try {
@@ -32,9 +34,10 @@ export default async function addVariableBulk(answers: {
           app: answers?.app,
           keyName: splitLine[0],
           keyValue: splitLine?.slice(1, splitLine?.length)?.join(""),
+          stage,
         },
       };
-
+      const result = docClient.put(params);
       writes.push(docClient.put(params));
     }
 

@@ -12,7 +12,7 @@ import { errorToString } from "@vastly/utils";
  * @param client
  * @returns
  */
-export default async function pullAllEnv(client: Client) {
+export default async function pullAllEnv(client: Client, stage: string) {
   const rootDir = path.dirname(
     (await findUp(["apps", "packages", "services", "pnpm-workspace.yaml"])) || ".",
   );
@@ -25,7 +25,7 @@ export default async function pullAllEnv(client: Client) {
       color: "yellow",
     }).start();
 
-    const response = await getAllEnv();
+    const response = await getAllEnv(stage);
     if (response?.length) {
       spinner.succeed(chalk.green(`Success! \n`));
 
@@ -35,14 +35,17 @@ export default async function pullAllEnv(client: Client) {
       }).start();
 
       const directory = await writeToFile(response, ["root"], ".env");
-      spinner.succeed(chalk.bgGreenBright(`File successfully created!\n`));
+      spinner.succeed(chalk.bgGreenBright(`File successfully created!`));
       directory.forEach((dir) =>
         console.log(
-          chalk.green(`File saved to `) + chalk.underline.cyan(`${dir === "root" ? rootDir : dir}`),
+          chalk.green(`.env File saved to `) +
+            chalk.underline.cyan(`${dir === "root" ? rootDir : dir}`),
         ),
       );
+    } else {
+      spinner.fail(`Not found! There are no envs for ${chalk.magenta(stage)}`);
+      return;
     }
-    return;
   } catch (err: unknown) {
     output.error(`Pull Env: ${errorToString(err)}`);
   }
