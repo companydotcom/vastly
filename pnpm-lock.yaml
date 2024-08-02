@@ -227,15 +227,9 @@ importers:
       '@types/js-yaml':
         specifier: ^4.0.5
         version: 4.0.9
-      '@types/load-json-file':
-        specifier: ^5.1.0
-        version: 5.1.0
       '@types/node-fetch':
         specifier: ^2.6.3
         version: 2.6.11
-      '@types/write-json-file':
-        specifier: ^3.2.1
-        version: 3.2.1
       '@vastly/eslint-config-custom':
         specifier: workspace:*
         version: link:../eslint-config-custom
