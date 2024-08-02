@@ -1,5 +1,4 @@
 import { Argument, Command } from "commander";
-import chalk from "chalk";
 import { mkdirp } from "fs-extra";
 import { Config } from "@vastly/types";
 import chalk from "chalk";
