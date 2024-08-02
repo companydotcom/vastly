@@ -1,5 +1,11 @@
 # cli
 
+## 0.14.7
+
+### Patch Changes
+
+- Adds new sort key to dynamo in order to accomodate different stages for the env CLI tool
+
 ## 0.14.6
 
 ### Patch Changes

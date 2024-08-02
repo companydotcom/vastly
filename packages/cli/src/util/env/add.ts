@@ -12,6 +12,7 @@ export default async function addVariable(
     TableName: TABLE_NAME || "env",
     Item: {
       app: newVariable.app,
+      "keyName#stage": `${newVariable.keyName}#${stage}`,
       keyName: newVariable.keyName,
       keyValue: newVariable.keyValue,
       stage,
