@@ -32,6 +32,7 @@ export default async function addVariableBulk(
         TableName: TABLE_NAME || "env",
         Item: {
           app: answers?.app,
+          "keyName#stage": `${splitLine[0]}#${stage}`,
           keyName: splitLine[0],
           keyValue: splitLine?.slice(1, splitLine?.length)?.join(""),
           stage,

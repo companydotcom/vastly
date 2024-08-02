@@ -17,7 +17,7 @@ export default async function listTableItems(): Promise<any> {
         }
         return formattedItem;
       });
-      console.table(formattedData, ["app", "keyName", "keyValue", "stage"]);
+      console.table(formattedData, ["app", "keyName", "stage"]);
       return formattedData;
     }
     throw new Error();
