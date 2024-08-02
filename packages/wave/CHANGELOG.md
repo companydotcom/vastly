@@ -1,5 +1,11 @@
 # @vastly/wave
 
+## 0.6.7
+
+### Patch Changes
+
+- Adds version update check
+
 ## 0.6.6
 
 ### Patch Changes

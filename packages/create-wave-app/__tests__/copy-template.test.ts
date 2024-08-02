@@ -31,7 +31,7 @@ describe("copyTemplate", () => {
 
   it("throws an error when packageManagerConfig does not exist", async () => {
     const consoleSpy = vi.spyOn(console, "error");
-    consoleSpy.mockImplementationOnce(vi.fn(() => void 0));
+    consoleSpy.mockImplementationOnce(vi.fn());
 
     const actual = await copyTemplate("yarn", {
       repoName: "testRepo",

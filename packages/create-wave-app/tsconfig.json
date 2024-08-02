@@ -16,5 +16,5 @@
 	},
 	"ts-node": { "esm": true},
 	"include": ["src", "__tests__"],
-	"exclude": ["dist", "build", "node_modules", "coverage", "*.md", "*.yaml"],
+	"exclude": ["dist", "build", "node_modules", "coverage", "*.md", "*.yaml", "src/templates/*"],
 }

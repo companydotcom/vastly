@@ -1,16 +1,20 @@
 import ora from "ora";
 import chalk from "chalk";
 import { errorToString } from "@vastly/utils";
+import { PutCommandOutput } from "@aws-sdk/lib-dynamodb";
 import { Client } from "../../util/client.js";
 import { findUp } from "find-up";
 import path from "node:path";
 import fastGlob from "fast-glob";
 import { findOrCreateTable } from "../../util/env/find-or-create-table.js";
 import addVariable from "../../util/env/add.js";
+import addVariableBulk from "../../util/env/add-bulk.js";
 import listTableItems from "../../util/env/list-items.js";
 
-export default async function addEnv(client: Client) {
-  const rootDir = path.dirname((await findUp(["apps", "packages", "services", "pnpm-workspace.yaml"])) || ".");
+export default async function addEnv(client: Client, stage: string) {
+  const rootDir = path.dirname(
+    (await findUp(["apps", "packages", "services", "pnpm-workspace.yaml"])) || ".",
+  );
   const allDirs = await fastGlob(["apps/*/", "packages/*/", "services/*/"], {
     cwd: rootDir,
     onlyDirectories: true,
@@ -38,10 +42,18 @@ export default async function addEnv(client: Client) {
             default: "root",
           },
           {
+            type: "list",
+            name: "bulkOrSingle",
+            message: "Would you like add a single environment variable or from a file?",
+            choices: ["single", "file"],
+            default: "single",
+          },
+          {
             type: "input",
             name: "keyName",
             message: "What is the NAME of your environment variable?",
             validate: (input) => (input !== "" ? true : "Please enter a value"),
+            when: (a) => a.bulkOrSingle === "single",
             error: "Please enter a value",
           },
           {
@@ -49,6 +61,14 @@ export default async function addEnv(client: Client) {
             name: "keyValue",
             message: "What is the VALUE of your environment variable?",
             validate: (input) => (input !== "" ? true : "Please enter a value"),
+            when: (a) => a.bulkOrSingle === "single",
+          },
+          {
+            type: "input",
+            name: "filePath",
+            message: "Please enter the file path for your .env file.",
+            validate: (input) => (input !== "" ? true : "Please enter a value"),
+            when: (a) => a.bulkOrSingle === "file",
           },
         ])
         .then((a) => a)
@@ -67,8 +87,19 @@ export default async function addEnv(client: Client) {
         color: "yellow",
       }).start();
 
-      const response = await addVariable(answers);
-      if (response.$metadata.httpStatusCode === 200) {
+      let response;
+
+      if (answers?.bulkOrSingle === "single") {
+        response = await addVariable(answers, stage);
+      } else {
+        response = await addVariableBulk(answers, stage);
+      }
+
+      if (
+        (answers?.bulkOrSingle === "single" && response?.$metadata?.httpStatusCode === 200) ||
+        (answers?.bulkOrSingle === "file" &&
+          response?.every((r: PutCommandOutput) => r?.$metadata?.httpStatusCode === 200))
+      ) {
         spinner.succeed(chalk.green("Success! \n"));
 
         const listItems = await client
