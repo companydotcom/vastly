@@ -1,4 +1,5 @@
 import { Argument, Command } from "commander";
+import chalk from "chalk";
 import { mkdirp } from "fs-extra";
 import { Config } from "@vastly/types";
 import chalk from "chalk";
@@ -9,6 +10,7 @@ import latestVersion from "latest-version";
 import { readConfigFile, writeToConfigFile, getConfigFilePath } from "./util/config/files.js";
 import getGlobalPathConfig from "./util/config/files.js";
 import { defaultConfig } from "./util/config/defaults.js";
+import { type Stage } from "./types/index.js";
 
 const makeClient = await import("./util/client.js");
 const makeOutput = await import("./util/output/create-output.js");
@@ -75,6 +77,7 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
     config,
     apiUrl: CLIENT_API_URL || "",
   });
+  const allowableStages: Stage[] = ["sandbox", "local", "uat", "prod", "production"];
 
   program
     .name("vastly")
@@ -103,7 +106,17 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
     .description("Manage your environment variables")
     .addArgument(new Argument("<action>", "Env options").choices(["add", "delete", "pull"]))
     .option("-a, --all", "Pull all environment variables")
-    .action(async (action, options) => {
+    .requiredOption("-st, --stage <stage>", "Pass a stage argument to add, delete, or pull from")
+    .action(async (action: string, options: { stage: Stage; all?: boolean }) => {
+      if (options.stage && !allowableStages.includes(options.stage)) {
+        console.log(
+          `${chalk.red(`Invalid stage! Your choices are ${chalk.inverse(allowableStages.join(", "))}`)}`,
+        );
+        process.exit(1);
+      }
+      if (options.stage === "production") {
+        options.stage = "prod";
+      }
       const func = (await import("./commands/env/index.js")).default;
       await func(client, action, options);
     });
@@ -112,7 +125,7 @@ export async function makeProgram(program: Command, pkg: PackageJson) {
     .command("whoami")
     .description("Display the username of the currently logged in user")
     .option("-t, --token", "Returns your current token from user config")
-    .action(async (_args, options) => {
+    .action(async (_args: any, options) => {
       const func = (await import("./commands/whoami.js")).default;
 
       await func(client, options.opts());

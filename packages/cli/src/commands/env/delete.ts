@@ -8,7 +8,7 @@ import { findOrCreateTable } from "../../util/env/find-or-create-table.js";
 import { getAppsFromTable } from "../../util/env/pull-env-utils.js";
 import listTableItems from "../../util/env/list-items.js";
 
-export default async function deleteEnv(client: Client) {
+export default async function deleteEnv(client: Client, stage: string) {
   const { output } = client;
   let spinner = output.spinner;
 
@@ -80,7 +80,7 @@ export default async function deleteEnv(client: Client) {
         color: "yellow",
       }).start();
 
-      const response = await deleteVariable(env);
+      const response = await deleteVariable({ ...env, stage });
       if (response.$metadata.httpStatusCode === 200) {
         spinner.succeed(chalk.green("Success! \n"));
 
@@ -114,6 +114,7 @@ export default async function deleteEnv(client: Client) {
     spinner.fail(chalk.bgMagentaBright("  No table found! Add an env to get started  \n"));
     throw new Error();
   } catch (err: unknown) {
-    output.error(`Delete: ${errorToString(err)}`);
+    output.error(`${errorToString(err)}: Check your inputs`);
+    spinner.fail("Delete Failed");
   }
 }

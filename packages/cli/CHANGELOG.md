@@ -5,6 +5,7 @@
 ### Patch Changes
 
 - Adds version update check
+- Adds the stage argument to the env CLI tool, better edge case and error handlings
 
 ## 0.14.4
 
