@@ -1,5 +1,11 @@
 # cli
 
+## 0.14.6
+
+### Patch Changes
+
+- Fixes error being thrown on success for env CLI tool
+
 ## 0.14.5
 
 ### Patch Changes
