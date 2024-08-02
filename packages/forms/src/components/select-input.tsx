@@ -95,6 +95,7 @@ export const Select = forwardRef<SelectProps, "select">((props, ref) => {
     onChange,
     defaultValue,
     value,
+    // @ts-ignore
     placeholder,
     isDisabled,
     leftIcon,
