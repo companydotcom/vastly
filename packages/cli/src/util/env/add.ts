@@ -10,7 +10,12 @@ export default async function addVariable(
   const { TABLE_NAME } = process.env;
   const params: PutCommandInput = {
     TableName: TABLE_NAME || "env",
-    Item: { ...newVariable, stage },
+    Item: {
+      app: newVariable.app,
+      keyName: newVariable.keyName,
+      keyValue: newVariable.keyValue,
+      stage,
+    },
   };
 
   try {

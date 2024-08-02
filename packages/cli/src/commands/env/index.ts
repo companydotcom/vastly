@@ -19,12 +19,12 @@ export default async function determineEnvCommand(
       case "delete":
         await deleteEnv(client, options.stage);
         break;
-        // case "pull":
-        //   if (options.all) {
-        //     await pullAllEnv(client, options.stage);
-        //   } else {
-        //     await pullEnv(client, options.stage);
-        //   }
+      case "pull":
+        if (options.all) {
+          await pullAllEnv(client, options.stage);
+        } else {
+          await pullEnv(client, options.stage);
+        }
         break;
       default:
         console.log(`${chalk.red("Missing action! Your choices are `add, delete, or pull`")}`);

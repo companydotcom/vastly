@@ -3,12 +3,14 @@ import type { NativeAttributeValue } from "@aws-sdk/util-dynamodb";
 import type { QueryCommandInput, ScanCommandInput } from "@aws-sdk/lib-dynamodb";
 import { docClient, dynamoClient } from "./dynamo-client.js";
 
-export async function getEnvsPerApp(app: string): Promise<any> {
+export async function getEnvsPerApp(app: string, stage: string): Promise<any> {
   const input: QueryCommandInput = {
     TableName: "env",
     KeyConditionExpression: "app = :app",
+    FilterExpression: "stage = :stage",
     ExpressionAttributeValues: {
       ":app": app,
+      ":stage": stage,
     },
   };
 
@@ -46,9 +48,13 @@ export async function getAppsFromTable(): Promise<
   }
 }
 
-export async function getAllEnv(): Promise<any> {
+export async function getAllEnv(stage: string): Promise<any> {
   const input: ScanCommandInput = {
     TableName: "env",
+    FilterExpression: "stage = :stage",
+    ExpressionAttributeValues: {
+      ":stage": stage,
+    },
   };
 
   try {

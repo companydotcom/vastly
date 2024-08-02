@@ -12,7 +12,7 @@ import { errorToString } from "@vastly/utils";
  * @param client
  * @returns
  */
-export default async function pullAllEnv(client: Client) {
+export default async function pullAllEnv(client: Client, stage: string) {
   const rootDir = path.dirname(
     (await findUp(["apps", "packages", "services", "pnpm-workspace.yaml"])) || ".",
   );
@@ -25,7 +25,7 @@ export default async function pullAllEnv(client: Client) {
       color: "yellow",
     }).start();
 
-    const response = await getAllEnv();
+    const response = await getAllEnv(stage);
     if (response?.length) {
       spinner.succeed(chalk.green(`Success! \n`));
 
@@ -42,6 +42,7 @@ export default async function pullAllEnv(client: Client) {
         ),
       );
     }
+    spinner.fail(`Not found! There are no envs for ${chalk.magenta(stage)}`);
     return;
   } catch (err: unknown) {
     output.error(`Pull Env: ${errorToString(err)}`);

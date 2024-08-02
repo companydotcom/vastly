@@ -9,7 +9,7 @@ import writeToFile from "../../util/env/write-env-files.js";
 import { errorToString } from "@vastly/utils";
 import { findOrCreateTable } from "../../util/env/find-or-create-table.js";
 
-export default async function pullEnv(client: Client) {
+export default async function pullEnv(client: Client, stage: string) {
   const rootDir = path.dirname(
     (await findUp(["apps", "packages", "services", "pnpm-workspace.yaml"])) || ".",
   );
@@ -67,11 +67,11 @@ export default async function pullEnv(client: Client) {
         });
 
       spinner = ora({
-        text: `Fetching variables for ${answers.app}...\n`,
+        text: `Fetching variables for ${stage} ${answers.app}...\n`,
         color: "yellow",
       }).start();
 
-      const response = await getEnvsPerApp(answers.app);
+      const response = await getEnvsPerApp(answers.app, stage);
       if (response?.length) {
         spinner.succeed(chalk.green(`Success! \n`));
 
@@ -89,11 +89,13 @@ export default async function pullEnv(client: Client) {
           ),
         );
       }
+      spinner.fail(`Not found! There are no envs for ${chalk.magenta(stage, answers.app)}`);
       return;
     }
     spinner.fail(chalk.bgMagentaBright("  No table found! Add an env to get started  \n"));
     throw new Error();
   } catch (err: unknown) {
     output.error(`Pull Env: ${errorToString(err)}`);
+    spinner.fail("Pull Failed");
   }
 }
