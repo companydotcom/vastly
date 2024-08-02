@@ -12,12 +12,7 @@ export default async function deleteVariable({
     TableName: "env",
     Key: {
       app: app,
-      keyName: keyName,
-    },
-    ConditionExpression: `keyName = :keyName AND stage = :stage`,
-    ExpressionAttributeValues: {
-      ":stage": stage,
-      ":keyName": keyName,
+      "keyName#stage": `${keyName}#${stage}`,
     },
   };
 

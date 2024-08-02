@@ -21,7 +21,8 @@ export async function findOrCreateTable(): Promise<any> {
       return true;
     }
   } catch (error: unknown) {
-    return errorToString(error);
+    console.error(`Error in findOrCreateTable: ${errorToString(error)}`);
+    return false;
   } finally {
     dynamoClient.destroy();
   }
@@ -36,7 +37,7 @@ async function createTable() {
           AttributeType: "S",
         },
         {
-          AttributeName: "keyName",
+          AttributeName: "keyName#stage",
           AttributeType: "S",
         },
       ],
@@ -52,7 +53,7 @@ async function createTable() {
           KeyType: "HASH",
         },
         {
-          AttributeName: "keyName",
+          AttributeName: "keyName#stage",
           KeyType: "RANGE",
         },
       ],
