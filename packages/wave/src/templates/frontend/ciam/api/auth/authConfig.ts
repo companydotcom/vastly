@@ -1,7 +1,10 @@
 import NextAuth from "next-auth";
 import CognitoProvider from "next-auth/providers/cognito";
 
-export const authOptions = {
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  pages: {
+    signIn: "/login",
+  },
   providers: [
     CognitoProvider({
       clientId: "",
@@ -10,6 +13,4 @@ export const authOptions = {
     }),
   ],
   secret: "",
-};
-
-export default NextAuth(authOptions);
+});

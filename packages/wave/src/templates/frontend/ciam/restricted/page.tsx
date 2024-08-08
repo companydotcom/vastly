@@ -1,9 +1,9 @@
 import React from "react";
 import { Container } from "@vastly/ui";
-import { useSession } from "next-auth/react";
+import { auth } from "../api/auth/authConfig";
 
 export default function Page() {
-  const { status } = useSession();
+  const { status } = auth();
 
   if (status === "loading") {
     return (
