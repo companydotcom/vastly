@@ -34,10 +34,11 @@ export default async function addVariableBulk(
           app: answers?.app,
           "keyName#stage": `${splitLine[0]}#${stage}`,
           keyName: splitLine[0],
-          keyValue: splitLine?.slice(1, splitLine?.length)?.join(""),
+          keyValue: splitLine?.slice(1, splitLine?.length)?.join("="),
           stage,
         },
       };
+
       const result = docClient.put(params);
       writes.push(docClient.put(params));
     }
