@@ -1,5 +1,11 @@
 # cli
 
+## 0.14.8
+
+### Patch Changes
+
+- Fixed issue with env bulk add
+
 ## 0.14.7
 
 ### Patch Changes
