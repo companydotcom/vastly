@@ -23,39 +23,43 @@ export const generateCognito = async (client: Client) => {
     const template = path.resolve(__dirname, "../../../../dist/templates/frontend", "ciam");
     if (existsSync("./apps") && existsSync("./apps/client/package.json")) {
       if (
-        existsSync("./apps/client/pages/api/auth") &&
-        existsSync("./apps/client/pages/api/auth/[...nextauth].js")
+        existsSync("./apps/client/app/api/auth") &&
+        existsSync("./apps/client/app/api/auth/[...nextauth].js")
       ) {
-        spinner.fail("An authenticate provider has already been wired up to this app.");
+        spinner.fail("An authentication provider has already been wired up to this app.");
         return {
           success: false,
-          message: "An authenticate provider has already been wired up to this app.",
+          message: "An authentication provider has already been wired up to this app.",
         };
       }
       spinner.stopAndPersist();
 
       spinner = ora({
-        text: `Creating new directory and pages:  ${chalk.underline.cyan("apps/client/pages/api")}`,
+        text: `Creating new directory and pages:  ${chalk.underline.cyan("apps/client/app")}`,
         color: "yellow",
       }).start();
 
-      await ensureDir("./apps/client/pages");
-      await copy(template, "./apps/client/pages");
+      await ensureDir("./apps/client/app");
+      await copy(template, "./apps/client/app");
       spinner.succeed();
-      console.log(chalk.magenta("/pages"));
+      console.log(chalk.magenta("/app"));
       console.log(chalk.magenta(" |- /api"));
-      console.log(chalk.magenta("   |- /auth"));
-      console.log(chalk.blueBright("      - [...nextauth].js"));
-      console.log(chalk.blueBright(" |- login.tsx"));
-      console.log(chalk.blueBright(" |- restricted.tsx\n"));
+      console.log(chalk.magenta("    |- /auth"));
+      console.log(chalk.blueBright("       - authConfig.ts"));
+      console.log(chalk.magenta("      |- [...nextauth]"));
+      console.log(chalk.blueBright("         - route.ts"));
+      console.log(chalk.magenta(" |- /login"));
+      console.log(chalk.blueBright("    - page.tsx"));
+      console.log(chalk.magenta(" |- /restricted"));
+      console.log(chalk.blueBright("    - page.tsx\n"));
 
       spinner = ora({
-        text: `Modifying ${chalk.cyan("_app.tsx")}...\n`,
+        text: `Modifying ${chalk.cyan("layout.tsx")}...\n`,
         color: "yellow",
       }).start();
 
-      // modify _app.tsx file
-      const appContents = await readFile("./apps/client/pages/_app.tsx", "utf-8");
+      // modify layout.tsx file
+      const appContents = await readFile("./apps/client/app/layout.tsx", "utf-8");
 
       // add import statement for session provider
       let innerSpinner = output.spinner;
@@ -65,8 +69,8 @@ export const generateCognito = async (client: Client) => {
       }).start();
 
       const modifiedAppContents1 = appContents.replace(
-        'import type { AppProps } from "next/app";',
-        'import type { AppProps } from "next/app";\nimport { SessionProvider } from "next-auth/react";',
+        'import { Inter } from "next/font/google";',
+        'import { Inter } from "next/font/google";\nimport { SessionProvider } from "next-auth/react";',
       );
       innerSpinner.succeed();
 
@@ -84,17 +88,17 @@ export const generateCognito = async (client: Client) => {
 
       // add session provider wrapper around component
       innerSpinner = ora({
-        text: `Adding SessionProvider Wrapper to ${chalk.cyan("_app.tsx")}\n`,
+        text: `Adding SessionProvider Wrapper to ${chalk.cyan("layout.tsx")}\n`,
         color: "yellow",
       }).start();
 
       const modifiedAppContents3 = modifiedAppContents2.replace(
-        /<Component\s*{\.\.\.pageProps}\s*\/>/,
-        "<SessionProvider session={session}>\n        <Component {...pageProps} />\n       </SessionProvider>",
+        "<body className={inter.className}>{children}</body>",
+        "<SessionProvider session={session}>\n        <body className={inter.className}>{children}</body>\n       </SessionProvider>",
       );
-      await writeFile("./apps/client/pages/_app.tsx", modifiedAppContents3);
+      await writeFile("./apps/client/app/layout.tsx", modifiedAppContents3);
       innerSpinner.succeed();
-      spinner.succeed(`Session Provider successfully added to ${chalk.cyan("_app.tsx")}!\n`);
+      spinner.succeed(`Session Provider successfully added to ${chalk.cyan("layout.tsx")}!\n`);
 
       spinner = ora({
         text: `Adding dependencies to ${chalk.cyan("package.json")}...\n`,

@@ -40,7 +40,7 @@ importers:
         version: 3.3.3
       tsup:
         specifier: ^8.1.0
-        version: 8.2.4(@swc/core@1.7.5)(jiti@1.21.6)(postcss@8.4.40)(tsx@4.16.5)(typescript@5.5.4)(yaml@2.4.5)
+        version: 8.2.4(@swc/core@1.7.5)(jiti@1.21.6)(postcss@8.4.40)(tsx@4.16.5)(typescript@5.5.4)(yaml@2.5.0)
       tsx:
         specifier: ^4.15.7
         version: 4.16.5
@@ -241,7 +241,7 @@ importers:
         version: 7.32.0
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.2(@swc/core@1.7.5(@swc/helpers@0.5.2))(@types/node@20.14.9)(typescript@4.9.5)
+        version: 10.9.2(@swc/core@1.7.5)(@types/node@20.14.9)(typescript@4.9.5)
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -463,7 +463,7 @@ importers:
         version: 7.6.20
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.2(@swc/core@1.7.5(@swc/helpers@0.5.2))(@types/node@20.14.9)(typescript@4.9.5)
+        version: 10.9.2(@swc/core@1.7.5)(@types/node@22.1.0)(typescript@4.9.5)
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -721,9 +721,6 @@ importers:
       email-validator:
         specifier: ^2.0.4
         version: 2.0.4
-      execa:
-        specifier: 8.0.1
-        version: 8.0.1
       fast-glob:
         specifier: ^3.2.12
         version: 3.3.2
@@ -811,7 +808,7 @@ importers:
         version: 7.32.0
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.2(@swc/core@1.7.5(@swc/helpers@0.5.2))(@types/node@20.14.9)(typescript@4.9.5)
+        version: 10.9.2(@swc/core@1.7.5)(@types/node@22.1.0)(typescript@4.9.5)
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -6771,6 +6768,9 @@ packages:
 
   '@types/node@20.14.9':
     resolution: {integrity: sha512-06OCtnTXtWOZBJlRApleWndH4JsRVs1pDCc8dLSQp+7PpUpX3ePdHyeNSFTeSe7FtKyQkrlPvHwJOW3SLd8Oyg==}
+
+  '@types/node@22.1.0':
+    resolution: {integrity: sha512-AOmuRF0R2/5j1knA3c6G3HOk523Ga+l+ZXltX8SF1+5oqcXijjfTd8fY3XRZqSihEu9XhtQnKYLmkFaoxgsJHw==}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -13060,6 +13060,9 @@ packages:
 
   undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+
+  undici-types@6.13.0:
+    resolution: {integrity: sha512-xtFJHudx8S2DSoujjMd1WeWvn7KKWFRESZTMeL1RptAYERu29D6jphMjjY+vn96jvN3kVPDNxU/E13VTaXj6jg==}
 
   unfetch@4.2.0:
     resolution: {integrity: sha512-F9p7yYCn6cIW9El1zi0HI6vqpeIvBsr3dSuRO6Xuppb1u5rXpCPmMvLSyECLhybr9isec8Ohl0hPekMVrEinDA==}
@@ -20296,7 +20299,7 @@ snapshots:
     dependencies:
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.14.9
+      '@types/node': 17.0.45
       jest-mock: 29.7.0
 
   '@jest/expect-utils@29.7.0':
@@ -20307,7 +20310,7 @@ snapshots:
     dependencies:
       '@jest/types': 29.6.3
       '@sinonjs/fake-timers': 10.3.0
-      '@types/node': 20.14.9
+      '@types/node': 17.0.45
       jest-message-util: 29.7.0
       jest-mock: 29.7.0
       jest-util: 29.7.0
@@ -20340,7 +20343,7 @@ snapshots:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 20.14.9
+      '@types/node': 17.0.45
       '@types/yargs': 15.0.19
       chalk: 4.1.2
 
@@ -23594,7 +23597,7 @@ snapshots:
 
   '@types/node-forge@1.3.11':
     dependencies:
-      '@types/node': 20.14.9
+      '@types/node': 17.0.45
 
   '@types/node@12.20.55': {}
 
@@ -23607,6 +23610,10 @@ snapshots:
   '@types/node@20.14.9':
     dependencies:
       undici-types: 5.26.5
+
+  '@types/node@22.1.0':
+    dependencies:
+      undici-types: 6.13.0
 
   '@types/normalize-package-data@2.4.4': {}
 
@@ -24962,7 +24969,7 @@ snapshots:
 
   chrome-launcher@0.15.2:
     dependencies:
-      '@types/node': 20.14.9
+      '@types/node': 17.0.45
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 1.4.2
@@ -27766,7 +27773,7 @@ snapshots:
       '@jest/environment': 29.7.0
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.14.9
+      '@types/node': 17.0.45
       jest-mock: 29.7.0
       jest-util: 29.7.0
 
@@ -27815,7 +27822,7 @@ snapshots:
   jest-mock@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 20.14.9
+      '@types/node': 17.0.45
       jest-util: 29.7.0
 
   jest-regex-util@29.6.3: {}
@@ -29567,14 +29574,14 @@ snapshots:
 
   possible-typed-array-names@1.0.0: {}
 
-  postcss-load-config@6.0.1(jiti@1.21.6)(postcss@8.4.40)(tsx@4.16.5)(yaml@2.4.5):
+  postcss-load-config@6.0.1(jiti@1.21.6)(postcss@8.4.40)(tsx@4.16.5)(yaml@2.5.0):
     dependencies:
       lilconfig: 3.1.2
     optionalDependencies:
       jiti: 1.21.6
       postcss: 8.4.40
       tsx: 4.16.5
-      yaml: 2.4.5
+      yaml: 2.5.0
 
   postcss-loader@7.3.4(postcss@8.4.40)(typescript@4.9.5)(webpack@5.93.0(@swc/core@1.7.5(@swc/helpers@0.5.2))(esbuild@0.18.20)):
     dependencies:
@@ -31353,7 +31360,7 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  ts-node@10.9.2(@swc/core@1.7.5(@swc/helpers@0.5.2))(@types/node@20.14.9)(typescript@4.9.5):
+  ts-node@10.9.2(@swc/core@1.7.5)(@types/node@20.14.9)(typescript@4.9.5):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.11
@@ -31393,6 +31400,26 @@ snapshots:
     optionalDependencies:
       '@swc/core': 1.7.5(@swc/helpers@0.5.2)
 
+  ts-node@10.9.2(@swc/core@1.7.5)(@types/node@22.1.0)(typescript@4.9.5):
+    dependencies:
+      '@cspotcode/source-map-support': 0.8.1
+      '@tsconfig/node10': 1.0.11
+      '@tsconfig/node12': 1.0.11
+      '@tsconfig/node14': 1.0.3
+      '@tsconfig/node16': 1.0.4
+      '@types/node': 22.1.0
+      acorn: 8.12.1
+      acorn-walk: 8.3.3
+      arg: 4.1.3
+      create-require: 1.1.1
+      diff: 4.0.2
+      make-error: 1.3.6
+      typescript: 4.9.5
+      v8-compile-cache-lib: 3.0.1
+      yn: 3.1.1
+    optionalDependencies:
+      '@swc/core': 1.7.5(@swc/helpers@0.5.2)
+
   ts-pnp@1.2.0(typescript@4.9.5):
     optionalDependencies:
       typescript: 4.9.5
@@ -31422,7 +31449,7 @@ snapshots:
 
   tslib@2.6.3: {}
 
-  tsup@8.2.4(@swc/core@1.7.5)(jiti@1.21.6)(postcss@8.4.40)(tsx@4.16.5)(typescript@5.5.4)(yaml@2.4.5):
+  tsup@8.2.4(@swc/core@1.7.5)(jiti@1.21.6)(postcss@8.4.40)(tsx@4.16.5)(typescript@5.5.4)(yaml@2.5.0):
     dependencies:
       bundle-require: 5.0.0(esbuild@0.23.0)
       cac: 6.7.14
@@ -31434,7 +31461,7 @@ snapshots:
       globby: 11.1.0
       joycon: 3.1.1
       picocolors: 1.0.1
-      postcss-load-config: 6.0.1(jiti@1.21.6)(postcss@8.4.40)(tsx@4.16.5)(yaml@2.4.5)
+      postcss-load-config: 6.0.1(jiti@1.21.6)(postcss@8.4.40)(tsx@4.16.5)(yaml@2.5.0)
       resolve-from: 5.0.0
       rollup: 4.19.2
       source-map: 0.8.0-beta.0
@@ -31602,6 +31629,8 @@ snapshots:
       through: 2.3.8
 
   undici-types@5.26.5: {}
+
+  undici-types@6.13.0: {}
 
   unfetch@4.2.0: {}
 

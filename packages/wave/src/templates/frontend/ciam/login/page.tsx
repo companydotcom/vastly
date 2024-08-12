@@ -1,9 +1,9 @@
 import React from "react";
 import { Button, Container } from "@vastly/ui";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { auth, signIn, signOut } from "../api/auth/authConfig";
 
-export default function Home() {
-  const { data: session } = useSession();
+export const Home = async () => {
+  const session = await auth();
   if (session && session.user) {
     return (
       <Container maxW="container.md" centerContent mt="44" textAlign="center">
@@ -18,4 +18,4 @@ export default function Home() {
       <Button onClick={() => signIn("cognito")}>Sign in</Button>
     </Container>
   );
-}
+};

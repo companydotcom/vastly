@@ -1,16 +1,14 @@
 import ora from "ora";
 import chalk from "chalk";
 import pkg from "fs-extra";
-import { execSync } from "child_process";
-import nexpect from "nexpect";
+import { execSync, spawn } from "child_process";
 import lodashPkg from "lodash";
 import * as path from "path";
 import { fileURLToPath } from "url";
-
 import { Client } from "../../../util/client.js";
 
 const { existsSync, readFile, writeFile, readJson, writeJson, ensureDir, copy, move } = pkg;
-const { kebabCase, camelCase } = lodashPkg;
+const { kebabCase } = lodashPkg;
 
 export const generatePrismaService = async (
   client: Client,
@@ -37,39 +35,76 @@ export const generatePrismaService = async (
       try {
         await ensureDir(`./services/${kebabCaseServiceName}`);
         process.chdir(`./services/${kebabCaseServiceName}`);
-        nexpect
-          .spawn("npx create-prisma-appsync-app@latest")
-          .wait("Project directory (default: current dir)")
-          .sendline(`services/${kebabCaseServiceName}`)
-          .wait("Generate new `prisma/schema.prisma` file?")
-          .sendline("y")
-          .wait("Use provided CDK boilerplate to deploy on AWS?")
-          .sendline(`${deploy === "amplify" ? "n" : "y"}`)
-          .wait("Create local dev server?")
-          .sendline("y")
-          .sendEof()
-          .run(async (err) => {
-            if (!err) {
-              // rename tables to include servicename to make unique
-              // From Charlie -- Removing the following 6 lines, because prisma no longer supports camel cased type names
-              // const camelCaseServiceName = camelCase(name);
-              // const schemaContents = await readFile(`./prisma/schema.prisma`, "utf-8");
-              // const modifiedSchemaContents = schemaContents
-              //   .replaceAll("User", `${camelCaseServiceName}User`)
-              //   .replaceAll("Post", `${camelCaseServiceName}Post`);
-              // await writeFile(`./prisma/schema.prisma`, modifiedSchemaContents);
-              execSync("npm run generate");
 
-              // .gitignore
-              await copy(backendTemplate, `./`);
+        const child = spawn("npx", ["create-prisma-appsync-app@latest"], {
+          shell: true,
+          stdio: ["pipe", "pipe", "pipe"],
+        });
 
-              // add db and deploy commands, and description to packagejson
-              await writeToBackendPackageJson(
-                "./package.json",
-                description,
-                deploy,
-                kebabCaseServiceName,
+        child.stdout.on("data", (data) => {
+          const output = data.toString();
+          console.log(`stdout: ${output}`);
+
+          if (output.includes("Project directory")) {
+            child.stdin.write(`\n`);
+          } else if (output.includes("Generate new")) {
+            child.stdin.write(`${deploy === "amplify" ? "n" : "y"}\n`);
+          } else if (output.includes("Use provided CDK")) {
+            child.stdin.write("y\n");
+          } else if (output.includes("Create local")) {
+            child.stdin.write("y\n");
+          }
+        });
+
+        child.stderr.on("data", async (data) => {
+          console.error(`stderr: ${data}`);
+          if (!data) {
+            // rename tables to include servicename to make unique
+            // From Charlie -- Removing the following 6 lines, because prisma no longer supports camel cased type names
+            // const camelCaseServiceName = camelCase(name);
+            // const schemaContents = await readFile(`./prisma/schema.prisma`, "utf-8");
+            // const modifiedSchemaContents = schemaContents
+            //   .replaceAll("User", `${camelCaseServiceName}User`)
+            //   .replaceAll("Post", `${camelCaseServiceName}Post`);
+            // await writeFile(`./prisma/schema.prisma`, modifiedSchemaContents);
+            execSync("npm run generate");
+
+            // .gitignore
+            await copy(backendTemplate, `./`);
+
+            // add db and deploy commands, and description to packagejson
+            await writeToBackendPackageJson(
+              "./package.json",
+              description,
+              deploy,
+              kebabCaseServiceName,
+            );
+            console.log(
+              ` ${chalk.underline.bold.green(
+                `${kebabCaseServiceName}`,
+              )} files and directory generated!\n`,
+            );
+            console.log(chalk.magenta("/services"));
+            console.log(chalk.magenta(` |- /${kebabCaseServiceName}`));
+            console.log(chalk.magenta("   |- /prisma"));
+            console.log(chalk.blueBright("   |- cdk.json"));
+            console.log(chalk.blueBright("   |- handler.ts"));
+            console.log(chalk.blueBright("   |- package.json"));
+            console.log(chalk.blueBright("   |- server.ts\n"));
+
+            spinner.succeed(chalk.green(`Successfully generated ${kebabCaseServiceName} service!`));
+
+            process.chdir("../../");
+            // if a microservice has already been generated, do not re-copy frontend template, just append new service name into codegen config)
+            if (existsSync("./apps/client/graphql") && existsSync("./apps/client/codegen.ts")) {
+              // append subsequent service names into codegen config file
+              const codegenConfigContents = await readFile("./apps/client/codegen.ts", "utf-8");
+              const modifiedCodegenConfigContents = codegenConfigContents.replace(
+                /const serviceName = \[(.*?)\];/,
+                `const serviceName = [$1, "${kebabCaseServiceName}"];`,
               );
+              await writeFile("./apps/client/codegen.ts", modifiedCodegenConfigContents);
+
               console.log(
                 ` ${chalk.underline.bold.green(
                   `${kebabCaseServiceName}`,
@@ -77,6 +112,7 @@ export const generatePrismaService = async (
               );
               console.log(chalk.magenta("/services"));
               console.log(chalk.magenta(` |- /${kebabCaseServiceName}`));
+              console.log(chalk.magenta("   |- /cdk"));
               console.log(chalk.magenta("   |- /prisma"));
               console.log(chalk.blueBright("   |- cdk.json"));
               console.log(chalk.blueBright("   |- handler.ts"));
@@ -86,120 +122,93 @@ export const generatePrismaService = async (
               spinner.succeed(
                 chalk.green(`Successfully generated ${kebabCaseServiceName} service!`),
               );
-
-              process.chdir("../../");
-              // if a microservice has already been generated, do not re-copy frontend template, just append new service name into codegen config)
-              if (existsSync("./apps/client/graphql") && existsSync("./apps/client/codegen.ts")) {
-                // append subsequent service names into codegen config file
-                const codegenConfigContents = await readFile("./apps/client/codegen.ts", "utf-8");
-                const modifiedCodegenConfigContents = codegenConfigContents.replace(
-                  /const serviceName = \[(.*?)\];/,
-                  `const serviceName = [$1, "${kebabCaseServiceName}"];`,
-                );
-                await writeFile("./apps/client/codegen.ts", modifiedCodegenConfigContents);
-
-                console.log(
-                  ` ${chalk.underline.bold.green(
-                    `${kebabCaseServiceName}`,
-                  )} files and directory generated!\n`,
-                );
-                console.log(chalk.magenta("/services"));
-                console.log(chalk.magenta(` |- /${kebabCaseServiceName}`));
-                console.log(chalk.magenta("   |- /cdk"));
-                console.log(chalk.magenta("   |- /prisma"));
-                console.log(chalk.blueBright("   |- cdk.json"));
-                console.log(chalk.blueBright("   |- handler.ts"));
-                console.log(chalk.blueBright("   |- package.json"));
-                console.log(chalk.blueBright("   |- server.ts\n"));
-
-                spinner.succeed(
-                  chalk.green(`Successfully generated ${kebabCaseServiceName} service!`),
-                );
-                return {
-                  success: true,
-                  message: `Successfully generated ${kebabCaseServiceName} service.`,
-                };
-              } else {
-                spinner = ora({
-                  text: chalk.yellow.bold(
-                    `Adding files for ${chalk.underline.cyan(
-                      `${kebabCaseServiceName}`,
-                    )} to ${chalk.underline.magenta("/client")}...\n`,
-                  ),
-                  color: "yellow",
-                }).start();
-
-                // copy frontend template
-                await copy(frontendTemplate, "./apps/client");
-
-                let innerSpinner = output.spinner;
-                innerSpinner = ora({
-                  text: `Adding Apollo Client Wrapper to ${chalk.cyan("/_app.tsx")}`,
-                  color: "blue",
-                  indent: 2,
-                }).start();
-
-                // add apollo wrapper around app
-                const appContents = await readFile("./apps/client/pages/_app.tsx", "utf-8");
-                const modifiedAppContents1 = appContents.replace(
-                  'import { UiProvider } from "@vastly/ui";',
-                  "import { UiProvider } from \"@vastly/ui\";\nimport { ApolloWrapper } from '../apollo';",
-                );
-                const modifiedAppContents2 = modifiedAppContents1.replace(
-                  /<Component\s*{\.\.\.pageProps}\s*\/>/,
-                  "<ApolloWrapper>\n        <Component {...pageProps} />\n       </ApolloWrapper>",
-                );
-                await writeFile("./apps/client/pages/_app.tsx", modifiedAppContents2);
-                innerSpinner.succeed();
-
-                //add dependencies and scripts to package.json
-                innerSpinner = ora({
-                  text: `Adding new dependencies to ${chalk.underline.cyan(
-                    "/client/package.json",
-                  )}`,
-                  color: "blue",
-                  indent: 2,
-                }).start();
-
-                console.log(process.cwd());
-                await writeToFrontendPackageJson("./apps/client/package.json");
-                innerSpinner.succeed();
-
-                // configure codegen config file with first generated microservice gql schema
-                innerSpinner = ora({
-                  text: `Configuring the Codegen config file with ${chalk.underline(
-                    `${kebabCaseServiceName}'s`,
-                  )} GraphQL schema\n`,
-                  color: "blue",
-                  indent: 2,
-                }).start();
-
-                const codegenConfigContents = await readFile("./apps/client/codegen.ts", "utf-8");
-                const modifiedCodegenConfigContents = codegenConfigContents.replace(
-                  "const serviceName = []",
-                  `const serviceName = ["${kebabCaseServiceName}"]`,
-                );
-                await writeFile("./apps/client/codegen.ts", modifiedCodegenConfigContents);
-
-                innerSpinner.succeed();
-                console.log("    Files generated:");
-                console.log(chalk.magenta("     /client"));
-                console.log(chalk.magenta("      |- /graphql"));
-                console.log(chalk.blueBright("      |- apollo.tsx"));
-                console.log(chalk.blueBright("      |- codegen.ts\n\n"));
-
-                spinner.succeed(
-                  chalk.green(`Successfully generated ${kebabCaseServiceName} service!`),
-                );
-                return {
-                  success: true,
-                  message: `Successfully generated ${kebabCaseServiceName} service.`,
-                };
-              }
+              return {
+                success: true,
+                message: `Successfully generated ${kebabCaseServiceName} service.`,
+              };
             } else {
-              console.error(err);
+              spinner = ora({
+                text: chalk.yellow.bold(
+                  `Adding files for ${chalk.underline.cyan(
+                    `${kebabCaseServiceName}`,
+                  )} to ${chalk.underline.magenta("/client")}...\n`,
+                ),
+                color: "yellow",
+              }).start();
+
+              // copy frontend template
+              await copy(frontendTemplate, "./apps/client");
+
+              let innerSpinner = output.spinner;
+              innerSpinner = ora({
+                text: `Adding Apollo Client Wrapper to ${chalk.cyan("/_app.tsx")}`,
+                color: "blue",
+                indent: 2,
+              }).start();
+
+              // add apollo wrapper around app
+              const appContents = await readFile("./apps/client/pages/_app.tsx", "utf-8");
+              const modifiedAppContents1 = appContents.replace(
+                'import { UiProvider } from "@vastly/ui";',
+                "import { UiProvider } from \"@vastly/ui\";\nimport { ApolloWrapper } from '../apollo';",
+              );
+              const modifiedAppContents2 = modifiedAppContents1.replace(
+                /<Component\s*{\.\.\.pageProps}\s*\/>/,
+                "<ApolloWrapper>\n        <Component {...pageProps} />\n       </ApolloWrapper>",
+              );
+              await writeFile("./apps/client/pages/_app.tsx", modifiedAppContents2);
+              innerSpinner.succeed();
+
+              //add dependencies and scripts to package.json
+              innerSpinner = ora({
+                text: `Adding new dependencies to ${chalk.underline.cyan("/client/package.json")}`,
+                color: "blue",
+                indent: 2,
+              }).start();
+
+              console.log(process.cwd());
+              await writeToFrontendPackageJson("./apps/client/package.json");
+              innerSpinner.succeed();
+
+              // configure codegen config file with first generated microservice gql schema
+              innerSpinner = ora({
+                text: `Configuring the Codegen config file with ${chalk.underline(
+                  `${kebabCaseServiceName}'s`,
+                )} GraphQL schema\n`,
+                color: "blue",
+                indent: 2,
+              }).start();
+
+              const codegenConfigContents = await readFile("./apps/client/codegen.ts", "utf-8");
+              const modifiedCodegenConfigContents = codegenConfigContents.replace(
+                "const serviceName = []",
+                `const serviceName = ["${kebabCaseServiceName}"]`,
+              );
+              await writeFile("./apps/client/codegen.ts", modifiedCodegenConfigContents);
+
+              innerSpinner.succeed();
+              console.log("    Files generated:");
+              console.log(chalk.magenta("     /client"));
+              console.log(chalk.magenta("      |- /graphql"));
+              console.log(chalk.blueBright("      |- apollo.tsx"));
+              console.log(chalk.blueBright("      |- codegen.ts\n\n"));
+
+              spinner.succeed(
+                chalk.green(`Successfully generated ${kebabCaseServiceName} service!`),
+              );
+              return {
+                success: true,
+                message: `Successfully generated ${kebabCaseServiceName} service.`,
+              };
             }
-          });
+          } else {
+            console.error(data);
+          }
+        });
+
+        child.on("close", (code) => {
+          console.log(`child process exited with code ${code}`);
+        });
       } catch (error) {
         console.error("Error:", error);
       }
