@@ -16,8 +16,8 @@
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",
     "@vastly/utils": "^0.5.1",
-    "@vastly/cli": "^0.14.2",
-    "@vastly/wave": "^0.6.6",
+    "@vastly/cli": "latest",
+    "@vastly/wave": "latest",
     "@vastly/types": "^2.4.6",
     "turbo": "^2.0.7"
   },

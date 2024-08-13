@@ -24,6 +24,7 @@
             <li><a href="#configuring-generated-microservices">Configuring Generated Microservices</a></li>
             <li><a href="#configuring-generated-ciam">Configuring Generated CIAM</a></li>
         </ul>
+        <li><a href="#deployment">Deployment</a></li>
       </ul>
     </li>
 
@@ -165,3 +166,14 @@ https://next-auth.js.org/
 3. Navigate to `localhost:3000/login` to login/logout, and `localhost:3000/restricted` to check
 secure routes.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Deployment
+
+The Vastly Wave app comes with a reusable github actions workflow that can be configured to fit your deployment infrastructure. `deploy-app-example.yml` is an example using `pnpm` and `SST`. In order to properly utilize this workflow, be sure to have the appropriate `ODIC_IAM_ROLE` saved to  github secrets corresponding environment.
+
+1. Change the paths in the `on:` section.
+2. Configure the `options` with the deployment environments that exists in github.
+3. Replace the path for the `Download .env file` step to point to the app that is being deployed.
+4. In the space provided, place any custom logic that is needed before deployment.
+5. In the `Deploy` step, replace the run script with the deploy command of your choosing.
+6. Lastly, rename the file and names of any steps needed.
