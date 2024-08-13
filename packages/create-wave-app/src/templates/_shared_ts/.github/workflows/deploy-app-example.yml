@@ -1,0 +1,85 @@
+name: 🔵 Deploy Client App Example
+run-name: Deploy client app example
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      # trigger deployments based on changes within a specified path
+      - apps/client/**
+
+  workflow_dispatch:
+    inputs:
+      # specify your environment [local, sandbox, uat, prod]. This must match one of the environments in github
+      environment:
+        description: "Select the environment to deploy"
+        type: choice
+        default: uat
+        options:
+          - uat
+          - prod
+
+jobs:
+  deploy-client:
+    name: Deploy Client App
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          # be sure this secret is in place before initial deployment
+          role-to-assume: ${{ secrets.OIDC_IAM_ROLE }}
+          aws-region: us-east-1
+
+      - name: Node Installation
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+          run_install: |
+            - args: [--no-frozen-lockfile]
+
+      - name: Pre-deployment
+        uses: companydotcom/shared-workflows/pre-deployment@main
+        with:
+          # this environment should match the above environment
+          environment: ${{ inputs.environment }}
+          gh_token: ${{ secrets.VASTLY_ENV_PAT }}
+
+      - name: Download .env file from artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: env-file
+          # depending on the app being deployed, make sure this is pointing to the correct path
+          path: ${{ github.workspace }}/apps/client
+
+      ###############################################################################
+      #                                                                             #
+      #                                                                             #
+      #                      Place custom app logic here                            #
+      #                                                                             #
+      #                                                                             #
+      ###############################################################################
+
+      - name: Deploy via SST
+        # check path and configure your deploy command. This is an SST example
+        working-directory: ./apps/client
+        run: |
+          pnpm sst deploy --stage ${{ inputs.environment }}
+
+      - name: Clean up
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: env-file

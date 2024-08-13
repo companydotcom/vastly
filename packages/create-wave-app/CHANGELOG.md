@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 0.19.0
+
+### Minor Changes
+
+- Adds deploy workflow template and updates the README.md
+
 ## 0.18.0
 
 ### Minor Changes
