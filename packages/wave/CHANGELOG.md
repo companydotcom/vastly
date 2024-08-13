@@ -1,5 +1,11 @@
 # @vastly/wave
 
+## 0.7.0
+
+### Minor Changes
+
+- 2bff1b3: Fix prisma service generation, and update ciam template to nextjs app router
+
 ## 0.6.7
 
 ### Patch Changes
