@@ -1,6 +1,6 @@
 {
-  "name": "create-wave-app",
-  "version": "0.19.0",
+  "name": "@vastly/create-wave-app",
+  "version": "1.0.0",
   "preferGlobal": true,
   "description": "create-wave-app from Vastly",
   "author": "Vastly",

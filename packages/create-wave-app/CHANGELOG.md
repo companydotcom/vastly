@@ -1,5 +1,11 @@
 # create-wave-app
 
+## 1.0.0
+
+### Major Changes
+
+- Transferring project from Charlie's personal NPM to org
+
 ## 0.19.0
 
 ### Minor Changes
